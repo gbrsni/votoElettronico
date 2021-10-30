@@ -4,4 +4,8 @@
   <artifactId>votoElettronico</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Voto Elettronico</name>
+  <properties>
+  	<maven.compiler.source>11</maven.compiler.source>
+  	<maven.compiler.target>11</maven.compiler.target>
+  </properties>
 </project>
