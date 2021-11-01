@@ -3,6 +3,15 @@ package votoElettronico;
 /**classe concreta dello scrutatore*/
 public class Scrutatore extends Utente{
 	
-	private String provaPush;
+	private int idScrutatore;
+
+	public Scrutatore (String codiceFiscale, String nome, String cognome, String email, int idScrutatore){
+		super(codiceFiscale, nome, cognome, email);
+		this.idScrutatore = idScrutatore;
+	}
+
+	public getidScrutatore(){
+		return this.idScrutatore;
+	}
 	
 }	
