@@ -1,6 +1,6 @@
 package votoElettronico;
 
-/**classe concreta dello scrutatoreds */
+/**classe concreta dello scrutatore  */
 public class Scrutatore extends Utente{
 	
 }	
