@@ -10,7 +10,7 @@ public class Elettore extends Utente{
 		this.tesseraElettorale = tesseraElettorale;
 	}
 
-	public gettessetaElettorale(){
+	public String getTesseraElettorale(){
 		return this.tesseraElettorale;
 	}
 

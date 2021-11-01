@@ -10,7 +10,7 @@ public class Scrutatore extends Utente{
 		this.idScrutatore = idScrutatore;
 	}
 
-	public getidScrutatore(){
+	public int getIdScrutatore(){
 		return this.idScrutatore;
 	}
 	

@@ -17,19 +17,19 @@ public abstract class Utente {
 	}
 	
 	
-	public String getcodiceFiscale() {
+	public String getCodiceFiscale() {
 		return this.codiceFiscale;
 	}
 	
-	public String getnome() {
+	public String getNome() {
 		return this.nome;
 	}
 	
-	public String getcognome() {
+	public String getCognome() {
 		return this.cognome;
 	}
 	
-	public String email() {
+	public String getEmail() {
 		return this.email;
 	}
 }
