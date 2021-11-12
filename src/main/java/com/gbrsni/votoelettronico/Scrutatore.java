@@ -1,4 +1,4 @@
-package votoElettronico;
+package com.gbrsni.votoelettronico;
 
 /**classe concreta dello scrutatore*/
 public class Scrutatore extends Utente{

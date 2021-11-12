@@ -1,4 +1,4 @@
-package votoElettronico;
+package com.gbrsni.votoelettronico;
 
 /**Classe astratta Utente*/
 public abstract class Utente {

@@ -1,4 +1,4 @@
-package votoElettronico;
+package com.gbrsni.votoelettronico;
 
 /**Classe Concreta Elettore */
 public class Elettore extends Utente{
