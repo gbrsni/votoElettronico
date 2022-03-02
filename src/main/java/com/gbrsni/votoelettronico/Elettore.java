@@ -1,17 +1,23 @@
 package com.gbrsni.votoelettronico;
 
-/**Classe Concreta Elettore */
 public class Elettore extends Utente{
 		
 	private String tesseraElettorale;
+	private String codiceFiscale;
 
-	public Elettore(String codiceFiscale, String nome, String cognome, String email, String tesseraElettorale){
-		super(codiceFiscale, nome, cognome, email);
+	public Elettore(String username, String nome, String cognome, String tesseraElettorale, String codiceFiscale){
+		super(username, nome, cognome);
 		this.tesseraElettorale = tesseraElettorale;
+		this.codiceFiscale = codiceFiscale;
 	}
 
 	public String getTesseraElettorale(){
 		return this.tesseraElettorale;
 	}
+
+	public String getCodiceFiscale(){
+		return this.codiceFiscale;
+	}
+
 
 }

@@ -1,24 +1,21 @@
 package com.gbrsni.votoelettronico;
 
-/**Classe astratta Utente*/
 public abstract class Utente {
 
-	private String codiceFiscale;
+	private String username;
 	private String nome;
 	private String cognome; 
-	private String email;
 	
 
-	public Utente(String codiceFiscale, String nome, String cognome, String email) {
-		this.codiceFiscale = codiceFiscale;
+	public Utente(String username, String nome, String cognome) {
+		this.username = username;
 		this.nome = nome;
 		this.nome = cognome;
-		this.email = email;
 	}
 	
 	
-	public String getCodiceFiscale() {
-		return this.codiceFiscale;
+	public String getUsername() {
+		return this.username;
 	}
 	
 	public String getNome() {
@@ -27,9 +24,5 @@ public abstract class Utente {
 	
 	public String getCognome() {
 		return this.cognome;
-	}
-	
-	public String getEmail() {
-		return this.email;
 	}
 }
