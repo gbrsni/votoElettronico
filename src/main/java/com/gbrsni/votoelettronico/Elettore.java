@@ -1,11 +1,11 @@
 package com.gbrsni.votoelettronico;
 
 public class Elettore extends Utente{
-		
+	
 	private String tesseraElettorale;
 	private String codiceFiscale;
 
-	public Elettore(String username, String nome, String cognome, String tesseraElettorale, String codiceFiscale){
+	public Elettore(String username, String nome, String cognome, String tesseraElettorale, String codiceFiscale) {
 		super(username, nome, cognome);
 		this.tesseraElettorale = tesseraElettorale;
 		this.codiceFiscale = codiceFiscale;
@@ -18,6 +18,4 @@ public class Elettore extends Utente{
 	public String getCodiceFiscale(){
 		return this.codiceFiscale;
 	}
-
-
 }
