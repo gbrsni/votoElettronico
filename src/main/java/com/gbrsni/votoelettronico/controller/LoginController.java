@@ -1,7 +1,5 @@
 package com.gbrsni.votoelettronico.controller;
 
-package com.gbrsni.votoelettronico.controller;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
