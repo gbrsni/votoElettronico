@@ -1,4 +1,4 @@
-package com.gbrsni.votoelettronico;
+package com.gbrsni.votoelettronico.models;
 
 public class Elettore extends Utente{
 	
