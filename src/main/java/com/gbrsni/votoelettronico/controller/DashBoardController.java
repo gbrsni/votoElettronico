@@ -1,11 +1,15 @@
 package com.gbrsni.votoelettronico.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import com.gbrsni.votoelettronico.controller.GestioneListeController;
 
 public class DashBoardController {
 
@@ -26,10 +30,17 @@ public class DashBoardController {
 
     @FXML
     private Button sessioniBottone;
-
+    
     @FXML
-    void HandleButtonCandidati(ActionEvent event) {
-
+    private Button menuButton;
+    
+    @FXML
+    void HandleButtonCandidati(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("GestioneListeView.fxml"));
+        Parent root = loader.load();
+        GestioneListeController controller = loader.getController();
+        controller.setName("ciao");
+        candidatiBottone.getScene().setRoot(root);
     }
 
     @FXML
@@ -39,6 +50,11 @@ public class DashBoardController {
     	
     @FXML
     void handleLogout(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void handleMenuButton(ActionEvent event) {
 
     }
     

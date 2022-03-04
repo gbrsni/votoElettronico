@@ -30,6 +30,14 @@
                         <Insets left="70.0" />
                      </HBox.margin>
                   </Button>
+                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="Menu">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox prefHeight="171.0" prefWidth="900.0">
