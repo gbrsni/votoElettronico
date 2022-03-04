@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class LoginView extends Application {
+public class Home extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
