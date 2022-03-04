@@ -16,6 +16,8 @@ public class Home extends Application {
         primaryStage.setTitle("Voto Elettronico");
         primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();
+        primaryStage.setResizable(false);
+
     }
 
 
