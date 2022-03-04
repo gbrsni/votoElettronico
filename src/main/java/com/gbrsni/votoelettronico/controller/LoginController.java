@@ -74,7 +74,7 @@ public class LoginController {
     	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DashBoardView.fxml"));
         Parent root = loader.load();
         DashBoardController controller = loader.getController();
-        //controller.setName("ciao");
+        controller.setName("ciao");
         button.getScene().setRoot(root);
     }
 
