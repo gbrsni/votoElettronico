@@ -1,5 +1,4 @@
-package com.gbrsni.votoelettronico.view;
-//import com.gbrsni.votoelettronico.controller.*;
+
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
