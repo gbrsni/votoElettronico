@@ -30,10 +30,7 @@ public class DashBoardController {
 
     @FXML
     private Button sessioniBottone;
-    
-    @FXML
-    private Button menuButton;
-    
+ 
     @FXML
     void HandleButtonCandidati(ActionEvent event) throws IOException {
     	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("GestioneListeView.fxml"));
@@ -53,10 +50,7 @@ public class DashBoardController {
 
     }
     
-    @FXML
-    void handleMenuButton(ActionEvent event) {
 
-    }
     
     //IMPOSTARE NOME DEL GESTORE
     public void setName(String name) {
