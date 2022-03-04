@@ -20,7 +20,11 @@ public class GestioneListeController {
 
     @FXML
     private Label nomeGestore;
+    
+    @FXML
+    private Button menuButton;
 
+    
     @FXML
     void handleAggiungiCandidato(ActionEvent event) {
 
@@ -35,7 +39,19 @@ public class GestioneListeController {
     void handleLogout(ActionEvent event) {
 
     }
+    
+    @FXML
+    void handleMenuButton(ActionEvent event) {
 
+    }
+    
+    //IMPOSTARE NOME DEL GESTORE
+    public void setName(String name) {
+    	nomeGestore.setText(name);
+    	
+    }
+    
+    
     @FXML
     void initialize() {
         assert logoutBottone != null : "fx:id=\"logoutBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
