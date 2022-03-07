@@ -16,4 +16,6 @@ public class SessioneDiVoto {
 	public String getNome() {
 		return nome;
 	}
+	
+	// TODO: toString()
 }
