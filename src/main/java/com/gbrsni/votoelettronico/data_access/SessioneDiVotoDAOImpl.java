@@ -15,7 +15,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 
 	@Override
 	public List<SessioneDiVoto> getAllSessioneDiVoto() {
-		List<SessioneDiVoto> res = new ArrayList<SessioneDiVoto>();
+		List<SessioneDiVoto> res = new ArrayList<>();
 
 		try {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioniDiVoto");
