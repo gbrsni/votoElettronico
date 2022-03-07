@@ -1,4 +1,4 @@
-package data_access;
+package com.gbrsni.votoelettronico.data_access;
 
 import java.util.List;
 
