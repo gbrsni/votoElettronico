@@ -64,10 +64,9 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		}
 		System.out.println("Sessione di voto " + s.toString() + " rimossa dal database");
 	}
-
+	
 	@Override
-	public void addSessioneDiVoto(int id, String nome) {
-		SessioneDiVoto s = new SessioneDiVoto(id, nome);
+	public void addSessioneDiVoto(SessioneDiVoto s) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO sessioniDiVoto (id, nome) VALUES (?, ?)");
 			ps.setInt(1, s.getId());
@@ -80,6 +79,12 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			return;
 		}
 		System.out.println("Sessione di voto " + s.toString() + " inserita nel database");
+	}
+
+	@Override
+	public void addSessioneDiVoto(int id, String nome) {
+		SessioneDiVoto s = new SessioneDiVoto(id, nome);
+		addSessioneDiVoto(s);
 	}
 
 }
