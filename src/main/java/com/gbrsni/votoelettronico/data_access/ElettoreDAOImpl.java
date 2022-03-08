@@ -37,7 +37,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 	@Override
 	public void updateElettore(Elettore e) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE elettore SET nome = ?, cognome = ?, tesseraElettorale = ?, codiceFiscale = ? WHERE username = ?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE elettori SET nome = ?, cognome = ?, tesseraElettorale = ?, codiceFiscale = ? WHERE username = ?");
 			ps.setString(1, e.getNome());
 			ps.setString(2, e.getCognome());
 			ps.setString(3, e.getTesseraElettorale());
@@ -56,7 +56,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 	@Override
 	public void deleteElettore(Elettore e) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM elettore WHERE username = ?");
+			PreparedStatement ps = connection.prepareStatement("DELETE FROM elettori WHERE username = ?");
 			ps.setString(1, e.getUsername());
 			ps.executeUpdate();
 			ps.close();
@@ -71,7 +71,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 	@Override
 	public void addElettore(Elettore e) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO elettore (username, nome, cognome, tesseraElettorale, codiceFiscale) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO elettori (username, nome, cognome, tesseraElettorale, codiceFiscale) VALUES (?, ?, ?, ?, ?)");
 			ps.setString(1, e.getUsername());
 			ps.setString(2, e.getNome());
 			ps.setString(3, e.getCognome());
