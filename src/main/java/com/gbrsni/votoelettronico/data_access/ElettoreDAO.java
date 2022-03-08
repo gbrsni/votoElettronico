@@ -9,5 +9,5 @@ public interface ElettoreDAO {
 	public void updateElettore(Elettore e);
 	public void deleteElettore(Elettore e);
 	public void addElettore(Elettore e);
-	public void addElettore(String username, String nome, String cognome, String codiceFiscale);
+	public void addElettore(String username, String nome, String cognome, String tesseraElettorale, String codiceFiscale);
 }
