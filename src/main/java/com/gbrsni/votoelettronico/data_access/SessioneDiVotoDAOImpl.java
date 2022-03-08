@@ -3,6 +3,7 @@ package com.gbrsni.votoelettronico.data_access;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
@@ -36,6 +37,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 
 	@Override
 	public void updateSessioneDiVoto(SessioneDiVoto s) {
+		Objects.requireNonNull(s);
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE sessioniDiVoto SET nome = ? WHERE id = ?");
 			ps.setString(1, s.getNome());
@@ -52,6 +54,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 
 	@Override
 	public void deleteSessioneDiVoto(SessioneDiVoto s) {
+		Objects.requireNonNull(s);
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM sessioniDiVoto  WHERE id = ?");
 			ps.setInt(1, s.getId());
@@ -67,6 +70,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	
 	@Override
 	public void addSessioneDiVoto(SessioneDiVoto s) {
+		Objects.requireNonNull(s);
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO sessioniDiVoto (id, nome) VALUES (?, ?)");
 			ps.setInt(1, s.getId());
@@ -83,6 +87,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 
 	@Override
 	public void addSessioneDiVoto(int id, String nome) {
+		Objects.requireNonNull(nome);
 		SessioneDiVoto s = new SessioneDiVoto(id, nome);
 		addSessioneDiVoto(s);
 	}

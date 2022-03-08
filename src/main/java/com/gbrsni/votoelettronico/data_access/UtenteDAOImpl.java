@@ -3,6 +3,7 @@ package com.gbrsni.votoelettronico.data_access;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.Utente;
@@ -29,6 +30,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 	@Override
 	public void updateUtente(Utente u) {
+		Objects.requireNonNull(u);
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE utenti SET nome = ?, cognome = ? WHERE username = ?");
 			ps.setString(1, u.getNome());
@@ -46,6 +48,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 	@Override
 	public void deleteUtente(Utente u) {
+		Objects.requireNonNull(u);
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM utenti  WHERE username = ?");
 			ps.setString(1, u.getUsername());

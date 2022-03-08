@@ -3,6 +3,7 @@ package com.gbrsni.votoelettronico.data_access;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.gbrsni.votoelettronico.models.Gestore;
 
@@ -36,6 +37,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 
 	@Override
 	public void updateGestore(Gestore g) {
+		Objects.requireNonNull(g);
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE gestori SET nome = ?, cognome = ? WHERE username = ?");
 			ps.setString(1, g.getNome());
@@ -53,6 +55,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 
 	@Override
 	public void deleteGestore(Gestore g) {
+		Objects.requireNonNull(g);
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM gestori WHERE username = ?");
 			ps.setString(1, g.getUsername());
@@ -68,6 +71,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 
 	@Override
 	public void addGestore(Gestore g) {
+		Objects.requireNonNull(g);
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO gestori (username, nome, cognome) VALUES (?, ?, ?)");
 			ps.setString(1, g.getUsername());
@@ -85,6 +89,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 
 	@Override
 	public void addGestore(String username, String nome, String cognome) {
+		Objects.requireNonNull(username);
+		Objects.requireNonNull(nome);
+		Objects.requireNonNull(cognome);
 		Gestore g = new Gestore(username, nome, cognome);
 		addGestore(g);
 	}
