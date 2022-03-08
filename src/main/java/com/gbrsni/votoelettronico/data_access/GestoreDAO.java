@@ -9,5 +9,5 @@ public interface GestoreDAO {
 	public void updateGestore(Gestore e);
 	public void deleteGestore(Gestore e);
 	public void addGestore(Gestore e);
-	public void addGestore(String username, String nome);
+	public void addGestore(String username, String nome, String cognome);
 }
