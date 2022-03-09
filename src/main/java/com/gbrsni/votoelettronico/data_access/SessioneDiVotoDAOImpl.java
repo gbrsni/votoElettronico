@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.models.Modalit‡DiVittoria;
+import com.gbrsni.votoelettronico.models.Modalit‡DiVoto;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
@@ -86,9 +88,11 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	}
 
 	@Override
-	public void addSessioneDiVoto(int id, String nome) {
+	public void addSessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria) {
 		Objects.requireNonNull(nome);
-		SessioneDiVoto s = new SessioneDiVoto(id, nome);
+		Objects.requireNonNull(modalit‡DiVoto);
+		Objects.requireNonNull(modalit‡DiVittoria);
+		SessioneDiVoto s = new SessioneDiVoto(id, nome, modalit‡DiVoto, modalit‡DiVittoria);
 		addSessioneDiVoto(s);
 	}
 
