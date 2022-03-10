@@ -42,7 +42,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 			PreparedStatement ps = connection.prepareStatement("UPDATE gestori SET nome = ?, cognome = ? WHERE username = ?");
 			ps.setString(1, g.getNome());
 			ps.setString(2, g.getCognome());
-			ps.setString(5, g.getUsername());
+			ps.setString(3, g.getUsername());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
