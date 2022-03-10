@@ -23,7 +23,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				res.add(new Gestore(rs.getString(1), rs.getString(2), rs.getString(3)));
+				res.add(new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome")));
 			}
 			
 			ps.close();

@@ -26,7 +26,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			
 			while (rs.next()) {
 				try {
-					res.add(new SessioneDiVoto(rs.getInt(1), rs.getString(2), rs.getString("modVoto"), rs.getString("modVittoria")));
+					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria")));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
 					e.printStackTrace();
