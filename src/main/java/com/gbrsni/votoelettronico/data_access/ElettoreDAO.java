@@ -10,4 +10,5 @@ public interface ElettoreDAO {
 	public void deleteElettore(Elettore e);
 	public void addElettore(Elettore e);
 	public void addElettore(String username, String nome, String cognome, String tesseraElettorale, String codiceFiscale);
+	public Elettore getElettoreByUsername(String username);
 }

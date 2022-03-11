@@ -102,4 +102,23 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		addElettore(e);
 	}
 
+	@Override
+	public Elettore getElettoreByUsername(String username) {
+		Objects.requireNonNull(username);
+		Elettore e = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT FROM elettori WHERE username = ?");
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+			
+			e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("tesseraElettorale"), rs.getString("codiceFiscale"));
+		} catch (SQLException ex) {
+			System.out.println("Errore durante l'ottenimento dell'elettore con username" + username);
+			ex.printStackTrace();
+			return null;
+		}
+		System.out.println("Ottenuto elettore con username " + username);
+		return e;
+	}
 }
