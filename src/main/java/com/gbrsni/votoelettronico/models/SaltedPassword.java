@@ -1,19 +1,22 @@
 package com.gbrsni.votoelettronico.models;
 
+import java.nio.charset.Charset;
 import java.util.Objects;
+import java.util.Random;
 
 public class SaltedPassword {
 	private String hash;
 	private String salt;
 	
+	// Restituisce una stringa di 8 caratteri casuali
 	public static String createSalt() {
-		// TODO
-		return null;
+		byte[] bytes = new byte[8];
+		new Random().nextBytes(bytes);
+		return new String(bytes, Charset.forName("UTF-8"));
 	}
-	
-	public static String hashPassword(String password) {]
-		// TODO
-		return null;
+
+	public static String hashString(String input) {
+		return String.valueOf(input.hashCode());
 	}
 	
 	public SaltedPassword(String hash, String salt) {
@@ -35,7 +38,7 @@ public class SaltedPassword {
 		
 		this.salt = createSalt();
 		String passwordWithSalt = password + this.salt;
-		this.hash = hashPassword(passwordWithSalt);
+		this.hash = hashString(passwordWithSalt);
 	}
 
 	public String getHash() {
@@ -57,6 +60,6 @@ public class SaltedPassword {
 	}
 	
 	public boolean checkPassword(String password) {
-		return hashPassword(password + this.salt).equals(this.hash);
+		return hashString(password + this.salt).equals(this.hash);
 	}
 }
