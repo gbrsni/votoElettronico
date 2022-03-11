@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.gbrsni.votoelettronico.models.Elettore;
+import com.gbrsni.votoelettronico.models.SaltedPassword;
 
 public class ElettoreDAOImpl implements ElettoreDAO {
 	private Connection connection;
@@ -120,5 +121,25 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		}
 		System.out.println("Ottenuto elettore con username " + username);
 		return e;
+	}
+
+	@Override
+	public SaltedPassword getPasswordElettoreByUsername(String username) {
+		Objects.requireNonNull(username);
+		SaltedPassword sp = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT FROM passwordelettori WHERE elettori = ?");
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+			
+			sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
+		} catch (SQLException ex) {
+			System.out.println("Errore durante l'ottenimento della password dell'elettore con username" + username);
+			ex.printStackTrace();
+			return null;
+		}
+		System.out.println("Ottenuta password dell'elettore con username " + username);
+		return sp;
 	}
 }
