@@ -6,6 +6,16 @@ public class SaltedPassword {
 	private String hash;
 	private String salt;
 	
+	public static String createSalt() {
+		// TODO
+		return null;
+	}
+	
+	public static String hashPassword(String password) {]
+		// TODO
+		return null;
+	}
+	
 	public SaltedPassword(String hash, String salt) {
 		Objects.requireNonNull(hash);
 		Objects.requireNonNull(salt);
@@ -13,16 +23,19 @@ public class SaltedPassword {
 		this.hash = hash;
 		this.salt = salt;
 	}
+	
+	public SaltedPassword(String password) {
+		Objects.requireNonNull(password);
 
-	// Deprecated
-	public String getPassword() {
-		return hash;
+		this.setPassword(password);
 	}
 
-	// Deprecated
-	public void setPassword(String hash) {
-		Objects.requireNonNull(hash);
-		this.hash = hash;
+	public void setPassword(String password) {
+		Objects.requireNonNull(password);
+		
+		this.salt = createSalt();
+		String passwordWithSalt = password + this.salt;
+		this.hash = hashPassword(passwordWithSalt);
 	}
 
 	public String getHash() {
