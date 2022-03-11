@@ -3,11 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.GestioneListeController">
    <top>
@@ -18,9 +19,9 @@
       </Label>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="668.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="74.0" prefWidth="900.0">
                <children>
                   <Label fx:id="nomeGestore" text="Nome Gestore">
                      <font>
@@ -35,7 +36,7 @@
                         <Insets left="70.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="Menu">
+                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenu" text="Menu">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -47,17 +48,17 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleAggiungiCandidato" text="Aggiungi Candidato">
+                  <Button fx:id="candidatoBottone" mnemonicParsing="false" onAction="#handleAggiungiCandidato" prefHeight="50.0" prefWidth="200.0" text="Aggiungi Candidato">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleAggiungiPartito" text="Aggiungi Partito">
+                  <Button fx:id="partitoBottone" mnemonicParsing="false" onAction="#handleAggiungiPartito" prefHeight="50.0" prefWidth="200.0" text="Aggiungi Partito">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="300.0" />
@@ -65,47 +66,454 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="62.0" prefWidth="900.0">
                <children>
-                  <Label text="Candidato 1">
+                  <Label text="Ricerca candidato:">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" text="Modifica">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
+                  <TextField>
                      <HBox.margin>
-                        <Insets left="70.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Cancella">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Label text="Partito 1">
-                     <HBox.margin>
-                        <Insets left="150.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Button mnemonicParsing="false" text="Modifica">
-                     <HBox.margin>
-                        <Insets left="70.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Elimina">
+                  </TextField>
+                  <Button mnemonicParsing="false" text="Cerca">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Button>
+                  <Label text="Ricerca Partito:">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" text="Cerca">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="41.0" prefWidth="900.0">
+               <children>
+                  <Label text="Elenco Candidati:">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Elenco Partiti:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="300.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="331.0" prefWidth="900.0">
+               <children>
+                  <ScrollPane prefHeight="331.0" prefWidth="403.0">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <content>
+                        <VBox prefHeight="331.0" prefWidth="382.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="candidato 1 - partito">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane prefHeight="331.0" prefWidth="446.0">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="446.0">
+                           <children>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <Label text="partito 1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" text="Modifica">
+                                       <HBox.margin>
+                                          <Insets left="250.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
             </HBox>
          </children>
