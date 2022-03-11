@@ -57,7 +57,6 @@ public class SaltedPassword {
 	}
 	
 	public boolean checkPassword(String password) {
-		// TODO
-		return false;
+		return hashPassword(password + this.salt).equals(this.hash);
 	}
 }
