@@ -156,7 +156,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			}
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setString(1, sp.getSalt());
-			ps.setString(2, sp.getPassword());
+			ps.setString(2, sp.getHash());
 			ps.setString(3, username);
 			ps.executeUpdate();
 			ps.close();

@@ -3,24 +3,35 @@ package com.gbrsni.votoelettronico.models;
 import java.util.Objects;
 
 public class SaltedPassword {
-	private String password;
+	private String hash;
 	private String salt;
 	
-	public SaltedPassword(String password, String salt) {
-		Objects.requireNonNull(password);
+	public SaltedPassword(String hash, String salt) {
+		Objects.requireNonNull(hash);
 		Objects.requireNonNull(salt);
 		
-		this.password = password;
+		this.hash = hash;
 		this.salt = salt;
 	}
 
+	// Deprecated
 	public String getPassword() {
-		return password;
+		return hash;
 	}
 
-	public void setPassword(String password) {
-		Objects.requireNonNull(password);
-		this.password = password;
+	// Deprecated
+	public void setPassword(String hash) {
+		Objects.requireNonNull(hash);
+		this.hash = hash;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		Objects.requireNonNull(hash);
+		this.hash = hash;
 	}
 
 	public String getSalt() {
@@ -30,5 +41,10 @@ public class SaltedPassword {
 	public void setSalt(String salt) {
 		Objects.requireNonNull(salt);
 		this.salt = salt;
+	}
+	
+	public boolean checkPassword(String password) {
+		// TODO
+		return false;
 	}
 }
