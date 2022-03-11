@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.SessioniController">
    <top>
       <Label text="Sessioni" BorderPane.alignment="CENTER">
@@ -83,14 +82,21 @@
                   </Button>
                </children>
             </HBox>
-            <Label text="Elenco Sessioni:">
+            <HBox prefHeight="47.0" prefWidth="960.0">
+               <children>
+                  <Label text="Elenco Sessioni:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
                <VBox.margin>
-                  <Insets left="100.0" />
+                  <Insets />
                </VBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
+            </HBox>
             <ScrollPane prefHeight="338.0" prefWidth="960.0">
                <content>
                   <VBox prefHeight="200.0" prefWidth="664.0">
