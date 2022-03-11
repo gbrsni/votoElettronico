@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label text="Sessioni di Voto" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="78.0" prefWidth="950.0">
+               <children>
+                  <Label text="Nome Elettore">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" text="Logout">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="54.0" prefWidth="950.0">
+               <children>
+                  <Label text="Sessioni di voto Aperte:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane prefHeight="200.0" prefWidth="950.0">
+               <content>
+                  <VBox prefHeight="197.0" prefWidth="880.0">
+                     <children>
+                        <HBox prefHeight="72.0" prefWidth="880.0">
+                           <children>
+                              <VBox prefHeight="72.0" prefWidth="853.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="36.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Vota">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="Informazioni varie sulla sessione">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="72.0" prefWidth="880.0">
+                           <children>
+                              <VBox prefHeight="72.0" prefWidth="853.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="36.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Vota">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="Informazioni varie sulla sessione">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+               <VBox.margin>
+                  <Insets right="50.0" />
+               </VBox.margin>
+            </ScrollPane>
+            <HBox prefHeight="54.0" prefWidth="950.0">
+               <children>
+                  <Label text="Sessioni di voto chiuse:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane prefHeight="200.0" prefWidth="950.0">
+               <content>
+                  <VBox prefHeight="223.0" prefWidth="880.0">
+                     <children>
+                        <HBox prefHeight="72.0" prefWidth="880.0">
+                           <children>
+                              <VBox prefHeight="50.0" prefWidth="853.0">
+                                 <children>
+                                    <HBox prefHeight="40.0" prefWidth="853.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Apri">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="853.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Apri">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="853.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Apri">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="853.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Apri">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="853.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Apri">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="853.0">
+                                       <children>
+                                          <Label text="Sessione 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Apri">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+               <VBox.margin>
+                  <Insets right="50.0" />
+               </VBox.margin>
+            </ScrollPane>
+         </children>
+         <BorderPane.margin>
+            <Insets left="50.0" top="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
