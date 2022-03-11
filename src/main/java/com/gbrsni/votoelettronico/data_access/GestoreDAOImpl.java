@@ -100,20 +100,20 @@ public class GestoreDAOImpl implements GestoreDAO {
 	@Override
 	public Gestore getGestoreByUsername(String username) {
 		Objects.requireNonNull(username);
-		Gestore e = null;
+		Gestore g = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement("SELECT FROM gestori WHERE username = ?");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			ps.close();
 			
-			e = new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"));
+			g = new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"));
 		} catch (SQLException ex) {
 			System.out.println("Errore durante l'ottenimento dell'gestore con username" + username);
 			ex.printStackTrace();
 			return null;
 		}
 		System.out.println("Ottenuto gestore con username " + username);
-		return e;
+		return g;
 	}
 }
