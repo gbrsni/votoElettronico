@@ -10,4 +10,5 @@ public interface GestoreDAO {
 	public void deleteGestore(Gestore e);
 	public void addGestore(Gestore e);
 	public void addGestore(String username, String nome, String cognome);
+	public Gestore getGestoreByUsername(String username);
 }

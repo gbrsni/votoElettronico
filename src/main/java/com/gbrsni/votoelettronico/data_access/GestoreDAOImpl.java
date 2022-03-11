@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 
 public class GestoreDAOImpl implements GestoreDAO {
@@ -96,4 +97,23 @@ public class GestoreDAOImpl implements GestoreDAO {
 		addGestore(g);
 	}
 
+	@Override
+	public Gestore getGestoreByUsername(String username) {
+		Objects.requireNonNull(username);
+		Gestore e = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT FROM gestori WHERE username = ?");
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+			
+			e = new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"));
+		} catch (SQLException ex) {
+			System.out.println("Errore durante l'ottenimento dell'gestore con username" + username);
+			ex.printStackTrace();
+			return null;
+		}
+		System.out.println("Ottenuto gestore con username " + username);
+		return e;
+	}
 }
