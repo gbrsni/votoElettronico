@@ -137,4 +137,29 @@ public class GestoreDAOImpl implements GestoreDAO {
 		System.out.println("Ottenuta password dell'gestore con username " + username);
 		return sp;
 	}
+
+	@Override
+	public void setPasswordGestoreByUsername(String username, SaltedPassword sp) {
+		Objects.requireNonNull(username);
+		Objects.requireNonNull(sp);
+		try {
+			String query;
+			if (getPasswordGestoreByUsername(username) == null) {
+				query = "INSERT INTO passwordgestori (salt, hash, gestori) VALUES (?, ?, ?)";
+			} else {
+				query = "UPDATE passwordgestori SET salt = ?, hash = ? WHERE gestori = ?";
+			}
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setString(1, sp.getSalt());
+			ps.setString(2, sp.getPassword());
+			ps.setString(3, username);
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException ex) {
+			System.out.println("Errore durante la modifica della password dell'gestore con username " + username);
+			ex.printStackTrace();
+			return;
+		}
+		System.out.println("Modificata password dell'gestore con username " + username);
+	}
 }

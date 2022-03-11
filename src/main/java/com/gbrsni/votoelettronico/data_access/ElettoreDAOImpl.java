@@ -142,4 +142,29 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		System.out.println("Ottenuta password dell'elettore con username " + username);
 		return sp;
 	}
+
+	@Override
+	public void setPasswordElettoreByUsername(String username, SaltedPassword sp) {
+		Objects.requireNonNull(username);
+		Objects.requireNonNull(sp);
+		try {
+			String query;
+			if (getPasswordElettoreByUsername(username) == null) {
+				query = "INSERT INTO passwordelettori (salt, hash, elettori) VALUES (?, ?, ?)";
+			} else {
+				query = "UPDATE passwordelettori SET salt = ?, hash = ? WHERE elettori = ?";
+			}
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setString(1, sp.getSalt());
+			ps.setString(2, sp.getPassword());
+			ps.setString(3, username);
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException ex) {
+			System.out.println("Errore durante la modifica della password dell'elettore con username " + username);
+			ex.printStackTrace();
+			return;
+		}
+		System.out.println("Modificata password dell'elettore con username " + username);
+	}
 }

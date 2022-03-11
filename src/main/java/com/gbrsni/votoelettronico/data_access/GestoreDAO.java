@@ -13,4 +13,5 @@ public interface GestoreDAO {
 	public void addGestore(String username, String nome, String cognome);
 	public Gestore getGestoreByUsername(String username);
 	public SaltedPassword getPasswordGestoreByUsername(String username);
+	public void setPasswordGestoreByUsername(String username, SaltedPassword sp);
 }
