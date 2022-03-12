@@ -20,8 +20,6 @@ public class Home extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
     	
-    	//Creazione connessione DB
-    	Connection database = DBConnection.getConnection();
     	
     	scene = new Scene(loadView("LoginView"));
     	primaryStage.setTitle("Voto Elettronico");
