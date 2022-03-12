@@ -31,7 +31,8 @@ CREATE TABLE `elettori` (
   `luogonascita` varchar(45) NOT NULL,
   `codicefiscale` varchar(45) NOT NULL,
   `tesseraelettorale` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-09 15:29:10
+-- Dump completed on 2022-03-12 18:07:00

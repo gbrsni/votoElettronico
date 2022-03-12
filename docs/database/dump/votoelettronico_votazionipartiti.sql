@@ -26,6 +26,7 @@ CREATE TABLE `votazionipartiti` (
   `sessioni` int NOT NULL,
   `elettori` int NOT NULL,
   `partiti` int NOT NULL,
+  `valore` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`sessioni`,`elettori`),
   KEY `fk_elettori_votazionipartiti_idx` (`elettori`),
   KEY `fk_partiti_votazionipartiti_idx` (`partiti`),
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-09 15:29:09
+-- Dump completed on 2022-03-12 18:07:00
