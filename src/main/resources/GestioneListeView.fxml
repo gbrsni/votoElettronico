@@ -337,7 +337,7 @@
                   </ScrollPane>
                   <ScrollPane prefHeight="331.0" prefWidth="446.0">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="446.0">
+                        <VBox prefHeight="339.0" prefWidth="428.0">
                            <children>
                               <HBox prefHeight="40.0" prefWidth="400.0">
                                  <children>
@@ -423,7 +423,7 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="40.0" prefWidth="400.0">
+                              <HBox prefHeight="27.0" prefWidth="408.0">
                                  <children>
                                     <Label text="partito 1">
                                        <font>
@@ -493,7 +493,7 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="40.0" prefWidth="400.0">
+                              <HBox prefHeight="32.0" prefWidth="413.0">
                                  <children>
                                     <Label text="partito 1">
                                        <font>
