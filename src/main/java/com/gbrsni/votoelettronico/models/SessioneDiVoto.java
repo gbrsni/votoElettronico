@@ -7,8 +7,9 @@ public class SessioneDiVoto {
 	private String nome;
 	private Modalit‡DiVoto modalit‡DiVoto;
 	private Modalit‡DiVittoria modalit‡DiVittoria;
+	private StatoSessione statoSessione;
 	
-	public SessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria) {
+	public SessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria, StatoSessione statoSessione) {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(modalit‡DiVoto);
 		Objects.requireNonNull(modalit‡DiVittoria);
@@ -17,6 +18,12 @@ public class SessioneDiVoto {
 		this.nome = nome;
 		this.modalit‡DiVoto = modalit‡DiVoto;
 		this.modalit‡DiVittoria = modalit‡DiVittoria;
+		
+		if (statoSessione == null) {
+			this.statoSessione = StatoSessione.CREATA;
+		} else {
+			this.statoSessione = statoSessione;
+		}
 	}
 
 	public SessioneDiVoto(int id, String nome, String modalit‡DiVoto, String modalit‡DiVittoria) throws IllegalArgumentException {
@@ -65,6 +72,7 @@ public class SessioneDiVoto {
 	}
 
 	public void setModalit‡DiVoto(Modalit‡DiVoto modalit‡DiVoto) {
+		Objects.requireNonNull(modalit‡DiVoto);
 		this.modalit‡DiVoto = modalit‡DiVoto;
 	}
 
@@ -73,7 +81,17 @@ public class SessioneDiVoto {
 	}
 
 	public void setModalit‡DiVittoria(Modalit‡DiVittoria modalit‡DiVittoria) {
+		Objects.requireNonNull(modalit‡DiVittoria);
 		this.modalit‡DiVittoria = modalit‡DiVittoria;
+	}
+
+	public StatoSessione getStatoSessione() {
+		return statoSessione;
+	}
+
+	public void setStatoSessione(StatoSessione statoSessione) {
+		Objects.requireNonNull(statoSessione);
+		this.statoSessione = statoSessione;
 	}
 	
 	// TODO: toString()
