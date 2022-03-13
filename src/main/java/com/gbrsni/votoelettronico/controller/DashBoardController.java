@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import com.gbrsni.votoelettronico.controller.GestioneListeController;
 
-public class DashBoardController {
+public class DashBoardController extends Controller{
 
     @FXML
     private ResourceBundle resources;

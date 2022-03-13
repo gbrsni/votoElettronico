@@ -1,6 +1,7 @@
 package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -9,23 +10,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.Node;
 import java.io.IOException;
-import com.gbrsni.votoelettronico.controller.DashBoardController;
 
-public class LoginController {
-	
-	private Stage stage; 
-	private Scene scene;
-	private Parent root;
-	
+
+import com.gbrsni.votoelettronico.data_access.GestoreDAOImpl;
+
+public class LoginController extends Controller{
+
     @FXML
     private ResourceBundle resources;
 
@@ -33,59 +28,44 @@ public class LoginController {
     private URL location;
 
     @FXML
-    private Button button;
+    private Label erroreLabel;
 
     @FXML
-    private PasswordField labelPassword;
+    private Button loginButton;
 
     @FXML
-    private TextField labelUsername;
+    private PasswordField passwordLabel;
 
     @FXML
-    private ComboBox<String> tipologiaUtente ;
+    private Button sessioniButton;
 
     @FXML
-    void handleName(ActionEvent event) {
+    private TextField usernameLabel;
 
+    @FXML
+    private ComboBox<String> utenteComboBox;
+
+    @FXML
+    void pressLoginButton(ActionEvent event) throws IOException {
+    	GestoreDAOImpl gestoreDb = new GestoreDAOImpl();
+    	List<Gestore> lista = gestoreDb.getAllGestore();
     }
 
     @FXML
-    void handlePassword(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleSceltaUtente(ActionEvent event) {
-
-    }
-
-    @FXML
-    void pressButton(ActionEvent event) throws IOException {
+    void pressSessioniButton(ActionEvent event) {
     	
-    	//CAMBIARE LA SCENA -> DASHBOARD.fxml
-    	/**
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("DashBoardView.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        DashBoardController controller = (DashBoardController)
-        stage.show();
-        **/
-    	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DashBoardView.fxml"));
-        Parent root = loader.load();
-        DashBoardController controller = loader.getController();
-        controller.setName("ciao");
-        button.getScene().setRoot(root);
     }
 
     @FXML
     void initialize() {
-        assert button != null : "fx:id=\"button\" was not injected: check your FXML file 'LoginView.fxml'.";
-        assert labelPassword != null : "fx:id=\"labelPassword\" was not injected: check your FXML file 'LoginView.fxml'.";
-        assert labelUsername != null : "fx:id=\"labelUsername\" was not injected: check your FXML file 'LoginView.fxml'.";
-        assert tipologiaUtente != null : "fx:id=\"tipologiaUtente\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert erroreLabel != null : "fx:id=\"erroreLabel\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert passwordLabel != null : "fx:id=\"passwordLabel\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert sessioniButton != null : "fx:id=\"sessioniButton\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert usernameLabel != null : "fx:id=\"usernameLabel\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert utenteComboBox != null : "fx:id=\"utenteTextField\" was not injected: check your FXML file 'LoginView.fxml'.";
         ObservableList<String> dbTypeList = FXCollections.observableArrayList("Elettore","Impiegato");
-        tipologiaUtente.setItems(dbTypeList);
+        utenteComboBox.setItems(dbTypeList);
     }
 
 }

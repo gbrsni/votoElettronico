@@ -36,18 +36,86 @@
                <children>
                   <Button fx:id="sessioniBottone" mnemonicParsing="false" onAction="#handleButtonSessioni" prefHeight="70.0" prefWidth="200.0" text="Gestione Sessioni">
                      <HBox.margin>
-                        <Insets left="100.0" />
+                        <Insets left="100.0" top="40.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="candidatiBottone" mnemonicParsing="false" onAction="#HandleButtonCandidati" prefHeight="70.0" prefWidth="200.0" text="Gestione Candidati/Partiti">
                      <HBox.margin>
-                        <Insets left="300.0" />
+                        <Insets left="300.0" top="40.0" />
                      </HBox.margin>
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets top="200.0" />
+                  <Insets top="50.0" />
                </VBox.margin>
+            </HBox>
+            <HBox prefHeight="69.0" prefWidth="900.0">
+               <children>
+                  <Label text="Sessioni di voto totali:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Sessioni di voto aperte:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="280.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="80.0" prefWidth="900.0">
+               <children>
+                  <Label text="Sessioni di voto da scrutinare:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Sessioni di voto concluse:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="220.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="69.0" prefWidth="900.0">
+               <children>
+                  <Label text="Elettori:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Voti Scrutinati:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="390.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Partiti:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Candidati:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="400.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
             </HBox>
          </children>
          <BorderPane.margin>
