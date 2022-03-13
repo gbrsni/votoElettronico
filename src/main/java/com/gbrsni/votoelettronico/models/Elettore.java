@@ -1,14 +1,17 @@
 package com.gbrsni.votoelettronico.models;
 
-import java.util.Calendar;
+import java.util.Objects;
 
 public class Elettore extends Utente{
 	
 	private String tesseraElettorale;
 
-	public Elettore(String username, String nome, String cognome, Calendar dataNascita, String luogoNascita,
-			String codiceFiscale, String tesseraElettorale) {
-		super(username, nome, cognome, dataNascita, luogoNascita, codiceFiscale);
+	public Elettore(String username, String nome, String cognome, String tesseraElettorale, String codiceFiscale) {
+		super(username, nome, cognome);
+		
+		Objects.requireNonNull(tesseraElettorale);
+		Objects.requireNonNull(codiceFiscale);
+  
 		this.tesseraElettorale = tesseraElettorale;
 	}
 

@@ -1,6 +1,6 @@
 package com.gbrsni.votoelettronico.models;
 
-import java.util.Calendar;
+import java.util.Objects;
 
 public abstract class Utente {
 
@@ -11,15 +11,14 @@ public abstract class Utente {
 	private String luogoNascita;
 	private String codiceFiscale;
 
-
-	public Utente(String username, String nome, String cognome, Calendar dataNascita, String luogoNascita,
-				String codiceFiscale) {
-			this.username = username;
-			this.nome = nome;
-			this.cognome = cognome;
-			this.dataNascita = dataNascita;
-			this.luogoNascita = luogoNascita;
-			this.codiceFiscale = codiceFiscale;
+	public Utente(String username, String nome, String cognome) {
+		Objects.requireNonNull(username);
+		Objects.requireNonNull(nome);
+		Objects.requireNonNull(cognome);
+		
+		this.username = username;
+		this.nome = nome;
+		this.nome = cognome;
 	}
 
 
