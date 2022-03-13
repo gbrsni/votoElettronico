@@ -79,20 +79,20 @@ public class SessioneDiVoto {
 		return nome;
 	}
 
-	public ModVoto getModalit‡DiVoto() {
+	public ModVoto getModVoto() {
 		return modVoto;
 	}
 
-	public void setModalit‡DiVoto(ModVoto modVoto) {
+	public void setModVoto(ModVoto modVoto) {
 		Objects.requireNonNull(modVoto);
 		this.modVoto = modVoto;
 	}
 
-	public ModVittoria getModalit‡DiVittoria() {
+	public ModVittoria getModVittoria() {
 		return modVittoria;
 	}
 
-	public void setModalit‡DiVittoria(ModVittoria modVittoria) {
+	public void setModVittoria(ModVittoria modVittoria) {
 		Objects.requireNonNull(modVittoria);
 		this.modVittoria = modVittoria;
 	}
