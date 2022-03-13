@@ -7,8 +7,9 @@ public class SessioneDiVoto {
 	private String nome;
 	private Modalit‡DiVoto modalit‡DiVoto;
 	private Modalit‡DiVittoria modalit‡DiVittoria;
+	private StatoSessione statoSessione;
 	
-	public SessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria) {
+	public SessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria, StatoSessione statoSessione) {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(modalit‡DiVoto);
 		Objects.requireNonNull(modalit‡DiVittoria);
@@ -17,9 +18,15 @@ public class SessioneDiVoto {
 		this.nome = nome;
 		this.modalit‡DiVoto = modalit‡DiVoto;
 		this.modalit‡DiVittoria = modalit‡DiVittoria;
+		
+		if (statoSessione == null) {
+			this.statoSessione = StatoSessione.CREATA;
+		} else {
+			this.statoSessione = statoSessione;
+		}
 	}
 
-	public SessioneDiVoto(int id, String nome, String modalit‡DiVoto, String modalit‡DiVittoria) throws IllegalArgumentException {
+	public SessioneDiVoto(int id, String nome, String modalit‡DiVoto, String modalit‡DiVittoria, String statoSessione) throws IllegalArgumentException {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(modalit‡DiVoto);
 		Objects.requireNonNull(modalit‡DiVittoria);
@@ -50,6 +57,18 @@ public class SessioneDiVoto {
 		} else {
 			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di vittoria " + modalit‡DiVoto + " non valida");
 		}
+		
+		if (statoSessione == null || statoSessione.equals("CREATA")) {
+			this.statoSessione = StatoSessione.CREATA;
+		} else if (statoSessione.equals("CONFIGUIRATA")) {
+			this.statoSessione = StatoSessione.CONFIGURATA;
+		} else if (statoSessione.equals("IN_CORSO")) {
+			this.statoSessione = StatoSessione.IN_CORSO;
+		} else if (statoSessione.equals("CONCLUSA")) {
+			this.statoSessione = StatoSessione.CONCLUSA;
+		} else if (statoSessione.equals("SCRUTINATA")) {
+			this.statoSessione = StatoSessione.SCRUTINATA;
+		}
 	}
 
 	public int getId() {
@@ -58,6 +77,33 @@ public class SessioneDiVoto {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public Modalit‡DiVoto getModalit‡DiVoto() {
+		return modalit‡DiVoto;
+	}
+
+	public void setModalit‡DiVoto(Modalit‡DiVoto modalit‡DiVoto) {
+		Objects.requireNonNull(modalit‡DiVoto);
+		this.modalit‡DiVoto = modalit‡DiVoto;
+	}
+
+	public Modalit‡DiVittoria getModalit‡DiVittoria() {
+		return modalit‡DiVittoria;
+	}
+
+	public void setModalit‡DiVittoria(Modalit‡DiVittoria modalit‡DiVittoria) {
+		Objects.requireNonNull(modalit‡DiVittoria);
+		this.modalit‡DiVittoria = modalit‡DiVittoria;
+	}
+
+	public StatoSessione getStatoSessione() {
+		return statoSessione;
+	}
+
+	public void setStatoSessione(StatoSessione statoSessione) {
+		Objects.requireNonNull(statoSessione);
+		this.statoSessione = statoSessione;
 	}
 	
 	// TODO: toString()
