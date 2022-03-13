@@ -7,8 +7,8 @@ public abstract class Utente {
 	private String username;
 	private String nome;
 	private String cognome; 
-	private Calendar dataNascita;
-	private String luogoNascita;
+//	private Calendar dataNascita;
+//	private String luogoNascita;
 	private String codiceFiscale;
 
 	public Utente(String username, String nome, String cognome) {
@@ -52,24 +52,24 @@ public abstract class Utente {
 	}
 
 
-	public Calendar getDataNascita() {
-		return dataNascita;
-	}
+//	public Calendar getDataNascita() {
+//		return dataNascita;
+//	}
+//
+//
+//	public void setDataNascita(Calendar dataNascita) {
+//		this.dataNascita = dataNascita;
+//	}
 
 
-	public void setDataNascita(Calendar dataNascita) {
-		this.dataNascita = dataNascita;
-	}
-
-
-	public String getLuogoNascita() {
-		return luogoNascita;
-	}
-
-
-	public void setLuogoNascita(String luogoNascita) {
-		this.luogoNascita = luogoNascita;
-	}
+//	public String getLuogoNascita() {
+//		return luogoNascita;
+//	}
+//
+//
+//	public void setLuogoNascita(String luogoNascita) {
+//		this.luogoNascita = luogoNascita;
+//	}
 
 
 	public String getCodiceFiscale() {

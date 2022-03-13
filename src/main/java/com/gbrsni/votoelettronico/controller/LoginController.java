@@ -1,6 +1,7 @@
 package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,8 +17,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 
-
+import com.gbrsni.votoelettronico.data_access.DBConnection;
 import com.gbrsni.votoelettronico.data_access.GestoreDAOImpl;
+import com.gbrsni.votoelettronico.models.Gestore;
 
 public class LoginController extends Controller{
 
@@ -47,7 +49,8 @@ public class LoginController extends Controller{
 
     @FXML
     void pressLoginButton(ActionEvent event) throws IOException {
-    	GestoreDAOImpl gestoreDb = new GestoreDAOImpl();
+    	Connection connection = DBConnection.getConnection();
+    	GestoreDAOImpl gestoreDb = new GestoreDAOImpl(connection);
     	List<Gestore> lista = gestoreDb.getAllGestore();
     }
 
