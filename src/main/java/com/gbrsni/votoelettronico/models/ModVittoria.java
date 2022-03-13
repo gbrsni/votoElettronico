@@ -1,6 +1,6 @@
 package com.gbrsni.votoelettronico.models;
 
-public enum Modalit‡DiVittoria {
+public enum ModVittoria {
 	MAGGIORANZA,
 	MAGGIORANZA_ASSOLUTA,
 	REFERENDUM_SENZA_QUORUM,
