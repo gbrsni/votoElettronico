@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.gbrsni.votoelettronico.models.Modalit‡DiVittoria;
 import com.gbrsni.votoelettronico.models.Modalit‡DiVoto;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.StatoSessione;
 
 public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	private Connection connection;
@@ -26,7 +27,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			
 			while (rs.next()) {
 				try {
-					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria")));
+					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
 					e.printStackTrace();
@@ -43,12 +44,40 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	}
 
 	@Override
+	public List<SessioneDiVoto> getAllSessioneDiVotoByStato(StatoSessione statoSessione) {
+		List<SessioneDiVoto> res = new ArrayList<>();
+
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioniDiVoto WHERE stato = ?");
+			ps.setString(1, statoSessione.toString());
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				try {
+					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
+				} catch (IllegalArgumentException e) {
+					System.out.println("Errore durante l'ottenimento di una sessione di voto con stato " + statoSessione);
+					e.printStackTrace();
+				}
+			}
+			
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto con stato " + statoSessione);
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
 	public void updateSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE sessioniDiVoto SET nome = ? WHERE id = ?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE sessioniDiVoto SET nome = ?, stato = ? WHERE id = ?");
 			ps.setString(1, s.getNome());
-			ps.setInt(2, s.getId());
+			ps.setString(2, s.getStatoSessione().toString());
+			ps.setInt(3, s.getId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
@@ -79,9 +108,10 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	public void addSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO sessioniDiVoto (id, nome) VALUES (?, ?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO sessioniDiVoto (id, nome, stato) VALUES (?, ?, ?)");
 			ps.setInt(1, s.getId());
 			ps.setString(2, s.getNome());
+			ps.setString(3, s.getStatoSessione().toString());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
@@ -93,11 +123,11 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	}
 
 	@Override
-	public void addSessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria) {
+	public void addSessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria, StatoSessione statoSessione) {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(modalit‡DiVoto);
 		Objects.requireNonNull(modalit‡DiVittoria);
-		SessioneDiVoto s = new SessioneDiVoto(id, nome, modalit‡DiVoto, modalit‡DiVittoria);
+		SessioneDiVoto s = new SessioneDiVoto(id, nome, modalit‡DiVoto, modalit‡DiVittoria, statoSessione);
 		addSessioneDiVoto(s);
 	}
 

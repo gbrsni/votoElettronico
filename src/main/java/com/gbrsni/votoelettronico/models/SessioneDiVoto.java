@@ -26,7 +26,7 @@ public class SessioneDiVoto {
 		}
 	}
 
-	public SessioneDiVoto(int id, String nome, String modalit‡DiVoto, String modalit‡DiVittoria) throws IllegalArgumentException {
+	public SessioneDiVoto(int id, String nome, String modalit‡DiVoto, String modalit‡DiVittoria, String statoSessione) throws IllegalArgumentException {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(modalit‡DiVoto);
 		Objects.requireNonNull(modalit‡DiVittoria);
@@ -56,6 +56,18 @@ public class SessioneDiVoto {
 			this.modalit‡DiVittoria = Modalit‡DiVittoria.REFERENDUM_CON_QUORUM;
 		} else {
 			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di vittoria " + modalit‡DiVoto + " non valida");
+		}
+		
+		if (statoSessione == null || statoSessione.equals("CREATA")) {
+			this.statoSessione = StatoSessione.CREATA;
+		} else if (statoSessione.equals("CONFIGUIRATA")) {
+			this.statoSessione = StatoSessione.CONFIGURATA;
+		} else if (statoSessione.equals("IN_CORSO")) {
+			this.statoSessione = StatoSessione.IN_CORSO;
+		} else if (statoSessione.equals("CONCLUSA")) {
+			this.statoSessione = StatoSessione.CONCLUSA;
+		} else if (statoSessione.equals("SCRUTINATA")) {
+			this.statoSessione = StatoSessione.SCRUTINATA;
 		}
 	}
 
