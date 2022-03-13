@@ -1,6 +1,6 @@
 package com.gbrsni.votoelettronico.models;
 
-public enum Modalit‡DiVoto {
+public enum ModVoto {
 	ORDINALE,
 	CATEGORICO,
 	CATEGORICO_CON_PREFERENZE,

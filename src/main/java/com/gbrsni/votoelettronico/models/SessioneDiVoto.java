@@ -5,19 +5,19 @@ import java.util.Objects;
 public class SessioneDiVoto {
 	private final int id;
 	private String nome;
-	private Modalit‡DiVoto modalit‡DiVoto;
-	private Modalit‡DiVittoria modalit‡DiVittoria;
+	private ModVoto modVoto;
+	private ModVittoria modVittoria;
 	private StatoSessione statoSessione;
 	
-	public SessioneDiVoto(int id, String nome, Modalit‡DiVoto modalit‡DiVoto, Modalit‡DiVittoria modalit‡DiVittoria, StatoSessione statoSessione) {
+	public SessioneDiVoto(int id, String nome, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione) {
 		Objects.requireNonNull(nome);
-		Objects.requireNonNull(modalit‡DiVoto);
-		Objects.requireNonNull(modalit‡DiVittoria);
+		Objects.requireNonNull(modVoto);
+		Objects.requireNonNull(modVittoria);
 		
 		this.id = id;
 		this.nome = nome;
-		this.modalit‡DiVoto = modalit‡DiVoto;
-		this.modalit‡DiVittoria = modalit‡DiVittoria;
+		this.modVoto = modVoto;
+		this.modVittoria = modVittoria;
 		
 		if (statoSessione == null) {
 			this.statoSessione = StatoSessione.CREATA;
@@ -35,25 +35,25 @@ public class SessioneDiVoto {
 		this.nome = nome;
 		
 		if (modalit‡DiVoto.equals("ORDINALE")) {
-			this.modalit‡DiVoto = Modalit‡DiVoto.ORDINALE;
+			this.modVoto = ModVoto.ORDINALE;
 		} else if (modalit‡DiVoto.equals("CATEGORICO")) {
-			this.modalit‡DiVoto = Modalit‡DiVoto.CATEGORICO;
+			this.modVoto = ModVoto.CATEGORICO;
 		} else if (modalit‡DiVoto.equals("CATEGORICO_CON_PREFERENZE")) {
-			this.modalit‡DiVoto = Modalit‡DiVoto.CATEGORICO_CON_PREFERENZE;
+			this.modVoto = ModVoto.CATEGORICO_CON_PREFERENZE;
 		} else if (modalit‡DiVoto.equals("REFERENDUM")) {
-			this.modalit‡DiVoto = Modalit‡DiVoto.REFERENDUM;
+			this.modVoto = ModVoto.REFERENDUM;
 		} else {
 			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di voto " + modalit‡DiVoto + " non valida");
 		}
 		
 		if (modalit‡DiVoto.equals("MAGGIORANZA")) {
-			this.modalit‡DiVittoria = Modalit‡DiVittoria.MAGGIORANZA;
+			this.modVittoria = ModVittoria.MAGGIORANZA;
 		} else if (modalit‡DiVittoria.equals("MAGGIORANZA_ASSOLUTA")) {
-			this.modalit‡DiVittoria = Modalit‡DiVittoria.MAGGIORANZA_ASSOLUTA;
+			this.modVittoria = ModVittoria.MAGGIORANZA_ASSOLUTA;
 		} else if (modalit‡DiVittoria.equals("REFERENDUM_SENZA_QUORUM")) {
-			this.modalit‡DiVittoria = Modalit‡DiVittoria.REFERENDUM_SENZA_QUORUM;
+			this.modVittoria = ModVittoria.REFERENDUM_SENZA_QUORUM;
 		} else if (modalit‡DiVittoria.equals("REFERENDUM_CON_QUORUM")) {
-			this.modalit‡DiVittoria = Modalit‡DiVittoria.REFERENDUM_CON_QUORUM;
+			this.modVittoria = ModVittoria.REFERENDUM_CON_QUORUM;
 		} else {
 			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di vittoria " + modalit‡DiVoto + " non valida");
 		}
@@ -79,22 +79,22 @@ public class SessioneDiVoto {
 		return nome;
 	}
 
-	public Modalit‡DiVoto getModalit‡DiVoto() {
-		return modalit‡DiVoto;
+	public ModVoto getModalit‡DiVoto() {
+		return modVoto;
 	}
 
-	public void setModalit‡DiVoto(Modalit‡DiVoto modalit‡DiVoto) {
-		Objects.requireNonNull(modalit‡DiVoto);
-		this.modalit‡DiVoto = modalit‡DiVoto;
+	public void setModalit‡DiVoto(ModVoto modVoto) {
+		Objects.requireNonNull(modVoto);
+		this.modVoto = modVoto;
 	}
 
-	public Modalit‡DiVittoria getModalit‡DiVittoria() {
-		return modalit‡DiVittoria;
+	public ModVittoria getModalit‡DiVittoria() {
+		return modVittoria;
 	}
 
-	public void setModalit‡DiVittoria(Modalit‡DiVittoria modalit‡DiVittoria) {
-		Objects.requireNonNull(modalit‡DiVittoria);
-		this.modalit‡DiVittoria = modalit‡DiVittoria;
+	public void setModalit‡DiVittoria(ModVittoria modVittoria) {
+		Objects.requireNonNull(modVittoria);
+		this.modVittoria = modVittoria;
 	}
 
 	public StatoSessione getStatoSessione() {
