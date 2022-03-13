@@ -9,7 +9,7 @@ public abstract class Utente {
 	private String cognome; 
 //	private Calendar dataNascita;
 //	private String luogoNascita;
-	private String codiceFiscale;
+//	private String codiceFiscale;
 
 	public Utente(String username, String nome, String cognome) {
 		Objects.requireNonNull(username);
@@ -72,14 +72,12 @@ public abstract class Utente {
 //	}
 
 
-	public String getCodiceFiscale() {
-		return codiceFiscale;
-	}
-
-
-	public void setCodiceFiscale(String codiceFiscale) {
-		this.codiceFiscale = codiceFiscale;
-	}
-		
-	
+//	public String getCodiceFiscale() {
+//		return codiceFiscale;
+//	}
+//
+//
+//	public void setCodiceFiscale(String codiceFiscale) {
+//		this.codiceFiscale = codiceFiscale;
+//	}
 }
