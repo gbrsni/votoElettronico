@@ -59,6 +59,22 @@ public class SessioneDiVoto {
 	public String getNome() {
 		return nome;
 	}
+
+	public Modalit‡DiVoto getModalit‡DiVoto() {
+		return modalit‡DiVoto;
+	}
+
+	public void setModalit‡DiVoto(Modalit‡DiVoto modalit‡DiVoto) {
+		this.modalit‡DiVoto = modalit‡DiVoto;
+	}
+
+	public Modalit‡DiVittoria getModalit‡DiVittoria() {
+		return modalit‡DiVittoria;
+	}
+
+	public void setModalit‡DiVittoria(Modalit‡DiVittoria modalit‡DiVittoria) {
+		this.modalit‡DiVittoria = modalit‡DiVittoria;
+	}
 	
 	// TODO: toString()
 }
