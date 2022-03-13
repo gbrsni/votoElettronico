@@ -26,36 +26,36 @@ public class SessioneDiVoto {
 		}
 	}
 
-	public SessioneDiVoto(int id, String nome, String modalit‡DiVoto, String modalit‡DiVittoria, String statoSessione) throws IllegalArgumentException {
+	public SessioneDiVoto(int id, String nome, String modVoto, String modVittoria, String statoSessione) throws IllegalArgumentException {
 		Objects.requireNonNull(nome);
-		Objects.requireNonNull(modalit‡DiVoto);
-		Objects.requireNonNull(modalit‡DiVittoria);
+		Objects.requireNonNull(modVoto);
+		Objects.requireNonNull(modVittoria);
 		
 		this.id = id;
 		this.nome = nome;
 		
-		if (modalit‡DiVoto.equals("ORDINALE")) {
+		if (modVoto.equals("ORDINALE")) {
 			this.modVoto = ModVoto.ORDINALE;
-		} else if (modalit‡DiVoto.equals("CATEGORICO")) {
+		} else if (modVoto.equals("CATEGORICO")) {
 			this.modVoto = ModVoto.CATEGORICO;
-		} else if (modalit‡DiVoto.equals("CATEGORICO_CON_PREFERENZE")) {
+		} else if (modVoto.equals("CATEGORICO_CON_PREFERENZE")) {
 			this.modVoto = ModVoto.CATEGORICO_CON_PREFERENZE;
-		} else if (modalit‡DiVoto.equals("REFERENDUM")) {
+		} else if (modVoto.equals("REFERENDUM")) {
 			this.modVoto = ModVoto.REFERENDUM;
 		} else {
-			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di voto " + modalit‡DiVoto + " non valida");
+			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di voto " + modVoto + " non valida");
 		}
 		
-		if (modalit‡DiVoto.equals("MAGGIORANZA")) {
+		if (modVittoria.equals("MAGGIORANZA")) {
 			this.modVittoria = ModVittoria.MAGGIORANZA;
-		} else if (modalit‡DiVittoria.equals("MAGGIORANZA_ASSOLUTA")) {
+		} else if (modVittoria.equals("MAGGIORANZA_ASSOLUTA")) {
 			this.modVittoria = ModVittoria.MAGGIORANZA_ASSOLUTA;
-		} else if (modalit‡DiVittoria.equals("REFERENDUM_SENZA_QUORUM")) {
+		} else if (modVittoria.equals("REFERENDUM_SENZA_QUORUM")) {
 			this.modVittoria = ModVittoria.REFERENDUM_SENZA_QUORUM;
-		} else if (modalit‡DiVittoria.equals("REFERENDUM_CON_QUORUM")) {
+		} else if (modVittoria.equals("REFERENDUM_CON_QUORUM")) {
 			this.modVittoria = ModVittoria.REFERENDUM_CON_QUORUM;
 		} else {
-			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di vittoria " + modalit‡DiVoto + " non valida");
+			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalit‡ di vittoria " + modVittoria + " non valida");
 		}
 		
 		if (statoSessione == null || statoSessione.equals("CREATA")) {
