@@ -7,11 +7,9 @@ public abstract class Utente {
 	private String username;
 	private String nome;
 	private String cognome; 
-//	private Calendar dataNascita;
-//	private String luogoNascita;
 	private String codiceFiscale;
 
-	public Utente(String username, String nome, String cognome) {
+	public Utente(String username, String nome, String cognome,String codiceFiscale) {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(cognome);
@@ -19,6 +17,7 @@ public abstract class Utente {
 		this.username = username;
 		this.nome = nome;
 		this.nome = cognome;
+		this.codiceFiscale = codiceFiscale;
 	}
 
 
@@ -51,25 +50,6 @@ public abstract class Utente {
 		this.cognome = cognome;
 	}
 
-
-//	public Calendar getDataNascita() {
-//		return dataNascita;
-//	}
-//
-//
-//	public void setDataNascita(Calendar dataNascita) {
-//		this.dataNascita = dataNascita;
-//	}
-
-
-//	public String getLuogoNascita() {
-//		return luogoNascita;
-//	}
-//
-//
-//	public void setLuogoNascita(String luogoNascita) {
-//		this.luogoNascita = luogoNascita;
-//	}
 
 
 	public String getCodiceFiscale() {
