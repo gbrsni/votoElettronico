@@ -30,7 +30,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="backBottone" mnemonicParsing="false" onAction="#pressBackButton" prefHeight="34.0" prefWidth="107.0" text="Torna Indietro">
+                  <Button fx:id="backBottone" mnemonicParsing="false" onAction="#pressBackButton" prefHeight="34.0" prefWidth="133.0" text="Torna Indietro">
                      <font>
                         <Font size="14.0" />
                      </font>

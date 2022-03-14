@@ -99,7 +99,7 @@
             </HBox>
             <ScrollPane prefHeight="338.0" prefWidth="960.0">
                <content>
-                  <VBox prefHeight="200.0" prefWidth="664.0">
+                  <VBox fx:id="vBoxSessioni" prefHeight="200.0" prefWidth="664.0">
                      <children>
                         <HBox prefHeight="50.0" prefWidth="664.0">
                            <children>
