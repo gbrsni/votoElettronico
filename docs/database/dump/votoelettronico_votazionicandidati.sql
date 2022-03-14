@@ -24,15 +24,15 @@ DROP TABLE IF EXISTS `votazionicandidati`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `votazionicandidati` (
   `sessioni` int NOT NULL,
-  `elettori` int NOT NULL,
+  `elettori` varchar(45) NOT NULL,
   `candidati` int NOT NULL,
   `valore` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`sessioni`,`elettori`),
-  KEY `fk_elettori_votazionecandidati_idx` (`elettori`),
   KEY `fk_candidati_votazionecandidati_idx` (`candidati`),
-  CONSTRAINT `fk_candidati_votazionecandidati` FOREIGN KEY (`candidati`) REFERENCES `candidati` (`id`),
-  CONSTRAINT `fk_elettori_votazionecandidati` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`id`),
-  CONSTRAINT `fk_sessioni_votazionecandidati` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
+  KEY `fk_elettori_votazionicandidati_idx` (`elettori`),
+  CONSTRAINT `fk_candidati_votazionicandidati` FOREIGN KEY (`candidati`) REFERENCES `candidati` (`id`),
+  CONSTRAINT `fk_elettori_votazionicandidati` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`),
+  CONSTRAINT `fk_sessioni_votazionicandidati` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-12 18:07:01
+-- Dump completed on 2022-03-14 10:40:34
