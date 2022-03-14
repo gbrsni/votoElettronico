@@ -27,9 +27,9 @@ CREATE TABLE `sessioni` (
   `nome` varchar(45) NOT NULL,
   `descrizione` text,
   `data` date NOT NULL,
-  `modvoto` enum('ordinale','categorico','categorico con preferenze','referendum') NOT NULL,
+  `modvoto` enum('ORDINALE','CATEGORICO','CATEGORICO_CON_PREFERENZE','REFERENDUM') NOT NULL,
   `modvittoria` enum('maggioranza','maggioranza assoluta','referendum senza quorum','referendum con quorum') NOT NULL,
-  `stato` enum('chiusa','aperta','conclusa','scrutinata') NOT NULL,
+  `stato` enum('CHIUSA','IN_CORSO','CONCLUSA','SCRUTINATA') NOT NULL,
   `nvoti` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 17:38:05
+-- Dump completed on 2022-03-14 20:08:53
