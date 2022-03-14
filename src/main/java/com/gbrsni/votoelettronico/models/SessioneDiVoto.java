@@ -1,38 +1,54 @@
 package com.gbrsni.votoelettronico.models;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class SessioneDiVoto {
 	private final int id;
 	private String nome;
+	private String descrizione;
+	private LocalDate data;
 	private ModVoto modVoto;
 	private ModVittoria modVittoria;
 	private StatoSessione statoSessione;
+	private int nvoti;
 	
-	public SessioneDiVoto(int id, String nome, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione) {
+	
+	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione, int nvoti) {
 		Objects.requireNonNull(nome);
+		Objects.requireNonNull(data);
 		Objects.requireNonNull(modVoto);
 		Objects.requireNonNull(modVittoria);
+		Objects.requireNonNull(nvoti);
 		
 		this.id = id;
 		this.nome = nome;
 		this.modVoto = modVoto;
 		this.modVittoria = modVittoria;
+		this.descrizione = descrizione;
+		this.data = data;
+		this.nvoti = nvoti; 
 		
 		if (statoSessione == null) {
-			this.statoSessione = StatoSessione.CREATA;
+			this.statoSessione = StatoSessione.CHIUSA;
 		} else {
 			this.statoSessione = statoSessione;
 		}
 	}
 
-	public SessioneDiVoto(int id, String nome, String modVoto, String modVittoria, String statoSessione) throws IllegalArgumentException {
+	
+	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data,String modVoto, String modVittoria, String statoSessione, int nvoti) throws IllegalArgumentException {
 		Objects.requireNonNull(nome);
+		Objects.requireNonNull(data);
 		Objects.requireNonNull(modVoto);
 		Objects.requireNonNull(modVittoria);
+		Objects.requireNonNull(nvoti);
 		
 		this.id = id;
 		this.nome = nome;
+		this.descrizione = descrizione;
+		this.data = data;
+		this.nvoti = nvoti; 
 		
 		if (modVoto.equals("ORDINALE")) {
 			this.modVoto = ModVoto.ORDINALE;
@@ -58,10 +74,8 @@ public class SessioneDiVoto {
 			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalità di vittoria " + modVittoria + " non valida");
 		}
 		
-		if (statoSessione == null || statoSessione.equals("CREATA")) {
-			this.statoSessione = StatoSessione.CREATA;
-		} else if (statoSessione.equals("CONFIGUIRATA")) {
-			this.statoSessione = StatoSessione.CONFIGURATA;
+		if (statoSessione.equals("CHIUSA")) {
+			this.statoSessione = StatoSessione.CHIUSA;
 		} else if (statoSessione.equals("IN_CORSO")) {
 			this.statoSessione = StatoSessione.IN_CORSO;
 		} else if (statoSessione.equals("CONCLUSA")) {
@@ -78,7 +92,14 @@ public class SessioneDiVoto {
 	public String getNome() {
 		return nome;
 	}
-
+	public String getDescrizione() {
+		return descrizione;
+	}
+	
+	public LocalDate getData() {
+		return data;
+		
+	}
 	public ModVoto getModVoto() {
 		return modVoto;
 	}
@@ -100,7 +121,10 @@ public class SessioneDiVoto {
 	public StatoSessione getStatoSessione() {
 		return statoSessione;
 	}
-
+	
+	public int getNvoti() {
+		return nvoti;
+	}
 	public void setStatoSessione(StatoSessione statoSessione) {
 		Objects.requireNonNull(statoSessione);
 		this.statoSessione = statoSessione;

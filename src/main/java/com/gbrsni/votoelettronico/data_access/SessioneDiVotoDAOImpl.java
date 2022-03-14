@@ -1,6 +1,7 @@
 package com.gbrsni.votoelettronico.data_access;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,10 +12,10 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
 public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
-	private Connection connection;
+	private Connection connection = DBConnection.getConnection();
 	
-	public SessioneDiVotoDAOImpl(Connection connection) {
-		this.connection = connection;
+	public SessioneDiVotoDAOImpl() {
+	
 	}
 
 	@Override
@@ -27,7 +28,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			
 			while (rs.next()) {
 				try {
-					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
+					//res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
 					e.printStackTrace();
@@ -54,7 +55,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			
 			while (rs.next()) {
 				try {
-					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
+					//res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto con stato " + statoSessione);
 					e.printStackTrace();
@@ -104,14 +105,20 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		System.out.println("Sessione di voto " + s.toString() + " rimossa dal database");
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void addSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO sessioniDiVoto (id, nome, stato) VALUES (?, ?, ?)");
-			ps.setInt(1, s.getId());
-			ps.setString(2, s.getNome());
-			ps.setString(3, s.getStatoSessione().toString());
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO votoelettronico.sessioni (nome, descrizione, data, modvoto, modvittoria, stato, nvoti) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			ps.setString(1, s.getNome());
+			ps.setString(2, s.getDescrizione());
+			Date data = new Date(2000,4,20);
+			ps.setDate(3,data);
+			ps.setString(4, String.valueOf(s.getModVoto()));
+			ps.setString(5, String.valueOf(s.getModVittoria()));
+			ps.setString(6,String.valueOf(s.getStatoSessione()));
+			ps.setInt(7,s.getNvoti());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
@@ -120,15 +127,20 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			return;
 		}
 		System.out.println("Sessione di voto " + s.toString() + " inserita nel database");
+		
 	}
 
 	@Override
-	public void addSessioneDiVoto(int id, String nome, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione) {
+	public void addSessioneDiVoto(int id, String nome, String descrizione, LocalDate data, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione, int nvoti) {
 		Objects.requireNonNull(nome);
+		Objects.requireNonNull(data);
+		Objects.requireNonNull(statoSessione);
+		Objects.requireNonNull(nvoti);
 		Objects.requireNonNull(modVoto);
 		Objects.requireNonNull(modVittoria);
-		SessioneDiVoto s = new SessioneDiVoto(id, nome, modVoto, modVittoria, statoSessione);
+		SessioneDiVoto s = new SessioneDiVoto(id, nome, descrizione, data, modVoto, modVittoria, statoSessione, nvoti);
 		addSessioneDiVoto(s);
 	}
 
+	
 }
