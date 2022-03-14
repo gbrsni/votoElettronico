@@ -2,14 +2,19 @@ package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.gbrsni.votoelettronico.models.Gestore;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class GestoreSessioniController {
-
+public class GestoreSessioniController extends Controller{
+	
+	private Gestore gestore = new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
+	
     @FXML
     private ResourceBundle resources;
 
@@ -33,10 +38,16 @@ public class GestoreSessioniController {
 
     @FXML
     private TextField nomeSessioneText;
-
+    
+    public void onNavigateFrom(Controller sender, Object parameter) {
+    	this.gestore = (Gestore) parameter;
+    	nomeGestore.setText(gestore.getUsername());
+    }
+    
+    
     @FXML
     void handleAggiungiSessione(ActionEvent event) {
-
+    	navigate("ConfigurazioneSessioneView", gestore);
     }
 
     @FXML
@@ -46,12 +57,13 @@ public class GestoreSessioniController {
 
     @FXML
     void handleLogout(ActionEvent event) {
-
+    	gestore = null;
+    	navigate("LoginView");
     }
 
     @FXML
     void handleMenu(ActionEvent event) {
-
+    	navigate("DashBoardView", this.gestore);
     }
 
     @FXML
