@@ -62,11 +62,6 @@ public class Home extends Application {
         navigate(sender, view, null);
     }
     
-    
-    
-    
-     
-     
     public static void main(String[] args) {
        launch(args);
     
