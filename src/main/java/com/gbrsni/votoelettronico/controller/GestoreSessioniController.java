@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 
 public class GestoreSessioniController extends Controller{
 	
-	private Gestore gestore = new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
+	private Gestore gestore ; //new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
 	
     @FXML
     private ResourceBundle resources;
@@ -68,7 +68,7 @@ public class GestoreSessioniController extends Controller{
 
     @FXML
     void handleNomeSessione(ActionEvent event) {
-
+    	
     }
 
     @FXML

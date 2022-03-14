@@ -5,6 +5,7 @@ import java.sql.Connection;
 
 import com.gbrsni.votoelettronico.controller.Controller;
 import com.gbrsni.votoelettronico.data_access.*;
+import com.gbrsni.votoelettronico.models.Gestore;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +51,7 @@ public class Home extends Application {
         FXMLLoader loader = new FXMLLoader(Controller.class.getClassLoader().getResource(view + ".fxml"));
         Parent parent = loader.load();
         Controller controller = loader.getController();
+        controller.onNavigateFrom(sender,parameter);
         return parent;
     }
 

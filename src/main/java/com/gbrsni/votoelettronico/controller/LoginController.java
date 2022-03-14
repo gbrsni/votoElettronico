@@ -100,7 +100,8 @@ public class LoginController extends Controller{
         assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'LoginView.fxml'.";
         assert passwordTextField != null : "fx:id=\"passwordTextField\" was not injected: check your FXML file 'LoginView.fxml'.";
         assert sessioniButton != null : "fx:id=\"sessioniButton\" was not injected: check your FXML file 'LoginView.fxml'.";
-        assert usernameTextField != null : "fx:id=\"usernameTextField\" was not injected: check your FXML file 'LoginView.fxml'.";        assert utenteComboBox != null : "fx:id=\"utenteTextField\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert usernameTextField != null : "fx:id=\"usernameTextField\" was not injected: check your FXML file 'LoginView.fxml'.";        
+        assert utenteComboBox != null : "fx:id=\"utenteTextField\" was not injected: check your FXML file 'LoginView.fxml'.";
         ObservableList<String> dbTypeList = FXCollections.observableArrayList("Elettore","Gestore");
         utenteComboBox.setItems(dbTypeList);
     }
