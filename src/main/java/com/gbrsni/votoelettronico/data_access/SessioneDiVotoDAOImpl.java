@@ -22,13 +22,16 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	public List<SessioneDiVoto> getAllSessioneDiVoto() {
 		List<SessioneDiVoto> res = new ArrayList<>();
 
+
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioniDiVoto");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioni");
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
 				try {
-					//res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
+										LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
+				
+					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, rs.getString("modvoto"), rs.getString("modvittoria"), rs.getString("stato"), rs.getInt("nvoti")));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
 					e.printStackTrace();
