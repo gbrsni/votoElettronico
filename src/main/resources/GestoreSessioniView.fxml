@@ -28,7 +28,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBottone" mnemonicParsing="false" onAction="#handleLogout" text="Logout">
+                  <Button fx:id="logoutBottone" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Insets left="70.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenu" text="Menu">
+                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#pressMenuButton" text="Menu">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -48,7 +48,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="Sessionebottone" mnemonicParsing="false" onAction="#handleAggiungiSessione" text="Aggiungi Sessione">
+                  <Button fx:id="Sessionebottone" mnemonicParsing="false" onAction="#pressAggiungiSessioneButton" text="Aggiungi Sessione">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -64,7 +64,7 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="nomeSessioneText" onAction="#handleNomeSessione" promptText="inserisci nome sessione">
+                  <TextField fx:id="nomeSessioneTextField" promptText="inserisci nome sessione">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Insets left="20.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="cercaBottone" mnemonicParsing="false" onAction="#handleCerca" text="Cerca">
+                  <Button fx:id="cercaBottone" mnemonicParsing="false" onAction="#pressCercaButton" text="Cerca">
                      <HBox.margin>
                         <Insets left="20.0" top="5.0" />
                      </HBox.margin>

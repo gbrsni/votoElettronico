@@ -8,10 +8,10 @@ import java.util.Objects;
 import com.gbrsni.votoelettronico.models.Partito;
 
 public class PartitoDAOImpl implements PartitoDAO {
-	private Connection connection;
+	private Connection connection = DBConnection.getConnection();
 
-	public PartitoDAOImpl(Connection connection) {
-		this.connection = connection;
+	public PartitoDAOImpl() {
+		
 	}
 
 	@Override
@@ -34,7 +34,29 @@ public class PartitoDAOImpl implements PartitoDAO {
 		
 		return res;
 	}
+	
+	@Override
+	public Partito getPartitoById(int id) {
+		Partito p = null; 
 
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM partiti WHERE id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				p = new Partito(rs.getInt("id"), rs.getString("nome"));
+			}
+			
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'ottenimento di tutti gli partiti");
+			e.printStackTrace();
+		}
+		
+		return p;
+	}
+	
 	@Override
 	public void updatePartito(Partito p) {
 		Objects.requireNonNull(p);

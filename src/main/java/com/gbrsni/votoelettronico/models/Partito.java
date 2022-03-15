@@ -13,6 +13,10 @@ public class Partito {
 		this.nome = nome;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+	
 	public String getNome() {
 		return this.nome;
 	}

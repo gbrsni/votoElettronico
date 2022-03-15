@@ -7,6 +7,7 @@ import com.gbrsni.votoelettronico.models.*;
 
 public interface SessioneDiVotoDAO {
 	public List<SessioneDiVoto> getAllSessioneDiVoto();
+	public List<SessioneDiVoto> getSessioneDiVotoByName(String nome);
 	public List<SessioneDiVoto> getAllSessioneDiVotoByStato(StatoSessione statoSessione);
 	public void updateSessioneDiVoto(SessioneDiVoto s);
 	public void deleteSessioneDiVoto(SessioneDiVoto s);

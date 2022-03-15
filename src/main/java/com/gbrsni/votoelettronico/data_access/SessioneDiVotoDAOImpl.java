@@ -29,8 +29,37 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			
 			while (rs.next()) {
 				try {
-										LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
-				
+					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
+					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, rs.getString("modvoto"), rs.getString("modvittoria"), rs.getString("stato"), rs.getInt("nvoti")));
+				} catch (IllegalArgumentException e) {
+					System.out.println("Errore durante l'ottenimento di una sessione di voto");
+					e.printStackTrace();
+				}
+			}
+			
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	@Override
+	public List<SessioneDiVoto> getSessioneDiVotoByName(String nome) {
+		Objects.requireNonNull(nome);
+		List<SessioneDiVoto> res = new ArrayList<>();
+		
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioni where nome = ?");
+			ps.setString(1, nome);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				try {
+					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
 					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, rs.getString("modvoto"), rs.getString("modvittoria"), rs.getString("stato"), rs.getInt("nvoti")));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
@@ -116,7 +145,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO votoelettronico.sessioni (nome, descrizione, data, modvoto, modvittoria, stato, nvoti) VALUES (?, ?, ?, ?, ?, ?, ?)");
 			ps.setString(1, s.getNome());
 			ps.setString(2, s.getDescrizione());
-			Date data = new Date(2000,4,20);
+			Date data = new Date(s.getData().getYear(),s.getData().getMonthValue(),s.getData().getDayOfMonth());
 			ps.setDate(3,data);
 			ps.setString(4, String.valueOf(s.getModVoto()));
 			ps.setString(5, String.valueOf(s.getModVittoria()));

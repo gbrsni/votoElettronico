@@ -50,7 +50,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nomeTextField" prefHeight="31.0" prefWidth="287.0" promptText="inserisci nome sessione...">
+                  <TextField fx:id="nomeTextField" prefHeight="31.0" prefWidth="287.0" promptText="inserisci nome sessione..." text="null">
                      <HBox.margin>
                         <Insets left="100.0" />
                      </HBox.margin>

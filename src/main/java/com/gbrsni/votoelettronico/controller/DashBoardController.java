@@ -54,7 +54,7 @@ public class DashBoardController extends Controller{
     @FXML
     private Label sessioniTotaliLabel;
 
-    
+
     public void onNavigateFrom(Controller sender, Object parameter) {
     	this.gestore = (Gestore) parameter;
     	nomeGestore.setText(gestore.getUsername());
@@ -69,7 +69,7 @@ public class DashBoardController extends Controller{
     
     @FXML
     void pressCandidatiButton(ActionEvent event) {
-    	
+    	navigate("GestioneListeView", gestore);
     }
 
    

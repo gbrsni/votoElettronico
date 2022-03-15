@@ -1,6 +1,9 @@
 package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
@@ -21,6 +24,7 @@ import javafx.scene.control.TextField;
 public class ConfigurazioneSessioneController extends Controller{
 	
 	private Gestore gestore;
+	private SessioneDiVoto sessione; 
 	
     @FXML
     private ResourceBundle resources;
@@ -58,9 +62,14 @@ public class ConfigurazioneSessioneController extends Controller{
     @FXML
     private Button saveBottone;
     
+    public void impostaDati(SessioneDiVoto s) {
+    	System.out.println("ciao");
+    }
+    
     public void onNavigateFrom(Controller sender, Object parameter) {
-    	this.gestore = (Gestore) parameter;
-    	nomeGestore.setText(gestore.getUsername());
+    		this.gestore = (Gestore) parameter;
+    		nomeGestore.setText(gestore.getUsername());
+    	
     }
     
     
@@ -107,15 +116,16 @@ public class ConfigurazioneSessioneController extends Controller{
     
     @FXML
     void initialize() {
-        assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert dataDatePicker != null : "fx:id=\"dataDatePicker\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert descrizioneTextField != null : "fx:id=\"descrizioneTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert modVittoriaComboBox != null : "fx:id=\"modVIttoriaComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert modVotoComboBox != null : "fx:id=\"modVotoComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert nomeTextField != null : "fx:id=\"nomeTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert pressScaltaCandidatiButton != null : "fx:id=\"pressScaltaCandidatiButton\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        assert saveBottone != null : "fx:id=\"saveBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+    	  assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert dataDatePicker != null : "fx:id=\"dataDatePicker\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert datiMancantiLabel != null : "fx:id=\"datiMancantiLabel\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert descrizioneTextField != null : "fx:id=\"descrizioneTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert modVittoriaComboBox != null : "fx:id=\"modVittoriaComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert modVotoComboBox != null : "fx:id=\"modVotoComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert nomeTextField != null : "fx:id=\"nomeTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert pressScaltaCandidatiButton != null : "fx:id=\"pressScaltaCandidatiButton\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          assert saveBottone != null : "fx:id=\"saveBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
         ObservableList<String> dbTypeList = FXCollections.observableArrayList("ORDINALE","CATEGORICO","CATEGORICO_CON_PREFERENZE", "REFERENDUM");
         modVotoComboBox.setItems(dbTypeList);
         

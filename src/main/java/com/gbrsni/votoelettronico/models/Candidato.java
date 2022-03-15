@@ -17,7 +17,8 @@ public class Candidato {
 		this.cognome = cognome;
 		this.partito = partito;
 	}
-
+	
+	
 	public Partito getPartito() {
 		return partito;
 	}
@@ -25,7 +26,11 @@ public class Candidato {
 	public void setPartito(Partito partito) {
 		this.partito = partito;
 	}
-
+	
+	public int getId() {
+		return this.id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
