@@ -26,6 +26,7 @@ CREATE TABLE `votireferendum` (
   `sessioni` int NOT NULL,
   `nvoti1` int DEFAULT NULL,
   `nvoti2` int DEFAULT NULL,
+  `nastenuti` int DEFAULT NULL,
   `vincitore` enum('favorevole','contrario') DEFAULT NULL,
   PRIMARY KEY (`sessioni`),
   CONSTRAINT `fk_sessioni_votireferendum` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-09 15:29:11
+-- Dump completed on 2022-03-14 10:40:34

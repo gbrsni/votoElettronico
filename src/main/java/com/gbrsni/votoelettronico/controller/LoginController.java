@@ -7,25 +7,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.Node;
 import java.io.IOException;
-import com.gbrsni.votoelettronico.controller.DashBoardController;
 
-public class LoginController {
-	
-	private Stage stage; 
-	private Scene scene;
-	private Parent root;
-	
+import com.gbrsni.votoelettronico.data_access.GestoreDAOImpl;
+import com.gbrsni.votoelettronico.data_access.ElettoreDAOImpl;
+import com.gbrsni.votoelettronico.models.Elettore;
+import com.gbrsni.votoelettronico.models.Gestore;
+import com.gbrsni.votoelettronico.models.SaltedPassword;
+
+public class LoginController extends Controller{
+
     @FXML
     private ResourceBundle resources;
 
@@ -33,59 +29,81 @@ public class LoginController {
     private URL location;
 
     @FXML
-    private Button button;
+    private Label erroreLabel;
 
     @FXML
-    private PasswordField labelPassword;
+    private Button loginButton;
 
     @FXML
-    private TextField labelUsername;
+    private PasswordField passwordTextField;
 
     @FXML
-    private ComboBox<String> tipologiaUtente ;
+    private Button sessioniButton;
 
     @FXML
-    void handleName(ActionEvent event) {
-
-    }
+    private TextField usernameTextField;
 
     @FXML
-    void handlePassword(ActionEvent event) {
-
-    }
-
+    private ComboBox<String> utenteComboBox;
+    
+    public void onNavigateFrom(Controller sender, Object parameter) {}
+    
     @FXML
-    void handleSceltaUtente(ActionEvent event) {
-
-    }
-
-    @FXML
-    void pressButton(ActionEvent event) throws IOException {
+    void pressLoginButton(ActionEvent event) throws IOException {
     	
-    	//CAMBIARE LA SCENA -> DASHBOARD.fxml
-    	/**
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("DashBoardView.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        DashBoardController controller = (DashBoardController)
-        stage.show();
-        **/
-    	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DashBoardView.fxml"));
-        Parent root = loader.load();
-        DashBoardController controller = loader.getController();
-        controller.setName("ciao");
-        button.getScene().setRoot(root);
+    	erroreLabel.setVisible(false);
+    	String tipoutente = utenteComboBox.getValue();
+    	String password = passwordTextField.getText().trim();
+    	String username = usernameTextField.getText().trim();
+    	if (tipoutente == null || username.equals("") || password.equals("")) {
+    		erroreLabel.setText("Inserisci dati mancanti");
+    		erroreLabel.setVisible(true);
+    	} else {
+    		switch (tipoutente) {
+    		
+    			case "Gestore":
+    				GestoreDAOImpl gestoreDb = new GestoreDAOImpl();
+    				SaltedPassword passwordGestore = gestoreDb.getPasswordGestoreByUsername(username);
+    				if(passwordGestore != null && passwordGestore.checkPassword(password) ) {
+    					Gestore gestore = gestoreDb.getGestoreByUsername(username);
+    					navigate("DashBoardView", gestore);
+    				} else {
+    					erroreLabel.setText("Dati inseriti non corretti");
+    					erroreLabel.setVisible(true);
+    				}
+    				
+    				break; 
+    			case "Elettore":
+    				ElettoreDAOImpl elettoreDb = new ElettoreDAOImpl();
+    				SaltedPassword passwordElettore = elettoreDb.getPasswordElettoreByUsername(username);
+    				if(passwordElettore != null && passwordElettore.checkPassword(password)) {
+    					Elettore elettore = elettoreDb.getElettoreByUsername(username);
+    					navigate("ElettoreSessioniView", elettore);
+    				} else {
+    					erroreLabel.setText("Dati inseriti non corretti");
+    					erroreLabel.setVisible(true);
+    				}
+    				break;
+    		}
+    	}
+    		
+    }
+
+    @FXML
+    void pressSessioniButton(ActionEvent event) {
+    	
     }
 
     @FXML
     void initialize() {
-        assert button != null : "fx:id=\"button\" was not injected: check your FXML file 'LoginView.fxml'.";
-        assert labelPassword != null : "fx:id=\"labelPassword\" was not injected: check your FXML file 'LoginView.fxml'.";
-        assert labelUsername != null : "fx:id=\"labelUsername\" was not injected: check your FXML file 'LoginView.fxml'.";
-        assert tipologiaUtente != null : "fx:id=\"tipologiaUtente\" was not injected: check your FXML file 'LoginView.fxml'.";
-        ObservableList<String> dbTypeList = FXCollections.observableArrayList("Elettore","Impiegato");
-        tipologiaUtente.setItems(dbTypeList);
+        assert erroreLabel != null : "fx:id=\"erroreLabel\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert passwordTextField != null : "fx:id=\"passwordTextField\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert sessioniButton != null : "fx:id=\"sessioniButton\" was not injected: check your FXML file 'LoginView.fxml'.";
+        assert usernameTextField != null : "fx:id=\"usernameTextField\" was not injected: check your FXML file 'LoginView.fxml'.";        
+        assert utenteComboBox != null : "fx:id=\"utenteTextField\" was not injected: check your FXML file 'LoginView.fxml'.";
+        ObservableList<String> dbTypeList = FXCollections.observableArrayList("Elettore","Gestore");
+        utenteComboBox.setItems(dbTypeList);
     }
 
 }

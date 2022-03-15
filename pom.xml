@@ -7,6 +7,8 @@
   <properties>
   	<maven.compiler.source>11</maven.compiler.source>
   	<maven.compiler.target>11</maven.compiler.target>
+  	
+    <project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
   </properties>
   <dependencies>
     <dependency>
@@ -19,5 +21,22 @@
       <artifactId>javafx-fxml</artifactId>
       <version>11.0.2</version>
     </dependency>
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>8.0.18</version>
+    </dependency>
   </dependencies>
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.openjfx</groupId>
+  			<artifactId>javafx-maven-plugin</artifactId>
+  			<version>0.0.8</version>
+  			<configuration>
+  				<mainClass>com.gbrsni.votoelettronico.Home</mainClass>
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </build>
 </project>

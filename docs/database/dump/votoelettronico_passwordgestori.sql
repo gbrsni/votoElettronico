@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `passwordgestori`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passwordgestori` (
-  `gestori` int NOT NULL,
+  `gestori` varchar(45) NOT NULL,
   `salt` varchar(45) NOT NULL,
   `hash` varchar(200) NOT NULL,
   PRIMARY KEY (`gestori`),
-  CONSTRAINT `fk_gestori_passwordgestori` FOREIGN KEY (`gestori`) REFERENCES `gestori` (`id`)
+  CONSTRAINT `fk_gestori_passwordgestori` FOREIGN KEY (`gestori`) REFERENCES `gestori` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-09 15:29:10
+-- Dump completed on 2022-03-14 10:40:34

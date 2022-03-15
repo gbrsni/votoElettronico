@@ -16,26 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `partiti`
+-- Table structure for table `votiastenuti`
 --
 
-DROP TABLE IF EXISTS `partiti`;
+DROP TABLE IF EXISTS `votiastenuti`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `partiti` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `votiastenuti` (
+  `sessioni` int NOT NULL,
+  `nvoti` int NOT NULL,
+  PRIMARY KEY (`sessioni`),
+  CONSTRAINT `fk_sessioni_votiastenuti` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `partiti`
+-- Dumping data for table `votiastenuti`
 --
 
-LOCK TABLES `partiti` WRITE;
-/*!40000 ALTER TABLE `partiti` DISABLE KEYS */;
-/*!40000 ALTER TABLE `partiti` ENABLE KEYS */;
+LOCK TABLES `votiastenuti` WRITE;
+/*!40000 ALTER TABLE `votiastenuti` DISABLE KEYS */;
+/*!40000 ALTER TABLE `votiastenuti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:34
+-- Dump completed on 2022-03-14 10:40:33

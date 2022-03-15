@@ -16,26 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `partiti`
+-- Table structure for table `votazioniastenuti`
 --
 
-DROP TABLE IF EXISTS `partiti`;
+DROP TABLE IF EXISTS `votazioniastenuti`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `partiti` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `votazioniastenuti` (
+  `sessioni` int NOT NULL,
+  `elettori` varchar(45) NOT NULL,
+  PRIMARY KEY (`sessioni`,`elettori`),
+  KEY `fk_elettori_votazioneastenuti_idx` (`elettori`),
+  CONSTRAINT `fk_elettori_votazioneastenuti` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`),
+  CONSTRAINT `fk_sessioni_votazioniastenuti` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `partiti`
+-- Dumping data for table `votazioniastenuti`
 --
 
-LOCK TABLES `partiti` WRITE;
-/*!40000 ALTER TABLE `partiti` DISABLE KEYS */;
-/*!40000 ALTER TABLE `partiti` ENABLE KEYS */;
+LOCK TABLES `votazioniastenuti` WRITE;
+/*!40000 ALTER TABLE `votazioniastenuti` DISABLE KEYS */;
+/*!40000 ALTER TABLE `votazioniastenuti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
