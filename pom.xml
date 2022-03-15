@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.gbrsni.sweng</groupId>
   <artifactId>votoElettronico</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0</version>
   <name>Voto Elettronico</name>
   <properties>
   	<maven.compiler.source>11</maven.compiler.source>
