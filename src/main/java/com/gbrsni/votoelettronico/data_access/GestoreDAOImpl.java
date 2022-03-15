@@ -9,12 +9,10 @@ import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
 
-public class GestoreDAOImpl implements GestoreDAO {
-	
-	private Connection connection = DBConnection.getConnection() ;
+public class GestoreDAOImpl implements GestoreDAO {	
+	private Connection connection = DBConnection.getConnection();
 
 	public GestoreDAOImpl() {
-		
 	}
 
 	@Override
@@ -26,7 +24,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				res.add(new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome")));
+				res.add(new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"),rs.getString("codicefiscale")));
 			}
 			
 			ps.close();

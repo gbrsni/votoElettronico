@@ -9,18 +9,17 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.Utente;
 
 public class UtenteDAOImpl implements UtenteDAO {
-	private Connection connection;
+	private Connection connection = DBConnection.getConnection();
 	
-	public UtenteDAOImpl(Connection connection) {
-		this.connection = connection;
+	public UtenteDAOImpl() {
 	}
 	
 	@Override
 	public List<Utente> getAllUtente() {
 		List<Utente> res = new ArrayList<>();
 
-		ElettoreDAO elettoreDAO = new ElettoreDAOImpl(connection);
-		GestoreDAO gestoreDAO = new GestoreDAOImpl(connection);
+		ElettoreDAO elettoreDAO = new ElettoreDAOImpl();
+		GestoreDAO gestoreDAO = new GestoreDAOImpl();
 		
 		res.addAll(elettoreDAO.getAllElettore());
 		res.addAll(gestoreDAO.getAllGestore());
