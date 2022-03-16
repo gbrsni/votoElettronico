@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -50,7 +51,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nomeTextField" prefHeight="31.0" prefWidth="287.0" promptText="inserisci nome sessione..." text="null">
+                  <TextField fx:id="nomeTextField" prefHeight="31.0" prefWidth="287.0" promptText="inserisci nome sessione...">
                      <HBox.margin>
                         <Insets left="100.0" />
                      </HBox.margin>
@@ -114,9 +115,9 @@
                   </ComboBox>
                </children>
             </HBox>
-            <HBox prefHeight="184.0" prefWidth="900.0">
+            <HBox prefHeight="200.0" prefWidth="900.0">
                <children>
-                  <Label text="Seleziona Candidati:">
+                  <Label text="Seleziona candidati:">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -124,26 +125,26 @@
                         <Insets top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="pressScaltaCandidatiButton" mnemonicParsing="false" text="Modifica">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
+                  <ComboBox fx:id="partitoComboBox" onAction="#selectPartitoComboBox" prefHeight="30.0" prefWidth="155.0" promptText="Seleziona Partito">
                      <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
+                        <Insets left="50.0" top="20.0" />
                      </HBox.margin>
-                  </Button>
-                  <Label text="qua ci andranno i candidati e partiti già selezinati">
+                  </ComboBox>
+                  <ScrollPane prefHeight="200.0" prefWidth="380.0">
                      <HBox.margin>
-                        <Insets left="50.0" top="50.0" />
+                        <Insets left="50.0" />
                      </HBox.margin>
-                  </Label>
+                     <content>
+                        <VBox fx:id="candidatiVbox" prefHeight="193.0" prefWidth="356.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </HBox>
-            <HBox prefHeight="53.0" prefWidth="900.0">
+            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="datiMancantiLabel" text="dati mancanti" textFill="RED" visible="false">
+                  <Label fx:id="datiMancantiLabel" text="Dati Mancanti" textFill="RED" visible="false">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                </children>
@@ -159,7 +160,7 @@
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets left="50.0" right="50.0" top="50.0" />
+            <Insets left="50.0" right="50.0" />
          </BorderPane.margin>
       </VBox>
    </center>

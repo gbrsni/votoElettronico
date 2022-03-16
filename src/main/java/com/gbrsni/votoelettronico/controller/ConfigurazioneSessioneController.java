@@ -1,77 +1,110 @@
 package com.gbrsni.votoelettronico.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.gbrsni.votoelettronico.Home;
+import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
+import com.gbrsni.votoelettronico.data_access.PartitoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
+import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Gestore;
+import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class ConfigurazioneSessioneController extends Controller{
 	
 	private Gestore gestore;
 	private SessioneDiVoto sessione; 
+	private List<Partito> partiti;
+	private List<Candidato> candidati;
+	private List<Integer> candidatiSelezionati;
 	
-    @FXML
-    private ResourceBundle resources;
+	 @FXML
+	    private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	    @FXML
+	    private URL location;
 
-    @FXML
-    private Button backBottone;
+	    @FXML
+	    private Button backBottone;
 
-    @FXML
-    private DatePicker dataDatePicker;
+	    @FXML
+	    private VBox candidatiVbox;
+
+	    @FXML
+	    private DatePicker dataDatePicker;
+
+	    @FXML
+	    private Label datiMancantiLabel;
+
+	    @FXML
+	    private TextArea descrizioneTextField;
+
+	    @FXML
+	    private ComboBox<String> modVittoriaComboBox;
+
+	    @FXML
+	    private ComboBox<String> modVotoComboBox;
+
+	    @FXML
+	    private Label nomeGestore;
+
+	    @FXML
+	    private TextField nomeTextField;
+
+	    @FXML
+	    private ComboBox<String> partitoComboBox;
+
+	    @FXML
+	    private Button saveBottone;
     
-    @FXML
-    private Label datiMancantiLabel;
-    
-    @FXML
-    private TextArea descrizioneTextField;
-
-    @FXML
-    private ComboBox<String> modVittoriaComboBox;
-
-    @FXML
-    private ComboBox<String> modVotoComboBox;
-
-    @FXML
-    private Label nomeGestore;
-
-    @FXML
-    private TextField nomeTextField;
-
-    @FXML
-    private Button pressScaltaCandidatiButton;
-
-    @FXML
-    private Button saveBottone;
-    
-    public void impostaDati(SessioneDiVoto s) {
-    	System.out.println("ciao");
-    }
     
     public void onNavigateFrom(Controller sender, Object parameter) {
-    		this.gestore = (Gestore) parameter;
-    		nomeGestore.setText(gestore.getUsername());
+    	
+    	try {
+	    	Object[] dati = (Object[]) parameter;
+	        gestore = (Gestore) dati[0];
+	        nomeGestore.setText(gestore.getNome());
+	        sessione = (SessioneDiVoto) dati[1];
+	        nomeTextField.setText(sessione.getNome());
+	        dataDatePicker.setValue(sessione.getData());
+	        descrizioneTextField.setText(sessione.getDescrizione());
+	        modVotoComboBox.setValue(sessione.getModVoto().toString());
+	        modVittoriaComboBox.setValue(sessione.getModVittoria().toString());
+        	//IMPOSTARE CANDIDATI SELEZIONATI
+	        //candidatiSelezionati = new ArrayList<>();
+	        
+    	} catch(Exception e) {
+    		gestore = (Gestore) parameter;
+    		nomeGestore.setText(gestore.getNome());
+    		candidatiSelezionati = new ArrayList<>();
+    	}
+    	
     	
     }
-    
+
     
     @FXML
     void pressBackButton(ActionEvent event) {
@@ -96,6 +129,7 @@ public class ConfigurazioneSessioneController extends Controller{
     		SessioneDiVotoDAOImpl sessionedb = new SessioneDiVotoDAOImpl();
     		sessionedb.addSessioneDiVoto(sessione);
     		navigate("GestoreSessioniView", gestore);
+    		
     	}	
     }
     
@@ -115,21 +149,66 @@ public class ConfigurazioneSessioneController extends Controller{
     }
     
     @FXML
-    void initialize() {
-    	  assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert dataDatePicker != null : "fx:id=\"dataDatePicker\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert datiMancantiLabel != null : "fx:id=\"datiMancantiLabel\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert descrizioneTextField != null : "fx:id=\"descrizioneTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert modVittoriaComboBox != null : "fx:id=\"modVittoriaComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert modVotoComboBox != null : "fx:id=\"modVotoComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert nomeTextField != null : "fx:id=\"nomeTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert pressScaltaCandidatiButton != null : "fx:id=\"pressScaltaCandidatiButton\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-          assert saveBottone != null : "fx:id=\"saveBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
-        ObservableList<String> dbTypeList = FXCollections.observableArrayList("ORDINALE","CATEGORICO","CATEGORICO_CON_PREFERENZE", "REFERENDUM");
-        modVotoComboBox.setItems(dbTypeList);
-        
+    void selectPartitoComboBox(ActionEvent event) {
+    	candidatiVbox.getChildren().clear();
+    	for (int i = 0; i < candidati.size(); i++) {
+    		if (candidati.get(i).getPartito().getNome().equals(partitoComboBox.getValue())){
+    			HBox candidatiHbox = new HBox();
+    			CheckBox candidatiCheckBox = new CheckBox();
+    			candidatiCheckBox.setId(candidati.get(i).getId() + "");
+    			candidatiCheckBox.setText(candidati.get(i).getNome() + " " + candidati.get(i).getCognome());
+    			candidatiCheckBox.setFont(new Font(20));
+    			candidatiCheckBox.setOnAction(selezionaCandidati);
+    			candidatiHbox.getChildren().add(candidatiCheckBox);
+    			candidatiVbox.getChildren().add(candidatiHbox);
+    			
+    		}
+    		
+    	}
+    	
+    }
+    
+  //Seleziona CheckBox
+    private EventHandler<ActionEvent> selezionaCandidati = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {	
+        	if (((CheckBox)e.getSource()).isSelected()){
+        		System.out.println("hai selezionato " + ((CheckBox)e.getSource()).getText() );
+        		candidatiSelezionati.add(Integer.valueOf(((CheckBox)e.getSource()).getId()));
+        	} else {
+        		System.out.println("hai deselezionato " + ((CheckBox)e.getSource()).getText());
+        		candidatiSelezionati.remove(Integer.valueOf(((CheckBox)e.getSource()).getId()));
+        	}
+        	System.out.println(candidatiSelezionati);
+        }
+    };
 
+	@FXML
+    void initialize() {
+    	assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert candidatiVbox != null : "fx:id=\"candidatiVbox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert dataDatePicker != null : "fx:id=\"dataDatePicker\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert datiMancantiLabel != null : "fx:id=\"datiMancantiLabel\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert descrizioneTextField != null : "fx:id=\"descrizioneTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert modVittoriaComboBox != null : "fx:id=\"modVittoriaComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert modVotoComboBox != null : "fx:id=\"modVotoComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert nomeTextField != null : "fx:id=\"nomeTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert partitoComboBox != null : "fx:id=\"partitoComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+        assert saveBottone != null : "fx:id=\"saveBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          ObservableList<String> dbTypeList = FXCollections.observableArrayList("ORDINALE","CATEGORICO","CATEGORICO_CON_PREFERENZE", "REFERENDUM");
+          modVotoComboBox.setItems(dbTypeList);
+          PartitoDAOImpl partitoDb = new PartitoDAOImpl();
+          partiti = partitoDb.getAllPartito();
+          List<String> partitiNome = new ArrayList<>();
+          for (int i = 0; i < partiti.size(); i++) {
+        	  partitiNome.add(partiti.get(i).getNome());
+          }
+          ObservableList<String> dbTypeList1 = FXCollections.observableArrayList(partitiNome);
+          partitoComboBox.setItems(dbTypeList1);
+          CandidatoDAOImpl candidatiDb = new CandidatoDAOImpl();
+          candidati = candidatiDb.getAllCandidato();
+        
     }
 
 }
