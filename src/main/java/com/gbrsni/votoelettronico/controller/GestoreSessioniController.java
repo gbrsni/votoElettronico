@@ -69,10 +69,22 @@ public class GestoreSessioniController extends Controller{
 
     @FXML
     void pressCercaButton(ActionEvent event) {
+    	/**
         SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
         if (nomeSessioneTextField.getText().equals("")) sessioni = sessioniDb.getAllSessioneDiVoto();
         else sessioni = sessioniDb.getSessioneDiVotoByName(nomeSessioneTextField.getText());
-        init();
+        **/
+    	String cerca = nomeSessioneTextField.getText();
+    	if (cerca.equals("")) init(sessioni);
+    	else {
+    		List<SessioneDiVoto> sessioniCerca = new ArrayList<>();
+	    	for (int i = 0 ; i < sessioni.size(); i++) {
+	    		if (sessioni.get(i).getNome().toLowerCase().contains(cerca.toLowerCase())){
+	    			sessioniCerca.add(sessioni.get(i));
+	    		}
+	    	}
+        	init(sessioniCerca);
+    	}
     }
 
     @FXML
@@ -146,7 +158,7 @@ public class GestoreSessioniController extends Controller{
         }
     };
     
-    private void init() {
+    private void init(List<SessioneDiVoto> sessioni) {
     	
         sessioniVbox.getChildren().clear();
         sessioniVbox.setPrefWidth(950);
@@ -204,7 +216,7 @@ public class GestoreSessioniController extends Controller{
          assert sessioniVbox != null : "fx:id=\"sessioniVbox\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
          SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
          sessioni = sessioniDb.getAllSessioneDiVoto();
-         init();
+         init(sessioni);
     }
   }
 
