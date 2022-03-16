@@ -111,7 +111,7 @@ public class GestioneListeController extends Controller{
 	        candidatiLabel.setFont(new Font(15));
 	        Button candidatiBottone = new Button("Modifica");
 	        candidatiBottone.setId(candidati.get(i).getId() + "");
-	        candidatiLabel.setText(candidati.get(i).getNome() + " partito:" + candidati.get(i).getPartito().getNome() );
+	        candidatiLabel.setText(candidati.get(i).getNome() + " " + candidati.get(i).getCognome() + "  partito:" + candidati.get(i).getPartito().getNome() );
 	        Region region1 = new Region();
 	        candidatiHbox.setHgrow(region1, Priority.ALWAYS);
 	        candidatiHbox.getChildren().add(candidatiLabel);
