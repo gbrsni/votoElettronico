@@ -26,7 +26,7 @@ import javafx.scene.text.Font;
 
 public class GestoreSessioniController extends Controller{
 	
-	private Gestore gestore ; //new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
+	private Gestore gestore ;// = new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
 	private List<SessioneDiVoto> sessioni;
 	
     @FXML
@@ -120,8 +120,9 @@ public class GestoreSessioniController extends Controller{
             	}
             }
             ConfigurazioneSessioneController controller = new ConfigurazioneSessioneController();
-            controller.impostaDati(s);
-            navigate("ConfigurazioneSessioneView", gestore);
+            Object[] parameter = new Object[] {gestore,s};  
+            navigate("ConfigurazioneSessioneView", parameter);
+          
         }
        
     };
@@ -180,7 +181,9 @@ public class GestoreSessioniController extends Controller{
                 	bottoneAvvia.setId(sessioni.get(i).getId() + "");
                 	bottoneModifica.setId(sessioni.get(i).getId() + "");
                 	bottoneElimina.setId(sessioni.get(i).getId()+ "");
+                	bottoneAvvia.setOnAction(avviaSessione);
                 	bottoneModifica.setOnAction(modificaSessione);
+                	bottoneElimina.setOnAction(eliminaSessione);
                 	sessioniHbox.getChildren().add(bottoneAvvia);
                 	sessioniHbox.getChildren().add(bottoneModifica);
                 	sessioniHbox.getChildren().add(bottoneElimina);
