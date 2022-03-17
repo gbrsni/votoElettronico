@@ -39,7 +39,8 @@ public class ConfigurazioneSessioneController extends Controller{
 	private SessioneDiVoto sessione; 
 	private List<Partito> partiti;
 	private List<Candidato> candidati;
-	private List<Integer> candidatiSelezionati;
+	private List<Partito> partitiSelezionati;
+	private List<Candidato> candidatiSelezionati;
 	
 	 @FXML
 	    private ResourceBundle resources;
@@ -100,6 +101,7 @@ public class ConfigurazioneSessioneController extends Controller{
     		gestore = (Gestore) parameter;
     		nomeGestore.setText(gestore.getNome());
     		candidatiSelezionati = new ArrayList<>();
+    		partitiSelezionati = new ArrayList<>();
     	}
     	
     	
@@ -127,11 +129,26 @@ public class ConfigurazioneSessioneController extends Controller{
     	} else {
     		SessioneDiVoto sessione = new SessioneDiVoto(0,nomeTextField.getText(),descrizioneTextField.getText(),dataDatePicker.getValue(), modVotoComboBox.getValue(), modVittoriaComboBox.getValue(), "CHIUSA", 0);
     		SessioneDiVotoDAOImpl sessionedb = new SessioneDiVotoDAOImpl();
-    		sessionedb.addSessioneDiVoto(sessione);
+    		int id = sessionedb.addSessioneDiVoto(sessione);
+    		System.out.println("id inserito:" + id);
+    		sessione.setId(id);
+    		
+    		for (int i = 0; i < candidatiSelezionati.size(); i++) {
+    			if (!partitiSelezionati.contains(candidati.get(i).getPartito()))
+    					partitiSelezionati.add(candidatiSelezionati.get(i).getPartito());
+    		}
+
+    		if (!modVotoComboBox.getValue().equals("REFERENDUM")) {
+    			sessionedb.addVotiPartiti(sessione, partitiSelezionati );
+    			sessionedb.addVotiCandidati(sessione, candidatiSelezionati);
+    			sessionedb.addVotiAstenuti(sessione);
+    		}
+    	
     		navigate("GestoreSessioniView", gestore);
     		
     	}	
     }
+    
     
     @FXML
     void selectModVoto(ActionEvent event) {
@@ -155,7 +172,8 @@ public class ConfigurazioneSessioneController extends Controller{
     		if (candidati.get(i).getPartito().getNome().equals(partitoComboBox.getValue())){
     			HBox candidatiHbox = new HBox();
     			CheckBox candidatiCheckBox = new CheckBox();
-    			candidatiCheckBox.setId(candidati.get(i).getId() + "");
+    			candidatiCheckBox.setUserData(candidati.get(i));
+    			//candidatiCheckBox.setId(candidati.get(i).getId() + ";" + candidati.get(i).getPartito().getId());
     			candidatiCheckBox.setText(candidati.get(i).getNome() + " " + candidati.get(i).getCognome());
     			candidatiCheckBox.setFont(new Font(20));
     			candidatiCheckBox.setOnAction(selezionaCandidati);
@@ -172,12 +190,16 @@ public class ConfigurazioneSessioneController extends Controller{
     private EventHandler<ActionEvent> selezionaCandidati = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {	
+        	Candidato c = (Candidato)((CheckBox)e.getSource()).getUserData();
         	if (((CheckBox)e.getSource()).isSelected()){
-        		System.out.println("hai selezionato " + ((CheckBox)e.getSource()).getText() );
-        		candidatiSelezionati.add(Integer.valueOf(((CheckBox)e.getSource()).getId()));
+        		
+        		System.out.println("hai selezionato " + c.getNome());
+        		candidatiSelezionati.add(c);
+        		
         	} else {
-        		System.out.println("hai deselezionato " + ((CheckBox)e.getSource()).getText());
-        		candidatiSelezionati.remove(Integer.valueOf(((CheckBox)e.getSource()).getId()));
+        		
+        		System.out.println("hai deselezionato " + c);
+        		candidatiSelezionati.remove(c);
         	}
         	System.out.println(candidatiSelezionati);
         }

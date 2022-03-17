@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class SessioneDiVoto {
-	private final int id;
+	private int id;
 	private String nome;
 	private String descrizione;
 	private LocalDate data;
@@ -130,5 +130,8 @@ public class SessioneDiVoto {
 		this.statoSessione = statoSessione;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
 	// TODO: toString()
 }
