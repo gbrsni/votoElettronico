@@ -112,14 +112,8 @@ public class GestoreSessioniController extends Controller{
     private EventHandler<ActionEvent> modificaSessione = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
-            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
-            SessioneDiVoto s = null; 
-            for (int i = 0; i < sessioni.size(); i++) {
-            	if (sessioni.get(i).getId() == Integer.valueOf(((Button)e.getSource()).getId())){
-            		s = sessioni.get(i);
-            	}
-            }
-            ConfigurazioneSessioneController controller = new ConfigurazioneSessioneController();
+            System.out.println("Id Sessione di Voto:" + ((SessioneDiVoto)((Button)e.getSource()).getUserData()).getId());
+            SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};  
             navigate("ConfigurazioneSessioneView", parameter);
           
@@ -178,9 +172,9 @@ public class GestoreSessioniController extends Controller{
                 	Button bottoneAvvia = new Button("Avvia");
                 	Button bottoneModifica = new Button("Modifica");
                 	Button bottoneElimina = new Button("Elimina");
-                	bottoneAvvia.setId(sessioni.get(i).getId() + "");
-                	bottoneModifica.setId(sessioni.get(i).getId() + "");
-                	bottoneElimina.setId(sessioni.get(i).getId()+ "");
+                	bottoneAvvia.setUserData(sessioni.get(i));
+                	bottoneModifica.setUserData(sessioni.get(i));
+                	bottoneElimina.setUserData(sessioni.get(i));
                 	bottoneAvvia.setOnAction(avviaSessione);
                 	bottoneModifica.setOnAction(modificaSessione);
                 	bottoneElimina.setOnAction(eliminaSessione);
@@ -190,15 +184,15 @@ public class GestoreSessioniController extends Controller{
                 	
                 } else if (sessioni.get(i).getStatoSessione() == StatoSessione.IN_CORSO) {
                 	Button bottoneAperta = new Button("Gestisci");
-                	bottoneAperta.setId(sessioni.get(i).getId() + "");
+                	bottoneAperta.setUserData(sessioni.get(i));
                 	sessioniHbox.getChildren().add(bottoneAperta);
                 } else if (sessioni.get(i).getStatoSessione() == StatoSessione.CONCLUSA) {
                 	Button bottoneScrutinio = new Button("Avvia Scrutinio");
-                	bottoneScrutinio.setId(sessioni.get(i).getId() + "");
+                	bottoneScrutinio.setUserData(sessioni.get(i));
                 	sessioniHbox.getChildren().add(bottoneScrutinio);
                 } else {
                 	Button bottoneRisultati = new Button("Visualizza Risultati");
-                	bottoneRisultati.setId(sessioni.get(i).getId() + "");
+                	bottoneRisultati.setUserData(sessioni.get(i));
                 	sessioniHbox.getChildren().add(bottoneRisultati);
                 }
                 sessioniVbox.getChildren().add(sessioniHbox);
