@@ -110,10 +110,14 @@ public class GestoreSessioniController extends Controller{
         {
             System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
             try {
+            	 SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+                 Object[] parameter = new Object[] {gestore,s};  
+            	
                 Stage stage = new Stage();
                 stage.setTitle("Avvio Sessione Di Voto");
-                stage.setScene(new Scene(Home.loadView("AvvioSessioneView")));
+                stage.setScene(new Scene(Home.loadView(null,"AvvioSessioneView", parameter)));
                 stage.setResizable(false);
+                Home.blockPrimaryStage(stage);
                 stage.show();
             }
             catch (IOException e1) {
