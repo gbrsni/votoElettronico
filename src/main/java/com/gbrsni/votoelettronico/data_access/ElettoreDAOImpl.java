@@ -107,12 +107,15 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		Objects.requireNonNull(username);
 		Elettore e = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT FROM elettori WHERE username = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM elettori WHERE username = ?");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			ps.close();
 			
-			e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("tesseraElettorale"), rs.getString("codiceFiscale"));
+			
+			if (rs.next() != false) {
+				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("tesseraElettorale"), rs.getString("codiceFiscale"));
+			}
+			ps.close();
 		} catch (SQLException ex) {
 			System.out.println("Errore durante l'ottenimento dell'elettore con username" + username);
 			ex.printStackTrace();
@@ -127,12 +130,14 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		Objects.requireNonNull(username);
 		SaltedPassword sp = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT FROM passwordelettori WHERE elettori = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM passwordelettori WHERE elettori = ?");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			ps.close();
 			
-			sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
+			if (rs.next() != false) {
+				sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
+			}
+			ps.close();
 		} catch (SQLException ex) {
 			System.out.println("Errore durante l'ottenimento della password dell'elettore con username" + username);
 			ex.printStackTrace();

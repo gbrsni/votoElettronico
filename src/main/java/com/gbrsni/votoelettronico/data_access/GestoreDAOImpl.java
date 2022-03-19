@@ -110,7 +110,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 			if (rs.next() != false) {
 				g = new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"));
 			}
-			rs.close();
+			
 			ps.close();
 			
 		} catch (SQLException ex) {
