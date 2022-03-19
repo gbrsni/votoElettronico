@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.lang.IllegalArgumentException;
 
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.ModVittoria;
@@ -84,13 +85,14 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		List<SessioneDiVoto> res = new ArrayList<>();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioniDiVoto WHERE stato = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioni WHERE stato = ?");
 			ps.setString(1, statoSessione.toString());
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
 				try {
-					//res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("modVoto"), rs.getString("modVittoria"), rs.getString("stato")));
+					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
+					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, rs.getString("modvoto"), rs.getString("modvittoria"), rs.getString("stato"), rs.getInt("nvoti")));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto con stato " + statoSessione);
 					e.printStackTrace();
@@ -110,10 +112,16 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	public void updateSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE sessioniDiVoto SET nome = ?, stato = ? WHERE id = ?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE sessioni SET nome = ?, descrizione = ?, data = ?, modvoto = ?, modvittoria = ?, stato = ?, nvoti = ? WHERE id = ?");
 			ps.setString(1, s.getNome());
-			ps.setString(2, s.getStatoSessione().toString());
-			ps.setInt(3, s.getId());
+			ps.setString(2, s.getDescrizione());
+			Date data = new Date(s.getData().getYear(),s.getData().getMonthValue(),s.getData().getDayOfMonth());
+			ps.setDate(3,data);
+			ps.setString(4, String.valueOf(s.getModVoto()));
+			ps.setString(5, String.valueOf(s.getModVittoria()));
+			ps.setString(6,String.valueOf(s.getStatoSessione()));
+			ps.setInt(7,s.getNvoti());
+			ps.setInt(8, s.getId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
