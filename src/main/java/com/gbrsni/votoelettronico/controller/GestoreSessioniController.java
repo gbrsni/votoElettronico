@@ -1,15 +1,38 @@
 package com.gbrsni.votoelettronico.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+import com.gbrsni.votoelettronico.models.Gestore;
+import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.StatoSessione;
+import com.gbrsni.votoelettronico.Home;
+import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public class GestoreSessioniController {
-
+public class GestoreSessioniController extends Controller{
+	
+	private Gestore gestore ;// = new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
+	private List<SessioneDiVoto> sessioni;
+	
     @FXML
     private ResourceBundle resources;
 
@@ -32,42 +55,184 @@ public class GestoreSessioniController {
     private Label nomeGestore;
 
     @FXML
-    private TextField nomeSessioneText;
+    private TextField nomeSessioneTextField;
 
     @FXML
-    void handleAggiungiSessione(ActionEvent event) {
+    private VBox sessioniVbox;
+    
+    public void onNavigateFrom(Controller sender, Object parameter) {
+    	this.gestore = (Gestore) parameter;
+    	nomeGestore.setText(gestore.getUsername());
+    }
+    
+    @FXML
+    void pressAggiungiSessioneButton(ActionEvent event) {
+    	navigate("ConfigurazioneSessioneView", gestore);
+    }
+   
 
+    @FXML
+    void pressCercaButton(ActionEvent event) {
+    	/**
+        SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
+        if (nomeSessioneTextField.getText().equals("")) sessioni = sessioniDb.getAllSessioneDiVoto();
+        else sessioni = sessioniDb.getSessioneDiVotoByName(nomeSessioneTextField.getText());
+        **/
+    	String cerca = nomeSessioneTextField.getText();
+    	if (cerca.equals("")) init(sessioni);
+    	else {
+    		List<SessioneDiVoto> sessioniCerca = new ArrayList<>();
+	    	for (int i = 0 ; i < sessioni.size(); i++) {
+	    		if (sessioni.get(i).getNome().toLowerCase().contains(cerca.toLowerCase())){
+	    			sessioniCerca.add(sessioni.get(i));
+	    		}
+	    	}
+        	init(sessioniCerca);
+    	}
     }
 
     @FXML
-    void handleCerca(ActionEvent event) {
-
+    void pressLogoutButton(ActionEvent event) {
+    	gestore = null;
+    	navigate("LoginView");
     }
 
     @FXML
-    void handleLogout(ActionEvent event) {
-
+    void pressMenuButton(ActionEvent event) {
+    	navigate("DashBoardView", this.gestore);
     }
 
-    @FXML
-    void handleMenu(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleNomeSessione(ActionEvent event) {
-
-    }
-
+    
+    
+    // Avvia sessione chiusa
+    private EventHandler<ActionEvent> avviaSessione = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
+            try {
+            	 SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+                 Object[] parameter = new Object[] {gestore,s};  
+            	
+                Stage stage = new Stage();
+                stage.setTitle("Avvio Sessione Di Voto");
+                stage.setScene(new Scene(Home.loadView(null,"AvvioSessioneView", parameter)));
+                stage.setResizable(false);
+                Home.blockPrimaryStage(stage);
+                stage.show();
+            }
+            catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+    };
+    
+    // Modifica Sessione Chiusa
+    private EventHandler<ActionEvent> modificaSessione = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+            System.out.println("Id Sessione di Voto:" + ((SessioneDiVoto)((Button)e.getSource()).getUserData()).getId());
+            SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+            Object[] parameter = new Object[] {gestore,s};  
+            navigate("ConfigurazioneSessioneView", parameter);
+          
+        }
+       
+    };
+    
+    // Elimina sessione chiusa
+    private EventHandler<ActionEvent> eliminaSessione = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
+        }
+    };
+    
+    // Gestisci sessione in corso
+    private EventHandler<ActionEvent> gestisciSessione = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
+        }
+    };
+    
+    //Avvia Scrutinio Sessione Conclusa
+    private EventHandler<ActionEvent> scrutinioSessione = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
+        }
+    };
+    
+    //Visualizza Risultati sessione Scrutinata
+    private EventHandler<ActionEvent> visualizzaRisultatiSessione = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
+        }
+    };
+    
+    private void init(List<SessioneDiVoto> sessioni) {
+    	
+        sessioniVbox.getChildren().clear();
+        sessioniVbox.setPrefWidth(950);
+        for (int i = 0; i < sessioni.size(); i++) {
+        		
+        		HBox sessioniHbox = new HBox();
+        		Label sessioniLabel = new Label();
+                sessioniLabel.setText(sessioni.get(i).getNome() + "   data : " + sessioni.get(i).getData() + "   modVoto: " + sessioni.get(i).getModVoto() + "  stato:" + sessioni.get(i).getStatoSessione());
+                sessioniLabel.setFont(new Font(15));
+                Region region1 = new Region();
+            	sessioniHbox.setHgrow(region1, Priority.ALWAYS);
+                sessioniHbox.getChildren().add(sessioniLabel);
+                sessioniHbox.getChildren().add(region1);
+                
+                if (sessioni.get(i).getStatoSessione() == StatoSessione.CHIUSA) {
+                	Button bottoneAvvia = new Button("Avvia");
+                	Button bottoneModifica = new Button("Modifica");
+                	Button bottoneElimina = new Button("Elimina");
+                	bottoneAvvia.setUserData(sessioni.get(i));
+                	bottoneModifica.setUserData(sessioni.get(i));
+                	bottoneElimina.setUserData(sessioni.get(i));
+                	bottoneAvvia.setOnAction(avviaSessione);
+                	bottoneModifica.setOnAction(modificaSessione);
+                	bottoneElimina.setOnAction(eliminaSessione);
+                	sessioniHbox.getChildren().add(bottoneAvvia);
+                	sessioniHbox.getChildren().add(bottoneModifica);
+                	sessioniHbox.getChildren().add(bottoneElimina);
+                	
+                } else if (sessioni.get(i).getStatoSessione() == StatoSessione.IN_CORSO) {
+                	Button bottoneAperta = new Button("Gestisci");
+                	bottoneAperta.setUserData(sessioni.get(i));
+                	sessioniHbox.getChildren().add(bottoneAperta);
+                } else if (sessioni.get(i).getStatoSessione() == StatoSessione.CONCLUSA) {
+                	Button bottoneScrutinio = new Button("Avvia Scrutinio");
+                	bottoneScrutinio.setUserData(sessioni.get(i));
+                	sessioniHbox.getChildren().add(bottoneScrutinio);
+                } else {
+                	Button bottoneRisultati = new Button("Visualizza Risultati");
+                	bottoneRisultati.setUserData(sessioni.get(i));
+                	sessioniHbox.getChildren().add(bottoneRisultati);
+                }
+                sessioniVbox.getChildren().add(sessioniHbox);
+        	
+        	}
+       
+        }
+    
+    
     @FXML
     void initialize() {
-        assert Sessionebottone != null : "fx:id=\"Sessionebottone\" was not injected: check your FXML file 'SessioniView.fxml'.";
-        assert cercaBottone != null : "fx:id=\"cercaBottone\" was not injected: check your FXML file 'SessioniView.fxml'.";
-        assert logoutBottone != null : "fx:id=\"logoutBottone\" was not injected: check your FXML file 'SessioniView.fxml'.";
-        assert menuButton != null : "fx:id=\"menuButton\" was not injected: check your FXML file 'SessioniView.fxml'.";
-        assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'SessioniView.fxml'.";
-        assert nomeSessioneText != null : "fx:id=\"nomeSessioneText\" was not injected: check your FXML file 'SessioniView.fxml'.";
-
+    	 assert Sessionebottone != null : "fx:id=\"Sessionebottone\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+         assert cercaBottone != null : "fx:id=\"cercaBottone\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+         assert logoutBottone != null : "fx:id=\"logoutBottone\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+         assert menuButton != null : "fx:id=\"menuButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+         assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+         assert nomeSessioneTextField != null : "fx:id=\"nomeSessioneTextField\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+         assert sessioniVbox != null : "fx:id=\"sessioniVbox\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+         SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
+         sessioni = sessioniDb.getAllSessioneDiVoto();
+         init(sessioni);
     }
+  }
 
-}
+

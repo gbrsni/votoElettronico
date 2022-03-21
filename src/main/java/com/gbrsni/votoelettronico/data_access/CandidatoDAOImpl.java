@@ -9,10 +9,10 @@ import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 
 public class CandidatoDAOImpl implements CandidatoDAO {
-	private Connection connection;
+	private Connection connection = DBConnection.getConnection();
 
-	public CandidatoDAOImpl(Connection connection) {
-		this.connection = connection;
+	public CandidatoDAOImpl() {
+		
 	}
 
 	@Override
@@ -24,8 +24,10 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				// TODO: Qui gestire il partito è un po' spinoso con le foreign key
-				res.add(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), null));
+				
+				PartitoDAOImpl partitoDb = new PartitoDAOImpl();
+				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
+				res.add(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito));
 			}
 			
 			ps.close();
@@ -41,7 +43,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 	public void updateCandidato(Candidato c) {
 		Objects.requireNonNull(c);
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE candidati SET nome = ?, cognome = ?, partito = ? WHERE id = ?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE candidati SET nome = ?, cognome = ?, partiti = ? WHERE id = ?");
 			ps.setString(1, c.getNome());
 			ps.setString(2, c.getCognome());
 			ps.setInt(3, c.getPartito().id);
@@ -76,7 +78,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 	public void addCandidato(Candidato c) {
 		Objects.requireNonNull(c);
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO candidati (id, nome, cognome, partito) VALUES (?, ?, ?, ?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO candidati (id, nome, cognome, partiti) VALUES (?, ?, ?, ?)");
 			ps.setInt(1, c.id);
 			ps.setString(2, c.getNome());
 			ps.setString(3, c.getCognome());
@@ -98,6 +100,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 		
 		Candidato c = new Candidato(id, nome, cognome, partito);
 		addCandidato(c);
+		
 	}
 
 }

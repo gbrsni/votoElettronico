@@ -1,8 +1,7 @@
 package com.gbrsni.votoelettronico.models;
 
 public enum StatoSessione {
-	CREATA,
-	CONFIGURATA,
+	CHIUSA,
 	IN_CORSO,
 	CONCLUSA,
 	SCRUTINATA

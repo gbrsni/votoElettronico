@@ -10,7 +10,7 @@ public interface GestoreDAO {
 	public void updateGestore(Gestore e);
 	public void deleteGestore(Gestore e);
 	public void addGestore(Gestore e);
-	public void addGestore(String username, String nome, String cognome);
+	public void addGestore(String username, String nome, String cognome, String codiceFiscale);
 	public Gestore getGestoreByUsername(String username);
 	public SaltedPassword getPasswordGestoreByUsername(String username);
 	public void setPasswordGestoreByUsername(String username, SaltedPassword sp);

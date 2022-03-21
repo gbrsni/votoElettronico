@@ -9,11 +9,10 @@ import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
 
-public class GestoreDAOImpl implements GestoreDAO {
-	private Connection connection;
+public class GestoreDAOImpl implements GestoreDAO {	
+	private Connection connection = DBConnection.getConnection();
 
-	public GestoreDAOImpl(Connection connection) {
-		this.connection = connection;
+	public GestoreDAOImpl() {
 	}
 
 	@Override
@@ -25,7 +24,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				res.add(new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome")));
+				res.add(new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"),rs.getString("codicefiscale")));
 			}
 			
 			ps.close();
@@ -90,11 +89,12 @@ public class GestoreDAOImpl implements GestoreDAO {
 	}
 
 	@Override
-	public void addGestore(String username, String nome, String cognome) {
+	public void addGestore(String username, String nome, String cognome, String codiceFiscale) {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(cognome);
-		Gestore g = new Gestore(username, nome, cognome);
+		Objects.requireNonNull(codiceFiscale);
+		Gestore g = new Gestore(username, nome, cognome, codiceFiscale);
 		addGestore(g);
 	}
 
@@ -103,12 +103,16 @@ public class GestoreDAOImpl implements GestoreDAO {
 		Objects.requireNonNull(username);
 		Gestore g = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT FROM gestori WHERE username = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votoelettronico.gestori WHERE username = ?");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next() != false) {
+				g = new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"));
+			}
+			
 			ps.close();
 			
-			g = new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"));
 		} catch (SQLException ex) {
 			System.out.println("Errore durante l'ottenimento dell'gestore con username" + username);
 			ex.printStackTrace();
@@ -123,15 +127,20 @@ public class GestoreDAOImpl implements GestoreDAO {
 		Objects.requireNonNull(username);
 		SaltedPassword sp = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT FROM passwordgestori WHERE gestori = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votoelettronico.passwordgestori WHERE gestori = ?");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			ps.close();
+					
+			if (rs.next() != false) {
+				sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
+			}
 			
-			sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
+			rs.close();
+			ps.close();
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'ottenimento della password dell'gestore con username" + username);
+			System.out.println("Errore durante l'ottenimento della password dell'gestore con username " + username);
 			ex.printStackTrace();
+			
 			return null;
 		}
 		System.out.println("Ottenuta password dell'gestore con username " + username);

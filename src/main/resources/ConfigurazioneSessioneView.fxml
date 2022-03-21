@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ConfigurazioneSessioneController">
    <top>
       <Label text="Configura Sessione" BorderPane.alignment="CENTER">
          <font>
@@ -26,12 +26,12 @@
          <children>
             <HBox prefHeight="77.0" prefWidth="900.0">
                <children>
-                  <Label text="Nome Gestore">
+                  <Label fx:id="nomeGestore" text="Nome Gestore">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Torna Indietro">
+                  <Button fx:id="backBottone" mnemonicParsing="false" onAction="#pressBackButton" prefHeight="34.0" prefWidth="133.0" text="Torna Indietro">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -51,7 +51,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="31.0" prefWidth="287.0" promptText="inserisci nome sessione...">
+                  <TextField fx:id="nomeTextField" prefHeight="31.0" prefWidth="287.0" promptText="inserisci nome sessione...">
                      <HBox.margin>
                         <Insets left="100.0" />
                      </HBox.margin>
@@ -64,7 +64,7 @@
                         <Insets left="60.0" />
                      </HBox.margin>
                   </Label>
-                  <DatePicker promptText="seleziona data sessione..">
+                  <DatePicker fx:id="dataDatePicker" promptText="seleziona data sessione..">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -78,7 +78,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextArea prefHeight="67.0" prefWidth="381.0" promptText="inserisci descrizione sessione...">
+                  <TextArea fx:id="descrizioneTextField" prefHeight="67.0" prefWidth="381.0" promptText="inserisci descrizione sessione...">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -95,7 +95,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ComboBox prefHeight="33.0" prefWidth="150.0">
+                  <ComboBox fx:id="modVotoComboBox" onAction="#selectModVoto" prefHeight="33.0" prefWidth="164.0">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
@@ -108,16 +108,16 @@
                         <Insets left="70.0" top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox prefHeight="33.0" prefWidth="150.0">
+                  <ComboBox fx:id="modVittoriaComboBox" prefHeight="33.0" prefWidth="205.0">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </ComboBox>
                </children>
             </HBox>
-            <HBox prefHeight="184.0" prefWidth="900.0">
+            <HBox prefHeight="200.0" prefWidth="900.0">
                <children>
-                  <Label text="Seleziona Candidati:">
+                  <Label text="Seleziona candidati:">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -125,24 +125,33 @@
                         <Insets top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" text="Modifica">
+                  <ComboBox fx:id="partitoComboBox" onAction="#selectPartitoComboBox" prefHeight="30.0" prefWidth="155.0" promptText="Seleziona Partito">
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <ScrollPane prefHeight="200.0" prefWidth="380.0">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <content>
+                        <VBox fx:id="candidatiVbox" prefHeight="193.0" prefWidth="356.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="900.0">
+               <children>
+                  <Label fx:id="datiMancantiLabel" text="Dati Mancanti" textFill="RED" visible="false">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Label text="qua ci andranno i candidati e partiti già selezinati">
-                     <HBox.margin>
-                        <Insets left="50.0" top="50.0" />
-                     </HBox.margin>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Salva">
+                  <Button fx:id="saveBottone" mnemonicParsing="false" onAction="#pressSaveButton" text="Salva">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -151,7 +160,7 @@
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets left="50.0" right="50.0" top="50.0" />
+            <Insets left="50.0" right="50.0" />
          </BorderPane.margin>
       </VBox>
    </center>

@@ -6,6 +6,7 @@ import com.gbrsni.votoelettronico.models.Partito;
 
 public interface PartitoDAO {
 	public List<Partito> getAllPartito();
+	public Partito getPartitoById(int id);
 	public void updatePartito(Partito p);
 	public void deletePartito(Partito p);
 	public void addPartito(Partito p);
