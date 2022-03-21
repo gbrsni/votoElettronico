@@ -37,6 +37,7 @@ CREATE TABLE `passwordgestori` (
 
 LOCK TABLES `passwordgestori` WRITE;
 /*!40000 ALTER TABLE `passwordgestori` DISABLE KEYS */;
+INSERT INTO `passwordgestori` VALUES ('marcox','5','839022215');
 /*!40000 ALTER TABLE `passwordgestori` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:34
+-- Dump completed on 2022-03-21 23:01:47

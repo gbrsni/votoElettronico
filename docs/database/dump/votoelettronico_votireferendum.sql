@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS `votireferendum`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `votireferendum` (
   `sessioni` int NOT NULL,
-  `nvoti1` int DEFAULT NULL,
-  `nvoti2` int DEFAULT NULL,
-  `nastenuti` int DEFAULT NULL,
-  `vincitore` enum('favorevole','contrario') DEFAULT NULL,
+  `nvoti1` int NOT NULL,
+  `nvoti2` int NOT NULL,
+  `nastenuti` int NOT NULL,
+  `vincitore` enum('favorevole','contrario') NOT NULL,
   PRIMARY KEY (`sessioni`),
   CONSTRAINT `fk_sessioni_votireferendum` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:34
+-- Dump completed on 2022-03-21 23:01:47
