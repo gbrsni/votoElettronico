@@ -8,6 +8,8 @@ import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
 import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
 import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 
 public class SessioneDiVoto {
 	private int id;
@@ -162,6 +164,13 @@ public class SessioneDiVoto {
 		
 		VotazioniPartitiDAO votazioniPartitiDAO = new VotazioniPartitiDAOImpl();
 		votazioniPartitiDAO.setVotazioniPartitiBySessione(this, partito, voti);
+	}
+	
+	public boolean elettoreHaPartecipato(Elettore elettore) {
+		Objects.requireNonNull(elettore);
+
+		VotiEspressiDAO votiEspressiDAO = new VotiEspressiDAOImpl();
+		return votiEspressiDAO.existsVotoEspresso(this, elettore);
 	}
 	
 	// TODO: toString()
