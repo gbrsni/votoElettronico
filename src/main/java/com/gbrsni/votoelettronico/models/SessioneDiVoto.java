@@ -143,5 +143,12 @@ public class SessioneDiVoto {
 		return votiCandidatiDAO.getVotiCandidatiBySessione(this);
 	}
 	
+	public void setVotiCandidato(Candidato candidato, int voti) {
+		Objects.requireNonNull(candidato);
+		
+		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
+		votiCandidatiDAO.setVotiCandidatiBySessione(this, candidato, voti);
+	}
+	
 	// TODO: toString()
 }
