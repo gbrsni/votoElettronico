@@ -40,5 +40,52 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		
 		return res;
 	}
+	
+	private boolean existsVotiCandidati(SessioneDiVoto sessioneDiVoto, Candidato candidato) throws SQLException {
+		Objects.requireNonNull(sessioneDiVoto);
+		Objects.requireNonNull(candidato);
+
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM voticandidati WHERE sessioni = ?, candidati = ?");
+			ps.setInt(1, sessioneDiVoto.getId());
+			ps.setInt(2, candidato.getId());
+			ResultSet rs = ps.executeQuery();
+			
+			ps.close();
+
+			return rs.next();
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public void setVotiCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int voti) {
+		Objects.requireNonNull(sessioneDiVoto);
+		Objects.requireNonNull(candidato);
+		
+		try {
+			PreparedStatement ps = null;
+			if (existsVotiCandidati(sessioneDiVoto, candidato)) {
+				ps = connection.prepareStatement("UPDATE voticandidati SET nvoti = ? WHERE (sessioni = ?, candidati = ?)");
+				ps.setInt(1, voti);
+				ps.setInt(2, sessioneDiVoto.getId());
+				ps.setInt(3, candidato.getId());
+			} else {
+				ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
+				ps.setInt(1, sessioneDiVoto.getId());
+				ps.setInt(2, candidato.getId());
+				ps.setInt(3, voti);
+			}
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'aggiornamento dei voti del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
+			e.printStackTrace();
+			return;
+		}
+		
+		System.out.println("Aggiornati voti del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
+	}
 
 }
