@@ -29,7 +29,7 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 			while (rs.next()) {
 				PartitoDAO partitoDb = new PartitoDAOImpl();
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
-				res.put(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito), rs.getInt("nvoti"));
+				res.put(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito), rs.getInt("valore"));
 			}
 			
 			ps.close();
