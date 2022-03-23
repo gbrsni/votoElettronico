@@ -26,6 +26,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -80,8 +81,13 @@ public class ConfigurazioneSessioneController extends Controller{
 
 	    @FXML
 	    private Button saveBottone;
-    
-    
+	    
+	    @FXML
+	    private Label selezionaCandidatiLabel;
+
+	    @FXML
+	    private ScrollPane candidatiScrollPane;
+	    
     public void onNavigateFrom(Controller sender, Object parameter) {
     	
     	try {
@@ -158,9 +164,21 @@ public class ConfigurazioneSessioneController extends Controller{
     	if(!modVoto.equals("REFERENDUM")){
     		ObservableList<String> list1 = FXCollections.observableArrayList("MAGGIORANZA", "MAGGIORANZA_ASSOLUTA");
             modVittoriaComboBox.setItems(list1);
+            candidatiVbox.setVisible(true);
+            partitoComboBox.setVisible(true);
+            partitoComboBox.setVisible(true);
+            candidatiScrollPane.setVisible(true);
+            selezionaCandidatiLabel.setPrefWidth(215);
+            selezionaCandidatiLabel.setText("Seleziona candidati:");
     	} else {
     		ObservableList<String> list1 = FXCollections.observableArrayList("REFERENDUM_CON_QUORUM", "REFERENDUM_SENZA_QUORUM");
             modVittoriaComboBox.setItems(list1);
+            candidatiVbox.setVisible(false);
+            partitoComboBox.setVisible(false);
+            candidatiScrollPane.setVisible(false);
+            selezionaCandidatiLabel.setPrefWidth(1000);
+            selezionaCandidatiLabel.setText("Non prevista selezione candidati per questa modalità di voto");
+            
     	}
     	
     }
@@ -230,6 +248,7 @@ public class ConfigurazioneSessioneController extends Controller{
           partitoComboBox.setItems(dbTypeList1);
           CandidatoDAOImpl candidatiDb = new CandidatoDAOImpl();
           candidati = candidatiDb.getAllCandidato();
+          
         
     }
 
