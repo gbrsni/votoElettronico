@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
@@ -16,6 +17,8 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 
 	@Override
 	public Map<Candidato, Integer> getVotiCandidatiBySessione(SessioneDiVoto sessioneDiVoto) {
+		Objects.requireNonNull(sessioneDiVoto);
+		
 		Map<Candidato, Integer> res = new HashMap<>();
 
 		try {
