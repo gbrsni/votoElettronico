@@ -67,7 +67,7 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 		try {
 			PreparedStatement ps = null;
 			if (existsVotiCandidati(sessioneDiVoto, candidato)) {
-				ps = connection.prepareStatement("UPDATE votazionicandidati SET nvoti = ? WHERE (sessioni = ?, candidati = ?)");
+				ps = connection.prepareStatement("UPDATE votazionicandidati SET valore = ? WHERE (sessioni = ?, candidati = ?)");
 				ps.setInt(1, voti);
 				ps.setInt(2, sessioneDiVoto.getId());
 				ps.setInt(3, candidato.getId());
@@ -87,5 +87,4 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 		
 		System.out.println("Aggiornate votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
 	}
-
 }
