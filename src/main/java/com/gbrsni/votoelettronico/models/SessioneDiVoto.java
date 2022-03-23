@@ -1,7 +1,15 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Objects;
+
+import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
+import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
+import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 
 public class SessioneDiVoto {
 	private int id;
@@ -133,5 +141,37 @@ public class SessioneDiVoto {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public Map<Candidato, Integer> getVotazioniCandidati() {
+		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
+		return votazioniCandidatiDAO.getVotazioniCandidatiBySessione(this);
+	}
+	
+	public void setVotazioniCandidato(Candidato candidato, int voti) {
+		Objects.requireNonNull(candidato);
+		
+		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
+		votazioniCandidatiDAO.setVotazioniCandidatiBySessione(this, candidato, voti);
+	}
+	
+	public Map<Partito, Integer> getVotazioniPartiti() {
+		VotazioniPartitiDAO votazioniPartitiDAO = new VotazioniPartitiDAOImpl();
+		return votazioniPartitiDAO.getVotazioniPartitiBySessione(this);
+	}
+	
+	public void setVotazioniPartito(Partito partito, int voti) {
+		Objects.requireNonNull(partito);
+		
+		VotazioniPartitiDAO votazioniPartitiDAO = new VotazioniPartitiDAOImpl();
+		votazioniPartitiDAO.setVotazioniPartitiBySessione(this, partito, voti);
+	}
+	
+	public boolean elettoreHaPartecipato(Elettore elettore) {
+		Objects.requireNonNull(elettore);
+
+		VotiEspressiDAO votiEspressiDAO = new VotiEspressiDAOImpl();
+		return votiEspressiDAO.existsVotoEspresso(this, elettore);
+	}
+	
 	// TODO: toString()
 }
