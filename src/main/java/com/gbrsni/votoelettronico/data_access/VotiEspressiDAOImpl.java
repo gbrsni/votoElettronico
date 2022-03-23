@@ -33,5 +33,4 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 			return false;
 		}
 	}
-
 }
