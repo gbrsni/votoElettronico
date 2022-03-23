@@ -34,7 +34,7 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 			
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento dei voti dei candidati della sessione di voto" + sessioneDiVoto.toString());
+			System.out.println("Errore durante l'ottenimento votazioni dei candidati della sessione di voto" + sessioneDiVoto.toString());
 			e.printStackTrace();
 		}
 		
@@ -80,12 +80,12 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiornamento dei voti del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
+			System.out.println("Errore durante l'aggiornamento votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
 			e.printStackTrace();
 			return;
 		}
 		
-		System.out.println("Aggiornati voti del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
+		System.out.println("Aggiornate votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
 	}
 
 }
