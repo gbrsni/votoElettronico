@@ -12,17 +12,17 @@ import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
-public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
+public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 	private Connection connection = DBConnection.getConnection();
 
 	@Override
-	public Map<Candidato, Integer> getVotiCandidatiBySessione(SessioneDiVoto sessioneDiVoto) {
+	public Map<Candidato, Integer> getVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto) {
 		Objects.requireNonNull(sessioneDiVoto);
 		
 		Map<Candidato, Integer> res = new HashMap<>();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM voticandidati WHERE sessioni = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votazionicandidati WHERE sessioni = ?");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ResultSet rs = ps.executeQuery();
 			
@@ -46,7 +46,7 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		Objects.requireNonNull(candidato);
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM voticandidati WHERE sessioni = ?, candidati = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votazionicandidati WHERE sessioni = ?, candidati = ?");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ps.setInt(2, candidato.getId());
 			ResultSet rs = ps.executeQuery();
@@ -60,19 +60,19 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 	}
 
 	@Override
-	public void setVotiCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int voti) {
+	public void setVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int voti) {
 		Objects.requireNonNull(sessioneDiVoto);
 		Objects.requireNonNull(candidato);
 		
 		try {
 			PreparedStatement ps = null;
 			if (existsVotiCandidati(sessioneDiVoto, candidato)) {
-				ps = connection.prepareStatement("UPDATE voticandidati SET nvoti = ? WHERE (sessioni = ?, candidati = ?)");
+				ps = connection.prepareStatement("UPDATE votazionicandidati SET nvoti = ? WHERE (sessioni = ?, candidati = ?)");
 				ps.setInt(1, voti);
 				ps.setInt(2, sessioneDiVoto.getId());
 				ps.setInt(3, candidato.getId());
 			} else {
-				ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
+				ps = connection.prepareStatement("INSERT INTO votazionicandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
 				ps.setInt(1, sessioneDiVoto.getId());
 				ps.setInt(2, candidato.getId());
 				ps.setInt(3, voti);

@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 
-import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAO;
-import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
+import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
 
 public class SessioneDiVoto {
 	private int id;
@@ -138,16 +138,16 @@ public class SessioneDiVoto {
 		this.id = id;
 	}
 	
-	public Map<Candidato, Integer> getVotiCandidati() {
-		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
-		return votiCandidatiDAO.getVotiCandidatiBySessione(this);
+	public Map<Candidato, Integer> getVotazioniCandidati() {
+		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
+		return votazioniCandidatiDAO.getVotazioniCandidatiBySessione(this);
 	}
 	
-	public void setVotiCandidato(Candidato candidato, int voti) {
+	public void setVotazioniCandidato(Candidato candidato, int voti) {
 		Objects.requireNonNull(candidato);
 		
-		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
-		votiCandidatiDAO.setVotiCandidatiBySessione(this, candidato, voti);
+		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
+		votazioniCandidatiDAO.setVotazioniCandidatiBySessione(this, candidato, voti);
 	}
 	
 	// TODO: toString()
