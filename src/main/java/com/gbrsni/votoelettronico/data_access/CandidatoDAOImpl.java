@@ -38,6 +38,29 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 		
 		return res;
 	}
+	
+	@Override
+	public Candidato getCandidatoById(int id) {
+		Candidato res = null;
+
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM candidati WHERE id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			PartitoDAOImpl partitoDb = new PartitoDAOImpl();
+			Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
+			res = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito);
+			
+			ps.close();
+		} catch (SQLException c) {
+			System.out.println("Errore durante l'ottenimento del candidato con id " + id);
+			c.printStackTrace();
+		}
+		
+		return res;
+	}
 
 	@Override
 	public void updateCandidato(Candidato c) {

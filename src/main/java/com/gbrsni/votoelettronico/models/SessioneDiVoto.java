@@ -1,7 +1,11 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Objects;
+
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAO;
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
 
 public class SessioneDiVoto {
 	private int id;
@@ -133,5 +137,11 @@ public class SessioneDiVoto {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public Map<Candidato, Integer> getVotiCandidati() {
+		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
+		return votiCandidatiDAO.getVotiCandidatiBySessione(this);
+	}
+	
 	// TODO: toString()
 }
