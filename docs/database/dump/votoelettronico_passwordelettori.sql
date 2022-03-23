@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `passwordelettori`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passwordelettori` (
   `elettori` varchar(45) NOT NULL,
-  `salt` int NOT NULL,
+  `salt` varchar(45) NOT NULL,
   `hash` varchar(200) NOT NULL,
   PRIMARY KEY (`elettori`),
   CONSTRAINT `fk_elettori_passwordelettori` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`)
@@ -37,6 +37,7 @@ CREATE TABLE `passwordelettori` (
 
 LOCK TABLES `passwordelettori` WRITE;
 /*!40000 ALTER TABLE `passwordelettori` DISABLE KEYS */;
+INSERT INTO `passwordelettori` VALUES ('prova','5','-979797731');
 /*!40000 ALTER TABLE `passwordelettori` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:33
+-- Dump completed on 2022-03-21 23:01:46

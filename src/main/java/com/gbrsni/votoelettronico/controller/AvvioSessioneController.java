@@ -59,7 +59,7 @@ public class AvvioSessioneController extends Controller{
         stage.close();
         SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
         sessioneDb.updateSessioneDiVoto(sessione);
-        navigate("GestoreSessioniView", gestore);
+        navigate("SessioneApertaView", gestore);
     }
     
     @FXML

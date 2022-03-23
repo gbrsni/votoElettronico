@@ -16,31 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `voticandidati`
+-- Table structure for table `votiespressi`
 --
 
-DROP TABLE IF EXISTS `voticandidati`;
+DROP TABLE IF EXISTS `votiespressi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `voticandidati` (
+CREATE TABLE `votiespressi` (
   `sessioni` int NOT NULL,
-  `candidati` int NOT NULL,
-  `nvoti` int DEFAULT NULL,
-  PRIMARY KEY (`sessioni`,`candidati`),
-  KEY `fk_candidati_idx` (`candidati`),
-  CONSTRAINT `fk_candidati_voticandidati` FOREIGN KEY (`candidati`) REFERENCES `candidati` (`id`),
-  CONSTRAINT `fk_sessioni_voticandidati` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
+  `elettori` varchar(45) NOT NULL,
+  PRIMARY KEY (`sessioni`,`elettori`),
+  KEY `fk_elettori_votiespressi_idx` (`elettori`),
+  CONSTRAINT `fk_elettori_votiespressi` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`),
+  CONSTRAINT `fk_sessioni_votiespressi` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `voticandidati`
+-- Dumping data for table `votiespressi`
 --
 
-LOCK TABLES `voticandidati` WRITE;
-/*!40000 ALTER TABLE `voticandidati` DISABLE KEYS */;
-INSERT INTO `voticandidati` VALUES (26,1,0),(26,3,0),(27,1,0),(27,2,0),(27,3,0),(28,2,0);
-/*!40000 ALTER TABLE `voticandidati` ENABLE KEYS */;
+LOCK TABLES `votiespressi` WRITE;
+/*!40000 ALTER TABLE `votiespressi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `votiespressi` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-21 23:01:47
+-- Dump completed on 2022-03-21 23:01:46

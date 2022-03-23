@@ -24,11 +24,8 @@ DROP TABLE IF EXISTS `votazionireferendum`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `votazionireferendum` (
   `sessioni` int NOT NULL,
-  `elettori` varchar(45) NOT NULL,
   `opzione` enum('favorevole','contrario') DEFAULT NULL,
-  PRIMARY KEY (`sessioni`,`elettori`),
-  KEY `fk_elettori_votazionireferendum_idx` (`elettori`),
-  CONSTRAINT `fk_elettori_votazionireferendum` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`),
+  PRIMARY KEY (`sessioni`),
   CONSTRAINT `fk_sessioni_votazionireferendum` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -51,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:33
+-- Dump completed on 2022-03-21 23:01:46

@@ -39,6 +39,7 @@ CREATE TABLE `votipartiti` (
 
 LOCK TABLES `votipartiti` WRITE;
 /*!40000 ALTER TABLE `votipartiti` DISABLE KEYS */;
+INSERT INTO `votipartiti` VALUES (26,1,'0'),(26,3,'0'),(27,1,'0'),(27,2,'0'),(28,2,'0');
 /*!40000 ALTER TABLE `votipartiti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:33
+-- Dump completed on 2022-03-21 23:01:47

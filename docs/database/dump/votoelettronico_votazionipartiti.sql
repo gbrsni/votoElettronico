@@ -24,14 +24,12 @@ DROP TABLE IF EXISTS `votazionipartiti`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `votazionipartiti` (
   `sessioni` int NOT NULL,
-  `elettori` varchar(45) NOT NULL,
   `partiti` int NOT NULL,
   `valore` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`sessioni`,`elettori`),
+  PRIMARY KEY (`sessioni`,`partiti`),
   KEY `fk_partiti_votazionipartiti_idx` (`partiti`),
-  KEY `fk_elettori_votazionipartiti_idx` (`elettori`),
-  CONSTRAINT `fk_elettori_votazionipartiti` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`),
-  CONSTRAINT `fk_partiti_votazionipartiti` FOREIGN KEY (`partiti`) REFERENCES `partiti` (`id`)
+  CONSTRAINT `fk_partiti_votazionipartiti` FOREIGN KEY (`partiti`) REFERENCES `partiti` (`id`),
+  CONSTRAINT `fk_sessioni_votazionipartiti` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:34
+-- Dump completed on 2022-03-21 23:01:47

@@ -117,7 +117,7 @@
             </HBox>
             <HBox prefHeight="200.0" prefWidth="900.0">
                <children>
-                  <Label text="Seleziona candidati:">
+                  <Label fx:id="selezionaCandidatiLabel" text="Seleziona candidati:">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -130,7 +130,7 @@
                         <Insets left="50.0" top="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <ScrollPane prefHeight="200.0" prefWidth="380.0">
+                  <ScrollPane fx:id="candidatiScrollPane" prefHeight="200.0" prefWidth="380.0">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>

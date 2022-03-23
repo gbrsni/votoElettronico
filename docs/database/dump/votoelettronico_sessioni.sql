@@ -32,8 +32,18 @@ CREATE TABLE `sessioni` (
   `stato` enum('CHIUSA','IN_CORSO','CONCLUSA','SCRUTINATA') DEFAULT NULL,
   `nvoti` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sessioni`
+--
+
+LOCK TABLES `sessioni` WRITE;
+/*!40000 ALTER TABLE `sessioni` DISABLE KEYS */;
+INSERT INTO `sessioni` VALUES (26,'Elezioni rappresentanti','elezioni belle','3922-04-15','CATEGORICO','MAGGIORANZA','IN_CORSO',0),(27,'elezioni comunali','elezioni rappresentatnti comune','3922-04-16','CATEGORICO','MAGGIORANZA','CHIUSA',0),(28,'Elezioni Centro Anziani','elezioni per decidere chi organizzerà il torneo di briscola','3922-04-17','ORDINALE','MAGGIORANZA','IN_CORSO',0);
+/*!40000 ALTER TABLE `sessioni` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -44,4 +54,4 @@ CREATE TABLE `sessioni` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 21:33:36
+-- Dump completed on 2022-03-21 23:01:46

@@ -30,7 +30,7 @@ CREATE TABLE `candidati` (
   PRIMARY KEY (`id`),
   KEY `fk_partiti_idx` (`partiti`),
   CONSTRAINT `fk_partiti` FOREIGN KEY (`partiti`) REFERENCES `partiti` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `candidati` (
 
 LOCK TABLES `candidati` WRITE;
 /*!40000 ALTER TABLE `candidati` DISABLE KEYS */;
+INSERT INTO `candidati` VALUES (1,'marta','rossi',1),(2,'Francesca','Bianchi',2),(3,'Mario','Scalzo',3),(4,'cotoletta','alla milanese',3);
 /*!40000 ALTER TABLE `candidati` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-14 10:40:33
+-- Dump completed on 2022-03-21 23:01:47
