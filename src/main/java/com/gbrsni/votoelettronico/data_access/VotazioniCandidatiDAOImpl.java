@@ -72,7 +72,7 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 				ps.setInt(2, sessioneDiVoto.getId());
 				ps.setInt(3, candidato.getId());
 			} else {
-				ps = connection.prepareStatement("INSERT INTO votazionicandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
+				ps = connection.prepareStatement("INSERT INTO votazionicandidati (sessioni, candidati, valore) VALUES (?, ?, ?)");
 				ps.setInt(1, sessioneDiVoto.getId());
 				ps.setInt(2, candidato.getId());
 				ps.setInt(3, voti);
