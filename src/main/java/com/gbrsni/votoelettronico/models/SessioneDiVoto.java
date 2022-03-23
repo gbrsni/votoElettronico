@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
 import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
+import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
 
 public class SessioneDiVoto {
 	private int id;
@@ -148,6 +150,18 @@ public class SessioneDiVoto {
 		
 		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
 		votazioniCandidatiDAO.setVotazioniCandidatiBySessione(this, candidato, voti);
+	}
+	
+	public Map<Partito, Integer> getVotazioniPartiti() {
+		VotazioniPartitiDAO votazioniPartitiDAO = new VotazioniPartitiDAOImpl();
+		return votazioniPartitiDAO.getVotazioniPartitiBySessione(this);
+	}
+	
+	public void setVotazioniPartito(Partito partito, int voti) {
+		Objects.requireNonNull(partito);
+		
+		VotazioniPartitiDAO votazioniPartitiDAO = new VotazioniPartitiDAOImpl();
+		votazioniPartitiDAO.setVotazioniPartitiBySessione(this, partito, voti);
 	}
 	
 	// TODO: toString()
