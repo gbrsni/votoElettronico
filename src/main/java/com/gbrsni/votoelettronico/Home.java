@@ -67,6 +67,25 @@ public class Home extends Application {
         navigate(sender, view, null);
     }
     
+    public static void newStage(String title, String view, Object parameter) {
+	    try {
+	   	        	
+	        Stage stage = new Stage();
+	        stage.setTitle(title);
+	        stage.setScene(new Scene(loadView(null,view, parameter)));
+	        stage.setResizable(false);
+	        blockPrimaryStage(stage);
+	        stage.show();
+	    }
+	    catch (IOException e1) {
+	        e1.printStackTrace();
+	    }
+    }
+    
+    public static void closeStage(Stage stage) {
+    	stage.close();
+    }
+    
     public static void main(String[] args) {
        launch(args);
     

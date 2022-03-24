@@ -1,6 +1,10 @@
 package com.gbrsni.votoelettronico.controller;
 
 import com.gbrsni.votoelettronico.Home;
+
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public abstract class Controller {
@@ -17,5 +21,14 @@ public abstract class Controller {
 
     public void navigate(String view) {
         navigate(view, null);
+    }
+    
+    public void newStage(String title, String view, Object parameter) {
+    	Home.newStage(title,view,parameter);
+    	
+    }
+    
+    public void closeStage(Stage stage) {
+    	Home.closeStage(stage);
     }
 }
