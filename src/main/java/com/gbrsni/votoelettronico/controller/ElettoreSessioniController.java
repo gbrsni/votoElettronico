@@ -10,10 +10,13 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -49,6 +52,17 @@ public class ElettoreSessioniController extends Controller{
     	navigate("LoginController");
     }
     
+    //Visualizza Risultati sessione Scrutinata
+    private EventHandler<ActionEvent> votazione = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+        	SessioneDiVoto sessione = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+            System.out.println("Id Sessione di Voto:" + sessione.getId());
+            Object[] parameter = new Object[] {elettore,sessione};
+            navigate("VotazioneView", parameter);
+        }
+    };
+    
     private void init() {
     	for (int i = 0; i < sessioni.size(); i++) {
         	VBox sessioniVboxInterna = new VBox();
@@ -60,8 +74,15 @@ public class ElettoreSessioniController extends Controller{
         	sessioniLabelNome.setText(sessioni.get(i).getNome());
         	sessioniLabelDati.setFont(new Font(15));
         	sessioniLabelDati.setText(sessioni.get(i).getDescrizione() +  " Data: "+ sessioni.get(i).getData() + " modVoto: " + sessioni.get(i).getModVoto());	
+        	Region region1 = new Region();
+        	sessioniHboxNome.setHgrow(region1, Priority.ALWAYS);
+        	Button votoBottone = new Button("Vota");
+        	votoBottone.setUserData(sessioni.get(i));
+        	votoBottone.setOnAction(votazione);
         	
         	sessioniHboxNome.getChildren().add(sessioniLabelNome);
+        	sessioniHboxNome.getChildren().add(region1);
+        	sessioniHboxNome.getChildren().add(votoBottone);
         	sessioniHboxDati.getChildren().add(sessioniLabelDati);
         	sessioniVboxInterna.getChildren().add(sessioniHboxNome);
         	sessioniVboxInterna.getChildren().add(sessioniHboxDati);
