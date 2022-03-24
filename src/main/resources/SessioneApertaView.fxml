@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.SessioneApertaController">
    <top>
       <Label text="Sessione Aperta" BorderPane.alignment="CENTER">
@@ -27,17 +26,9 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBottone" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
+                  <Button fx:id="backBottone" mnemonicParsing="false" onAction="#pressBackButton" text="Torna Indietro">
                      <HBox.margin>
-                        <Insets left="70.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#pressMenuButton" text="Menu">
-                     <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="50.0" />
                      </HBox.margin>
                      <font>
                         <Font size="14.0" />

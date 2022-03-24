@@ -1,18 +1,25 @@
 package com.gbrsni.votoelettronico.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.gbrsni.votoelettronico.Home;
 import com.gbrsni.votoelettronico.models.Gestore;
+import com.gbrsni.votoelettronico.models.ModVittoria;
+import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class SessioneApertaController extends Controller {
 	
 	private Gestore gestore;
+	private SessioneDiVoto sessione;
 	
     @FXML
     private ResourceBundle resources;
@@ -30,10 +37,7 @@ public class SessioneApertaController extends Controller {
     private Label descrizioneLabel;
 
     @FXML
-    private Button logoutBottone;
-
-    @FXML
-    private Button menuButton;
+    private Button backBottone;
 
     @FXML
     private Label modVittoriaLabel;
@@ -51,26 +55,42 @@ public class SessioneApertaController extends Controller {
     private Button votazioneBottone;
     
     public void onNavigateFrom(Controller sender, Object parameter) {
-    	this.gestore = (Gestore) parameter;
-    	nomeGestore.setText(gestore.getUsername());
+    	Object[] dati = (Object[]) parameter;
+        gestore = (Gestore) dati[0];
+        nomeGestore.setText(gestore.getNome());
+        sessione = (SessioneDiVoto) dati[1];
+        init();
+    
+    }
+    
+    private void init() {
+        nomeLabel.setText(sessione.getNome());
+        descrizioneLabel.setText(sessione.getDescrizione());
+        dataLabel.setText(sessione.getData().toString());
+        modVotoLabel.setText(sessione.getModVoto().toString());
+        modVittoriaLabel.setText(sessione.getModVittoria().toString());
+       
     }
     
     @FXML
     void pressChiudiSessioneButton(ActionEvent event) {
-
+    	 Object[] parameter = new Object[] {gestore,sessione};  
+    	 Stage stage = new Stage();
+         stage.setTitle("Chiusura Sessione di Voto");
+         try {
+			stage.setScene(new Scene(Home.loadView(null,"ChiusuraSessioneView", parameter)));
+	         stage.setResizable(false);
+	         Home.blockPrimaryStage(stage);
+	         stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
-    void pressLogoutButton(ActionEvent event) {
-    	gestore = null;
-    	navigate("LoginView");
+    void pressBackButton(ActionEvent event) {
+    	navigate("GestoreSessioniView",gestore);
     }
-
-    @FXML
-    void pressMenuButton(ActionEvent event) {
-    	navigate("DashBoardView", this.gestore);
-    }
-
 
     @FXML
     void pressVotazioneButton(ActionEvent event) {
@@ -79,17 +99,16 @@ public class SessioneApertaController extends Controller {
 
     @FXML
     void initialize() {
+        assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert chiudiSessioneBottone != null : "fx:id=\"chiudiSessioneBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert dataLabel != null : "fx:id=\"dataLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert descrizioneLabel != null : "fx:id=\"descrizioneLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
-        assert logoutBottone != null : "fx:id=\"logoutBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
-        assert menuButton != null : "fx:id=\"menuButton\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert modVittoriaLabel != null : "fx:id=\"modVittoriaLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert modVotoLabel != null : "fx:id=\"modVotoLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert votazioneBottone != null : "fx:id=\"votazioneBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
-
+       
     }
 
 }
