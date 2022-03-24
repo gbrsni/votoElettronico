@@ -64,27 +64,18 @@ public class SessioneApertaController extends Controller {
     }
     
     private void init() {
-        nomeLabel.setText(sessione.getNome());
-        descrizioneLabel.setText(sessione.getDescrizione());
-        dataLabel.setText(sessione.getData().toString());
-        modVotoLabel.setText(sessione.getModVoto().toString());
-        modVittoriaLabel.setText(sessione.getModVittoria().toString());
+        nomeLabel.setText("Nome: " + sessione.getNome());
+        descrizioneLabel.setText("Descrizione: " + sessione.getDescrizione());
+        dataLabel.setText("Data: " + sessione.getData().toString());
+        modVotoLabel.setText("mod. Voto: " +sessione.getModVoto().toString());
+        modVittoriaLabel.setText("mod. Vittoria: " + sessione.getModVittoria().toString());
        
     }
     
     @FXML
     void pressChiudiSessioneButton(ActionEvent event) {
-    	 Object[] parameter = new Object[] {gestore,sessione};  
-    	 Stage stage = new Stage();
-         stage.setTitle("Chiusura Sessione di Voto");
-         try {
-			stage.setScene(new Scene(Home.loadView(null,"ChiusuraSessioneView", parameter)));
-	         stage.setResizable(false);
-	         Home.blockPrimaryStage(stage);
-	         stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	 Object[] parameter = new Object[] {gestore,sessione}; 
+    	 newStage("Chiusura Sessione di Voto", "ChiusuraSessioneView", parameter);
     }
 
     @FXML
@@ -94,7 +85,8 @@ public class SessioneApertaController extends Controller {
 
     @FXML
     void pressVotazioneButton(ActionEvent event) {
-
+        Object[] parameter = new Object[] {gestore,sessione};  
+    	navigate("AutenticazioneVotazioneView", parameter);
     }
 
     @FXML

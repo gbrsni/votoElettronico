@@ -58,24 +58,28 @@
             </HBox>
             <HBox prefHeight="49.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="nomeLabel" text="Nome:">
+                  <Label fx:id="nomeLabel" prefHeight="35.0" prefWidth="868.0" text="Nome:">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dataLabel" text="Data:">
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="dataLabel" prefHeight="35.0" prefWidth="883.0" text="Data:">
                      <font>
                         <Font size="24.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="500.0" />
+                        <Insets top="30.0" />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="76.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="descrizioneLabel" text="Descrizione:">
+                  <Label fx:id="descrizioneLabel" prefHeight="35.0" prefWidth="891.0" text="Descrizione:">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -87,7 +91,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="modVotoLabel" text="Modalità di Voto:">
+                  <Label fx:id="modVotoLabel" prefHeight="35.0" prefWidth="492.0" text="Modalità di Voto:">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -100,7 +104,7 @@
                         <Font size="24.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="200.0" top="20.0" />
+                        <Insets top="20.0" />
                      </HBox.margin>
                   </Label>
                </children>
