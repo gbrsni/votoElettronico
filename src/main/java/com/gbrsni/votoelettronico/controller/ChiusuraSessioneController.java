@@ -53,7 +53,7 @@ public class ChiusuraSessioneController extends Controller{
     void pressSiButton(ActionEvent event) {
     	sessione.setStatoSessione(StatoSessione.CONCLUSA);
     	Stage stage = (Stage) noBottone.getScene().getWindow();
-        stage.close();
+        closeStage(stage);
         SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
         sessioneDb.updateSessioneDiVoto(sessione);
         navigate("SessioneApertaView", gestore);
