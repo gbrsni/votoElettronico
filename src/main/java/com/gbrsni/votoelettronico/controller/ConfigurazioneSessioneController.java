@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.gbrsni.votoelettronico.Home;
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
@@ -39,7 +41,7 @@ public class ConfigurazioneSessioneController extends Controller{
 	private Gestore gestore;
 	private SessioneDiVoto sessione; 
 	private List<Partito> partiti;
-	private List<Candidato> candidati;
+	private Map<Partito, List<Candidato>> candidati;
 	private List<Partito> partitiSelezionati;
 	private List<Candidato> candidatiSelezionati;
 	
@@ -77,7 +79,7 @@ public class ConfigurazioneSessioneController extends Controller{
 	    private TextField nomeTextField;
 
 	    @FXML
-	    private ComboBox<String> partitoComboBox;
+	    private ComboBox<Partito> partitoComboBox;
 
 	    @FXML
 	    private Button saveBottone;
@@ -119,8 +121,10 @@ public class ConfigurazioneSessioneController extends Controller{
     	navigate("GestoreSessioniView", gestore);
     }
 
+   
     @FXML
     void pressSaveButton(ActionEvent event) {
+    	
     	datiMancantiLabel.setVisible(false);
     	
     	String datiMancanti = "";
@@ -136,11 +140,11 @@ public class ConfigurazioneSessioneController extends Controller{
     		SessioneDiVoto sessione = new SessioneDiVoto(0,nomeTextField.getText(),descrizioneTextField.getText(),dataDatePicker.getValue(), modVotoComboBox.getValue(), modVittoriaComboBox.getValue(), "CHIUSA", 0);
     		SessioneDiVotoDAOImpl sessionedb = new SessioneDiVotoDAOImpl();
     		int id = sessionedb.addSessioneDiVoto(sessione);
-    		System.out.println("id inserito:" + id);
+    		System.out.println("id sessione aggiunta:" + id);
     		sessione.setId(id);
     		
     		for (int i = 0; i < candidatiSelezionati.size(); i++) {
-    			if (!partitiSelezionati.contains(candidati.get(i).getPartito()))
+    			if (!partitiSelezionati.contains(candidatiSelezionati.get(i).getPartito()))
     					partitiSelezionati.add(candidatiSelezionati.get(i).getPartito());
     		}
 
@@ -153,6 +157,7 @@ public class ConfigurazioneSessioneController extends Controller{
     		navigate("GestoreSessioniView", gestore);
     		
     	}	
+    	
     }
     
     
@@ -183,22 +188,22 @@ public class ConfigurazioneSessioneController extends Controller{
     	
     }
     
+    
     @FXML
     void selectPartitoComboBox(ActionEvent event) {
     	candidatiVbox.getChildren().clear();
-    	for (int i = 0; i < candidati.size(); i++) {
-    		if (candidati.get(i).getPartito().getNome().equals(partitoComboBox.getValue())){
+    	for (int i = 0; i < candidati.get(partitoComboBox.getValue()).size(); i++) {
+    		
     			HBox candidatiHbox = new HBox();
     			CheckBox candidatiCheckBox = new CheckBox();
-    			candidatiCheckBox.setUserData(candidati.get(i));
-    			//candidatiCheckBox.setId(candidati.get(i).getId() + ";" + candidati.get(i).getPartito().getId());
-    			candidatiCheckBox.setText(candidati.get(i).getNome() + " " + candidati.get(i).getCognome());
+    			candidatiCheckBox.setUserData(candidati.get(partitoComboBox.getValue()).get(i));
+    			candidatiCheckBox.setText(candidati.get(partitoComboBox.getValue()).get(i).getNome() + " " + candidati.get(partitoComboBox.getValue()).get(i).getCognome());
     			candidatiCheckBox.setFont(new Font(20));
     			candidatiCheckBox.setOnAction(selezionaCandidati);
     			candidatiHbox.getChildren().add(candidatiCheckBox);
     			candidatiVbox.getChildren().add(candidatiHbox);
     			
-    		}
+    		
     		
     	}
     	
@@ -211,12 +216,12 @@ public class ConfigurazioneSessioneController extends Controller{
         	Candidato c = (Candidato)((CheckBox)e.getSource()).getUserData();
         	if (((CheckBox)e.getSource()).isSelected()){
         		
-        		System.out.println("hai selezionato " + c.getNome());
+        		System.out.println("hai selezionato " + c.getNome() + " " + c.getCognome());
         		candidatiSelezionati.add(c);
         		
         	} else {
         		
-        		System.out.println("hai deselezionato " + c);
+        		System.out.println("hai deselezionato " + c.getNome() + " " + c.getCognome() );
         		candidatiSelezionati.remove(c);
         	}
         	System.out.println(candidatiSelezionati);
@@ -236,20 +241,21 @@ public class ConfigurazioneSessioneController extends Controller{
         assert nomeTextField != null : "fx:id=\"nomeTextField\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
         assert partitoComboBox != null : "fx:id=\"partitoComboBox\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
         assert saveBottone != null : "fx:id=\"saveBottone\" was not injected: check your FXML file 'ConfigurazioneSessioneView.fxml'.";
+          
           ObservableList<String> dbTypeList = FXCollections.observableArrayList("ORDINALE","CATEGORICO","CATEGORICO_CON_PREFERENZE", "REFERENDUM");
           modVotoComboBox.setItems(dbTypeList);
-          PartitoDAOImpl partitoDb = new PartitoDAOImpl();
-          partiti = partitoDb.getAllPartito();
-          List<String> partitiNome = new ArrayList<>();
-          for (int i = 0; i < partiti.size(); i++) {
-        	  partitiNome.add(partiti.get(i).getNome());
-          }
-          ObservableList<String> dbTypeList1 = FXCollections.observableArrayList(partitiNome);
-          partitoComboBox.setItems(dbTypeList1);
-          CandidatoDAOImpl candidatiDb = new CandidatoDAOImpl();
-          candidati = candidatiDb.getAllCandidato();
           
-        
+          CandidatoDAOImpl candidatiDb = new CandidatoDAOImpl();
+          candidati = candidatiDb.getAllCandidato().stream()
+        		   .collect(Collectors.groupingBy(Candidato::getPartito, Collectors.toList()));
+          
+          partiti = new ArrayList<>();
+          partiti.addAll(candidati.keySet());
+          ObservableList<Partito> dbTypeList1 = FXCollections.observableArrayList(partiti);
+          partitoComboBox.setItems(dbTypeList1);
+      
+         
+          
     }
 
 }
