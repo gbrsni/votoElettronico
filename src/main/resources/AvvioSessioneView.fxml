@@ -8,16 +8,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.AvvioSessioneController">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Avviare Sessione Di Voto ">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button fx:id="siBottone" mnemonicParsing="false" onAction="#pressSiButton" prefHeight="60.0" prefWidth="70.0" text="Si">
@@ -38,7 +32,7 @@
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets top="50.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
          </children>
@@ -47,4 +41,14 @@
          </padding>
       </VBox>
    </center>
+   <top>
+      <Label text="Avviare Sessione Di Voto " BorderPane.alignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
 </BorderPane>

@@ -49,7 +49,7 @@ public class AvvioSessioneController extends Controller{
     @FXML
     void pressNoButton(ActionEvent event) {
         Stage stage = (Stage) noBottone.getScene().getWindow();
-        stage.close();
+        closeStage(stage);
     }
 
     @FXML
