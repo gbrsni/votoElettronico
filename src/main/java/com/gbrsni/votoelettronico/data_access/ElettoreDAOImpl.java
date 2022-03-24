@@ -23,7 +23,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				res.add(new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("tesseraElettorale"), rs.getString("codiceFiscale")));
+				res.add(new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale")));
 			}
 			
 			ps.close();
@@ -39,7 +39,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 	public void updateElettore(Elettore e) {
 		Objects.requireNonNull(e);
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE elettori SET nome = ?, cognome = ?, tesseraElettorale = ?, codiceFiscale = ? WHERE username = ?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE elettori SET nome = ?, cognome = ?, codicefiscale = ?, tesseraelettorale = ? WHERE username = ?");
 			ps.setString(1, e.getNome());
 			ps.setString(2, e.getCognome());
 			ps.setString(3, e.getTesseraElettorale());
@@ -75,7 +75,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 	public void addElettore(Elettore e) {
 		Objects.requireNonNull(e);
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO elettori (username, nome, cognome, tesseraElettorale, codiceFiscale) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO elettori (username, nome, cognome, codicefiscale, tesseraelettorale) VALUES (?, ?, ?, ?, ?)");
 			ps.setString(1, e.getUsername());
 			ps.setString(2, e.getNome());
 			ps.setString(3, e.getCognome());
@@ -113,7 +113,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			
 			
 			if (rs.next() != false) {
-				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("tesseraElettorale"), rs.getString("codiceFiscale"));
+				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale"));
 			}
 			ps.close();
 		} catch (SQLException ex) {
@@ -124,6 +124,31 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		System.out.println("Ottenuto elettore con username " + username);
 		return e;
 	}
+	
+	@Override
+	public Elettore getElettoreByTesseraElettorale(String tesseraElettorale) {
+		Objects.requireNonNull(tesseraElettorale);
+		Elettore e = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM elettori WHERE tesseraelettorale = ?");
+			ps.setString(1, tesseraElettorale);
+			ResultSet rs = ps.executeQuery();
+			
+			
+			if (rs.next() != false) {
+				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale"));
+			}
+			
+			ps.close();
+		} catch (SQLException ex) {
+			System.out.println("Errore durante l'ottenimento dell'elettore con tessera elettorale" + tesseraElettorale);
+			ex.printStackTrace();
+			return null;
+		}
+		System.out.println("Ottenuto elettore con tessera elettorale " + tesseraElettorale);
+		return e;
+	}
+
 
 	@Override
 	public SaltedPassword getPasswordElettoreByUsername(String username) {
