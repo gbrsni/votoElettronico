@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 
 public class GestoreSessioniController extends Controller{
 	
-	private Gestore gestore ;// = new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
+	private Gestore gestore ;//= new Gestore("marcox", "marcox","marcox","marcox"); //DA ELIMINARE
 	private List<SessioneDiVoto> sessioni;
 	
     @FXML
@@ -73,11 +73,7 @@ public class GestoreSessioniController extends Controller{
 
     @FXML
     void pressCercaButton(ActionEvent event) {
-    	/**
-        SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
-        if (nomeSessioneTextField.getText().equals("")) sessioni = sessioniDb.getAllSessioneDiVoto();
-        else sessioni = sessioniDb.getSessioneDiVotoByName(nomeSessioneTextField.getText());
-        **/
+    	
     	String cerca = nomeSessioneTextField.getText();
     	if (cerca.equals("")) init(sessioni);
     	else {
@@ -109,20 +105,10 @@ public class GestoreSessioniController extends Controller{
         public void handle(ActionEvent e)
         {
             System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
-            try {
-            	 SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
-                 Object[] parameter = new Object[] {gestore,s};  
-            	
-                Stage stage = new Stage();
-                stage.setTitle("Avvio Sessione Di Voto");
-                stage.setScene(new Scene(Home.loadView(null,"AvvioSessioneView", parameter)));
-                stage.setResizable(false);
-                Home.blockPrimaryStage(stage);
-                stage.show();
-            }
-            catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+            Object[] parameter = new Object[] {gestore,s};
+            newStage("Avvio Sessione Di Voto", "AvvioSessioneView", parameter);
+           
         }
     };
     
@@ -152,6 +138,9 @@ public class GestoreSessioniController extends Controller{
         public void handle(ActionEvent e)
         {
             System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
+            SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+            Object[] parameter = new Object[] {gestore,s};  
+            navigate("SessioneApertaView", parameter);
         }
     };
     
@@ -202,6 +191,7 @@ public class GestoreSessioniController extends Controller{
                 	
                 } else if (sessioni.get(i).getStatoSessione() == StatoSessione.IN_CORSO) {
                 	Button bottoneAperta = new Button("Gestisci");
+                	bottoneAperta.setOnAction(gestisciSessione);
                 	bottoneAperta.setUserData(sessioni.get(i));
                 	sessioniHbox.getChildren().add(bottoneAperta);
                 } else if (sessioni.get(i).getStatoSessione() == StatoSessione.CONCLUSA) {
