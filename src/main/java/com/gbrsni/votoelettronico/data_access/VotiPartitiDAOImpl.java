@@ -25,7 +25,7 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 		Map<Partito, Integer> res = new HashMap<>();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votipartiti WHERE sessioni = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM partiti INNER JOIN votipartiti ON partiti.id = votipartiti.partiti WHERE votipartiti.sessioni = ?");
 			ps.setInt(1, sessione.getId());
 			ResultSet rs = ps.executeQuery();
 			
