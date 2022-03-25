@@ -13,7 +13,5 @@ public interface SessioneDiVotoDAO {
 	public void deleteSessioneDiVoto(SessioneDiVoto s);
 	public int addSessioneDiVoto(SessioneDiVoto s);
 	public void addSessioneDiVoto(int id, String nome, String descrizione, LocalDate data, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione, int nvoti);
-	public void addVotiPartiti(SessioneDiVoto s, List<Partito> p);
-	public void addVotiCandidati(SessioneDiVoto s, List<Candidato> c);
-	public void addVotiAstenuti(SessioneDiVoto s);
+	
 }

@@ -49,7 +49,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		return res;
 	}
 	
-	//INUTILE
+
 	@Override
 	public List<SessioneDiVoto> getSessioneDiVotoByName(String nome) {
 		Objects.requireNonNull(nome);
@@ -188,70 +188,5 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		addSessioneDiVoto(s);
 	}
 	
-	//aggiunta partito s per la sessione p
-	public void addVotiPartiti(SessioneDiVoto s, List<Partito> p) {
-		Objects.requireNonNull(s);
-		Objects.requireNonNull(p);
-		int i = 0;
-		try {
-			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO votipartiti (sessioni, partiti, nvoti) VALUES (?, ?, ?)");
-			while(i < p.size()) {
-				ps.setInt(1, s.getId());
-				ps.setInt(2, p.get(i).getId());
-				ps.setInt(3, 0);
-				ps.executeUpdate();
-				i++;
-			}
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento del partito  + " + p.get(i).getNome() + " per la sessione " + s.getNome());
-			e.printStackTrace();
-			return;
-		}
-		System.out.println( "Relazione partiti - sessione di voto " + s.getNome() + " aggiunta nel database");
-	}
-	
-	
-	//aggiunta candidati per la sessione di voto s
-	public void addVotiCandidati(SessioneDiVoto s, List<Candidato> c){
-		Objects.requireNonNull(s);
-		Objects.requireNonNull(c);
-		int i = 0;
-		try {
-			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
-			while(i < c.size()) {
-				ps.setInt(1, s.getId());
-				ps.setInt(2, c.get(i).getId());
-				ps.setInt(3, 0);
-				ps.executeUpdate();
-				i++;
-			}
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento del candidato " + c.get(i).getNome() + " per la sessione di voto " + s.getNome());
-			e.printStackTrace();
-			return;
-		}
-		System.out.println("Relazione candidati - sessione di voto " + s.getNome() + " aggiunta nel database ");
-	}
-	
-	//aggiunta entry astenuti per la sessione di voto s
-	public void addVotiAstenuti(SessioneDiVoto s){
-		Objects.requireNonNull(s);
-		try {
-			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO votiastenuti (sessioni, nvoti) VALUES (?, ?)");
-			ps.setInt(1, s.getId());
-			ps.setInt(2, 0);
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento ");
-			e.printStackTrace();
-			return;
-		}
-		System.out.println("Inserimento nel db effettuato");
-	}
 	
 }
