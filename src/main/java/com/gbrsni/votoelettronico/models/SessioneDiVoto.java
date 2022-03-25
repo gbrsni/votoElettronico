@@ -8,8 +8,11 @@ import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
 import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
 import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 public class SessioneDiVoto {
 	private int id;
@@ -173,5 +176,39 @@ public class SessioneDiVoto {
 		return votiEspressiDAO.existsVotoEspresso(this, elettore);
 	}
 	
+	public Map<Candidato, Integer> getVotiCandidati() {
+		VotiCandidatiDAOImpl votiCandidatiDAO = new VotiCandidatiDAOImpl();
+		return votiCandidatiDAO.getVotiCandidatiBySessione(this);
+	}
+	
+	public void setVotiCandidati(Candidato candidato) {
+		VotiCandidatiDAOImpl votiCandidatiDAO = new VotiCandidatiDAOImpl();
+		votiCandidatiDAO.addVotiCandidatiBySessione(this, candidato);
+	}
+	
+	public Map<Partito,Integer> getVotiPartiti() {
+		VotiPartitiDAOImpl votiPartitiDAO = new VotiPartitiDAOImpl();
+		return votiPartitiDAO.getVotiPartitiBySessione(this);
+	}
+	
+	public void setVotiPartiti(Partito partito) {
+		VotiPartitiDAOImpl votiPartitiDAO = new VotiPartitiDAOImpl();
+		votiPartitiDAO.addVotiPartitiBySessione(this, partito);
+	}
+	
+	public Integer getVotiAstenuti() {
+		VotiAstenutiDAOImpl votiAstenutiDAO = new VotiAstenutiDAOImpl();
+		return votiAstenutiDAO.getVotiAstenutiBySessione(this);
+	}
+	
+	public void setVotiAstenuti() {
+		VotiAstenutiDAOImpl votiAstenutiDAO = new VotiAstenutiDAOImpl();
+		votiAstenutiDAO.addVotiAstenutiBySessione(this);
+	}
+	
+	public void updateVotiCandidati(Candidato candidato, Integer nvoti) {}
+	public void updateVotiPartiti(Partito partito, Integer nvoti) {}
+	public void updateVotiAstenuti(Integer nvoti) {}
+
 	// TODO: toString()
 }

@@ -149,9 +149,13 @@ public class ConfigurazioneSessioneController extends Controller{
     		}
 
     		if (!modVotoComboBox.getValue().equals("REFERENDUM")) {
-    			sessionedb.addVotiPartiti(sessione, partitiSelezionati );
-    			sessionedb.addVotiCandidati(sessione, candidatiSelezionati);
-    			sessionedb.addVotiAstenuti(sessione);
+    			for (int i = 0; i < partitiSelezionati.size(); i++) {
+    				sessione.setVotiPartiti(partitiSelezionati.get(i));
+    			}
+    			for (int i = 0; i < candidatiSelezionati.size(); i++) {
+    				sessione.setVotiCandidati(candidatiSelezionati.get(i));
+    			}
+    			sessione.setVotiAstenuti();
     		}
     	
     		navigate("GestoreSessioniView", gestore);
