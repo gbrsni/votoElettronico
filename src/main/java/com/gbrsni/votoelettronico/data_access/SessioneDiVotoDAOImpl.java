@@ -188,5 +188,39 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		addSessioneDiVoto(s);
 	}
 	
+	@Override
+	public int getTotalNumberSessioneDiVoto() {
+		int res = 0;
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM sessioni");
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+				res = rs.getInt("total");
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'ottenimento numero totale sessioni di voto");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	@Override 
+	public int getNumberSessioneDiVotoByStato(StatoSessione stato) {
+		int res = 0;
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM sessioni where stato = ?");
+			ps.setString(1, stato.name());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+				res = rs.getInt("total");
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'ottenimento numero totale sessioni di voto");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 	
 }
