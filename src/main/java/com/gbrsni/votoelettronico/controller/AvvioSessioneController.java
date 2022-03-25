@@ -59,7 +59,8 @@ public class AvvioSessioneController extends Controller{
         stage.close();
         SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
         sessioneDb.updateSessioneDiVoto(sessione);
-        navigate("SessioneApertaView", gestore);
+        Object[] parameter = new Object[] {gestore, sessione};
+        navigate("SessioneApertaView", parameter);
     }
     
     @FXML
