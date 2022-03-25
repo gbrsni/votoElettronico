@@ -46,7 +46,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="86.0" prefWidth="900.0">
                <children>
                   <Button fx:id="candidatoBottone" mnemonicParsing="false" onAction="#handleAggiungiCandidato" prefHeight="50.0" prefWidth="200.0" text="Aggiungi Candidato">
                      <font>
@@ -68,6 +68,24 @@
             </HBox>
             <HBox prefHeight="62.0" prefWidth="900.0">
                <children>
+                  <Label prefHeight="27.0" prefWidth="127.0" text="Ricerca partito:">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="cercaPartitoTextField">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="cercaPartitoBottone" mnemonicParsing="false" onAction="#pressCercaPartitoButton" text="Cerca">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                   <Label text="Ricerca candidato:">
                      <HBox.margin>
                         <Insets left="50.0" />
@@ -76,30 +94,12 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField>
+                  <TextField fx:id="cercaCandidatoTextField">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Cerca">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Label text="Ricerca Partito:">
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Button mnemonicParsing="false" text="Cerca">
+                  <Button fx:id="cercaCandidatoBottone" mnemonicParsing="false" onAction="#pressCercaCandidatoButton" text="Cerca">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -108,7 +108,7 @@
             </HBox>
             <HBox prefHeight="41.0" prefWidth="900.0">
                <children>
-                  <Label text="Elenco Candidati:">
+                  <Label text="Elenco Partiti:">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -116,7 +116,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label text="Elenco Partiti:">
+                  <Label fx:id="candidatiLabel" text="Candidati:">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -128,17 +128,17 @@
             </HBox>
             <HBox prefHeight="331.0" prefWidth="900.0">
                <children>
-                  <ScrollPane prefHeight="331.0" prefWidth="403.0">
+                  <ScrollPane prefHeight="331.0" prefWidth="400.0">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
                      <content>
-                        <VBox fx:id="candidatiVbox" prefHeight="327.0" prefWidth="382.0" />
+                        <VBox fx:id="partitiVbox" prefHeight="327.0" prefWidth="381.0" />
                      </content>
                   </ScrollPane>
                   <ScrollPane prefHeight="331.0" prefWidth="446.0">
                      <content>
-                        <VBox fx:id="partitiVbox" prefHeight="325.0" prefWidth="428.0">
+                        <VBox fx:id="candidatiVbox" prefHeight="325.0" prefWidth="428.0">
                            <padding>
                               <Insets left="20.0" />
                            </padding>
