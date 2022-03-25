@@ -38,4 +38,9 @@ public class Candidato {
 	public String getCognome() {
 		return cognome;
 	}
+	
+	@Override
+	public String toString() {
+		return this.nome + " " + this.cognome;
+	}
 }
