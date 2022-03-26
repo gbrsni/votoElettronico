@@ -39,7 +39,7 @@ CREATE TABLE `voticandidati` (
 
 LOCK TABLES `voticandidati` WRITE;
 /*!40000 ALTER TABLE `voticandidati` DISABLE KEYS */;
-INSERT INTO `voticandidati` VALUES (26,1,0),(26,3,0),(27,1,0),(27,2,0),(27,3,0),(28,2,0);
+INSERT INTO `voticandidati` VALUES (26,1,0),(26,3,0),(27,1,0),(27,2,0),(27,3,0),(28,2,0),(29,1,0),(30,1,0),(31,3,0),(31,4,0);
 /*!40000 ALTER TABLE `voticandidati` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-21 23:01:47
+-- Dump completed on 2022-03-26  8:14:03

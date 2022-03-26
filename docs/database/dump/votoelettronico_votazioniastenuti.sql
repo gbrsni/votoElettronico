@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `votazioniastenuti`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `votazioniastenuti` (
   `sessioni` int NOT NULL,
+  `valore` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`sessioni`),
   CONSTRAINT `fk_sessioni_votazioniastenuti` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -47,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-21 23:01:47
+-- Dump completed on 2022-03-26  8:14:03
