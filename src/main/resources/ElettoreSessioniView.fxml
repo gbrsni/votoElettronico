@@ -41,7 +41,7 @@
             </HBox>
             <ScrollPane prefHeight="250.0" prefWidth="900.0">
                <content>
-                  <VBox fx:id="sessioniVbox" prefHeight="243.0" prefWidth="888.0" />
+                  <VBox fx:id="sessioniVbox" prefHeight="236.0" prefWidth="867.0" />
                </content>
             </ScrollPane>
          </children>
