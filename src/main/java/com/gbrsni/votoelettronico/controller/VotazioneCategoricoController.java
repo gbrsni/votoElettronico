@@ -136,12 +136,13 @@ public class VotazioneCategoricoController extends Controller{
 					
 				} else {
 					
-					CheckBox candidatiRadio = new CheckBox();
-					candidatiRadio.setText(opzioni.get(i).getNome() + " " + opzioni.get(i).getCognome());
-					candidatiRadio.setUserData(opzioni.get(i));
-					candidatiRadio.setFont(new Font(15));
-					candidatiRadio.setOnAction(sceltaCandidatiCategoricoPreferenze);
-					candidatiHbox.getChildren().add(candidatiRadio);
+					CheckBox candidatiCheckBox = new CheckBox();
+					candidatiCheckBox.setText(opzioni.get(i).getNome() + " " + opzioni.get(i).getCognome());
+					candidatiCheckBox.setUserData(opzioni.get(i));
+					candidatiCheckBox.setFont(new Font(15));
+					candidatiCheckBox.setOnAction(sceltaCandidatiCategoricoPreferenze);
+					
+					candidatiHbox.getChildren().add(candidatiCheckBox);
 					candidatiVbox.getChildren().add(candidatiHbox);
 				}
 	    	}
@@ -159,8 +160,11 @@ public class VotazioneCategoricoController extends Controller{
 	EventHandler<ActionEvent> sceltaCandidatiCategoricoPreferenze = new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent e) {
 	    	
+	    	if (((CheckBox)e.getSource()).isSelected()) {
 	    	candidatoSelezionato.add((Candidato)((CheckBox)e.getSource()).getUserData());
-	    
+	    	} else {
+	    		candidatoSelezionato.remove((Candidato)((CheckBox)e.getSource()).getUserData());
+	    	}
 	    }
 	};
 	
