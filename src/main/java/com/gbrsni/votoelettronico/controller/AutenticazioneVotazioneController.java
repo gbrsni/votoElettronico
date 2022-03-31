@@ -73,7 +73,7 @@ public class AutenticazioneVotazioneController extends Controller {
 				Object[] parameter = new Object[] { elettore, sessione, gestore };
 				switch (sessione.getModVoto()) {
 				case ORDINALE:
-					// navigate("VotazioneOrdinaleView", parameter);
+					navigate("VotazioneOrdinaleView", parameter);
 					break;
 				case CATEGORICO:
 					navigate("VotazioneCategoricoView", parameter);
