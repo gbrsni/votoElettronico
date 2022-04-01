@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.Home;
 import com.gbrsni.votoelettronico.data_access.ElettoreDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
@@ -61,34 +62,43 @@ public class AutenticazioneVotazioneController extends Controller {
 
 	@FXML
 	void pressVotaButton(ActionEvent event) {
-		erroreLabel.setVisible(false);
+		erroreLabel.setVisible(false);	
 		ElettoreDAOImpl elettoreDb = new ElettoreDAOImpl();
 		Elettore elettore = elettoreDb.getElettoreByTesseraElettorale(tesseraElettoraleTextField.getText());
 		if (elettore == null) {
+			erroreLabel.setText("Dati non corretti");
 			erroreLabel.setVisible(true);
 		} else {
-			SaltedPassword password = elettoreDb.getPasswordElettoreByUsername(elettore.getUsername());
-			if (password.checkPassword(passwordTextField.getText())) {
-				System.out.println("Accesso eseguito dall'elettore " + elettore.getUsername());
-				Object[] parameter = new Object[] { elettore, sessione, gestore };
-				switch (sessione.getModVoto()) {
-				case ORDINALE:
-					navigate("VotazioneOrdinaleView", parameter);
-					break;
-				case CATEGORICO:
-					navigate("VotazioneCategoricoView", parameter);
-					break;
-				case CATEGORICO_CON_PREFERENZE:
-					navigate("VotazioneCategoricoView", parameter);
-					break;
-				case REFERENDUM:
-					navigate("VotazioneReferendumView", parameter);
-					break;
-				}
-			} else {
+			VotiEspressiDAOImpl votoEspressoDb = new VotiEspressiDAOImpl();
+			boolean existVoto = votoEspressoDb.existsVotoEspresso(sessione, elettore); 
+			if (!existVoto) {
+		SaltedPassword password = elettoreDb.getPasswordElettoreByUsername(elettore.getUsername());
+		if (password.checkPassword(passwordTextField.getText())) {
+			System.out.println("Accesso eseguito dall'elettore " + elettore.getUsername());
+			Object[] parameter = new Object[] { elettore, sessione, gestore };
+			switch (sessione.getModVoto()) {
+			case ORDINALE:
+				navigate("VotazioneOrdinaleView", parameter);
+				break;
+			case CATEGORICO:
+				navigate("VotazioneCategoricoView", parameter);
+				break;
+			case CATEGORICO_CON_PREFERENZE:
+				navigate("VotazioneCategoricoView", parameter);
+				break;
+			case REFERENDUM:
+				navigate("VotazioneReferendumView", parameter);
+				break;
+			}
+		} else {
+			erroreLabel.setText("Dati non corretti");
+			erroreLabel.setVisible(true);
+		}
+			}else {
+				erroreLabel.setText("hai già espresso il tuo voto in questa sessione");
 				erroreLabel.setVisible(true);
 			}
-		}
+	}
 	}
 
 	@FXML
