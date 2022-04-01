@@ -111,6 +111,14 @@
                      </HBox.margin>
                   </Label>
                   <Button fx:id="annullaBottone" mnemonicParsing="false" onAction="#pressAnnullaButton" text="Button" />
+                  <Label fx:id="erroreLabel" text="non puoi assegnare lo stesso voto a due partiti/candidati differenti" textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
