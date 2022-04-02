@@ -24,7 +24,7 @@ public abstract class Controller {
     }
     
     public void newStage(String title, String view, Object parameter) {
-    	Home.newStage(title,view,parameter);
+    	Home.newStage(this,title,view,parameter);
     	
     }
     
