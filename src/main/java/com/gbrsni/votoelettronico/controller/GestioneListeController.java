@@ -135,52 +135,65 @@ public class GestioneListeController extends Controller {
 
 	private void initCandidato(List<Candidato> c) {
 		candidatiVbox.getChildren().clear();
-		
-			for (int i = 0; i < c.size(); i++) {
-				HBox candidatiHbox = new HBox();
-				Label candidatiLabel = new Label();
-				candidatiLabel.setFont(new Font(15));
-				Button candidatiBottone = new Button("Modifica");
-				candidatiBottone.setUserData(c.get(i));
-				
-				candidatiLabel.setText(c.get(i).getNome() + " " + c.get(i).getCognome() + "  partito:"
-						+ c.get(i).getPartito());
-				Region region1 = new Region();
-				candidatiHbox.setHgrow(region1, Priority.ALWAYS);
-				candidatiHbox.getChildren().add(candidatiLabel);
-				candidatiHbox.getChildren().add(region1);
-				candidatiHbox.getChildren().add(candidatiBottone);
-				candidatiVbox.getChildren().add(candidatiHbox);
-			}
+
+		for (int i = 0; i < c.size(); i++) {
+			HBox candidatiHbox = new HBox();
+			Label candidatiLabel = new Label();
+			candidatiLabel.setFont(new Font(15));
+			Button candidatiBottone = new Button("Modifica");
+			candidatiBottone.setUserData(c.get(i));
+
+			candidatiLabel
+					.setText(c.get(i).getNome() + " " + c.get(i).getCognome() + "  partito:" + c.get(i).getPartito());
+			Region region1 = new Region();
+			candidatiHbox.setHgrow(region1, Priority.ALWAYS);
+			candidatiHbox.getChildren().add(candidatiLabel);
+			candidatiHbox.getChildren().add(region1);
+			candidatiHbox.getChildren().add(candidatiBottone);
+			candidatiVbox.getChildren().add(candidatiHbox);
 		}
+	}
 
-	
+	private EventHandler<ActionEvent> selezionePartito = new EventHandler<ActionEvent>() {
+		public void handle(ActionEvent e) {
+			Partito partito = (Partito) ((Button) e.getSource()).getUserData();
 
-	 private EventHandler<ActionEvent> selezionePartito = new EventHandler<ActionEvent>() {
-	        public void handle(ActionEvent e)
-	        {	
-	        	Partito partito = (Partito)((Button)e.getSource()).getUserData();
-	        	
-	        	candidatiLabel.setText("Candidati partito " + partito.getNome());
-	        	List<Candidato> c = new ArrayList<>(candidati.get(partito));
-	        	initCandidato(c);
-	        }
-	    };
+			candidatiLabel.setText("Candidati partito " + partito.getNome());
+			List<Candidato> c = new ArrayList<>();
+			List<Candidato> list = candidati.get(partito);
+			if (list != null) {
+				c.addAll(list);
+			}
+			initCandidato(c);
+		}
+	};
 
 	@FXML
 	void initialize() {
-		assert candidatiLabel != null : "fx:id=\"candidatiLabel\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert candidatiVbox != null : "fx:id=\"candidatiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert candidatoBottone != null : "fx:id=\"candidatoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert cercaCandidatoBottone != null : "fx:id=\"cercaCandidatoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert cercaCandidatoTextField != null : "fx:id=\"cercaCandidatoTextField\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert cercaPartitoBottone != null : "fx:id=\"cercaPartitoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert cercaPartitoTextField != null : "fx:id=\"cercaPartitoTextField\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert logoutBottone != null : "fx:id=\"logoutBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert menuButton != null : "fx:id=\"menuButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert partitiVbox != null : "fx:id=\"partitiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-        assert partitoBottone != null : "fx:id=\"partitoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert candidatiLabel != null
+				: "fx:id=\"candidatiLabel\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert candidatiVbox != null
+				: "fx:id=\"candidatiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert candidatoBottone != null
+				: "fx:id=\"candidatoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert cercaCandidatoBottone != null
+				: "fx:id=\"cercaCandidatoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert cercaCandidatoTextField != null
+				: "fx:id=\"cercaCandidatoTextField\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert cercaPartitoBottone != null
+				: "fx:id=\"cercaPartitoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert cercaPartitoTextField != null
+				: "fx:id=\"cercaPartitoTextField\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert logoutBottone != null
+				: "fx:id=\"logoutBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert menuButton != null
+				: "fx:id=\"menuButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert nomeGestore != null
+				: "fx:id=\"nomeGestore\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert partitiVbox != null
+				: "fx:id=\"partitiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+		assert partitoBottone != null
+				: "fx:id=\"partitoBottone\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
 
 		PartitoDAOImpl partitoDb = new PartitoDAOImpl();
 		partiti = partitoDb.getAllPartito();
@@ -190,7 +203,9 @@ public class GestioneListeController extends Controller {
 		candidatiLabel.setText("Tutti i candidati");
 		List<List<Candidato>> lista = new ArrayList<>(candidati.values());
 		List<Candidato> c = new ArrayList<>();
-		for (int i = 0; i < lista.size(); i++) { c.addAll(lista.get(i));}
+		for (int i = 0; i < lista.size(); i++) {
+			c.addAll(lista.get(i));
+		}
 		initPartito();
 		initCandidato(c);
 	}
