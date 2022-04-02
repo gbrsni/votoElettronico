@@ -91,7 +91,7 @@ public class LoginController extends Controller{
 
     @FXML
     void pressSessioniButton(ActionEvent event) {
-    	
+    	navigate("UtenteSessioniScrutinateView");
     }
 
     @FXML
