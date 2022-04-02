@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class Home extends Application {
 	
-	private static Scene scene ;//cambiare scena
+	private static Scene scene ;
 	private static Stage primaryStage;
 	
     @Override
@@ -32,24 +32,19 @@ public class Home extends Application {
 
     }
     
-    //bloccare stage principale
-    public static void blockPrimaryStage(Stage stage) {
-    	stage.initModality(Modality.WINDOW_MODAL);
-    	stage.initOwner(primaryStage);
-    }
-    
-	//gestisce il caricamento della view iniziale
+   
+	//caricamento della view iniziale
 	public static Parent loadView(String view) throws IOException {
         FXMLLoader loader = new FXMLLoader(Home.class.getClassLoader().getResource(view + ".fxml"));
         return loader.load();
     }
 	
-	//gestisce il caricamento della nuova view senza passaggio di parametri
+	//caricamento della view senza passaggio di parametri
     public static Parent loadView(Controller sender, String view) throws IOException {
         return loadView(sender, view, null);
     }
     
-    //gestisceil caricamento della view con il passaggio di parametri
+    //caricamento della view con passaggio di parametri
     public static Parent loadView(Controller sender, String view, Object parameter) throws IOException {
         FXMLLoader loader = new FXMLLoader(Controller.class.getClassLoader().getResource(view + ".fxml"));
         Parent parent = loader.load();
@@ -57,16 +52,25 @@ public class Home extends Application {
         controller.onNavigateFrom(sender,parameter);
         return parent;
     }
-
+    
+    //passaggio alla nuova view con passaggio di parametri
     public static void navigate(Controller sender, String view, Object parameter) throws IOException {
         Parent parent = loadView(sender, view, parameter);
         scene.setRoot(parent);
     }
-
+    
+    //passaggio alla nuova view con passaggio di parametri
     public static void navigate(Controller sender, String view) throws IOException {
         navigate(sender, view, null);
     }
     
+    //blocca lo stage principale
+    public static void blockPrimaryStage(Stage stage) {
+    	stage.initModality(Modality.WINDOW_MODAL);
+    	stage.initOwner(primaryStage);
+    }
+    
+    //crea un nuovo stage
     public static void newStage(Controller sender,String title, String view, Object parameter) {
 	    try {
 	   	        	
@@ -82,9 +86,11 @@ public class Home extends Application {
 	    }
     }
     
+    //chiude lo stage passato come argomento
     public static void closeStage(Stage stage) {
     	stage.close();
     }
+    
     
     public static void main(String[] args) {
        launch(args);
