@@ -60,7 +60,7 @@ public class ElettoreSessioniController extends Controller {
 		public void handle(ActionEvent e) {
 			SessioneDiVoto sessione = (SessioneDiVoto) ((Button) e.getSource()).getUserData();
 			System.out.println("Id Sessione di Voto:" + sessione.getId());
-			Object[] parameter = new Object[] { elettore, sessione };
+			Object[] parameter = new Object[] { elettore, sessione , null};
 			switch (sessione.getModVoto()) {
 			case ORDINALE:
 				navigate("VotazioneOrdinaleView", parameter);
