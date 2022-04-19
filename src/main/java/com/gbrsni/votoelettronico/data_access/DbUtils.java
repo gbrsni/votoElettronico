@@ -25,6 +25,7 @@ public class DbUtils {
 		}
 	}
 	
+	/** chiude la connessione connection */
 	public static void closeConnection(Connection connection) {
 		try {
 			connection.close();
