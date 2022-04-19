@@ -17,8 +17,8 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 	@Override
 	public List<Candidato> getAllCandidato() {
 		List<Candidato> res = new ArrayList<>();
-		ResultSet rs = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		
 		try {
 			ps = connection.prepareStatement("SELECT * FROM candidati");
@@ -34,7 +34,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			c.printStackTrace();
 		}	
 		
-		finally { DbUtils.closeStatement(ps); DbUtils.closeResultSet(rs);}
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
@@ -60,7 +60,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			c.printStackTrace();
 		}
 		
-		finally { DbUtils.closeStatement(ps); DbUtils.closeResultSet(rs);}
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
@@ -84,7 +84,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			c.printStackTrace();
 		} 
 		
-		finally { DbUtils.closeStatement(ps); DbUtils.closeResultSet(rs);}
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 
@@ -104,7 +104,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			System.out.println("Errore durante l'aggiornamento del candidato " + c.toString());
 			e.printStackTrace();
 		}
-		finally {DbUtils.closeStatement(ps);}
+		finally { DbUtils.closeStatement(ps); }
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			e.printStackTrace();
 		}
 		
-		finally { DbUtils.closeStatement(ps);}
+		finally {  DbUtils.closeStatement(ps); }
 	}
 
 	@Override
