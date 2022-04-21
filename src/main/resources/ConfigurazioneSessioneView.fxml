@@ -117,7 +117,7 @@
             </HBox>
             <HBox prefHeight="200.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="selezionaCandidatiLabel" text="Seleziona candidati:">
+                  <Label fx:id="selezionaCandidatiLabel" prefHeight="35.0" prefWidth="214.0" text="Seleziona candidati:">
                      <font>
                         <Font size="24.0" />
                      </font>
