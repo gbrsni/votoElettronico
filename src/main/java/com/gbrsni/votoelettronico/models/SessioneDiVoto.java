@@ -1,18 +1,8 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Objects;
 
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 public abstract class SessioneDiVoto {
 	
@@ -20,7 +10,6 @@ public abstract class SessioneDiVoto {
 	private String nome;
 	private String descrizione;
 	private LocalDate data;
-	private ModVoto modVoto;
 	private ModVittoria modVittoria;
 	private StatoSessione statoSessione;
 	private int nvoti;
@@ -34,7 +23,6 @@ public abstract class SessioneDiVoto {
 		
 		this.id = id;
 		this.nome = nome;
-		this.modVoto = modVoto;
 		this.modVittoria = modVittoria;
 		this.descrizione = descrizione;
 		this.data = data;
@@ -60,17 +48,6 @@ public abstract class SessioneDiVoto {
 		this.data = data;
 		this.nvoti = nvoti; 
 		
-		if (modVoto.equals("ORDINALE")) {
-			this.modVoto = ModVoto.ORDINALE;
-		} else if (modVoto.equals("CATEGORICO")) {
-			this.modVoto = ModVoto.CATEGORICO;
-		} else if (modVoto.equals("CATEGORICO_CON_PREFERENZE")) {
-			this.modVoto = ModVoto.CATEGORICO_CON_PREFERENZE;
-		} else if (modVoto.equals("REFERENDUM")) {
-			this.modVoto = ModVoto.REFERENDUM;
-		} else {
-			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalità di voto " + modVoto + " non valida");
-		}
 		
 		if (modVittoria.equals("MAGGIORANZA")) {
 			this.modVittoria = ModVittoria.MAGGIORANZA;
@@ -109,14 +86,6 @@ public abstract class SessioneDiVoto {
 	public LocalDate getData() {
 		return data;
 		
-	}
-	public ModVoto getModVoto() {
-		return modVoto;
-	}
-
-	public void setModVoto(ModVoto modVoto) {
-		Objects.requireNonNull(modVoto);
-		this.modVoto = modVoto;
 	}
 
 	public ModVittoria getModVittoria() {
