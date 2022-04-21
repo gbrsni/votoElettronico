@@ -13,10 +13,11 @@ public abstract class Utente {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(cognome);
+		Objects.requireNonNull(codiceFiscale);
 		
 		this.username = username;
 		this.nome = nome;
-		this.nome = cognome;
+		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
 	}
 
@@ -49,15 +50,12 @@ public abstract class Utente {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
+	
+	public String getCodiceFiscale() {
+		return codiceFiscale;
+	}
 
-
-
-//	public String getCodiceFiscale() {
-//		return codiceFiscale;
-//	}
-//
-//
-//	public void setCodiceFiscale(String codiceFiscale) {
-//		this.codiceFiscale = codiceFiscale;
-//	}
+	public void setCodiceFiscale(String codiceFiscale) {
+		this.codiceFiscale = codiceFiscale;
+	}
 }
