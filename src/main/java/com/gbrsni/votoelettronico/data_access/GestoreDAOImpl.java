@@ -172,6 +172,6 @@ public class GestoreDAOImpl implements GestoreDAO {
 			System.out.println("Errore durante la modifica della password dell'gestore con username " + username);
 			ex.printStackTrace();
 		}
-		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
+		finally { DbUtils.closeStatement(ps); }
 	}
 }
