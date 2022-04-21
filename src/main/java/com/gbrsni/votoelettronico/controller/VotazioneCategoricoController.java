@@ -3,6 +3,7 @@ package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.List;
@@ -40,8 +41,8 @@ public class VotazioneCategoricoController extends Controller{
 	private List<Partito> partiti; 
 	private ToggleGroup partitiRadioGroup = new ToggleGroup();
 	
-	private Partito partitoSelezionato = null; 
-	private List<Candidato> candidatoSelezionato = new ArrayList<>();
+	private Partito partitoSelezionato; 
+	private Map<Candidato,Integer> candidatoSelezionato;
 	
     @FXML
     private ResourceBundle resources;
@@ -81,15 +82,11 @@ public class VotazioneCategoricoController extends Controller{
 		Object[] data = (Object[]) parameter;
 		elettore = (Elettore) data[0];
 		sessione = (SessioneDiVoto) data[1];
+		gestore = (Gestore) data[2];
 		nomeElettore.setText("Elettore: " + elettore.getNome());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());
-		try {
-			gestore = (Gestore) data[2];
-		}catch(Exception e) {
-		
-		}
-
+	
 		visualizzaPartiti();
 	}
 		
@@ -152,7 +149,7 @@ public class VotazioneCategoricoController extends Controller{
 	EventHandler<ActionEvent> sceltaCandidatiCategorico = new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent e) {
 	    	candidatoSelezionato.clear();
-	    	candidatoSelezionato.add((Candidato)((RadioButton)e.getSource()).getUserData());
+	    	candidatoSelezionato.put((Candidato)((RadioButton)e.getSource()).getUserData(), 1);
 	    
 	    }
 	};
@@ -161,7 +158,7 @@ public class VotazioneCategoricoController extends Controller{
 	    public void handle(ActionEvent e) {
 	    	
 	    	if (((CheckBox)e.getSource()).isSelected()) {
-	    	candidatoSelezionato.add((Candidato)((CheckBox)e.getSource()).getUserData());
+	    	candidatoSelezionato.put((Candidato)((CheckBox)e.getSource()).getUserData(),1);
 	    	} else {
 	    		candidatoSelezionato.remove((Candidato)((CheckBox)e.getSource()).getUserData());
 	    	}
@@ -178,8 +175,10 @@ public class VotazioneCategoricoController extends Controller{
 	
     @FXML
     void pressVotaButton(ActionEvent event) {
-    	Object[] parameter = new Object[] {elettore, sessione, partitoSelezionato, candidatoSelezionato};
-    	Home.newStage("Conferma Voto","ConfermaVotazioneView", parameter);
+    	Map<Partito,Integer> p = new HashMap<>();
+    	p.put(partitoSelezionato, 1);
+    	Object[] parameter = new Object[] {elettore, sessione, null, p, candidatoSelezionato};
+    	newStage("Conferma Voto","ConfermaVotazioneView", parameter);
     }
 
     @FXML
@@ -200,6 +199,8 @@ public class VotazioneCategoricoController extends Controller{
         
         partiti = new ArrayList<>();
         partiti.addAll(candidati.keySet());
+        
+        candidatoSelezionato = new HashMap<>();
         
     }
 
