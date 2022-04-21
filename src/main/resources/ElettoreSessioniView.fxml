@@ -22,7 +22,7 @@
                   </Label>
                   <Button fx:id="logoutBottone" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="70.0" />
@@ -30,18 +30,18 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="60.0" prefWidth="900.0">
+            <HBox prefHeight="38.0" prefWidth="900.0">
                <children>
-                  <Label text="Sessioni di Voto in Corso:">
+                  <Label prefHeight="27.0" prefWidth="220.0" text="Sessioni di Voto in Corso:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <ScrollPane prefHeight="250.0" prefWidth="900.0">
+            <ScrollPane prefHeight="389.0" prefWidth="900.0">
                <content>
-                  <VBox fx:id="sessioniVbox" prefHeight="236.0" prefWidth="867.0" />
+                  <VBox fx:id="sessioniVbox" prefHeight="385.0" prefWidth="867.0" />
                </content>
             </ScrollPane>
          </children>
