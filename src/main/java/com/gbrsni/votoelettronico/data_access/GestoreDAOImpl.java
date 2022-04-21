@@ -45,6 +45,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ps.setString(1, g.getNome());
 			ps.setString(2, g.getCognome());
 			ps.setString(3, g.getUsername());
+			ps.setString(4, g.getCodiceFiscale());
 			ps.executeUpdate();
 			System.out.println("Aggiornato gestore " + g.toString() + " nel database");
 		} catch (SQLException e) {
@@ -77,10 +78,11 @@ public class GestoreDAOImpl implements GestoreDAO {
 		Objects.requireNonNull(g);
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("INSERT INTO gestori (username, nome, cognome) VALUES (?, ?, ?)");
+			ps = connection.prepareStatement("INSERT INTO gestori (username, nome, cognome,codicefiscale) VALUES (?, ?, ?,?)");
 			ps.setString(1, g.getUsername());
 			ps.setString(2, g.getNome());
 			ps.setString(3, g.getCognome());
+			ps.setString(4, g.getCodiceFiscale());
 			ps.executeUpdate();
 			System.out.println("Inserito gestore " + g.toString() + " dal database");
 		} catch (SQLException e) {
