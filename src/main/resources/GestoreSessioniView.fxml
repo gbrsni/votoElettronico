@@ -46,7 +46,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="85.0" prefWidth="960.0">
                <children>
                   <Button fx:id="Sessionebottone" mnemonicParsing="false" onAction="#pressAggiungiSessioneButton" text="Aggiungi Sessione">
                      <font>
@@ -82,7 +82,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="47.0" prefWidth="960.0">
+            <HBox prefHeight="31.0" prefWidth="960.0">
                <children>
                   <Label text="Elenco Sessioni:">
                      <font>
@@ -97,9 +97,9 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <ScrollPane prefHeight="338.0" prefWidth="960.0">
+            <ScrollPane prefHeight="382.0" prefWidth="960.0">
                <content>
-                  <VBox fx:id="sessioniVbox" prefHeight="200.0" prefWidth="664.0" />
+                  <VBox fx:id="sessioniVbox" prefHeight="377.0" prefWidth="937.0" />
                </content>
                <VBox.margin>
                   <Insets top="20.0" />

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -28,7 +29,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBottone" mnemonicParsing="false" onAction="#handleLogout" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -36,7 +37,7 @@
                         <Insets left="70.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenu" text="Menu">
+                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#pressMenuButton" text="Menu">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -48,7 +49,7 @@
             </HBox>
             <HBox prefHeight="86.0" prefWidth="900.0">
                <children>
-                  <Button fx:id="candidatoBottone" mnemonicParsing="false" onAction="#handleAggiungiCandidato" prefHeight="50.0" prefWidth="200.0" text="Aggiungi Candidato">
+                  <Button fx:id="candidatoButton" mnemonicParsing="false" onAction="#pressAggiungiCandidatoButton" prefHeight="50.0" prefWidth="200.0" text="Aggiungi Candidato">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -56,7 +57,7 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="partitoBottone" mnemonicParsing="false" onAction="#handleAggiungiPartito" prefHeight="50.0" prefWidth="200.0" text="Aggiungi Partito">
+                  <Button fx:id="partitoButton" mnemonicParsing="false" onAction="#pressAggiungiPartitoButton" prefHeight="50.0" prefWidth="200.0" text="Aggiungi Partito">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -68,7 +69,7 @@
             </HBox>
             <HBox prefHeight="62.0" prefWidth="900.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="127.0" text="Ricerca partito:">
+                  <Label prefHeight="27.0" prefWidth="83.0" text="Ricerca:">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -76,37 +77,23 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cercaPartitoTextField">
+                  <TextField fx:id="cercaTextField" prefHeight="25.0" prefWidth="166.0">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="cercaPartitoBottone" mnemonicParsing="false" onAction="#pressCercaPartitoButton" text="Cerca">
+                  <ComboBox fx:id="cercaComboBox" prefHeight="25.0" prefWidth="113.0" visibleRowCount="20" />
+                  <Button fx:id="cercaButton" mnemonicParsing="false" onAction="#pressCercaButton" text="Cerca">
                      <HBox.margin>
                         <Insets left="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Label text="Ricerca candidato:">
-                     <HBox.margin>
-                        <Insets left="50.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
-                  </Label>
-                  <TextField fx:id="cercaCandidatoTextField">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Button fx:id="cercaCandidatoBottone" mnemonicParsing="false" onAction="#pressCercaCandidatoButton" text="Cerca">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="41.0" prefWidth="900.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="900.0">
                <children>
                   <Label text="Elenco Partiti:">
                      <HBox.margin>
@@ -116,7 +103,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="candidatiLabel" text="Candidati:">
+                  <Label fx:id="candidatiLabel">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -126,7 +113,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="331.0" prefWidth="900.0">
+            <HBox alignment="CENTER" prefHeight="331.0" prefWidth="900.0">
                <children>
                   <ScrollPane prefHeight="331.0" prefWidth="400.0">
                      <HBox.margin>

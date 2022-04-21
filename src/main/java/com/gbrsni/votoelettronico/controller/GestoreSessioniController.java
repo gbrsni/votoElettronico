@@ -168,40 +168,54 @@ public class GestoreSessioniController extends Controller{
         		
         		HBox sessioniHbox = new HBox();
         		Label sessioniLabel = new Label();
-                sessioniLabel.setText(sessioni.get(i).getNome() + "   data : " + sessioni.get(i).getData() + "   modVoto: " + sessioni.get(i).getModVoto() + "  stato:" + sessioni.get(i).getStatoSessione());
-                sessioniLabel.setFont(new Font(15));
-                Region region1 = new Region();
-            	sessioniHbox.setHgrow(region1, Priority.ALWAYS);
-                sessioniHbox.getChildren().add(sessioniLabel);
-                sessioniHbox.getChildren().add(region1);
+        		Label sessioniLabelInfo = new Label();
+        		Region region1 = new Region();
+        		Region region2 = new Region();
+        		
+                sessioniLabel.setText(sessioni.get(i).getNome());
+                sessioniLabelInfo.setText("   data : " + sessioni.get(i).getData() + "   modVoto: " + sessioni.get(i).getModVoto() + "  stato:" + sessioni.get(i).getStatoSessione());
+                sessioniLabel.setFont(new Font(25));
+                sessioniLabelInfo.setFont(new Font(15)); 
+                sessioniHbox.setAlignment(Pos.CENTER_LEFT);
                 
-                if (sessioni.get(i).getStatoSessione() == StatoSessione.CHIUSA) {
+            	sessioniHbox.setHgrow(region1, Priority.ALWAYS);
+            	sessioniHbox.setHgrow(region2, Priority.ALWAYS);
+            	sessioniHbox.getChildren().addAll(sessioniLabel,region1,sessioniLabelInfo,region2);
+                
+            	switch(sessioni.get(i).getStatoSessione()) {
+            	case CHIUSA:
                 	Button bottoneAvvia = new Button("Avvia");
                 	Button bottoneModifica = new Button("Modifica");
                 	Button bottoneElimina = new Button("Elimina");
                 	bottoneAvvia.setUserData(sessioni.get(i));
                 	bottoneModifica.setUserData(sessioni.get(i));
                 	bottoneElimina.setUserData(sessioni.get(i));
+                	bottoneAvvia.setFont(new Font(15));
+                	bottoneModifica.setFont(new Font(15));
+                	bottoneElimina.setFont(new Font(15));
                 	bottoneAvvia.setOnAction(avviaSessione);
                 	bottoneModifica.setOnAction(modificaSessione);
                 	bottoneElimina.setOnAction(eliminaSessione);
-                	sessioniHbox.getChildren().add(bottoneAvvia);
-                	sessioniHbox.getChildren().add(bottoneModifica);
-                	sessioniHbox.getChildren().add(bottoneElimina);
-                	
-                } else if (sessioni.get(i).getStatoSessione() == StatoSessione.IN_CORSO) {
+                	sessioniHbox.getChildren().addAll(bottoneAvvia,bottoneModifica,bottoneElimina);
+                break;
+            	case IN_CORSO:	
                 	Button bottoneAperta = new Button("Gestisci");
                 	bottoneAperta.setOnAction(gestisciSessione);
                 	bottoneAperta.setUserData(sessioni.get(i));
+                	bottoneAperta.setFont(new Font(15));
                 	sessioniHbox.getChildren().add(bottoneAperta);
-                } else if (sessioni.get(i).getStatoSessione() == StatoSessione.CONCLUSA) {
+                break;
+            	case CONCLUSA:
                 	Button bottoneScrutinio = new Button("Avvia Scrutinio");
                 	bottoneScrutinio.setUserData(sessioni.get(i));
+                	bottoneScrutinio.setFont(new Font(15));
                 	sessioniHbox.getChildren().add(bottoneScrutinio);
-                } else {
+            	case SCRUTINATA:
                 	Button bottoneRisultati = new Button("Visualizza Risultati");
                 	bottoneRisultati.setUserData(sessioni.get(i));
+                	bottoneRisultati.setFont(new Font(15));
                 	sessioniHbox.getChildren().add(bottoneRisultati);
+                break;
                 }
                 sessioniVbox.getChildren().add(sessioniHbox);
         	

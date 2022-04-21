@@ -257,8 +257,6 @@ public class ConfigurazioneSessioneController extends Controller{
           partiti.addAll(candidati.keySet());
           ObservableList<Partito> dbTypeList1 = FXCollections.observableArrayList(partiti);
           partitoComboBox.setItems(dbTypeList1);
-      
-         
           
     }
 

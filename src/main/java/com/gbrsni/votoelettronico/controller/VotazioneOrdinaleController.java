@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import com.gbrsni.votoelettronico.Home;
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
@@ -43,8 +44,8 @@ public class VotazioneOrdinaleController extends Controller {
 	private ToggleGroup radioGroup;
 	private RadioButton[][] radioButtonVoto;
 
-	private Map<Partito, Integer> partitoSelezionato = null;
-	private Map<Candidato, Integer> candidatoSelezionato = null;
+	private Map<Partito, Integer> partitoSelezionato ;
+	private Map<Candidato, Integer> candidatoSelezionato ;
 
 	@FXML
 	private ResourceBundle resources;
@@ -99,14 +100,11 @@ public class VotazioneOrdinaleController extends Controller {
 		Object[] data = (Object[]) parameter;
 		elettore = (Elettore) data[0];
 		sessione = (SessioneDiVoto) data[1];
+		gestore = (Gestore) data[2];
 		nomeElettore.setText("Elettore: " + elettore.getNome());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());
-		try {
-			gestore = (Gestore) data[2];
-		} catch (Exception e) {
-
-		}
+	
 
 	}
 
@@ -149,8 +147,9 @@ public class VotazioneOrdinaleController extends Controller {
 	EventHandler<ActionEvent> votoPartiti = new EventHandler<ActionEvent>() {
 		public void handle(ActionEvent e) {
 			
+			int size = partiti.size();
 			Partito p = (Partito)((RadioButton)e.getSource()).getUserData();
-			Integer v = Integer.valueOf(((RadioButton)e.getSource()).getText());
+			Integer v = size - Integer.valueOf(((RadioButton)e.getSource()).getText()) + 1 ;
 			
 			if(partitoSelezionato.containsKey(e)) {
 				partitoSelezionato.replace(p,v);
@@ -228,7 +227,8 @@ public class VotazioneOrdinaleController extends Controller {
 		public void handle(ActionEvent e) {
 			
 			Candidato p = (Candidato)((RadioButton)e.getSource()).getUserData();
-			Integer v = Integer.valueOf(((RadioButton)e.getSource()).getText());
+			int size = candidati.get(p.getPartito()).size();
+			Integer v = size - Integer.valueOf(((RadioButton)e.getSource()).getText()) + 1 ;
 			
 			if(candidatoSelezionato.containsKey(e)) {
 				candidatoSelezionato.replace(p,v);
@@ -254,14 +254,18 @@ public class VotazioneOrdinaleController extends Controller {
 	void pressVotaButton(ActionEvent event) {
 		
 		erroreLabel.setVisible(false);
+		
 		List<Integer> value = new ArrayList<>();
 		
+		boolean error = false;
 		for (Map.Entry<Partito, Integer> entry : partitoSelezionato.entrySet()) {
 		    System.out.println("Partito " + entry.getKey() + "/" + entry.getValue());
 		    if (value.contains(entry.getValue())){
 		    	erroreLabel.setVisible(true);
 		    } else {
 		    	value.add(entry.getValue());
+		    	error = true;
+		    	break;
 		    }
 		}
 		
@@ -272,8 +276,12 @@ public class VotazioneOrdinaleController extends Controller {
 		    	erroreLabel.setVisible(true);
 		    } else {
 		    	value.add(entry.getValue());
+		    	error = true;
+		    	break;
 		    }
 		}
+		Object[] parameter = new Object[] {elettore, sessione, null, partitoSelezionato, candidatoSelezionato};
+		newStage("Conferma Voto", "ConfermaVotazioneView", parameter);
 	}
 
 	@FXML

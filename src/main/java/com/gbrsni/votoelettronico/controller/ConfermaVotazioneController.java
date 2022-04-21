@@ -2,6 +2,7 @@ package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.models.Candidato;
@@ -16,75 +17,90 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class ConfermaVotazioneController extends Controller{
-	
+public class ConfermaVotazioneController extends Controller {
+
 	private Elettore elettore;
 	private SessioneDiVoto sessione;
 	private Gestore gestore;
-	private Partito partito; 
-	private List<Candidato> candidato;
-	
-    @FXML
-    private ResourceBundle resources;
+	private Map<Partito, Integer> partiti;
+	private Map<Candidato, Integer> candidati;
+	private boolean scelta;
 
-    @FXML
-    private URL location;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private Button annullaBottone;
+	@FXML
+	private URL location;
 
-    @FXML
-    private Button confermaBottone;
+	@FXML
+	private Button annullaBottone;
 
-    @FXML
-    private Label votoLabel;
+	@FXML
+	private Button confermaBottone;
+
+	@FXML
+	private Label votoLabel;
 
 	@Override
 	public void onNavigateFrom(Controller sender, Object parameter) {
+
 		Object[] data = (Object[]) parameter;
-		 elettore = (Elettore) data[0];
-		 sessione = (SessioneDiVoto) data[1];
-		 partito = (Partito) data[2];
-		 candidato = (List<Candidato>) data[3];
-		try {
-			 gestore = (Gestore) data[4];
-		}catch(Exception e) {}
-		
+		elettore = (Elettore) data[0];
+		sessione = (SessioneDiVoto) data[1];
+		gestore = (Gestore) data[2];
+		if (sessione.getModVoto().equals("REFERENDUM")) {
+			scelta = (boolean) data[3];
+		} else {
+			partiti = (Map<Partito, Integer>) data[3];
+			candidati = (Map<Candidato, Integer>) data[4];
+		}
 		setLabel();
-		
+
 	}
 
 	public void setLabel() {
-		String label ; 
-		if(partito == null) {
-			label = "Scheda Bianca";
+		String label = "";
+		if (sessione.getModVoto().equals("REFERENDUM")) {
+			if (scelta == true) {
+				label = "favorevole";
+			} else {
+				label = "contrario";
+			}
 		} else {
-			label = "Partito: " + partito.getNome() + "\n";
-			for (int i = 0; i < candidato.size();  i++) {
-				label += candidato.get(i).getNome() + " " + candidato.get(i).getCognome() + "\n";
+			if (partiti.size() == 0) {
+				label = "Scheda Bianca";
+			} else {
+				for (Map.Entry<Partito, Integer> entry : partiti.entrySet()) {
+					label += "Partito: " + entry.getKey() + " " + entry.getValue() + "\n";
+				}
+				for (Map.Entry<Candidato, Integer> entry : candidati.entrySet()) {
+					label += entry.getKey() + " " + entry.getValue() + "\n";
+				}
 			}
 		}
+
 		votoLabel.setText(label);
 	}
-	
-    @FXML
-    void pressAnnullaButton(ActionEvent event) {
-    	Stage stage = (Stage) annullaBottone.getScene().getWindow();
-        closeStage(stage);
-    }
 
-    @FXML
-    void pressConfermaButton(ActionEvent event) {
+	@FXML
+	void pressAnnullaButton(ActionEvent event) {
+		Stage stage = (Stage) annullaBottone.getScene().getWindow();
+		closeStage(stage);
+	}
 
-    }
+	@FXML
+	void pressConfermaButton(ActionEvent event) {
+		if(sessione.getModVoto().equals("REFERENDUM")) {}
+		else {
+			
+		}
+	}
 
-    @FXML
-    void initialize() {
-        assert annullaBottone != null : "fx:id=\"annullaBottone\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
-        assert confermaBottone != null : "fx:id=\"confermaBottone\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
-        assert votoLabel != null : "fx:id=\"votoLabel\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
-
-    }
-
+	@FXML
+	void initialize() {
+		assert annullaBottone != null: "fx:id=\"annullaBottone\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
+		assert confermaBottone != null: "fx:id=\"confermaBottone\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
+		assert votoLabel != null: "fx:id=\"votoLabel\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
+	}
 
 }
