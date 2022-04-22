@@ -80,8 +80,21 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			while (rs.next()) {
 				try {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
-					res.add(new SessioneDiVoto(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, rs.getString("modvoto"), rs.getString("modvittoria"), rs.getString("stato"), rs.getInt("nvoti")));
-				} catch (IllegalArgumentException e) {
+					
+					switch (ModVoto.valueOf(rs.getString("modvoto"))) {
+					case ORDINALE:
+						res.add(new SessioneOrdinale(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVoto.valueOf(rs.getString("modvoto")), ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
+						break;
+					case CATEGORICO:
+						res.add(new SessioneCategorico(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVoto.valueOf(rs.getString("modvoto")), ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
+						break;
+					case CATEGORICO_CON_PREFERENZE:
+						res.add(new SessioneCategoricoPreferenze(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVoto.valueOf(rs.getString("modvoto")), ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
+						break;
+					default:
+						throw new Exception("Modalità di voto non riconosciuta");
+					}
+				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
 					e.printStackTrace();
 				}
