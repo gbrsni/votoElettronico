@@ -95,14 +95,14 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 						throw new Exception("Modalità di voto non riconosciuta");
 					}
 				} catch (Exception e) {
-					System.out.println("Errore durante l'ottenimento di una sessione di voto");
+					System.out.println("Errore durante l'ottenimento di una sessione di voto con nome " + nome);
 					e.printStackTrace();
 				}
 			}
 			
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto");
+			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto con nome " + nome);
 			e.printStackTrace();
 		}
 		
