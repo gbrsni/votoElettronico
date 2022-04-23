@@ -42,10 +42,8 @@ public class DashBoardController extends Controller{
     @FXML
     private Label sessioniAperteLabel;
 
-
     @FXML
     private Button sessioniButton;
-
 
     @FXML
     private Label sessioniChiuseLabel;
@@ -83,6 +81,14 @@ public class DashBoardController extends Controller{
     	navigate("GestoreSessioniView", gestore);
     }
    
+    private void init() {
+    	SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
+        sessioniTotaliLabel.setText("Sessioni di voto totali: " + sessioneDb.getTotalNumberSessioneDiVoto());
+        sessioniChiuseLabel.setText("Sessioni di voto chiuse: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.CHIUSA));
+        sessioniAperteLabel.setText("Sessioni di voto aperte: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.IN_CORSO));
+        sessioniConcluseLabel.setText("Sessioni di voto concluse: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.CONCLUSA));
+        sessioniScrutinateLabel.setText("Sessioni di voto scrutinate: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.SCRUTINATA));
+    }
     
     @FXML
     void initialize() {
@@ -97,11 +103,6 @@ public class DashBoardController extends Controller{
          assert sessioniConcluseLabel != null : "fx:id=\"sessioniConcluseLabel\" was not injected: check your FXML file 'DashBoardView.fxml'.";
          assert sessioniScrutinateLabel != null : "fx:id=\"sessioniScrutinateLabel\" was not injected: check your FXML file 'DashBoardView.fxml'.";
          assert sessioniTotaliLabel != null : "fx:id=\"sessioniTotaliLabel\" was not injected: check your FXML file 'DashBoardView.fxml'.";
-         SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
-         sessioniTotaliLabel.setText("Sessioni di voto totali: " + sessioneDb.getTotalNumberSessioneDiVoto());
-         sessioniChiuseLabel.setText("Sessioni di voto chiuse: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.CHIUSA));
-         sessioniAperteLabel.setText("Sessioni di voto aperte: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.IN_CORSO));
-         sessioniConcluseLabel.setText("Sessioni di voto concluse: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.CONCLUSA));
-         sessioniScrutinateLabel.setText("Sessioni di voto scrutinate: " + sessioneDb.getNumberSessioneDiVotoByStato(StatoSessione.SCRUTINATA));
+         init();
     }
 }
