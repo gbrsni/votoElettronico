@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.UtenteSessioniScrutinateController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.UtenteSessioniScrutinateController">
    <top>
       <Label text=" Sessioni di Voto Scutinate" BorderPane.alignment="CENTER">
          <font>
@@ -23,7 +22,7 @@
          <children>
             <HBox prefHeight="55.0" prefWidth="900.0">
                <children>
-                  <Button fx:id="menuBottone" mnemonicParsing="false" onAction="#pressMenuBottone" text="Menu">
+                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#pressMenuButton" prefHeight="41.0" prefWidth="79.0" text="Menu">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -32,7 +31,7 @@
             </HBox>
             <ScrollPane prefHeight="469.0" prefWidth="900.0">
                <content>
-                  <VBox fx:id="sessioniVbox" prefHeight="467.0" prefWidth="851.0" />
+                  <VBox fx:id="sessioniVbox" prefHeight="464.0" prefWidth="880.0" />
                </content>
             </ScrollPane>
          </children>
