@@ -14,10 +14,9 @@ public abstract class SessioneDiVoto {
 	private StatoSessione statoSessione;
 	private int nvoti;
 	
-	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione, int nvoti) {
+	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data, ModVittoria modVittoria, StatoSessione statoSessione, int nvoti) {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(data);
-		Objects.requireNonNull(modVoto);
 		Objects.requireNonNull(modVittoria);
 		Objects.requireNonNull(nvoti);
 		
@@ -35,10 +34,9 @@ public abstract class SessioneDiVoto {
 		}
 	}
 
-	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data,String modVoto, String modVittoria, String statoSessione, int nvoti) throws IllegalArgumentException {
+	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data,String modVittoria, String statoSessione, int nvoti) throws IllegalArgumentException {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(data);
-		Objects.requireNonNull(modVoto);
 		Objects.requireNonNull(modVittoria);
 		Objects.requireNonNull(nvoti);
 		
@@ -76,16 +74,32 @@ public abstract class SessioneDiVoto {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getDescrizione() {
 		return descrizione;
 	}
-	
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
 	public LocalDate getData() {
 		return data;
-		
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	public ModVittoria getModVittoria() {
@@ -93,24 +107,25 @@ public abstract class SessioneDiVoto {
 	}
 
 	public void setModVittoria(ModVittoria modVittoria) {
-		Objects.requireNonNull(modVittoria);
 		this.modVittoria = modVittoria;
 	}
 
 	public StatoSessione getStatoSessione() {
 		return statoSessione;
 	}
-	
+
+	public void setStatoSessione(StatoSessione statoSessione) {
+		this.statoSessione = statoSessione;
+	}
+
 	public int getNvoti() {
 		return nvoti;
 	}
-	public void setStatoSessione(StatoSessione statoSessione) {
-		Objects.requireNonNull(statoSessione);
-		this.statoSessione = statoSessione;
+
+	public void setNvoti(int nvoti) {
+		this.nvoti = nvoti;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
+
+	public abstract ModVoto getModVoto();
 	
 }

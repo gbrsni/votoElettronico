@@ -16,9 +16,9 @@ import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 public class SessioneCategoricoPreferenze extends SessioneDiVoto{
 	
-	public SessioneCategoricoPreferenze(int id, String nome, String descrizione, LocalDate data, ModVoto modVoto, ModVittoria modVittoria,
+	public SessioneCategoricoPreferenze(int id, String nome, String descrizione, LocalDate data, ModVittoria modVittoria,
 			StatoSessione statoSessione, int nvoti) {
-		super(id, nome, descrizione, data, modVoto, modVittoria, statoSessione, nvoti);
+		super(id, nome, descrizione, data, modVittoria, statoSessione, nvoti);
 	}
 	
 	
@@ -87,4 +87,8 @@ public class SessioneCategoricoPreferenze extends SessioneDiVoto{
 	public void updateVotiCandidati(Candidato candidato, Integer nvoti) {}
 	public void updateVotiPartiti(Partito partito, Integer nvoti) {}
 	public void updateVotiAstenuti(Integer nvoti) {}
+	
+	public ModVoto getModVoto() {
+		return ModVoto.CATEGORICO_CON_PREFERENZE;
+	}
 }
