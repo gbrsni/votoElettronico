@@ -143,7 +143,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	public void deleteSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
 		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM sessioniDiVoto  WHERE id = ?");
+			PreparedStatement ps = connection.prepareStatement("DELETE FROM sessioni  WHERE id = ?");
 			ps.setInt(1, s.getId());
 			ps.executeUpdate();
 			ps.close();
