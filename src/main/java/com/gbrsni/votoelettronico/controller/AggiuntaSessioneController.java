@@ -36,7 +36,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ConfigurazioneSessioneController extends Controller{
+public class AggiuntaSessioneController extends Controller{
 	
 	private Gestore gestore;
 	private SessioneDiVoto sessione; 
