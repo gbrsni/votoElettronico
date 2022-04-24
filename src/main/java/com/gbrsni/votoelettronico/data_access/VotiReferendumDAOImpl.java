@@ -57,11 +57,12 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = connection.prepareStatement("INSERT INTO votireferendum (sessioni, nvoti1,nvoti2,nastenuti,vincitore) VALUES (?,?,?,?)");
+			ps = connection.prepareStatement("INSERT INTO votireferendum (sessioni, nvoti1,nvoti2,nastenuti,vincitore) VALUES (?,?,?,?,?)");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ps.setInt(2, 0);
 			ps.setInt(3, 0);
-			ps.setString(4, null);			
+			ps.setInt(4, 0);
+			ps.setString(5, null);			
 			ps.executeUpdate();
 			System.out.println("Aggiunto record per la sessione Referendum " + sessioneDiVoto);
 		} catch (SQLException e) {
