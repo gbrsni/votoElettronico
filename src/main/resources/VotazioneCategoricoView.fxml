@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.VotazioneCategoricoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.VotazioneCategoricoController">
    <top>
       <Label text="Votazione" BorderPane.alignment="CENTER">
          <font>
@@ -67,15 +67,15 @@
                <children>
                   <ScrollPane prefHeight="400.0" prefWidth="400.0">
                      <content>
-                        <VBox fx:id="partitiVbox" prefHeight="349.0" prefWidth="367.0" />
+                        <VBox fx:id="partitiVbox" prefHeight="353.0" prefWidth="363.0" />
                      </content>
                   </ScrollPane>
-                  <ScrollPane prefHeight="200.0" prefWidth="400.0">
+                  <ScrollPane prefHeight="400.0" prefWidth="400.0">
                      <HBox.margin>
                         <Insets left="100.0" />
                      </HBox.margin>
                      <content>
-                        <VBox fx:id="candidatiVbox" prefHeight="349.0" prefWidth="369.0" />
+                        <VBox fx:id="candidatiVbox" prefHeight="353.0" prefWidth="373.0" />
                      </content>
                   </ScrollPane>
                </children>
@@ -87,12 +87,15 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="annullaButton" mnemonicParsing="false" onAction="#pressAnnullaButton" text="annulla" />
+                  <Button fx:id="annullaButton" mnemonicParsing="false" onAction="#pressAnnullaButton" text="annulla">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin></Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="votaBottone" mnemonicParsing="false" onAction="#pressVotaButton" prefHeight="76.0" prefWidth="108.0" text="Vota">
+                  <Button fx:id="votaButton" mnemonicParsing="false" onAction="#pressVotaButton" prefHeight="76.0" prefWidth="108.0" text="Vota">
                      <font>
                         <Font size="27.0" />
                      </font>
