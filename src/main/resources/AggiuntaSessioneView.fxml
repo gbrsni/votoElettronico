@@ -31,9 +31,9 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="backBottone" mnemonicParsing="false" onAction="#pressBackButton" prefHeight="34.0" prefWidth="133.0" text="Torna Indietro">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#pressBackButton" prefHeight="39.0" prefWidth="153.0" text="Torna Indietro">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="50.0" />
@@ -95,7 +95,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="modVotoComboBox" onAction="#selectModVoto" prefHeight="33.0" prefWidth="164.0">
+                  <ComboBox fx:id="modVotoComboBox" onAction="#selectModVoto" prefHeight="33.0" prefWidth="193.0">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
@@ -115,7 +115,7 @@
                   </ComboBox>
                </children>
             </HBox>
-            <HBox prefHeight="200.0" prefWidth="900.0">
+            <HBox prefHeight="225.0" prefWidth="900.0">
                <children>
                   <Label fx:id="selezionaCandidatiLabel" prefHeight="35.0" prefWidth="214.0" text="Seleziona candidati:">
                      <font>
@@ -125,17 +125,17 @@
                         <Insets top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="partitoComboBox" onAction="#selectPartitoComboBox" prefHeight="30.0" prefWidth="155.0" promptText="Seleziona Partito">
+                  <ComboBox fx:id="partitoComboBox" onAction="#selectPartitoComboBox" prefHeight="33.0" prefWidth="157.0" promptText="Seleziona Partito" visibleRowCount="15">
                      <HBox.margin>
                         <Insets left="50.0" top="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <ScrollPane fx:id="candidatiScrollPane" prefHeight="200.0" prefWidth="380.0">
+                  <ScrollPane fx:id="candidatiScrollPane" prefHeight="222.0" prefWidth="380.0">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
                      <content>
-                        <VBox fx:id="candidatiVbox" prefHeight="193.0" prefWidth="356.0" />
+                        <VBox fx:id="candidatiVbox" prefHeight="219.0" prefWidth="356.0" />
                      </content>
                   </ScrollPane>
                </children>
@@ -151,9 +151,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="saveBottone" mnemonicParsing="false" onAction="#pressSaveButton" text="Salva">
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#pressSaveButton" text="Salva">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="30.0" />
                      </font>
                   </Button>
                </children>
