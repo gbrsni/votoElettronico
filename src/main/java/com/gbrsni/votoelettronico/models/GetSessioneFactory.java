@@ -16,10 +16,9 @@ public class GetSessioneFactory {
 		case CATEGORICO_CON_PREFERENZE:
 			return new SessioneCategoricoPreferenze(id,  nome, descrizione,  data,  modVittoria,  statoSessione,  nvoti); 
 		case REFERENDUM:
-			break;
+			return new SessioneReferendum(id,  nome, descrizione,  data,  modVittoria,  statoSessione,  nvoti); 
 		default:
 			throw new Exception("Modalità di voto non riconosciuta");		
 		}
-		return null;
 	}
 }
