@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.gbrsni.votoelettronico.Home;
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
@@ -40,7 +41,6 @@ public class VotazioneCategoricoController extends Controller{
 	private Map<Partito, List<Candidato>> candidati; 
 	private List<Partito> partiti; 
 	private ToggleGroup partitiRadioGroup = new ToggleGroup();
-	
 	private Partito partitoSelezionato; 
 	private Map<Candidato,Integer> candidatoSelezionato;
 	
@@ -75,7 +75,7 @@ public class VotazioneCategoricoController extends Controller{
     private VBox partitiVbox;
 
     @FXML
-    private Button votaBottone;
+    private Button votaButton;
     
 	@Override
 	public void onNavigateFrom(Controller sender, Object parameter) {
@@ -83,65 +83,45 @@ public class VotazioneCategoricoController extends Controller{
 		elettore = (Elettore) data[0];
 		sessione = (SessioneDiVoto) data[1];
 		gestore = (Gestore) data[2];
-		nomeElettore.setText("Elettore: " + elettore.getNome());
+		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());
-	
-		visualizzaPartiti();
+		init();
 	}
 		
 	public void visualizzaPartiti() {
-		
 		ToggleGroup radioGroup = new ToggleGroup();
 		for (int i = 0 ; i < partiti.size(); i ++) {
-			
 			HBox partitiHbox = new HBox();
 			RadioButton partitiRadio = new RadioButton();
 			partitiRadio.setText(partiti.get(i).getNome());
 			partitiRadio.setUserData(partiti.get(i));
-			partitiRadio.setFont(new Font(15));
+			partitiRadio.setFont(new Font(20));
 			partitiRadio.setToggleGroup(partitiRadioGroup);
 			partitiRadio.setOnAction(visualizzaCandidati);
 			partitiHbox.getChildren().add(partitiRadio);
-			partitiVbox.getChildren().add(partitiHbox);
-			
+			partitiVbox.getChildren().add(partitiHbox);	
 		}
 	}
 	
 	EventHandler<ActionEvent> visualizzaCandidati = new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent e) {
-	    	
 	    	candidatoSelezionato.clear();
+	    	candidatiVbox.getChildren().clear();
 	    	partitoSelezionato = (Partito)((RadioButton)e.getSource()).getUserData();
 	    	List <Candidato> opzioni = new ArrayList<>(candidati.get(partitoSelezionato));
-	    	
-	    	candidatiVbox.getChildren().clear();
 	    	ToggleGroup candidatiRadioGroup = new ToggleGroup();
+	    	
 	    	for(int i = 0; i < opzioni.size(); i++) {
-	    		
-	    		
 				HBox candidatiHbox = new HBox();
-				if (sessione.getModVoto().equals(ModVoto.CATEGORICO)) {
-					RadioButton candidatiRadio = new RadioButton();
-					candidatiRadio.setText(opzioni.get(i).getNome() + " " + opzioni.get(i).getCognome());
-					candidatiRadio.setUserData(opzioni.get(i));
-					candidatiRadio.setFont(new Font(15));
-					candidatiRadio.setToggleGroup(candidatiRadioGroup);
-					candidatiRadio.setOnAction(sceltaCandidatiCategorico);
-					candidatiHbox.getChildren().add(candidatiRadio);
-					candidatiVbox.getChildren().add(candidatiHbox);
-					
-				} else {
-					
-					CheckBox candidatiCheckBox = new CheckBox();
-					candidatiCheckBox.setText(opzioni.get(i).getNome() + " " + opzioni.get(i).getCognome());
-					candidatiCheckBox.setUserData(opzioni.get(i));
-					candidatiCheckBox.setFont(new Font(15));
-					candidatiCheckBox.setOnAction(sceltaCandidatiCategoricoPreferenze);
-					
-					candidatiHbox.getChildren().add(candidatiCheckBox);
-					candidatiVbox.getChildren().add(candidatiHbox);
-				}
+				RadioButton candidatiRadio = new RadioButton();
+				candidatiRadio.setText(opzioni.get(i).getNome() + " " + opzioni.get(i).getCognome());
+				candidatiRadio.setUserData(opzioni.get(i));
+				candidatiRadio.setFont(new Font(20));
+				candidatiRadio.setToggleGroup(candidatiRadioGroup);
+				candidatiRadio.setOnAction(sceltaCandidatiCategorico);
+				candidatiHbox.getChildren().add(candidatiRadio);
+				candidatiVbox.getChildren().add(candidatiHbox);
 	    	}
 	    }
 	};
@@ -150,20 +130,9 @@ public class VotazioneCategoricoController extends Controller{
 	    public void handle(ActionEvent e) {
 	    	candidatoSelezionato.clear();
 	    	candidatoSelezionato.put((Candidato)((RadioButton)e.getSource()).getUserData(), 1);
-	    
 	    }
 	};
 	
-	EventHandler<ActionEvent> sceltaCandidatiCategoricoPreferenze = new EventHandler<ActionEvent>() {
-	    public void handle(ActionEvent e) {
-	    	
-	    	if (((CheckBox)e.getSource()).isSelected()) {
-	    	candidatoSelezionato.put((Candidato)((CheckBox)e.getSource()).getUserData(),1);
-	    	} else {
-	    		candidatoSelezionato.remove((Candidato)((CheckBox)e.getSource()).getUserData());
-	    	}
-	    }
-	};
 	
 	@FXML
 	void pressAnnullaButton(ActionEvent event) {
@@ -180,7 +149,17 @@ public class VotazioneCategoricoController extends Controller{
     	Object[] parameter = new Object[] {elettore, sessione, null, p, candidatoSelezionato};
     	newStage("Conferma Voto","ConfermaVotazioneView", parameter);
     }
-
+    
+    private void init() {
+	    VotiCandidatiDAOImpl candidatiDb = new VotiCandidatiDAOImpl();
+	    candidati = candidatiDb.getVotiCandidatiBySessione(sessione).keySet().stream()
+	  		   .collect(Collectors.groupingBy(Candidato::getPartito, Collectors.toList()));
+	    partiti = new ArrayList<>();
+	    partiti.addAll(candidati.keySet());
+	    candidatoSelezionato = new HashMap<>();
+	    visualizzaPartiti();
+    }
+    
     @FXML
     void initialize() {
     	assert annullaButton != null : "fx:id=\"annullaButton\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
@@ -191,19 +170,6 @@ public class VotazioneCategoricoController extends Controller{
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
         assert partitiLabel != null : "fx:id=\"partitiLabel\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
         assert partitiVbox != null : "fx:id=\"partitiVbox\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
-        assert votaBottone != null : "fx:id=\"votaBottone\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
-        
-        CandidatoDAOImpl candidatiDb = new CandidatoDAOImpl();
-        candidati = candidatiDb.getAllCandidato().stream()
-      		   .collect(Collectors.groupingBy(Candidato::getPartito, Collectors.toList()));
-        
-        partiti = new ArrayList<>();
-        partiti.addAll(candidati.keySet());
-        
-        candidatoSelezionato = new HashMap<>();
-        
+        assert votaButton != null : "fx:id=\"votaBottone\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
     }
-
-
-
 }
