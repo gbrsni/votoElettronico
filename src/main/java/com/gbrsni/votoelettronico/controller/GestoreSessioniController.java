@@ -180,7 +180,7 @@ public class GestoreSessioniController extends Controller{
         		Region region2 = new Region();
         		
                 sessioniLabel.setText(sessioni.get(i).getNome());
-                sessioniLabelInfo.setText("   data : " + sessioni.get(i).getData() + "   modVoto: " + sessioni.get(i).getModVoto() + "  stato:" + sessioni.get(i).getStatoSessione());
+                sessioniLabelInfo.setText(" data : " + sessioni.get(i).getData() + "   modVoto: " + sessioni.get(i).getModVoto() + "  stato:" + sessioni.get(i).getStatoSessione());
                 sessioniLabel.setFont(new Font(25));
                 sessioniLabelInfo.setFont(new Font(15)); 
                 sessioniHbox.setAlignment(Pos.CENTER_LEFT);
