@@ -67,7 +67,7 @@ public class GestoreSessioniController extends Controller{
     
     @FXML
     void pressAggiungiSessioneButton(ActionEvent event) {
-    	navigate("ConfigurazioneSessioneView", gestore);
+    	navigate("AggiuntaSessioneView", gestore);
     }
    
 
@@ -118,7 +118,7 @@ public class GestoreSessioniController extends Controller{
             System.out.println("Id Sessione di Voto:" + ((SessioneDiVoto)((Button)e.getSource()).getUserData()).getId());
             SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};  
-            navigate("ConfigurazioneSessioneView", s);
+            //navigate("ConfigurazioneSessioneView", s);
           
         }
        
