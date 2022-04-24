@@ -56,11 +56,7 @@ public class VotazioneReferendumController extends Controller {
 		elettore = (Elettore) data[0];
 		sessione = (SessioneDiVoto) data[1];
 		nomeElettore.setText(elettore.getNome());
-		try {
-			gestore = (Gestore) data[2];
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		gestore = (Gestore) data[2];
 		nomeElettore.setText(elettore.getNome());
 		nomeLabel.setText("Sessione:" + sessione.getNome());
 		modVotoLabel.setText("Mod. Voto:" + sessione.getModVoto());
