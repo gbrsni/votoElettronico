@@ -9,5 +9,5 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 public interface VotiCandidatiDAO {
 	
 	public Map<Candidato, Integer> getVotiCandidatiBySessione(SessioneDiVoto sessioneDiVoto);
-	public void addVotiCandidatiBySessione(SessioneDiVoto sessione, Candidato candidato);
+	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato);
 }

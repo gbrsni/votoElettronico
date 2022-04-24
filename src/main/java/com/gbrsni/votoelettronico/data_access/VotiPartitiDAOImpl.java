@@ -43,12 +43,11 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 	}
 	
 	//aggiunge i partiti per la sessione di voto
-	public void addVotiPartitiBySessione(SessioneDiVoto sessione,  Partito partito) {
+	public void addVotiPartitoBySessione(SessioneDiVoto sessione,  Partito partito) {
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(partito);
 		int i = 0;
 		try {
-			
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO votipartiti (sessioni, partiti, nvoti) VALUES (?, ?, ?)");
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, partito.getId());
