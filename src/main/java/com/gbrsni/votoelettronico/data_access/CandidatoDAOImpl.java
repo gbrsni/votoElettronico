@@ -98,7 +98,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			ps.setString(1, c.getNome());
 			ps.setString(2, c.getCognome());
 			ps.setInt(3, c.getPartito().id);
-			ps.setInt(4, c.id);
+			ps.setInt(4, c.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'aggiornamento del candidato " + c.toString());
@@ -114,7 +114,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 
 		try {
 			ps = connection.prepareStatement("DELETE FROM candidati WHERE id = ?");
-			ps.setInt(1, c.id);
+			ps.setInt(1, c.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Errore durante la rimozione del candidato " + c.toString());
@@ -130,7 +130,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement("INSERT INTO candidati (id, nome, cognome, partiti) VALUES (?, ?, ?, ?)");
-			ps.setInt(1, c.id);
+			ps.setInt(1, c.getId());
 			ps.setString(2, c.getNome());
 			ps.setString(3, c.getCognome());
 			ps.setInt(4, c.getPartito().id);
