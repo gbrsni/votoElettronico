@@ -99,13 +99,12 @@ public class GestioneListeController extends Controller {
 
 	@FXML
 	void pressCercaButton(ActionEvent event) {
-		
-		
 		String cerca = cercaTextField.getText().trim().toLowerCase();
 		if(cerca.equals("")) {
 			candidatiVbox.getChildren().clear();
-			initPartito(partiti);}
-		else {
+			candidatiLabel.setText("");
+			initPartito(partiti);
+		}else {
 			if(cercaComboBox.getValue().equals("Partito")){
 				List<Partito> ricercaPartiti = new ArrayList<>();
 				for (int i = 0; i < partiti.size(); i++) {
@@ -170,29 +169,28 @@ public class GestioneListeController extends Controller {
 	
 	private void initCandidati(List<Candidato> candidati) {
 		candidatiVbox.getChildren().clear();
-
 		for(int i=0;i<candidati.size();i++){
 			HBox candidatiHbox=new HBox();
 			Label candidatiLabel = new Label();
 			Label partitiLabel = new Label();
-			candidatiLabel.setFont(new Font(20));
-			partitiLabel.setFont(new Font(15));
 			Button modificaBottone=new Button("Modifica");
 			Button eliminaBottone=new Button("Elimina");
-			eliminaBottone.setOnAction(pressEliminaCandidatoButton);
-			eliminaBottone.setFont(new Font(12));
-			modificaBottone.setFont(new Font(12));
-			eliminaBottone.setUserData(candidati.get(i));
-			modificaBottone.setUserData(candidati.get(i));
-			
-			candidatiLabel.setText(candidati.get(i).getNome()+" "+candidati.get(i).getCognome());
-			partitiLabel.setText(candidati.get(i).getPartito().getNome());
-		
 			Region region1=new Region();
 			Region region2 = new Region();
+			
+			candidatiLabel.setFont(new Font(20));
+			partitiLabel.setFont(new Font(12));
+			eliminaBottone.setFont(new Font(12));
+			modificaBottone.setFont(new Font(12));
+			candidatiLabel.setText(candidati.get(i).getNome()+" "+candidati.get(i).getCognome());
+			partitiLabel.setText(candidati.get(i).getPartito().getNome());
 			candidatiHbox.setHgrow(region1,Priority.ALWAYS);
 			candidatiHbox.setHgrow(region2,Priority.ALWAYS);
 			
+			eliminaBottone.setOnAction(pressEliminaCandidatoButton);
+			eliminaBottone.setUserData(candidati.get(i));
+			modificaBottone.setUserData(candidati.get(i));
+	
 			candidatiHbox.getChildren().addAll(candidatiLabel, region1, partitiLabel, region2, eliminaBottone,modificaBottone);
 			candidatiVbox.getChildren().add(candidatiHbox);
 		}
@@ -209,7 +207,6 @@ public class GestioneListeController extends Controller {
 	
 	private EventHandler<ActionEvent> pressVisualizzaCandidatiButton=new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent e){
-
 			Partito partito=(Partito)((Button)e.getSource()).getUserData();
 			candidatiLabel.setText("Candidati partito "+partito.getNome());candidatiLabel.setVisible(true);
 			CandidatoDAOImpl candidatiDb=new CandidatoDAOImpl();
