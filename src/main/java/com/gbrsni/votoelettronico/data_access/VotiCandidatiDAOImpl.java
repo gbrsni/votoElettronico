@@ -33,14 +33,12 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 				PartitoDAO partitoDb = new PartitoDAOImpl();
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res.put(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito), rs.getInt("nvoti"));
-			}
-			
+			}	
 			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento voti dei candidati della sessione di voto" + sessione.getId());
 			e.printStackTrace();
 		}
-		
 		return res;
 	}
 	
@@ -51,7 +49,6 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		try {
 			
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
-	
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, candidato.getId());
 			ps.setInt(3, 0);
