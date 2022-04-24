@@ -2,7 +2,6 @@ package com.gbrsni.votoelettronico.controller;
 import com.gbrsni.votoelettronico.models.Partito;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
