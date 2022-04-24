@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ElettoreSessioniController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ElettoreSessioniController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,7 +20,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBottone" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -41,7 +41,7 @@
             </HBox>
             <ScrollPane prefHeight="389.0" prefWidth="900.0">
                <content>
-                  <VBox fx:id="sessioniVbox" prefHeight="385.0" prefWidth="867.0" />
+                  <VBox fx:id="sessioniVbox" prefHeight="385.0" prefWidth="873.0" />
                </content>
             </ScrollPane>
          </children>
