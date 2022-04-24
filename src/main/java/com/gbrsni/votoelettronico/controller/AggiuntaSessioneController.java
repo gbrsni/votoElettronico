@@ -124,7 +124,7 @@ public class AggiuntaSessioneController extends Controller{
     		datiMancantiLabel.setVisible(true);
     	} else {
     		GetSessioneFactory sessioneFactory = new GetSessioneFactory();
-    		SessioneDiVoto sessione = sessioneFactory.getSessione(modVotoComboBox.getValue(),0,nomeTextField.getText(), descrizioneTextField.getText(), dataDatePicker.getValue(), modVittoriaComboBox.getValue(), StatoSessione.CHIUSA, 0 );
+    		SessioneDiVoto sessione = sessioneFactory.getSessione(modVotoComboBox.getValue(),0,nomeTextField.getText().trim(), descrizioneTextField.getText().trim(), dataDatePicker.getValue(), modVittoriaComboBox.getValue(), StatoSessione.CHIUSA, 0 );
     		SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
     		int id = sessioneDb.addSessioneDiVoto(sessione);
     		System.out.println("id sessione aggiunta:" + id);
