@@ -39,21 +39,7 @@
                   </Label>
                   <Label fx:id="modVotoLabel" prefHeight="39.0" prefWidth="893.0" text="ModVoto">
                      <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="900.0">
-               <children>
-                  <Label fx:id="dataLabel" prefHeight="35.0" prefWidth="880.0" text="Data:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="modVittoriaLabel" prefHeight="39.0" prefWidth="893.0" text="ModVittoria">
-                     <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
                </children>

@@ -20,19 +20,7 @@ public class VotazioneReferendumController extends Controller {
 	private SessioneDiVoto sessione; 
 	
 	@FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button annullaSelezioneButton;
-
-    @FXML
-    private Label dataLabel;
-
-    @FXML
-    private Label modVittoriaLabel;
 
     @FXML
     private Label modVotoLabel;
@@ -49,19 +37,16 @@ public class VotazioneReferendumController extends Controller {
     @FXML
     private Button votaButton;
 
-    
+
     @Override
 	public void onNavigateFrom(Controller sender, Object parameter) {
 		Object[] data = (Object[]) parameter;
 		elettore = (Elettore) data[0];
 		sessione = (SessioneDiVoto) data[1];
-		nomeElettore.setText(elettore.getNome());
 		gestore = (Gestore) data[2];
-		nomeElettore.setText(elettore.getNome());
+		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
 		nomeLabel.setText("Sessione:" + sessione.getNome());
 		modVotoLabel.setText("Mod. Voto:" + sessione.getModVoto());
-		modVittoriaLabel.setText("Mod. Vittoria:" + sessione.getModVittoria());
-		dataLabel.setText("Data: " + sessione.getData());
 	}
     
     @FXML
@@ -78,8 +63,6 @@ public class VotazioneReferendumController extends Controller {
     @FXML
     void initialize() {
     	assert annullaSelezioneButton != null : "fx:id=\"annullaSelezioneButton\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
-        assert dataLabel != null : "fx:id=\"dataLabel\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
-        assert modVittoriaLabel != null : "fx:id=\"modVittoriaLabel\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert modVotoLabel != null : "fx:id=\"modVotoLabel\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert nomeElettore != null : "fx:id=\"nomeElettore\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
