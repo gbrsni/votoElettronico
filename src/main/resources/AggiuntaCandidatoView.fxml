@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.AggiuntaCandidatoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.AggiuntaCandidatoController">
    <top>
       <Label text="Aggiunta Candidato" BorderPane.alignment="CENTER">
          <font>
@@ -28,12 +28,12 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="backBottone" mnemonicParsing="false" onAction="#pressBackButton" text="Torna Indietro">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#pressBackButton" text="Torna Indietro">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
                </children>
@@ -87,11 +87,20 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="aggiungiBottone" mnemonicParsing="false" onAction="#pressAggiungiButton" text="Aggiungi">
+                  <Button fx:id="aggiungiButton" mnemonicParsing="false" onAction="#pressAggiungiButton" text="Aggiungi">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="30.0" />
                      </font>
                   </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="900.0">
+               <children>
+                  <Label fx:id="erroreLabel" text="Dati Mancanti" textFill="RED" visible="false">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
          </children>
