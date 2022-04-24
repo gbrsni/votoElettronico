@@ -32,10 +32,10 @@ public class AggiuntaCandidatoController extends Controller {
     private URL location;
 
     @FXML
-    private Button aggiungiBottone;
+    private Button aggiungiButton;
 
     @FXML
-    private Button backBottone;
+    private Button backButton;
 
     @FXML
     private Label nomeGestore;
@@ -45,27 +45,29 @@ public class AggiuntaCandidatoController extends Controller {
 
     @FXML
     private TextField nomeCandidatoTextField;
-
     
     @FXML
-    private ComboBox<String> partitiComboBox;
+    private Label erroreLabel;
+    
+    @FXML
+    private ComboBox<Partito> partitiComboBox;
     
     public void onNavigateFrom(Controller sender, Object parameter) {
 		this.gestore = (Gestore) parameter;
 		nomeGestore.setText(gestore.getUsername());
-	
     }
+    
     @FXML
     void pressAggiungiButton(ActionEvent event) {
-    	CandidatoDAOImpl candidatiDb = new CandidatoDAOImpl();
-    	Partito p = null; 
-    	for(int i = 0; i< partiti.size(); i++) {
-    		if (partiti.get(i).getNome().equals(partitiComboBox.getValue()))
-    			p = new Partito(partiti.get(i).getId(), partiti.get(i).getNome());
+    	erroreLabel.setVisible(false);
+    	if(nomeCandidatoTextField.getText().trim().equals("") || cognomeCandidatoTextField.getText().trim().equals("") ||partitiComboBox.getValue() == null ) {
+    		erroreLabel.setVisible(true);
+    	} else {
+			CandidatoDAOImpl candidatiDb = new CandidatoDAOImpl();
+			Candidato c = new Candidato(0, nomeCandidatoTextField.getText().trim(), cognomeCandidatoTextField.getText().trim(), partitiComboBox.getValue());
+			candidatiDb.addCandidato(c);
+			navigate("GestioneListeView", gestore);
     	}
-    	Candidato c = new Candidato(0, nomeCandidatoTextField.getText(), cognomeCandidatoTextField.getText(), p);
-    	candidatiDb.addCandidato(c);
-    	navigate("GestioneListeView", gestore);
     }
     
     @FXML
@@ -73,24 +75,23 @@ public class AggiuntaCandidatoController extends Controller {
     	navigate("GestioneListeView", gestore);
     }
 
-  
+    private void init() {
+    	PartitoDAOImpl partitiDb = new PartitoDAOImpl();
+        partiti = partitiDb.getAllPartito();
+        ObservableList<Partito> listaPartiti = FXCollections.observableArrayList(partiti);
+        partitiComboBox.setItems(listaPartiti);
+    }
+    
     @FXML
     void initialize() {
-    	assert aggiungiBottone != null : "fx:id=\"aggiungiBottone\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
-        assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
+    	assert aggiungiButton != null : "fx:id=\"aggiungiBottone\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
+        assert backButton != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
         assert cognomeCandidatoTextField != null : "fx:id=\"cognomeCandidatoTextField\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
         assert nomeCandidatoTextField != null : "fx:id=\"nomeCandidatoTextField\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
         assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
         assert partitiComboBox != null : "fx:id=\"partitiComboBox\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
-        PartitoDAOImpl partitiDb = new PartitoDAOImpl();
-        partiti = partitiDb.getAllPartito();
-        List<String> nomiPartiti = new ArrayList<>();
-        for (int i = 0; i < partiti.size(); i++) {
-        	nomiPartiti.add(partiti.get(i).getNome());
-        }
-        
-        ObservableList<String> dbTypeList = FXCollections.observableArrayList(nomiPartiti);
-        partitiComboBox.setItems(dbTypeList);
+        assert erroreLabel != null : "fx:id=\"erroreLabel\" was not injected: check your FXML file 'AggiuntaCandidatoView.fxml'.";
+        init();
     }
 
 }

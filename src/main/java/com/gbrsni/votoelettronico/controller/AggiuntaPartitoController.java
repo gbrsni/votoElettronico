@@ -23,7 +23,7 @@ public class AggiuntaPartitoController extends Controller {
     private URL location;
 
     @FXML
-    private Button backBottone;
+    private Button backButton;
 
     @FXML
     private Label nomeGestore;
@@ -32,13 +32,14 @@ public class AggiuntaPartitoController extends Controller {
     private TextField nomePartitoTextField;
 
     @FXML
-    private Button salvaBottone;
-    
+    private Button salvaButton;
+    	
+    @FXML
+    private Label erroreLabel;
 
     public void onNavigateFrom(Controller sender, Object parameter) {
     		this.gestore = (Gestore) parameter;
     		nomeGestore.setText(gestore.getUsername());
-    	
     }
     
     @FXML
@@ -48,19 +49,24 @@ public class AggiuntaPartitoController extends Controller {
 
     @FXML
     void pressSalvaButton(ActionEvent event) {
-    	Partito p = new Partito(0,nomePartitoTextField.getText());
-    	PartitoDAOImpl partitoDb = new PartitoDAOImpl();
-    	partitoDb.addPartito(p);
-    	navigate("GestioneListeView",gestore);
+    	erroreLabel.setVisible(false);
+    	if(nomePartitoTextField.getText().trim().equals("")) {
+    		erroreLabel.setVisible(true);
+    	}else {
+	    	Partito p = new Partito(0,nomePartitoTextField.getText().trim());
+	    	PartitoDAOImpl partitoDb = new PartitoDAOImpl();
+	    	partitoDb.addPartito(p);
+	    	navigate("GestioneListeView",gestore);
+    	}
     }
 
     @FXML
     void initialize() {
-        assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
-        assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
-        assert nomePartitoTextField != null : "fx:id=\"nomePartitoTextField\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
-        assert salvaBottone != null : "fx:id=\"salvaBottone\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
-
+    	 assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
+         assert erroreLabel != null : "fx:id=\"erroreLabel\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
+         assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
+         assert nomePartitoTextField != null : "fx:id=\"nomePartitoTextField\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
+         assert salvaButton != null : "fx:id=\"salvaButton\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
     }
 
 }

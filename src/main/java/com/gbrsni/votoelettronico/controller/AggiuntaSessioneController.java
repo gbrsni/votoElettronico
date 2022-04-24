@@ -115,7 +115,7 @@ public class AggiuntaSessioneController extends Controller{
     	
     	datiMancantiLabel.setVisible(false);
     	String datiMancanti = "";
-    	if (nomeTextField.getText().equals("")) { datiMancanti += "nome, ";}
+    	if (nomeTextField.getText().trim().equals("")) { datiMancanti += "nome, ";}
     	if (dataDatePicker.getValue() == null ) { System.out.println("ciao");datiMancanti += "data, "; }
     	if (modVotoComboBox.getValue() == null) { datiMancanti += "modalità voto, "; }
     	if (modVittoriaComboBox.getValue() == null) { datiMancanti += "modalità vittoria, "; }
