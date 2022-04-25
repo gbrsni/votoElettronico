@@ -236,9 +236,8 @@ public class VotazioneOrdinaleController extends Controller {
 
 	@FXML
 	void pressVotaButton(ActionEvent event) {
-		/*
-		erroreLabel.setVisible(false);
 		
+		erroreLabel.setVisible(false);
 		List<Integer> value = new ArrayList<>();
 		
 		boolean error = false;
@@ -264,9 +263,9 @@ public class VotazioneOrdinaleController extends Controller {
 		    	break;
 		    }
 		}
-		Object[] parameter = new Object[] {elettore, sessione, null, partitoSelezionato, candidatoSelezionato};
+		Object[] parameter = new Object[] {elettore, sessione, gestore, partitoSelezionato, candidatoSelezionato};
 		newStage("Conferma Voto", "ConfermaVotazioneView", parameter);
-		*/
+		
 	}
 	
 	@FXML
