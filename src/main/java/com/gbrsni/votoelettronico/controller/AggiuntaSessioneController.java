@@ -138,21 +138,20 @@ public class AggiuntaSessioneController extends Controller{
     		if(!sessione.getModVoto().equals(ModVoto.REFERENDUM)) {
     				VotiPartitiDAOImpl partitiDb = new VotiPartitiDAOImpl();
     				VotiCandidatiDAOImpl candidatiDb = new VotiCandidatiDAOImpl();
-    				VotiAstenutiDAOImpl astenutiDB = new VotiAstenutiDAOImpl();
     				for (int i = 0; i < partitiSelezionati.size(); i++) {
     					    partitiDb.addVotiPartitoBySessione(sessione,partitiSelezionati.get(i));
         			}
         			for (int i = 0; i < candidatiSelezionati.size(); i++) {
         				candidatiDb.addVotiCandidatoBySessione(sessione,candidatiSelezionati.get(i));
         			}
-        			astenutiDB.addVotiAstenutiBySessione(sessione);
     		}else {
     			VotiReferendumDAOImpl referendumDb = new VotiReferendumDAOImpl();
     			referendumDb.addNewVotiSessioneReferendum(sessione);
     		}
+    		VotiAstenutiDAOImpl astenutiDB = new VotiAstenutiDAOImpl();
+    		astenutiDB.addVotiAstenutiBySessione(sessione);
     		navigate("GestoreSessioniView", gestore);
-    	}	
-    	
+    	}		
     }
     
     @FXML
