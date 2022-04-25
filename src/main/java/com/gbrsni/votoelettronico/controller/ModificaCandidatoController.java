@@ -55,8 +55,7 @@ public class ModificaCandidatoController extends Controller {
     public void onNavigateFrom(Controller sender, Object parameter) {
     	Object[] data = (Object[]) parameter;
 		gestore = (Gestore) data[0];
-		candidato = (Candidato) data[1];
-		
+candidato = (Candidato) data[1];
 		init();
     }
     
