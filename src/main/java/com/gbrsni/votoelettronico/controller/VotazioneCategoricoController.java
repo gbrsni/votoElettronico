@@ -90,7 +90,6 @@ public class VotazioneCategoricoController extends Controller{
 	}
 		
 	public void visualizzaPartiti() {
-		ToggleGroup radioGroup = new ToggleGroup();
 		for (int i = 0 ; i < partiti.size(); i ++) {
 			HBox partitiHbox = new HBox();
 			RadioButton partitiRadio = new RadioButton();
@@ -119,18 +118,24 @@ public class VotazioneCategoricoController extends Controller{
 				candidatiRadio.setUserData(opzioni.get(i));
 				candidatiRadio.setFont(new Font(20));
 				candidatiRadio.setToggleGroup(candidatiRadioGroup);
-				candidatiRadio.setOnAction(sceltaCandidatiCategorico);
+				candidatiRadio.setOnAction(sceltaCandidato);
 				candidatiHbox.getChildren().add(candidatiRadio);
 				candidatiVbox.getChildren().add(candidatiHbox);
 	    	}
 	    }
 	};
 	
-	EventHandler<ActionEvent> sceltaCandidatiCategorico = new EventHandler<ActionEvent>() {
+	EventHandler<ActionEvent> sceltaCandidato = new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent e) {
 	    	candidatoSelezionato.clear();
 	    	candidatoSelezionato.put((Candidato)((RadioButton)e.getSource()).getUserData(), 1);
+	    	
+	    	for (Map.Entry<Candidato, Integer> entry : candidatoSelezionato.entrySet()) {
+		        System.out.println(entry.getKey() + "/" + entry.getValue());
+		    }
+	    	
 	    }
+	    
 	};
 	
 	
