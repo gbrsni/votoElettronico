@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
 public class VotazioneReferendumController extends Controller {
@@ -19,8 +20,20 @@ public class VotazioneReferendumController extends Controller {
 	private Gestore gestore; 
 	private SessioneDiVoto sessione; 
 	
-	@FXML
+	 @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private RadioButton favorevoleRadioButton;
+
+    @FXML
     private Button annullaSelezioneButton;
+
+    @FXML
+    private RadioButton contratioRadioButton;
 
     @FXML
     private Label modVotoLabel;
@@ -36,6 +49,7 @@ public class VotazioneReferendumController extends Controller {
 
     @FXML
     private Button votaButton;
+
 
 
     @Override
@@ -56,13 +70,18 @@ public class VotazioneReferendumController extends Controller {
     
     @FXML
     void pressVotaButton(ActionEvent event) {
-    	System.out.println(radioGroup.getSelectedToggle());
-    	//GESTIRE PASSAGGIO VOTO
+    	Boolean scelta = null;
+    	if(favorevoleRadioButton.isSelected()) scelta = true;
+    	else if (contratioRadioButton.isSelected()) scelta = false;
+    	Object[] parameter = new Object[] {elettore, sessione, gestore, scelta};
+		newStage("Conferma Voto", "ConfermaVotazioneReferendumView", parameter);
     }
 
     @FXML
     void initialize() {
-    	assert annullaSelezioneButton != null : "fx:id=\"annullaSelezioneButton\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
+    	assert favorevoleRadioButton != null : "fx:id=\"FavorevoleRadioButton\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
+        assert annullaSelezioneButton != null : "fx:id=\"annullaSelezioneButton\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
+        assert contratioRadioButton != null : "fx:id=\"contratioRadioButton\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert modVotoLabel != null : "fx:id=\"modVotoLabel\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert nomeElettore != null : "fx:id=\"nomeElettore\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";

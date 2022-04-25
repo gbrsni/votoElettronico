@@ -46,7 +46,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="275.0" prefWidth="900.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Favorevole">
+                  <RadioButton fx:id="FavorevoleRadioButton" mnemonicParsing="false" text="Favorevole">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -57,7 +57,7 @@
                         <ToggleGroup fx:id="radioGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Contratio" toggleGroup="$radioGroup">
+                  <RadioButton fx:id="contratioRadioButton" mnemonicParsing="false" text="Contrario" toggleGroup="$radioGroup">
                      <font>
                         <Font size="36.0" />
                      </font>
