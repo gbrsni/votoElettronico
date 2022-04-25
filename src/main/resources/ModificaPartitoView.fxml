@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ModificaPartitoController">
    <top>
       <Label text="Modifica Partito" BorderPane.alignment="CENTER">
@@ -60,7 +59,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="salvaButton" mnemonicParsing="false" onAction="#pressSalvaButton" text="Salva">
+                  <Button fx:id="salvaButton" mnemonicParsing="false" onAction="#pressSalvaButton" text="Modifica">
                      <HBox.margin>
                         <Insets top="200.0" />
                      </HBox.margin>
