@@ -142,9 +142,9 @@ public class VotazioneCategoricoPreferenzeController extends Controller{
 
     @FXML
     void pressVotaButton(ActionEvent event) {
-    	Map<Partito,Integer> p = new HashMap<>();
-    	p.put(partitoSelezionato, 1);
-    	Object[] parameter = new Object[] {elettore, sessione, null, p, candidatoSelezionato};
+    	Map<Partito,Integer> partito = new HashMap<>();
+    	partito.put(partitoSelezionato, 1);
+    	Object[] parameter = new Object[] {elettore, sessione, gestore, partito, candidatoSelezionato};
     	newStage("Conferma Voto","ConfermaVotazioneView", parameter);
     }
     
