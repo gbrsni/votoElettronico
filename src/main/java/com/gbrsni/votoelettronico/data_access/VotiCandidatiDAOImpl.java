@@ -63,5 +63,22 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		System.out.println("Relazione candidati - sessione di voto " + sessione.getId() + " aggiunta nel database ");
 	}
 	
+	@Override
+	public void deleteVotiCandidatiBySessione(SessioneDiVoto sessione) {
+		Objects.requireNonNull(sessione);
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("DELETE FROM voticandidati  WHERE sessioni = ?");
+			ps.setInt(1, sessione.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante la rimozione dei candidati per la sessione di voto " + sessione.toString());
+			e.printStackTrace();
+			return;
+		}
+		System.out.println("Candidati per la sessione " + sessione.toString() + " rimossi dal database");
+	}
 
 }
