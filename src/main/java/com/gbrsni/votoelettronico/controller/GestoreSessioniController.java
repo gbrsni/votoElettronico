@@ -118,10 +118,8 @@ public class GestoreSessioniController extends Controller{
             System.out.println("Id Sessione di Voto:" + ((SessioneDiVoto)((Button)e.getSource()).getUserData()).getId());
             SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};  
-            //navigate("ConfigurazioneSessioneView", s);
-          
-        }
-       
+            navigate("ModificaSessioneView", s);
+        } 
     };
     
     // Elimina sessione chiusa
