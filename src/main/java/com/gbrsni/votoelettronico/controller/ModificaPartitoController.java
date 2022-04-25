@@ -43,8 +43,6 @@ public class ModificaPartitoController extends Controller{
     	Object[] data = (Object[]) parameter;
 		gestore = (Gestore) data[0];
 		partito = (Partito) data[1];
-		nomeGestore.setText(gestore.getUsername());
-		nomePartitoTextField.setText(partito.getNome());
     }
     
     @FXML
@@ -63,7 +61,12 @@ public class ModificaPartitoController extends Controller{
 	    	navigate("GestioneListeView", gestore);
     	}
     }
-
+    
+    private void init() {
+    	nomeGestore.setText(gestore.getUsername());
+		nomePartitoTextField.setText(partito.getNome());
+    }
+    
     @FXML
     void initialize() {
     	 assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'ModificaPartitoView.fxml'.";

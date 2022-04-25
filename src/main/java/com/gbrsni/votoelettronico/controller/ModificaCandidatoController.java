@@ -56,9 +56,7 @@ public class ModificaCandidatoController extends Controller {
     	Object[] data = (Object[]) parameter;
 		gestore = (Gestore) data[0];
 		candidato = (Candidato) data[1];
-		nomeGestore.setText(gestore.getUsername());
-		nomeCandidatoTextField.setText(candidato.getNome());
-		cognomeCandidatoTextField.setText(candidato.getCognome());
+		
 		init();
     }
     
@@ -82,11 +80,15 @@ public class ModificaCandidatoController extends Controller {
     	navigate("GestioneListeView", gestore);
     }
     
-    private void init() {
+    private void init() {	
     	PartitoDAOImpl partitiDb = new PartitoDAOImpl();
         partiti = partitiDb.getAllPartito();
         ObservableList<Partito> listaPartiti = FXCollections.observableArrayList(partiti);
         partitiComboBox.setItems(listaPartiti);
+        
+        nomeGestore.setText(gestore.getUsername());
+		nomeCandidatoTextField.setText(candidato.getNome());
+		cognomeCandidatoTextField.setText(candidato.getCognome());
         partitiComboBox.setValue(candidato.getPartito());
     }
     
