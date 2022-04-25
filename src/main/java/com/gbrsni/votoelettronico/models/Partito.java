@@ -14,20 +14,23 @@ public class Partito{
 		this.nome = nome;
 	}
 	
+	
+	 public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
 	public int getId() {
-		return this.id;
+		return id;
 	}
-	
-	public String getNome() {
-		return this.nome;
-	}
-	
-	 @Override 
-	 public String toString() {
-		 return this.nome;
-	 }
-	 
-	 @Override
+
+
+	@Override
 	    public boolean equals(Object obj){
 	    
 	    if(this == obj)
