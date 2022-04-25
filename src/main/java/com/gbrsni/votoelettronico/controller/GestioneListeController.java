@@ -159,6 +159,7 @@ public class GestioneListeController extends Controller {
 			modificaBottone.setUserData(partiti.get(i));
 			elencoBottone.setUserData(partiti.get(i));
 			eliminaBottone.setOnAction(pressEliminaPartitoButton);
+			modificaBottone.setOnAction(pressModificaPartitoButton);
 			elencoBottone.setOnAction(pressVisualizzaCandidatiButton);
 			partitiHbox.setHgrow(region1, Priority.ALWAYS);
 			
@@ -202,6 +203,15 @@ public class GestioneListeController extends Controller {
 	            System.out.println("Id partito:" + p.getId());
 	            Object[] parameter = new Object[] {gestore,p};
 	            newStage("Elimina Partito", "EliminaPartitoView", parameter);
+		}
+	};
+	
+	private EventHandler<ActionEvent> pressModificaPartitoButton =new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent e){
+	            Partito p = (Partito)((Button)e.getSource()).getUserData();
+	            System.out.println("Id partito:" + p.getId());
+	            Object[] parameter = new Object[] {gestore,p};
+	            navigate("ModificaPartitoView", parameter);
 		}
 	};
 	
