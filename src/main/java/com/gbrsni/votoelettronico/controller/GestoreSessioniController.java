@@ -118,7 +118,7 @@ public class GestoreSessioniController extends Controller{
             System.out.println("Id Sessione di Voto:" + ((SessioneDiVoto)((Button)e.getSource()).getUserData()).getId());
             SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};  
-            navigate("ModificaSessioneView", s);
+            navigate("ModificaSessioneView", parameter);
         } 
     };
     
