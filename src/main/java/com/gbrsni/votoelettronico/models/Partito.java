@@ -28,7 +28,11 @@ public class Partito{
 	public int getId() {
 		return id;
 	}
-
+	
+	 @Override 
+	 public String toString() {
+		 return this.nome;
+	 }
 
 	@Override
 	    public boolean equals(Object obj){
