@@ -189,6 +189,7 @@ public class GestioneListeController extends Controller {
 			candidatiHbox.setHgrow(region2,Priority.ALWAYS);
 			
 			eliminaBottone.setOnAction(pressEliminaCandidatoButton);
+			modificaBottone.setOnAction(pressModificaCandidatoButton);
 			eliminaBottone.setUserData(candidati.get(i));
 			modificaBottone.setUserData(candidati.get(i));
 	
@@ -233,6 +234,16 @@ public class GestioneListeController extends Controller {
 	            newStage("Elimina Candidato", "EliminaCandidatoView", parameter);
 		}
 	};
+	
+	private EventHandler<ActionEvent> pressModificaCandidatoButton =new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent e){
+	            Candidato c = (Candidato)((Button)e.getSource()).getUserData();
+	            System.out.println("Id candidato:" + c.getId());
+	            Object[] parameter = new Object[] {gestore,c};
+	            navigate("ModificaCandidatoView", parameter);
+		}
+	};
+	
 	
 	@FXML
 	void initialize() {
