@@ -41,42 +41,18 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 		return res;
 	}
 	
-	private boolean existsVotiCandidati(SessioneDiVoto sessioneDiVoto, Candidato candidato) throws SQLException {
+	@Override
+	public void addVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int valore) {
 		Objects.requireNonNull(sessioneDiVoto);
 		Objects.requireNonNull(candidato);
-
-		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votazionicandidati WHERE sessioni = ?, candidati = ?");
+		PreparedStatement ps = null;
+		
+		try {	
+			ps = connection.prepareStatement("INSERT INTO votazionicandidati (sessioni, candidati, valore) VALUES (?, ?, ?)");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ps.setInt(2, candidato.getId());
-			ResultSet rs = ps.executeQuery();
-			
-			ps.close();
-
-			return rs.next();
-		} catch (SQLException e) {
-			throw e;
-		}
-	}
-
-	@Override
-	public void setVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int voti) {
-		Objects.requireNonNull(sessioneDiVoto);
-		Objects.requireNonNull(candidato);
+			ps.setInt(3, valore);
 		
-		try {
-			PreparedStatement ps = null;
-			if (existsVotiCandidati(sessioneDiVoto, candidato)) {
-				ps = connection.prepareStatement("UPDATE votazionicandidati SET valore = ? WHERE (sessioni = ?, candidati = ?)");
-				ps.setInt(1, voti);
-				ps.setInt(2, sessioneDiVoto.getId());
-				ps.setInt(3, candidato.getId());
-			} else {
-				ps = connection.prepareStatement("INSERT INTO votazionicandidati (sessioni, candidati, valore) VALUES (?, ?, ?)");
-				ps.setInt(1, sessioneDiVoto.getId());
-				ps.setInt(2, candidato.getId());
-				ps.setInt(3, voti);
-			}
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
