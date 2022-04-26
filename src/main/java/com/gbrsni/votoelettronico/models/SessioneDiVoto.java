@@ -79,7 +79,7 @@ public abstract class SessioneDiVoto {
 		}
 	}
 	
-	protected static <O> Map<O, Integer> getClassifica(List<Pair<O, Integer>> voti) {
+	protected static <O> Map<O, Integer> getConteggioVoti(List<Pair<O, Integer>> voti) {
 		Map<O, Integer> res = new TreeMap<>();
 		
 		for (Pair<O, Integer> voto : voti) {
@@ -96,13 +96,13 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	protected static List<Candidato> getClassificaCandidati(Map<Candidato, Integer> classifica) {
-		List<Entry<Candidato, Integer>> l = new ArrayList<>(classifica.entrySet());
+	protected static <O> List<O> getClassifica(Map<O, Integer> classifica) {
+		List<Entry<O, Integer>> l = new ArrayList<>(classifica.entrySet());
 		l.sort(Entry.comparingByValue());
 
-		List<Candidato> res = new ArrayList<>(classifica.keySet());
+		List<O> res = new ArrayList<>(classifica.keySet());
 		
-		for (Entry<Candidato, Integer> e : l) {
+		for (Entry<O, Integer> e : l) {
 			res.add(e.getKey());
 		}
 		
