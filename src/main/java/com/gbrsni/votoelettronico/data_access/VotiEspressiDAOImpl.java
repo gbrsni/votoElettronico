@@ -53,7 +53,7 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 		GetSessioneFactory sessioneFactory = new GetSessioneFactory();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votiespressi WHERE elettori = ?");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votiespressi  inner join sessioni ON votiespressi.sessioni = sessioni.id Where votiespressi.elettori = ?");
 			ps.setString(1, elettore.getUsername());
 			ResultSet rs = ps.executeQuery();
 			
@@ -82,10 +82,10 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 
 		try {
 			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO votiespressi (sessioni,elettore) VALUES (?,?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO votiespressi (sessioni,elettori) VALUES (?,?)");
 			ps.setInt(1, sessione.getId());
 			ps.setString(2, elettore.getUsername());
-			ps.executeQuery();
+			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e) {
