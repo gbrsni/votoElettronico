@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ConfermaVotazioneReferendumController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ConfermaVotazioneReferendumController">
    <top>
       <Label text="Conferma Voto" BorderPane.alignment="CENTER">
          <font>
@@ -27,15 +26,18 @@
                <children>
                   <Label text="Voto selezionato:">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
                      <padding>
                         <Insets top="20.0" />
                      </padding>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="324.0" prefWidth="760.0">
+            <HBox prefHeight="213.0" prefWidth="560.0">
                <children>
                   <VBox fx:id="votoVbox" prefHeight="324.0" prefWidth="728.0" />
                </children>
