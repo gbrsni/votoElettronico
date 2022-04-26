@@ -74,4 +74,23 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 		}
 		return s;
 	}
+	
+	@Override
+	public void addVotoEspresso(SessioneDiVoto sessione, Elettore elettore) {
+		Objects.requireNonNull(elettore);
+		Objects.requireNonNull(sessione);
+
+		try {
+			
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO votiespressi (sessioni,elettore) VALUES (?,?)");
+			ps.setInt(1, sessione.getId());
+			ps.setString(2, elettore.getUsername());
+			ps.executeQuery();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'aggiunta della votazione per elettore " +  elettore.getUsername() + " per la sessione " + sessione.getId());
+			e.printStackTrace();
+		}
+	}
 }
