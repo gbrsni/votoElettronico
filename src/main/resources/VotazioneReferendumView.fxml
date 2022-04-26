@@ -46,7 +46,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="275.0" prefWidth="900.0">
                <children>
-                  <RadioButton fx:id="FavorevoleRadioButton" mnemonicParsing="false" text="Favorevole">
+                  <RadioButton fx:id="favorevoleRadioButton" mnemonicParsing="false" text="Favorevole">
                      <font>
                         <Font size="36.0" />
                      </font>

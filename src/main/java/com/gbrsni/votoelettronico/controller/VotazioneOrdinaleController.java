@@ -239,16 +239,16 @@ public class VotazioneOrdinaleController extends Controller {
 		
 		erroreLabel.setVisible(false);
 		List<Integer> value = new ArrayList<>();
-		
 		boolean error = false;
+		
 		for (Map.Entry<Partito, Integer> entry : partitoSelezionato.entrySet()) {
 		    System.out.println("Partito " + entry.getKey() + "/" + entry.getValue());
 		    if (value.contains(entry.getValue())){
 		    	erroreLabel.setVisible(true);
+		    	error = true;
+		    	return;
 		    } else {
 		    	value.add(entry.getValue());
-		    	error = true;
-		    	break;
 		    }
 		}
 		
@@ -257,15 +257,14 @@ public class VotazioneOrdinaleController extends Controller {
 		    System.out.println("Candidato " + entry.getKey() + "/" + entry.getValue());
 		    if (value.contains(entry.getValue())){
 		    	erroreLabel.setVisible(true);
+		    	error = true;
+		    	return;
 		    } else {
 		    	value.add(entry.getValue());
-		    	error = true;
-		    	break;
 		    }
 		}
 		Object[] parameter = new Object[] {elettore, sessione, gestore, partitoSelezionato, candidatoSelezionato};
 		newStage("Conferma Voto", "ConfermaVotazioneView", parameter);
-		
 	}
 	
 	@FXML
