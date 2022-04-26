@@ -79,11 +79,11 @@ public abstract class SessioneDiVoto {
 		}
 	}
 	
-	protected static <O> Map<O, Integer> getConteggioVoti(List<Pair<O, Integer>> voti) {
-		Map<O, Integer> res = new TreeMap<>();
+	protected static Map<OpzioneDiVoto, Integer> getConteggioVoti(List<Pair<OpzioneDiVoto, Integer>> voti) {
+		Map<OpzioneDiVoto, Integer> res = new TreeMap<>();
 		
-		for (Pair<O, Integer> voto : voti) {
-			O opzione = voto.getKey();
+		for (Pair<OpzioneDiVoto, Integer> voto : voti) {
+			OpzioneDiVoto opzione = voto.getKey();
 			Integer valore = voto.getValue();
 			
 			if (res.containsKey(opzione)) {
@@ -96,13 +96,13 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	protected static <O> List<O> getClassifica(Map<O, Integer> classifica) {
-		List<Entry<O, Integer>> l = new ArrayList<>(classifica.entrySet());
+	protected static List<OpzioneDiVoto> getClassifica(Map<OpzioneDiVoto, Integer> classifica) {
+		List<Entry<OpzioneDiVoto, Integer>> l = new ArrayList<>(classifica.entrySet());
 		l.sort(Entry.comparingByValue());
 
-		List<O> res = new ArrayList<>(classifica.keySet());
+		List<OpzioneDiVoto> res = new ArrayList<>(classifica.keySet());
 		
-		for (Entry<O, Integer> e : l) {
+		for (Entry<OpzioneDiVoto, Integer> e : l) {
 			res.add(e.getKey());
 		}
 		
