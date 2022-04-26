@@ -133,7 +133,19 @@ public abstract class SessioneDiVoto {
 	}
 	
 	public Candidato getCandidatoVincitoreMaggioranzaAssoluta() {
-		return null;
+		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
+		Map<Candidato, Integer> voti = votiCandidatiDAO.getVotiCandidatiBySessione(this);
+		List<Candidato> classifica = SessioneDiVoto.getClassifica(voti);
+		
+		Candidato vincitore = classifica.get(0);
+		
+		int minVoti = (this.nvoti / 2) + 1;
+		
+		if (voti.get(vincitore) >= minVoti) {
+			return vincitore;
+		} else {
+			return null;
+		}
 	}
 
 	public int getId() {
