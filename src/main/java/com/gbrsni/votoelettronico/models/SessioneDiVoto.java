@@ -1,10 +1,14 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.TreeMap;
 
 import javafx.util.Pair;
 
@@ -88,6 +92,21 @@ public abstract class SessioneDiVoto {
 			
 			res.put(opzione, valore);
 		}
+		
+		return res;
+	}
+	
+	public List<Candidato> getClassificaCandidati(Map<Candidato, Integer> classifica) {
+		List<Entry<Candidato, Integer>> l = new ArrayList<>(classifica.entrySet());
+		l.sort(Entry.comparingByValue());
+
+		List<Candidato> res = new ArrayList<>(classifica.keySet());
+		
+		for (Entry<Candidato, Integer> e : l) {
+			res.add(e.getKey());
+		}
+		
+		Collections.reverse(res);
 		
 		return res;
 	}
