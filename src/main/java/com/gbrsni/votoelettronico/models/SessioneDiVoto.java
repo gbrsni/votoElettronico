@@ -96,7 +96,7 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	public List<Candidato> getClassificaCandidati(Map<Candidato, Integer> classifica) {
+	protected static List<Candidato> getClassificaCandidati(Map<Candidato, Integer> classifica) {
 		List<Entry<Candidato, Integer>> l = new ArrayList<>(classifica.entrySet());
 		l.sort(Entry.comparingByValue());
 
