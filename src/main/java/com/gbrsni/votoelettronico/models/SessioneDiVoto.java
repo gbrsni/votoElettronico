@@ -114,7 +114,7 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	public OpzioneDiVoto getCandidatoVincitore() {
+	public Candidato getCandidatoVincitore() {
 		switch (this.modVittoria) {
 		case MAGGIORANZA:
 			return getCandidatoVincitoreMaggioranza();
