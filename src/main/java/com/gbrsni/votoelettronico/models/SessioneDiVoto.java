@@ -10,6 +10,9 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.TreeMap;
 
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAO;
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+
 import javafx.util.Pair;
 
 
@@ -79,11 +82,11 @@ public abstract class SessioneDiVoto {
 		}
 	}
 	
-	protected static Map<OpzioneDiVoto, Integer> getConteggioVoti(List<Pair<OpzioneDiVoto, Integer>> voti) {
-		Map<OpzioneDiVoto, Integer> res = new TreeMap<>();
+	protected static <O extends OpzioneDiVoto> Map<O, Integer> getConteggioVoti(List<Pair<O, Integer>> voti) {
+		Map<O, Integer> res = new TreeMap<>();
 		
-		for (Pair<OpzioneDiVoto, Integer> voto : voti) {
-			OpzioneDiVoto opzione = voto.getKey();
+		for (Pair<O, Integer> voto : voti) {
+			O opzione = voto.getKey();
 			Integer valore = voto.getValue();
 			
 			if (res.containsKey(opzione)) {
@@ -96,13 +99,13 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	protected static List<OpzioneDiVoto> getClassifica(Map<OpzioneDiVoto, Integer> voti) {
-		List<Entry<OpzioneDiVoto, Integer>> l = new ArrayList<>(voti.entrySet());
+	protected static <O extends OpzioneDiVoto> List<O> getClassifica(Map<O, Integer> voti) {
+		List<Entry<O, Integer>> l = new ArrayList<>(voti.entrySet());
 		l.sort(Entry.comparingByValue());
 
-		List<OpzioneDiVoto> res = new ArrayList<>(voti.keySet());
+		List<O> res = new ArrayList<>(voti.keySet());
 		
-		for (Entry<OpzioneDiVoto, Integer> e : l) {
+		for (Entry<O, Integer> e : l) {
 			res.add(e.getKey());
 		}
 		
@@ -123,8 +126,10 @@ public abstract class SessioneDiVoto {
 	}
 	
 	public OpzioneDiVoto getVincitoreMaggioranza() {
-		
-		return null;
+		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
+		Map<Candidato, Integer> voti = votiCandidatiDAO.getVotiCandidatiBySessione(this);
+		List<Candidato> classifica = SessioneDiVoto.getClassifica(voti);
+		return classifica.get(0);
 	}
 	
 	public OpzioneDiVoto getVincitoreMaggioranzaAssoluta() {
