@@ -1,7 +1,12 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import javafx.util.Pair;
 
 
 public abstract class SessioneDiVoto {
@@ -68,6 +73,23 @@ public abstract class SessioneDiVoto {
 		} else if (statoSessione.equals("SCRUTINATA")) {
 			this.statoSessione = StatoSessione.SCRUTINATA;
 		}
+	}
+	
+	protected static <O> Map<O, Integer> getClassifica(List<Pair<O, Integer>> voti) {
+		Map<O, Integer> res = new HashMap<>();
+		
+		for (Pair<O, Integer> voto : voti) {
+			O opzione = voto.getKey();
+			Integer valore = voto.getValue();
+			
+			if (res.containsKey(opzione)) {
+				valore = valore + res.get(opzione);
+			}
+			
+			res.put(opzione, valore);
+		}
+		
+		return res;
 	}
 
 	public int getId() {
