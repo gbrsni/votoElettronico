@@ -9,23 +9,18 @@ import java.util.stream.Collectors;
 import java.util.List;
 import java.util.Map;
 
-import com.gbrsni.votoelettronico.Home;
-import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
-import com.gbrsni.votoelettronico.models.ModVoto;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
