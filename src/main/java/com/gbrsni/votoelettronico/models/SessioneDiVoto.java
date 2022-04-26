@@ -114,25 +114,25 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	public OpzioneDiVoto getVincitore() {
+	public OpzioneDiVoto getCandidatoVincitore() {
 		switch (this.modVittoria) {
 		case MAGGIORANZA:
-			return getVincitoreMaggioranza();
+			return getCandidatoVincitoreMaggioranza();
 		case MAGGIORANZA_ASSOLUTA:
-			return getVincitoreMaggioranzaAssoluta();
+			return getCandidatoVincitoreMaggioranzaAssoluta();
 		default:
 			throw new RuntimeException("Modalità di voto non valida");
 		}
 	}
 	
-	public OpzioneDiVoto getVincitoreMaggioranza() {
+	public Candidato getCandidatoVincitoreMaggioranza() {
 		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
 		Map<Candidato, Integer> voti = votiCandidatiDAO.getVotiCandidatiBySessione(this);
 		List<Candidato> classifica = SessioneDiVoto.getClassifica(voti);
 		return classifica.get(0);
 	}
 	
-	public OpzioneDiVoto getVincitoreMaggioranzaAssoluta() {
+	public Candidato getCandidatoVincitoreMaggioranzaAssoluta() {
 		return null;
 	}
 
