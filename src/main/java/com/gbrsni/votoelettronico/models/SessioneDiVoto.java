@@ -96,11 +96,11 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	protected static List<OpzioneDiVoto> getClassifica(Map<OpzioneDiVoto, Integer> classifica) {
-		List<Entry<OpzioneDiVoto, Integer>> l = new ArrayList<>(classifica.entrySet());
+	protected static List<OpzioneDiVoto> getClassifica(Map<OpzioneDiVoto, Integer> voti) {
+		List<Entry<OpzioneDiVoto, Integer>> l = new ArrayList<>(voti.entrySet());
 		l.sort(Entry.comparingByValue());
 
-		List<OpzioneDiVoto> res = new ArrayList<>(classifica.keySet());
+		List<OpzioneDiVoto> res = new ArrayList<>(voti.keySet());
 		
 		for (Entry<OpzioneDiVoto, Integer> e : l) {
 			res.add(e.getKey());
@@ -123,6 +123,7 @@ public abstract class SessioneDiVoto {
 	}
 	
 	public OpzioneDiVoto getVincitoreMaggioranza() {
+		
 		return null;
 	}
 	
