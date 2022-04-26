@@ -125,14 +125,14 @@ public abstract class SessioneDiVoto {
 		}
 	}
 	
-	public Candidato getCandidatoVincitoreMaggioranza() {
+	private Candidato getCandidatoVincitoreMaggioranza() {
 		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
 		Map<Candidato, Integer> voti = votiCandidatiDAO.getVotiCandidatiBySessione(this);
 		List<Candidato> classifica = SessioneDiVoto.getClassifica(voti);
 		return classifica.get(0);
 	}
 	
-	public Candidato getCandidatoVincitoreMaggioranzaAssoluta() {
+	private Candidato getCandidatoVincitoreMaggioranzaAssoluta() {
 		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
 		Map<Candidato, Integer> voti = votiCandidatiDAO.getVotiCandidatiBySessione(this);
 		List<Candidato> classifica = SessioneDiVoto.getClassifica(voti);
