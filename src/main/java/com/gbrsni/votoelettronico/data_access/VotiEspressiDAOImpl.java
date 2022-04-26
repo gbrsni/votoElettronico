@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.gbrsni.votoelettronico.models.Elettore;
+import com.gbrsni.votoelettronico.models.GetSessioneFactory;
 import com.gbrsni.votoelettronico.models.ModVittoria;
 import com.gbrsni.votoelettronico.models.ModVoto;
 import com.gbrsni.votoelettronico.models.SessioneCategorico;
@@ -49,6 +50,8 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 	public List<SessioneDiVoto> allExistsVotoEspressoByElettore(Elettore elettore) {
 		Objects.requireNonNull(elettore);
 		List<SessioneDiVoto> s = new ArrayList<>();;
+		GetSessioneFactory sessioneFactory = new GetSessioneFactory();
+
 		try {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votiespressi WHERE elettori = ?");
 			ps.setString(1, elettore.getUsername());
@@ -57,19 +60,7 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 			while(rs.next()) {
 				try {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
-					switch (ModVoto.valueOf(rs.getString("modvoto"))) {
-					case ORDINALE:
-						s.add(new SessioneOrdinale(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVoto.valueOf(rs.getString("modvoto")), ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
-						break;
-					case CATEGORICO:
-						s.add(new SessioneCategorico(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVoto.valueOf(rs.getString("modvoto")), ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
-						break;
-					case CATEGORICO_CON_PREFERENZE:
-						s.add(new SessioneCategoricoPreferenze(rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVoto.valueOf(rs.getString("modvoto")), ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
-						break;
-					default:
-						throw new Exception("Modalità di voto non riconosciuta");
-					}
+					s.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
 					System.out.println("Errore durante selezione voti espressi per elettore " +  elettore.getUsername());
 					e.printStackTrace();

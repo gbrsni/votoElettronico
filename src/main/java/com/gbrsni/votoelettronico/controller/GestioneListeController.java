@@ -3,10 +3,8 @@ package com.gbrsni.votoelettronico.controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
+import java.util.ResourceBundle;
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.PartitoDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
@@ -18,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -102,13 +99,12 @@ public class GestioneListeController extends Controller {
 
 	@FXML
 	void pressCercaButton(ActionEvent event) {
-		
-		
 		String cerca = cercaTextField.getText().trim().toLowerCase();
 		if(cerca.equals("")) {
 			candidatiVbox.getChildren().clear();
-			initPartito(partiti);}
-		else {
+			candidatiLabel.setText("");
+			initPartito(partiti);
+		}else {
 			if(cercaComboBox.getValue().equals("Partito")){
 				List<Partito> ricercaPartiti = new ArrayList<>();
 				for (int i = 0; i < partiti.size(); i++) {
@@ -133,102 +129,136 @@ public class GestioneListeController extends Controller {
 			}
 		}
 	}
+	
+	
+	private void init() {
+		ObservableList<String> listaCercaComboBox = FXCollections.observableArrayList("Partito", "Candidato");
+		cercaComboBox.setItems(listaCercaComboBox);
+		PartitoDAOImpl partitoDb = new PartitoDAOImpl();
+		partiti = partitoDb.getAllPartito();
+		initPartito(partiti);
+	}
 
 	private void initPartito(List<Partito> partiti) {
 		partitiVbox.getChildren().clear();
 		for (int i = 0; i < partiti.size(); i++) {
 			HBox partitiHbox = new HBox();
 			Label partitiLabel = new Label();
-			partitiLabel.setFont(new Font(20));
-			Button partitiBottone = new Button("Modifica");
-			Button partitiElencoBottone = new Button(">>");
-			partitiElencoBottone.setOnAction(visualizzaCandidati);
-			partitiBottone.setUserData(partiti.get(i));
-			partitiElencoBottone.setUserData(partiti.get(i));
-			partitiBottone.setFont(new Font(15));
-			partitiElencoBottone.setFont(new Font(15));
-			partitiLabel.setText(partiti.get(i).getNome());
+			Button eliminaBottone= new Button("Elimina");
+			Button modificaBottone = new Button("Modifica");
+			Button elencoBottone = new Button(">>");
 			Region region1 = new Region();
+			
+			partitiLabel.setFont(new Font(20));
+			partitiLabel.setText(partiti.get(i).getNome());
+			eliminaBottone.setFont(new Font(12));
+			modificaBottone.setFont(new Font(12));
+			elencoBottone.setFont(new Font(12));
+			
+			eliminaBottone.setUserData(partiti.get(i));
+			modificaBottone.setUserData(partiti.get(i));
+			elencoBottone.setUserData(partiti.get(i));
+			eliminaBottone.setOnAction(pressEliminaPartitoButton);
+			modificaBottone.setOnAction(pressModificaPartitoButton);
+			elencoBottone.setOnAction(pressVisualizzaCandidatiButton);
 			partitiHbox.setHgrow(region1, Priority.ALWAYS);
-			partitiHbox.getChildren().add(partitiLabel);
-			partitiHbox.getChildren().add(region1);
-			partitiHbox.getChildren().add(partitiBottone);
-			partitiHbox.getChildren().add(partitiElencoBottone);
+			
+			partitiHbox.getChildren().addAll(partitiLabel,region1,eliminaBottone,modificaBottone,elencoBottone);
 			partitiVbox.getChildren().add(partitiHbox);
 		}
 	}
 	
 	private void initCandidati(List<Candidato> candidati) {
 		candidatiVbox.getChildren().clear();
-
 		for(int i=0;i<candidati.size();i++){
 			HBox candidatiHbox=new HBox();
 			Label candidatiLabel = new Label();
 			Label partitiLabel = new Label();
-			candidatiLabel.setFont(new Font(20));
-			partitiLabel.setFont(new Font(15));
-			Button candidatiBottone=new Button("Modifica");
-			candidatiBottone.setFont(new Font(15));
-			candidatiBottone.setUserData(candidati.get(i));
-			
-			candidatiLabel.setText(candidati.get(i).getNome()+" "+candidati.get(i).getCognome());
-			partitiLabel.setText(candidati.get(i).getPartito().getNome());
-		
-			
+			Button modificaBottone=new Button("Modifica");
+			Button eliminaBottone=new Button("Elimina");
 			Region region1=new Region();
 			Region region2 = new Region();
+			
+			candidatiLabel.setFont(new Font(20));
+			partitiLabel.setFont(new Font(12));
+			eliminaBottone.setFont(new Font(12));
+			modificaBottone.setFont(new Font(12));
+			candidatiLabel.setText(candidati.get(i).getNome()+" "+candidati.get(i).getCognome());
+			partitiLabel.setText(candidati.get(i).getPartito().getNome());
 			candidatiHbox.setHgrow(region1,Priority.ALWAYS);
 			candidatiHbox.setHgrow(region2,Priority.ALWAYS);
 			
-			candidatiHbox.getChildren().addAll(candidatiLabel, region1, partitiLabel, region2, candidatiBottone);
+			eliminaBottone.setOnAction(pressEliminaCandidatoButton);
+			modificaBottone.setOnAction(pressModificaCandidatoButton);
+			eliminaBottone.setUserData(candidati.get(i));
+			modificaBottone.setUserData(candidati.get(i));
+	
+			candidatiHbox.getChildren().addAll(candidatiLabel, region1, partitiLabel, region2, eliminaBottone,modificaBottone);
 			candidatiVbox.getChildren().add(candidatiHbox);
 		}
 	}
 	
-	private EventHandler<ActionEvent> visualizzaCandidati=new EventHandler<ActionEvent>(){
+	private EventHandler<ActionEvent> pressEliminaPartitoButton =new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent e){
-
+	            Partito p = (Partito)((Button)e.getSource()).getUserData();
+	            System.out.println("Id partito:" + p.getId());
+	            Object[] parameter = new Object[] {gestore,p};
+	            newStage("Elimina Partito", "EliminaPartitoView", parameter);
+		}
+	};
+	
+	private EventHandler<ActionEvent> pressModificaPartitoButton =new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent e){
+	            Partito p = (Partito)((Button)e.getSource()).getUserData();
+	            System.out.println("Id partito:" + p.getId());
+	            Object[] parameter = new Object[] {gestore,p};
+	            navigate("ModificaPartitoView", parameter);
+		}
+	};
+	
+	private EventHandler<ActionEvent> pressVisualizzaCandidatiButton=new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent e){
 			Partito partito=(Partito)((Button)e.getSource()).getUserData();
 			candidatiLabel.setText("Candidati partito "+partito.getNome());candidatiLabel.setVisible(true);
 			CandidatoDAOImpl candidatiDb=new CandidatoDAOImpl();
 			candidati=candidatiDb.getAllCandidatoByPartito(partito);
-			
-			initCandidati(candidati);
-			
+			initCandidati(candidati);	
 		}
 	};
-
-			@FXML
-			void initialize() {
-				assert candidatiLabel != null
-						: "fx:id=\"candidatiLabel\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert candidatiVbox != null
-						: "fx:id=\"candidatiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert candidatoButton != null
-						: "fx:id=\"candidatoButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert cercaButton != null
-						: "fx:id=\"cercaButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert cercaComboBox != null
-						: "fx:id=\"cercaComboBox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert cercaTextField != null
-						: "fx:id=\"cercaTextField\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert logoutButton != null
-						: "fx:id=\"logoutButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert menuButton != null
-						: "fx:id=\"menuButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert nomeGestore != null
-						: "fx:id=\"nomeGestore\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert partitiVbox != null
-						: "fx:id=\"partitiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-				assert partitoButton != null
-						: "fx:id=\"partitoButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
-
-				ObservableList<String> dbTypeList = FXCollections.observableArrayList("Partito", "Candidato");
-				cercaComboBox.setItems(dbTypeList);
-
-				PartitoDAOImpl partitoDb = new PartitoDAOImpl();
-				partiti = partitoDb.getAllPartito();
-				initPartito(partiti);
-			}
+	
+	private EventHandler<ActionEvent> pressEliminaCandidatoButton =new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent e){
+	            Candidato c = (Candidato)((Button)e.getSource()).getUserData();
+	            System.out.println("Id candidato:" + c.getId());
+	            Object[] parameter = new Object[] {gestore,c};
+	            newStage("Elimina Candidato", "EliminaCandidatoView", parameter);
+		}
+	};
+	
+	private EventHandler<ActionEvent> pressModificaCandidatoButton =new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent e){
+	            Candidato c = (Candidato)((Button)e.getSource()).getUserData();
+	            System.out.println("Id candidato:" + c.getId());
+	            Object[] parameter = new Object[] {gestore,c};
+	            navigate("ModificaCandidatoView", parameter);
+		}
+	};
+	
+	
+	@FXML
+	void initialize() {
+		assert candidatiLabel != null : "fx:id=\"candidatiLabel\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert candidatiVbox != null : "fx:id=\"candidatiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert candidatoButton != null : "fx:id=\"candidatoButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert cercaButton != null : "fx:id=\"cercaButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert cercaComboBox != null : "fx:id=\"cercaComboBox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert cercaTextField != null : "fx:id=\"cercaTextField\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert menuButton != null : "fx:id=\"menuButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert partitiVbox != null : "fx:id=\"partitiVbox\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        assert partitoButton != null : "fx:id=\"partitoButton\" was not injected: check your FXML file 'GestioneListeView.fxml'.";
+        init();
+	}
 
 }

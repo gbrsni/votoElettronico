@@ -13,6 +13,7 @@ import com.gbrsni.votoelettronico.models.StatoSessione;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,7 +34,7 @@ public class ElettoreSessioniController extends Controller {
 	private URL location;
 
 	@FXML
-	private Button logoutBottone;
+	private Button logoutButton;
 
 	@FXML
 	private Label nomeElettore;
@@ -52,11 +53,10 @@ public class ElettoreSessioniController extends Controller {
 	void pressLogoutButton(ActionEvent event) {
 		elettore = null;
 		navigate("LoginView");
-		
 	}
 
 	// Visualizza Risultati sessione Scrutinata
-	private EventHandler<ActionEvent> votazione = new EventHandler<ActionEvent>() {
+	private EventHandler<ActionEvent> pressVotaButton = new EventHandler<ActionEvent>() {
 		public void handle(ActionEvent e) {
 			SessioneDiVoto sessione = (SessioneDiVoto) ((Button) e.getSource()).getUserData();
 			System.out.println("Id Sessione di Voto:" + sessione.getId());
@@ -69,7 +69,7 @@ public class ElettoreSessioniController extends Controller {
 				navigate("VotazioneCategoricoView", parameter);
 				break;
 			case CATEGORICO_CON_PREFERENZE:
-				navigate("VotazioneCategoricoView", parameter);
+				navigate("VotazioneCategoricoPreferenzeView", parameter);
 				break;
 			case REFERENDUM:
 				navigate("VotazioneReferendumView", parameter);
@@ -79,53 +79,40 @@ public class ElettoreSessioniController extends Controller {
 	};
 
 	private void init() {
-		sessioniVbox.setPrefWidth(850);
-		
+		SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
+		sessioni = sessioniDb.getAllSessioneDiVotoByStato(StatoSessione.IN_CORSO);
 		VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
 		
 		for (int i = 0; i < sessioni.size(); i++) {
 			if (!votiEspressiDb.existsVotoEspresso(sessioni.get(i), elettore)) {
-				VBox sessioniVboxInterna = new VBox();
-				HBox sessioniHboxNome = new HBox();
-				HBox sessioniHboxDati = new HBox();
+				HBox sessioniHbox = new HBox();
 				Label sessioniLabelNome = new Label();
 				Label sessioniLabelDati = new Label();
+				Region region1 = new Region();
+				Button votoBottone = new Button("Vota");
+				
+				sessioniHbox.setAlignment(Pos.CENTER_LEFT);
 				sessioniLabelNome.setFont(new Font(25));
 				sessioniLabelNome.setText(sessioni.get(i).getNome());
 				sessioniLabelDati.setFont(new Font(15));
-				sessioniLabelDati.setText(sessioni.get(i).getDescrizione() + " Data: " + sessioni.get(i).getData()
-						+ " modVoto: " + sessioni.get(i).getModVoto());
-				Region region1 = new Region();
-				sessioniHboxNome.setHgrow(region1, Priority.ALWAYS);
-				Button votoBottone = new Button("Vota");
+				sessioniLabelDati.setText("      Data: " + sessioni.get(i).getData() + " modVoto: " + sessioni.get(i).getModVoto());
+				votoBottone.setFont(new Font(18));
+				sessioniHbox.setHgrow(region1, Priority.ALWAYS);
+				
 				votoBottone.setUserData(sessioni.get(i));
-				votoBottone.setOnAction(votazione);
-
-				sessioniHboxNome.getChildren().add(sessioniLabelNome);
-				sessioniHboxNome.getChildren().add(region1);
-				sessioniHboxNome.getChildren().add(votoBottone);
-				sessioniHboxDati.getChildren().add(sessioniLabelDati);
-				sessioniVboxInterna.getChildren().add(sessioniHboxNome);
-				sessioniVboxInterna.getChildren().add(sessioniHboxDati);
-				sessioniVbox.getChildren().add(sessioniVboxInterna);
+				votoBottone.setOnAction(pressVotaButton);
+				
+				sessioniHbox.getChildren().addAll(sessioniLabelNome, sessioniLabelDati,region1,votoBottone);
+				sessioniVbox.getChildren().add(sessioniHbox);
 			}
 		}
-
-	
-
 	}
-
+	
 	@FXML
 	void initialize() {
-		assert logoutBottone != null
-				: "fx:id=\"logoutBottone\" was not injected: check your FXML file 'ElettoreSessioniView.fxml'.";
-		assert nomeElettore != null
-				: "fx:id=\"nomeElettore\" was not injected: check your FXML file 'ElettoreSessioniView.fxml'.";
-		assert sessioniVbox != null
-				: "fx:id=\"sessioniVbox\" was not injected: check your FXML file 'ElettoreSessioniView.fxml'.";
-		SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
-		sessioni = sessioniDb.getAllSessioneDiVotoByStato(StatoSessione.IN_CORSO);
-		
+		assert logoutButton != null: "fx:id=\"logoutBottone\" was not injected: check your FXML file 'ElettoreSessioniView.fxml'.";
+		assert nomeElettore != null: "fx:id=\"nomeElettore\" was not injected: check your FXML file 'ElettoreSessioniView.fxml'.";
+		assert sessioniVbox != null : "fx:id=\"sessioniVbox\" was not injected: check your FXML file 'ElettoreSessioniView.fxml'.";
 	}
 
 }

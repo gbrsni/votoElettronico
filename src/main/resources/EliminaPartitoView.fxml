@@ -8,13 +8,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.AvvioSessioneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.EliminaPartitoController">
+   <top>
+      <Label text="Elimina Partito" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="40.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
    <center>
-      <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="56.0" prefWidth="500.0">
                <children>
-                  <Label fx:id="avvioSessioneLabel" text="Avviare fase di voto per la sessione ">
+                  <Label fx:id="eliminaPartitoLabel" text="Eliminare il Partito">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -40,8 +50,13 @@
                      </HBox.margin>
                   </Button>
                </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="500.0">
+               <children>
+                  <Label text="Tutti i candidati del partito verranno eliminati" />
+               </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets left="20.0" top="50.0" />
                </VBox.margin>
             </HBox>
          </children>
@@ -50,14 +65,4 @@
          </padding>
       </VBox>
    </center>
-   <top>
-      <Label text="Avvio Sessione di Voto " BorderPane.alignment="CENTER">
-         <font>
-            <Font size="36.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets top="40.0" />
-         </BorderPane.margin>
-      </Label>
-   </top>
 </BorderPane>

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.GestoreSessioniController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.GestoreSessioniController">
    <top>
       <Label text="Sessioni" BorderPane.alignment="CENTER">
          <font>
@@ -21,16 +21,16 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="84.0" prefWidth="960.0">
+            <HBox prefHeight="66.0" prefWidth="960.0">
                <children>
                   <Label fx:id="nomeGestore" text="Nome Gestore">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBottone" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#pressLogoutButton" text="Logout">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="70.0" />
@@ -41,16 +41,16 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="85.0" prefWidth="960.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="960.0">
                <children>
-                  <Button fx:id="Sessionebottone" mnemonicParsing="false" onAction="#pressAggiungiSessioneButton" text="Aggiungi Sessione">
+                  <Button fx:id="aggiungiSessioneButton" mnemonicParsing="false" onAction="#pressAggiungiSessioneButton" text="Aggiungi Sessione">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="26.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="100.0" />
@@ -64,32 +64,32 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="nomeSessioneTextField" promptText="inserisci nome sessione">
+                  <TextField fx:id="cercaSessioneTextField" promptText="inserisci nome sessione">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="15.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="20.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="cercaBottone" mnemonicParsing="false" onAction="#pressCercaButton" text="Cerca">
+                  <Button fx:id="cercaButton" mnemonicParsing="false" onAction="#pressCercaButton" text="Cerca">
                      <HBox.margin>
                         <Insets left="20.0" top="5.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font size="15.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="31.0" prefWidth="960.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="960.0">
                <children>
                   <Label text="Elenco Sessioni:">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="100.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                </children>

@@ -1,18 +1,8 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Objects;
 
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 public abstract class SessioneDiVoto {
 	
@@ -20,21 +10,18 @@ public abstract class SessioneDiVoto {
 	private String nome;
 	private String descrizione;
 	private LocalDate data;
-	private ModVoto modVoto;
 	private ModVittoria modVittoria;
 	private StatoSessione statoSessione;
 	private int nvoti;
 	
-	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data, ModVoto modVoto, ModVittoria modVittoria, StatoSessione statoSessione, int nvoti) {
+	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data, ModVittoria modVittoria, StatoSessione statoSessione, int nvoti) {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(data);
-		Objects.requireNonNull(modVoto);
 		Objects.requireNonNull(modVittoria);
 		Objects.requireNonNull(nvoti);
 		
 		this.id = id;
 		this.nome = nome;
-		this.modVoto = modVoto;
 		this.modVittoria = modVittoria;
 		this.descrizione = descrizione;
 		this.data = data;
@@ -47,10 +34,9 @@ public abstract class SessioneDiVoto {
 		}
 	}
 
-	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data,String modVoto, String modVittoria, String statoSessione, int nvoti) throws IllegalArgumentException {
+	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data,String modVittoria, String statoSessione, int nvoti) throws IllegalArgumentException {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(data);
-		Objects.requireNonNull(modVoto);
 		Objects.requireNonNull(modVittoria);
 		Objects.requireNonNull(nvoti);
 		
@@ -60,17 +46,6 @@ public abstract class SessioneDiVoto {
 		this.data = data;
 		this.nvoti = nvoti; 
 		
-		if (modVoto.equals("ORDINALE")) {
-			this.modVoto = ModVoto.ORDINALE;
-		} else if (modVoto.equals("CATEGORICO")) {
-			this.modVoto = ModVoto.CATEGORICO;
-		} else if (modVoto.equals("CATEGORICO_CON_PREFERENZE")) {
-			this.modVoto = ModVoto.CATEGORICO_CON_PREFERENZE;
-		} else if (modVoto.equals("REFERENDUM")) {
-			this.modVoto = ModVoto.REFERENDUM;
-		} else {
-			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalità di voto " + modVoto + " non valida");
-		}
 		
 		if (modVittoria.equals("MAGGIORANZA")) {
 			this.modVittoria = ModVittoria.MAGGIORANZA;
@@ -99,24 +74,32 @@ public abstract class SessioneDiVoto {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getDescrizione() {
 		return descrizione;
 	}
-	
-	public LocalDate getData() {
-		return data;
-		
-	}
-	public ModVoto getModVoto() {
-		return modVoto;
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 
-	public void setModVoto(ModVoto modVoto) {
-		Objects.requireNonNull(modVoto);
-		this.modVoto = modVoto;
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	public ModVittoria getModVittoria() {
@@ -124,24 +107,25 @@ public abstract class SessioneDiVoto {
 	}
 
 	public void setModVittoria(ModVittoria modVittoria) {
-		Objects.requireNonNull(modVittoria);
 		this.modVittoria = modVittoria;
 	}
 
 	public StatoSessione getStatoSessione() {
 		return statoSessione;
 	}
-	
+
+	public void setStatoSessione(StatoSessione statoSessione) {
+		this.statoSessione = statoSessione;
+	}
+
 	public int getNvoti() {
 		return nvoti;
 	}
-	public void setStatoSessione(StatoSessione statoSessione) {
-		Objects.requireNonNull(statoSessione);
-		this.statoSessione = statoSessione;
+
+	public void setNvoti(int nvoti) {
+		this.nvoti = nvoti;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
+
+	public abstract ModVoto getModVoto();
 	
 }

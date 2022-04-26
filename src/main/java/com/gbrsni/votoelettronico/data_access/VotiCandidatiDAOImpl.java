@@ -33,26 +33,22 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 				PartitoDAO partitoDb = new PartitoDAOImpl();
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res.put(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito), rs.getInt("nvoti"));
-			}
-			
+			}	
 			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento voti dei candidati della sessione di voto" + sessione.getId());
 			e.printStackTrace();
 		}
-		
 		return res;
 	}
 	
 	//aggiunta candidati per una sessione
-	public void addVotiCandidatiBySessione(SessioneDiVoto sessione, Candidato candidato){
+	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato){
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(candidato);
-		int i = 0;
 		try {
 			
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
-	
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, candidato.getId());
 			ps.setInt(3, 0);
@@ -67,5 +63,22 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		System.out.println("Relazione candidati - sessione di voto " + sessione.getId() + " aggiunta nel database ");
 	}
 	
+	@Override
+	public void deleteVotiCandidatiBySessione(SessioneDiVoto sessione) {
+		Objects.requireNonNull(sessione);
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("DELETE FROM voticandidati  WHERE sessioni = ?");
+			ps.setInt(1, sessione.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante la rimozione dei candidati per la sessione di voto " + sessione.toString());
+			e.printStackTrace();
+			return;
+		}
+		System.out.println("Candidati per la sessione " + sessione.toString() + " rimossi dal database");
+	}
 
 }

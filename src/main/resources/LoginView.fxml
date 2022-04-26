@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.LoginController">
    <top>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="132.0" prefWidth="810.0" text="LOGIN" BorderPane.alignment="CENTER">
          <font>
@@ -91,7 +91,7 @@
                <children>
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#pressLoginButton" text="Login">
                      <font>
-                        <Font size="36.0" />
+                        <Font size="34.0" />
                      </font>
                      <HBox.margin>
                         <Insets />

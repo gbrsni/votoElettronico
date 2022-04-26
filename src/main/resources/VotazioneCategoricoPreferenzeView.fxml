@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.VotazioneCategoricoController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.VotazioneCategoricoPreferenzeController">
    <top>
       <Label text="Votazione" BorderPane.alignment="CENTER">
          <font>
@@ -19,6 +20,9 @@
    </top>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="50.0" right="50.0" top="50.0" />
+         </BorderPane.margin>
          <children>
             <HBox prefHeight="55.0" prefWidth="900.0">
                <children>
@@ -59,9 +63,6 @@
                      </font>
                   </Label>
                </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="363.0" prefWidth="900.0">
                <children>
@@ -90,7 +91,8 @@
                   <Button fx:id="annullaButton" mnemonicParsing="false" onAction="#pressAnnullaButton" text="annulla">
                      <HBox.margin>
                         <Insets left="20.0" />
-                     </HBox.margin></Button>
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -103,9 +105,6 @@
                </children>
             </HBox>
          </children>
-         <padding>
-            <Insets left="50.0" right="50.0" top="50.0" />
-         </padding>
       </VBox>
    </center>
 </BorderPane>

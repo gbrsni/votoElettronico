@@ -5,5 +5,6 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public interface VotiReferendumDAO {
 	public int getNVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione);
+	public void addNewVotiSessioneReferendum(SessioneDiVoto sessioneDiVoto);
 	public void increaseVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione);
 }

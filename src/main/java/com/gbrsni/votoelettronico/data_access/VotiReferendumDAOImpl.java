@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import com.gbrsni.votoelettronico.models.OpzioneReferendum;
@@ -51,6 +48,28 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		}
 		
 		return nvoti;
+	}
+	
+	/**Aggiunge Nuovo record per la sessione Referendum vuoto*/
+	@Override
+	public void addNewVotiSessioneReferendum(SessioneDiVoto sessioneDiVoto) {
+		Objects.requireNonNull(sessioneDiVoto);
+		PreparedStatement ps = null;
+		
+		try {
+			ps = connection.prepareStatement("INSERT INTO votireferendum (sessioni, nvoti1,nvoti2,nastenuti,vincitore) VALUES (?,?,?,?,?)");
+			ps.setInt(1, sessioneDiVoto.getId());
+			ps.setInt(2, 0);
+			ps.setInt(3, 0);
+			ps.setInt(4, 0);
+			ps.setString(5, null);			
+			ps.executeUpdate();
+			System.out.println("Aggiunto record per la sessione Referendum " + sessioneDiVoto);
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'aggiunta del record per la sessione Referendum" + sessioneDiVoto);
+			e.printStackTrace();
+		}
+		finally {  DbUtils.closeStatement(ps); }
 	}
 
 	@Override

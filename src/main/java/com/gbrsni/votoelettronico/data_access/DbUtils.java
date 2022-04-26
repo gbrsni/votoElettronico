@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class DbUtils {
 
-	/** chiuse il resultSet rs */
+	/** chiuse il PreparedStatement ps */
 	public static void closeStatement(PreparedStatement ps) {
 		try {
 			ps.close();
@@ -16,7 +16,7 @@ public class DbUtils {
 		}
 	}
 
-	/** chiude il prepareStatement ps */
+	/** chiude il ResultSet rs*/
 	public static void closeResultSet(ResultSet rs) {
 		try {
 			rs.close();

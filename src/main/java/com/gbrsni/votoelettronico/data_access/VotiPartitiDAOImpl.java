@@ -43,12 +43,11 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 	}
 	
 	//aggiunge i partiti per la sessione di voto
-	public void addVotiPartitiBySessione(SessioneDiVoto sessione,  Partito partito) {
+	public void addVotiPartitoBySessione(SessioneDiVoto sessione,  Partito partito) {
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(partito);
 		int i = 0;
 		try {
-			
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO votipartiti (sessioni, partiti, nvoti) VALUES (?, ?, ?)");
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, partito.getId());
@@ -63,5 +62,23 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 		}
 		System.out.println( "Relazione partiti - sessione di voto " + sessione.getId() + " aggiunta nel database");
 		
+	}
+	
+	@Override
+	public void deleteVotiPartitiBySessione(SessioneDiVoto sessione) {
+		Objects.requireNonNull(sessione);
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("DELETE FROM votipartiti  WHERE sessioni = ?");
+			ps.setInt(1, sessione.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Errore durante la rimozione dei partiti per la sessione di voto " + sessione.toString());
+			e.printStackTrace();
+			return;
+		}
+		System.out.println("Partiti per la sessione " + sessione.toString() + " rimossi dal database");
 	}
 }

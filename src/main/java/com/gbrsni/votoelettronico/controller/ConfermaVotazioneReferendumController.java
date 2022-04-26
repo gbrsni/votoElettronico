@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ConfermaVotazioneController extends Controller{
+public class ConfermaVotazioneReferendumController extends Controller{
 
     @FXML
     private ResourceBundle resources;
@@ -24,6 +24,7 @@ public class ConfermaVotazioneController extends Controller{
 
     @FXML
     private VBox votoVbox;
+    
     
     @Override
 	public void onNavigateFrom(Controller sender, Object parameter) {
@@ -43,11 +44,9 @@ public class ConfermaVotazioneController extends Controller{
 
     @FXML
     void initialize() {
-        assert annullaButton != null : "fx:id=\"annullaButton\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
-        assert confermaButton != null : "fx:id=\"confermaButton\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
-        assert votoVbox != null : "fx:id=\"votoVbox\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
-
+        assert annullaButton != null : "fx:id=\"annullaButton\" was not injected: check your FXML file 'ConfermaVotazioneReferendumView.fxml'.";
+        assert confermaButton != null : "fx:id=\"confermaButton\" was not injected: check your FXML file 'ConfermaVotazioneReferendumView.fxml'.";
+        assert votoVbox != null : "fx:id=\"votoVbox\" was not injected: check your FXML file 'ConfermaVotazioneReferendumView.fxml'.";
     }
 
 }
-

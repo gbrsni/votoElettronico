@@ -8,17 +8,6 @@ public class SaltedPassword {
 	private String hash;
 	private String salt;
 	
-	// Restituisce una stringa di 8 caratteri casuali
-	public static String createSalt() {
-		byte[] bytes = new byte[8];
-		new Random().nextBytes(bytes);
-		return new String(bytes, Charset.forName("UTF-8"));
-	}
-
-	public static String hashString(String input) {
-		return String.valueOf(input.hashCode());
-	}
-	
 	public SaltedPassword(String hash, String salt) {
 		Objects.requireNonNull(hash);
 		Objects.requireNonNull(salt);
@@ -29,10 +18,23 @@ public class SaltedPassword {
 	
 	public SaltedPassword(String password) {
 		Objects.requireNonNull(password);
-
+		
 		this.setPassword(password);
 	}
 
+	
+	// Restituisce una stringa di 8 caratteri casuali
+	public static String createSalt() {
+		byte[] bytes = new byte[8];
+		new Random().nextBytes(bytes);
+		return new String(bytes, Charset.forName("UTF-8"));
+	}
+
+	public static String hashString(String input) {
+		return String.valueOf(input.hashCode());
+	}
+
+	
 	public void setPassword(String password) {
 		Objects.requireNonNull(password);
 		

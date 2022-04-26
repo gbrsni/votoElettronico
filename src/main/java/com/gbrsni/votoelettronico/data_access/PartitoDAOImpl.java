@@ -64,7 +64,7 @@ public class PartitoDAOImpl implements PartitoDAO {
 		try {
 			ps = connection.prepareStatement("UPDATE partiti SET nome = ? WHERE id = ?");
 			ps.setString(1, p.getNome());
-			ps.setInt(2, p.id);
+			ps.setInt(2, p.getId());
 			ps.executeUpdate();
 			System.out.println("Aggiornato partito " + p.toString() + " nel database");
 		} catch (SQLException e) {
@@ -82,7 +82,7 @@ public class PartitoDAOImpl implements PartitoDAO {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement("DELETE FROM partiti WHERE id = ?");
-			ps.setInt(1, p.id);
+			ps.setInt(1, p.getId());
 			ps.executeUpdate();
 			System.out.println("Rimosso partito " + p.toString() + " dal database");
 		} catch (SQLException e) {
@@ -101,7 +101,7 @@ public class PartitoDAOImpl implements PartitoDAO {
 		
 		try {
 			ps = connection.prepareStatement("INSERT INTO partiti (id, nome) VALUES (?, ?)");
-			ps.setInt(1, p.id);
+			ps.setInt(1, p.getId());
 			ps.setString(2, p.getNome());
 			ps.executeUpdate();
 			System.out.println("Inserito partito " + p.toString() + " dal database");

@@ -1,6 +1,6 @@
 package com.gbrsni.votoelettronico.controller;
 
-
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class AvvioSessioneController extends Controller{
+public class EliminaSessioneController extends Controller{
 	
 	private Gestore gestore ;
 	private SessioneDiVoto sessione; 
@@ -23,17 +23,18 @@ public class AvvioSessioneController extends Controller{
     private ResourceBundle resources;
 
     @FXML
+    private URL location;
+
+    @FXML
+    private Label eliminaSessioneLabel;
+
+    @FXML
     private Button noButton;
 
     @FXML
-    private Label avvioSessioneLabel;
-
-    @FXML
     private Button siButton;
-
-
+    
     public void onNavigateFrom(Controller sender, Object parameter) {
-    	   
     	try {
 	    	Object[] dati = (Object[]) parameter;
 	        gestore = (Gestore) dati[0];
@@ -41,32 +42,28 @@ public class AvvioSessioneController extends Controller{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	avvioSessioneLabel.setText("Avviare fase di voto per la Sessione " + sessione.getNome() + " ?" );
+    	eliminaSessioneLabel.setText("Eliminare la sessione " + sessione.getNome() + " ?" );
     }	
-    
     
     @FXML
     void pressNoButton(ActionEvent event) {
-        Stage stage = (Stage) noButton.getScene().getWindow();
+    	Stage stage = (Stage) noButton.getScene().getWindow();
         closeStage(stage);
     }
 
     @FXML
     void pressSiButton(ActionEvent event) {
-    	sessione.setStatoSessione(StatoSessione.IN_CORSO);
         SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
-        sessioneDb.updateSessioneDiVoto(sessione);
+        sessioneDb.deleteSessioneDiVoto(sessione);
         Stage stage = (Stage) siButton.getScene().getWindow();
         stage.close();
-        Object[] parameter = new Object[] {gestore, sessione};
-        navigate("SessioneApertaView", parameter);
     }
-    
+
     @FXML
     void initialize() {
-    	assert avvioSessioneLabel != null : "fx:id=\"avvioSessioneLabel\" was not injected: check your FXML file 'AvvioSessioneView.fxml'.";
-        assert noButton != null : "fx:id=\"noButton\" was not injected: check your FXML file 'AvvioSessioneView.fxml'.";
-        assert siButton != null : "fx:id=\"siButton\" was not injected: check your FXML file 'AvvioSessioneView.fxml'.";
+        assert eliminaSessioneLabel != null : "fx:id=\"eliminaSessioneLabel\" was not injected: check your FXML file 'EliminaSessioneView.fxml'.";
+        assert noButton != null : "fx:id=\"noButton\" was not injected: check your FXML file 'EliminaSessioneView.fxml'.";
+        assert siButton != null : "fx:id=\"siButton\" was not injected: check your FXML file 'EliminaSessioneView.fxml'.";
     }
 
 }

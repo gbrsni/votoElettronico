@@ -19,6 +19,7 @@ import com.gbrsni.votoelettronico.data_access.ElettoreDAOImpl;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
+import com.gbrsni.votoelettronico.models.Utente;
 
 public class LoginController extends Controller{
 
@@ -50,7 +51,6 @@ public class LoginController extends Controller{
     
     @FXML
     void pressLoginButton(ActionEvent event) throws IOException {
-    	
     	erroreLabel.setVisible(false);
     	String tipoutente = utenteComboBox.getValue();
     	String password = passwordTextField.getText().trim();
@@ -60,7 +60,6 @@ public class LoginController extends Controller{
     		erroreLabel.setVisible(true);
     	} else {
     		switch (tipoutente) {
-    		
     			case "Gestore":
     				GestoreDAOImpl gestoreDb = new GestoreDAOImpl();
     				SaltedPassword passwordGestore = gestoreDb.getPasswordGestoreByUsername(username);
@@ -71,7 +70,6 @@ public class LoginController extends Controller{
     					erroreLabel.setText("Dati inseriti non corretti");
     					erroreLabel.setVisible(true);
     				}
-    				
     				break; 
     			case "Elettore":
     				ElettoreDAOImpl elettoreDb = new ElettoreDAOImpl();
@@ -85,8 +83,7 @@ public class LoginController extends Controller{
     				}
     				break;
     		}
-    	}
-    		
+    	}	
     }
 
     @FXML

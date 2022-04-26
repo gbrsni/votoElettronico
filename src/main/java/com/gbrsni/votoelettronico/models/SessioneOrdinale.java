@@ -16,75 +16,15 @@ import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 public class SessioneOrdinale extends SessioneDiVoto{
 	
-	public SessioneOrdinale(int id, String nome, String descrizione, LocalDate data, ModVoto modVoto, ModVittoria modVittoria,
+	public SessioneOrdinale(int id, String nome, String descrizione, LocalDate data, ModVittoria modVittoria,
 			StatoSessione statoSessione, int nvoti) {
-		super(id, nome, descrizione, data, modVoto, modVittoria, statoSessione, nvoti);
+		super(id, nome, descrizione, data, modVittoria, statoSessione, nvoti);
 	}
 	
 	
-	public Map<Candidato, Integer> getVotazioniCandidati() {
-		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
-		return votazioniCandidatiDAO.getVotazioniCandidatiBySessione(this);
+	
+	public ModVoto getModVoto() {
+		return ModVoto.ORDINALE;
 	}
 	
-	
-	public void setVotazioniCandidato(Candidato candidato, int voti) {
-		Objects.requireNonNull(candidato);
-		
-		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
-		votazioniCandidatiDAO.setVotazioniCandidatiBySessione(this, candidato, voti);
-	}
-	
-	public Map<Partito, Integer> getVotazioniPartiti() {
-		VotazioniPartitiDAO votazioniPartitiDAO = new VotazioniPartitiDAOImpl();
-		return votazioniPartitiDAO.getVotazioniPartitiBySessione(this);
-	}
-	
-	public void setVotazioniPartito(Partito partito, int voti) {
-		Objects.requireNonNull(partito);
-		
-		VotazioniPartitiDAO votazioniPartitiDAO = new VotazioniPartitiDAOImpl();
-		votazioniPartitiDAO.setVotazioniPartitiBySessione(this, partito, voti);
-	}
-	
-	public boolean elettoreHaPartecipato(Elettore elettore) {
-		Objects.requireNonNull(elettore);
-
-		VotiEspressiDAO votiEspressiDAO = new VotiEspressiDAOImpl();
-		return votiEspressiDAO.existsVotoEspresso(this, elettore);
-	}
-	
-	public Map<Candidato, Integer> getVotiCandidati() {
-		VotiCandidatiDAOImpl votiCandidatiDAO = new VotiCandidatiDAOImpl();
-		return votiCandidatiDAO.getVotiCandidatiBySessione(this);
-	}
-	
-	public void setVotiCandidati(Candidato candidato) {
-		VotiCandidatiDAOImpl votiCandidatiDAO = new VotiCandidatiDAOImpl();
-		votiCandidatiDAO.addVotiCandidatiBySessione(this, candidato);
-	}
-	
-	public Map<Partito,Integer> getVotiPartiti() {
-		VotiPartitiDAOImpl votiPartitiDAO = new VotiPartitiDAOImpl();
-		return votiPartitiDAO.getVotiPartitiBySessione(this);
-	}
-	
-	public void setVotiPartiti(Partito partito) {
-		VotiPartitiDAOImpl votiPartitiDAO = new VotiPartitiDAOImpl();
-		votiPartitiDAO.addVotiPartitiBySessione(this, partito);
-	}
-	
-	public Integer getVotiAstenuti() {
-		VotiAstenutiDAOImpl votiAstenutiDAO = new VotiAstenutiDAOImpl();
-		return votiAstenutiDAO.getVotiAstenutiBySessione(this);
-	}
-	
-	public void setVotiAstenuti() {
-		VotiAstenutiDAOImpl votiAstenutiDAO = new VotiAstenutiDAOImpl();
-		votiAstenutiDAO.addVotiAstenutiBySessione(this);
-	}
-	
-	public void updateVotiCandidati(Candidato candidato, Integer nvoti) {}
-	public void updateVotiPartiti(Partito partito, Integer nvoti) {}
-	public void updateVotiAstenuti(Integer nvoti) {}
 }
