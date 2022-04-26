@@ -112,6 +112,14 @@ public abstract class SessioneDiVoto {
 	}
 	
 	public abstract OpzioneDiVoto getVincitore();
+	
+	public OpzioneDiVoto getVincitoreMaggioranza() {
+		return null;
+	}
+	
+	public OpzioneDiVoto getVincitoreMaggioranzaAssoluta() {
+		return null;
+	}
 
 	public int getId() {
 		return id;
