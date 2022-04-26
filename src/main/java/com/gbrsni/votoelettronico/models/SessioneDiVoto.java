@@ -111,7 +111,16 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	public abstract OpzioneDiVoto getVincitore();
+	public OpzioneDiVoto getVincitore() {
+		switch (this.modVittoria) {
+		case MAGGIORANZA:
+			return getVincitoreMaggioranza();
+		case MAGGIORANZA_ASSOLUTA:
+			return getVincitoreMaggioranzaAssoluta();
+		default:
+			throw new RuntimeException("Modalità di voto non valida");
+		}
+	}
 	
 	public OpzioneDiVoto getVincitoreMaggioranza() {
 		return null;
