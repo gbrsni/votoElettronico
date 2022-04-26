@@ -2,7 +2,7 @@ package com.gbrsni.votoelettronico.models;
 
 import java.util.Objects;
 
-public class Candidato {
+public class Candidato extends OpzioneDiVoto {
 	public final int id;
 	private String nome;
 	private String cognome;
