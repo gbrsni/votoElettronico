@@ -76,7 +76,7 @@ public abstract class SessioneDiVoto {
 	}
 	
 	protected static <O> Map<O, Integer> getClassifica(List<Pair<O, Integer>> voti) {
-		Map<O, Integer> res = new HashMap<>();
+		Map<O, Integer> res = new TreeMap<>();
 		
 		for (Pair<O, Integer> voto : voti) {
 			O opzione = voto.getKey();
