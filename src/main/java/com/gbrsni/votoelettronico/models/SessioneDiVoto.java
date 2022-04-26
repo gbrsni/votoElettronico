@@ -110,6 +110,8 @@ public abstract class SessioneDiVoto {
 		
 		return res;
 	}
+	
+	public abstract OpzioneDiVoto getVincitore();
 
 	public int getId() {
 		return id;
