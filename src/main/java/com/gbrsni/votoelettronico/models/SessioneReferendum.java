@@ -9,6 +9,10 @@ public class SessioneReferendum extends SessioneDiVoto{
 		super(id, nome, descrizione, data, modVittoria, statoSessione, nvoti);
 	}
 	
+	public void votaReferendum(OpzioneReferendum opzione) {
+		
+	}
+	
 	public ModVoto getModVoto() {
 		return ModVoto.REFERENDUM;
 	}
