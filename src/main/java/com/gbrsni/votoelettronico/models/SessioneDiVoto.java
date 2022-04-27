@@ -89,13 +89,17 @@ public abstract class SessioneDiVoto {
 	}
 	
 	public void contaVoti() {
-		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
-		List<Pair<Candidato, Integer>> votazioniCandidati = votazioniCandidatiDAO.getVotazioniCandidatiBySessione(this);
-		Map<Candidato, Integer> conteggioCandidati = SessioneDiVoto.getConteggioVoti(votazioniCandidati);
-		
-		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
-		for (Candidato c : conteggioCandidati.keySet()) {
-			votiCandidatiDAO.addVotiCandidatoBySessione(this, c, conteggioCandidati.get(c));
+		if (this.statoSessione == StatoSessione.CHIUSA) {			
+			VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
+			List<Pair<Candidato, Integer>> votazioniCandidati = votazioniCandidatiDAO.getVotazioniCandidatiBySessione(this);
+			Map<Candidato, Integer> conteggioCandidati = SessioneDiVoto.getConteggioVoti(votazioniCandidati);
+			
+			VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
+			for (Candidato c : conteggioCandidati.keySet()) {
+				votiCandidatiDAO.addVotiCandidatoBySessione(this, c, conteggioCandidati.get(c));
+			}
+			
+			this.setStatoSessione(StatoSessione.SCRUTINATA);
 		}
 	}
 	
