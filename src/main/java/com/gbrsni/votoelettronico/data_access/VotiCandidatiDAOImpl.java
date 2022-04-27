@@ -43,7 +43,7 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 	}
 	
 	//aggiunta candidati per una sessione
-	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato){
+	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato, int valore){
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(candidato);
 		try {
@@ -51,7 +51,7 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, candidato.getId());
-			ps.setInt(3, 0);
+			ps.setInt(3, valore);
 			ps.executeUpdate();
 			ps.close();
 			
