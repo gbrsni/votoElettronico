@@ -1,6 +1,10 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.gbrsni.votoelettronico.data_access.VotazioniReferendumDAO;
+import com.gbrsni.votoelettronico.data_access.VotazioniReferendumDAOImpl;
 
 public class SessioneReferendum extends SessioneDiVoto{
 	
@@ -9,8 +13,11 @@ public class SessioneReferendum extends SessioneDiVoto{
 		super(id, nome, descrizione, data, modVittoria, statoSessione, nvoti);
 	}
 	
-	public void votaReferendum(OpzioneReferendum opzione) {
-		
+	public void votaReferendum(Elettore elettore, OpzioneReferendum opzione) {
+		if (!haVotato(elettore)) {
+			VotazioniReferendumDAO votazioniReferendumDAO = new VotazioniReferendumDAOImpl();
+			votazioniReferendumDAO.addVotazioniReferendumBySessione(this, opzione);
+		}
 	}
 	
 	public ModVoto getModVoto() {
