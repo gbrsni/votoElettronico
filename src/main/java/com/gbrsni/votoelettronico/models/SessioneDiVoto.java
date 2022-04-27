@@ -100,6 +100,8 @@ public abstract class SessioneDiVoto {
 			}
 			
 			this.setStatoSessione(StatoSessione.SCRUTINATA);
+		} else {
+			throw new SessionStateException(StatoSessione.CHIUSA, this.statoSessione, this.id);
 		}
 	}
 	
