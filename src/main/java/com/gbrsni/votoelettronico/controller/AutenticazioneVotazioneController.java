@@ -45,12 +45,13 @@ public class AutenticazioneVotazioneController extends Controller {
 	private TextField tesseraElettoraleTextField;
 
 	@FXML
-	private Button votaBottone;
+	private Button votaButtone;
 
 	public void onNavigateFrom(Controller sender, Object parameter) {
 		Object[] dati = (Object[]) parameter;
 		gestore = (Gestore) dati[0];
 		sessione = (SessioneDiVoto) dati[1];
+		erroreLabel.setText("Dati non corretti");
 	}
 
 	@FXML
@@ -103,17 +104,11 @@ public class AutenticazioneVotazioneController extends Controller {
 
 	@FXML
 	void initialize() {
-		assert erroreLabel != null
-				: "fx:id=\"erroreLabel\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert esciBottone != null
-				: "fx:id=\"esciBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert passwordTextField != null
-				: "fx:id=\"passwordTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert tesseraElettoraleTextField != null
-				: "fx:id=\"tesseraElettoraleTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert votaBottone != null
-				: "fx:id=\"votaBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		erroreLabel.setText("Dati non corretti");
+		assert erroreLabel != null: "fx:id=\"erroreLabel\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert esciBottone != null: "fx:id=\"esciBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert passwordTextField != null: "fx:id=\"passwordTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert tesseraElettoraleTextField != null: "fx:id=\"tesseraElettoraleTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert votaButtone != null: "fx:id=\"votaBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
 	}
 
 }

@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.AutenticazioneVotazioneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.AutenticazioneVotazioneController">
    <top>
       <Label text="Votazione" BorderPane.alignment="CENTER">
          <font>
@@ -24,12 +23,12 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="esciBottone" mnemonicParsing="false" onAction="#pressEsciBottone" prefHeight="29.0" prefWidth="56.0" text="Esci">
+                  <Button fx:id="esciBottone" mnemonicParsing="false" onAction="#pressEsciBottone" prefHeight="51.0" prefWidth="73.0" text="Esci">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
                   </Button>
                </children>
@@ -85,7 +84,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="votaBottone" mnemonicParsing="false" onAction="#pressVotaButton" prefHeight="70.0" prefWidth="124.0" text="Vota">
+                  <Button fx:id="votaButton" mnemonicParsing="false" onAction="#pressVotaButton" prefHeight="70.0" prefWidth="124.0" text="Vota">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
