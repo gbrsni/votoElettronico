@@ -12,6 +12,8 @@ import java.util.TreeMap;
 
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiPartitiDAO;
+import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 import javafx.util.Pair;
 
@@ -145,6 +147,29 @@ public abstract class SessioneDiVoto {
 			return vincitore;
 		} else {
 			return null;
+		}
+	}
+	
+	public Partito getPartitoVincitore() {
+		VotiPartitiDAO votiPartitiDAO = new VotiPartitiDAOImpl();
+		Map<Partito,Integer> voti = votiPartitiDAO.getVotiPartitiBySessione(this);
+		List<Partito> classifica = SessioneDiVoto.getClassifica(voti);
+		
+		Partito vincitore = classifica.get(0);
+		
+		switch (this.modVittoria) {
+		case MAGGIORANZA:
+			return vincitore;
+		case MAGGIORANZA_ASSOLUTA:			
+			int minVoti = (this.nvoti / 2) + 1;
+			
+			if (voti.get(vincitore) >= minVoti) {
+				return vincitore;
+			} else {
+				return null;
+			}
+		default:
+			throw new RuntimeException("Modalità di voto non valida");
 		}
 	}
 
