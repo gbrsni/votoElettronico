@@ -14,7 +14,7 @@ public class SessioneReferendum extends SessioneDiVoto{
 	}
 	
 	public void votaReferendum(Elettore elettore, OpzioneReferendum opzione) {
-		if (!haVotato(elettore)) {
+		if (!haVotato(elettore)  && this.getStatoSessione() == StatoSessione.IN_CORSO) {
 			VotazioniReferendumDAO votazioniReferendumDAO = new VotazioniReferendumDAOImpl();
 			votazioniReferendumDAO.addVotazioniReferendumBySessione(this, opzione);
 		}
