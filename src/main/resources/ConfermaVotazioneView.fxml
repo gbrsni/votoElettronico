@@ -31,7 +31,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="259.0" prefWidth="658.0">
+            <HBox alignment="CENTER" prefHeight="259.0" prefWidth="658.0">
                <children>
                   <VBox fx:id="partitiVbox" prefHeight="251.0" prefWidth="687.0" />
                   <VBox fx:id="candidatiVbox" prefHeight="251.0" prefWidth="681.0" />
