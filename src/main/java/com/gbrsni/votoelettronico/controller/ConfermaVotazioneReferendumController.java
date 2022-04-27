@@ -95,11 +95,8 @@ public class ConfermaVotazioneReferendumController extends Controller{
     	
     	Stage stage = (Stage) confermaButton.getScene().getWindow();
         stage.close();
-        if (gestore == null) {
-        	navigate("ElettoreSessioniView", elettore);
-        } else {    	
-        	navigate("AutenticazioneVotazioneView", gestore);	
-        }
+        Object[] parameter = new Object[] {elettore, sessione, gestore};
+        navigate("VotoRegistratoView",parameter);
     }
 
     @FXML

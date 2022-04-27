@@ -76,7 +76,7 @@ public class ConfermaVotazioneController extends Controller{
     		for (Map.Entry<Partito, Integer> entry : partiti.entrySet()) {
 		        testoPartito += entry.getKey() + "\n";
 		    }
-    		testoCandidato += "\n\nCandidati:\n";
+    		testoCandidato += "Candidati:\n";
     		if(candidati.size()!= 0) {
     			for (Map.Entry<Candidato, Integer> entry : candidati.entrySet()) {
     		        testoCandidato += entry.getKey() + "\n";
@@ -116,11 +116,8 @@ public class ConfermaVotazioneController extends Controller{
     	
     	Stage stage = (Stage) confermaButton.getScene().getWindow();
         stage.close();
-        if (gestore == null) {
-        	navigate("ElettoreSessioniView", elettore);
-        } else {    	
-        	navigate("AutenticazioneVotazioneView", gestore);	
-        }
+        Object[] parameter = new Object[] {elettore, sessione, gestore};
+        navigate("VotoRegistratoView",parameter);
     }
 
     @FXML
@@ -129,7 +126,6 @@ public class ConfermaVotazioneController extends Controller{
         assert candidatiVbox != null : "fx:id=\"candidatiVbox\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
         assert confermaButton != null : "fx:id=\"confermaButton\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
         assert partitiVbox != null : "fx:id=\"partitiVbox\" was not injected: check your FXML file 'ConfermaVotazioneView.fxml'.";
-
     }
 
 }
