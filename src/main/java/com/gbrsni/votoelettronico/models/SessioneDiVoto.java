@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.TreeMap;
 
+import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
+import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
@@ -87,7 +89,14 @@ public abstract class SessioneDiVoto {
 	}
 	
 	public void contaVoti() {
+		VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
+		List<Pair<Candidato, Integer>> votazioniCandidati = votazioniCandidatiDAO.getVotazioniCandidatiBySessione(this);
+		Map<Candidato, Integer> conteggioCandidati = SessioneDiVoto.getConteggioVoti(votazioniCandidati);
 		
+		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
+		for (Candidato c : conteggioCandidati.keySet()) {
+			votiCandidatiDAO.addVotiCandidatoBySessione(this, c, conteggioCandidati.get(c));
+		}
 	}
 	
 	public abstract void votaCandidato(Candidato candidato);
