@@ -86,7 +86,9 @@ public abstract class SessioneDiVoto {
 		}
 	}
 	
-	public abstract void contaVoti();
+	public void contaVoti() {
+		
+	}
 	
 	public abstract void votaCandidato(Candidato candidato);
 	public abstract void votaPartito(Partito partito);
