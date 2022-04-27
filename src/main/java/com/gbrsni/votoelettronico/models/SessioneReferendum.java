@@ -32,7 +32,6 @@ public class SessioneReferendum extends SessioneDiVoto{
 	@Override
 	public void votaPartito(Partito partito) {
 		throw new IllegalArgumentException("Impossibile votare un partito in un referendum");
-		
 	}
 
 	@Override
