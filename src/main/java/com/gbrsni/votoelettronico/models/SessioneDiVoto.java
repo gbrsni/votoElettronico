@@ -12,6 +12,8 @@ import java.util.TreeMap;
 
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
@@ -90,6 +92,11 @@ public abstract class SessioneDiVoto {
 	// Per votazioni con preferenze, il candidato in posizione 0 nella list ha preferenza maggiore. Idem per i partiti
 	public abstract void votaCandidati(List<Candidato> candidati);
 	public abstract void votaPartiti(List<Partito> partiti);
+	
+	protected boolean haVotato(Elettore elettore) {
+		VotiEspressiDAO votiEspressiDAO = new VotiEspressiDAOImpl();
+		return votiEspressiDAO.existsVotoEspresso(this, elettore);
+	}
 	
 	protected static <O extends OpzioneDiVoto> Map<O, Integer> getConteggioVoti(List<Pair<O, Integer>> voti) {
 		Map<O, Integer> res = new TreeMap<>();
