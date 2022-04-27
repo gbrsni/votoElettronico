@@ -1,10 +1,18 @@
 package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotazioniReferendumDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
+import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
+import com.gbrsni.votoelettronico.models.OpzioneReferendum;
+import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 import javafx.event.ActionEvent;
@@ -71,6 +79,27 @@ public class ConfermaVotazioneReferendumController extends Controller{
     @FXML
     void pressConfermaButton(ActionEvent event) {
 
+    	VotazioniReferendumDAOImpl votazioniReferendum = new VotazioniReferendumDAOImpl();
+    	VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
+    	
+    	if (scelta == null) {
+    		//IMPLEMENTARE SALVATAGGIO SCHEDA BIANCA///////////////////////////////////////////////////////////////////////////
+    	} else {
+    		if (scelta == true)
+    			votazioniReferendum.addVotazioniReferendumBySessione(sessione, OpzioneReferendum.favorevole);
+    		else
+    			votazioniReferendum.addVotazioniReferendumBySessione(sessione, OpzioneReferendum.contrario);
+    	}
+    		
+    	votiEspressiDb.addVotoEspresso(sessione, elettore);
+    	
+    	Stage stage = (Stage) confermaButton.getScene().getWindow();
+        stage.close();
+        if (gestore == null) {
+        	navigate("ElettoreSessioniView", elettore);
+        } else {    	
+        	navigate("AutenticazioneVotazioneView", gestore);	
+        }
     }
 
     @FXML
