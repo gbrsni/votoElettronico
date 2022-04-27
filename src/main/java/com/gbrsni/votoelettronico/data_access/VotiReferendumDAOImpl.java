@@ -23,17 +23,7 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement("SELECT ? FROM votireferendum where sessioni = ?");		
-			
-			switch(opzione) {
-			case SI:
-				optString = "nvoti1";
-				break;
-			case NO:
-				optString = "nvoti2";
-			case ASTENSIONE:
-				optString = "nastenuti";
-			}
-
+			optString = opzione.toString();
 			ps.setString(1, optString);
 			ps.setInt(2, sessioneDiVoto.getId());
 			ResultSet rs = ps.executeQuery();	
@@ -82,16 +72,7 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE votireferendum SET ? = ? WHERE sessioni = ?");
-			
-			switch(opzione) {
-			case SI:
-				optString = "nvoti1";
-				break;
-			case NO:
-				optString = "nvoti2";
-			case ASTENSIONE:
-				optString = "nastenuti";
-			}
+			optString = opzione.toString();
 			
 			ps.setString(1, optString);
 			ps.setInt(2, nvoti);
