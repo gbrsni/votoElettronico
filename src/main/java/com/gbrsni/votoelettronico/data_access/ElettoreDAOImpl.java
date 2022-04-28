@@ -11,8 +11,7 @@ import com.gbrsni.votoelettronico.models.SaltedPassword;
 public class ElettoreDAOImpl implements ElettoreDAO {
 	private Connection connection = DBConnection.getConnection();
 
-	public ElettoreDAOImpl() {
-	}
+	public ElettoreDAOImpl() {}
 	
 	/**restituisce tutti gli elettori*/
 	@Override
@@ -20,7 +19,6 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		List<Elettore> res = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
 		try {
 			ps = connection.prepareStatement("SELECT * FROM elettori");
 			rs = ps.executeQuery();
@@ -31,17 +29,15 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			System.out.println("Errore durante l'ottenimento di tutti gli elettori");
 			e.printStackTrace();
 		}
-		
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 
-	/**Aggiorna elettore e*/
+	/**aggiorna l'elettore e presente nel database*/
 	@Override
 	public void updateElettore(Elettore e) {
 		Objects.requireNonNull(e);
 		PreparedStatement ps = null;
-		
 		try {
 			ps = connection.prepareStatement("UPDATE elettori SET nome = ?, cognome = ?, codicefiscale = ?, tesseraelettorale = ? WHERE username = ?");
 			ps.setString(1, e.getNome());
@@ -58,7 +54,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		finally { DbUtils.closeStatement(ps); }
 	}
 	
-	/**elimina elettore e*/
+	/**elimina elettore e dal database*/
 	@Override
 	public void deleteElettore(Elettore e) {
 		Objects.requireNonNull(e);
@@ -75,7 +71,7 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		finally { DbUtils.closeStatement(ps); }
 	}
 	
-	/**aggiunti elettore e */
+	/**aggiunge elettore e al database */
 	@Override
 	public void addElettore(Elettore e) {
 		Objects.requireNonNull(e);
@@ -107,19 +103,17 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		addElettore(e);
 	}
 
-	/**restituisce l'elettore dato l'username */
+	/**restituisce l'elettore con username indicato dal database */
 	@Override
 	public Elettore getElettoreByUsername(String username) {
 		Objects.requireNonNull(username);
 		Elettore e = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
 		try {
 			ps = connection.prepareStatement("SELECT * FROM elettori WHERE username = ?");
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			
 			if (rs.next())
 				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale"));
 			System.out.println("Ottenuto elettore con username " + username);
@@ -131,34 +125,29 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		return e;
 	}
 	
-	/**Restituisce l'elettore data la tessera Elettorale*/
+	/**restituisce l'elettore data la tessera elettorale dal database*/
 	@Override
 	public Elettore getElettoreByTesseraElettorale(String tesseraElettorale) {
 		Objects.requireNonNull(tesseraElettorale);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Elettore e = null;
-		
 		try {
 			ps = connection.prepareStatement("SELECT * FROM elettori WHERE tesseraelettorale = ?");
 			ps.setString(1, tesseraElettorale);
 			rs = ps.executeQuery();
-			
 			if (rs.next()) 
 				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale"));
-			
 			System.out.println("Ottenuto elettore con tessera elettorale " + tesseraElettorale);
-			
 		} catch (SQLException ex) {
 			System.out.println("Errore durante l'ottenimento dell'elettore con tessera elettorale" + tesseraElettorale);
 			ex.printStackTrace();
 		}
-		
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return e;
 	}
 
-	/**resistuisce la SaltedPassword dato l'username dell'elettore*/
+	/**resistuisce la SaltedPassword dato l'username dell'elettore dal database*/
 	@Override
 	public SaltedPassword getPasswordElettoreByUsername(String username) {
 		Objects.requireNonNull(username);
@@ -169,16 +158,13 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			ps = connection.prepareStatement("SELECT * FROM passwordelettori WHERE elettori = ?");
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			
 			if (rs.next()) 
 				sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
-			
 			System.out.println("Ottenuta password dell'elettore con username " + username);
 		} catch (SQLException ex) {
 			System.out.println("Errore durante l'ottenimento della password dell'elettore con username" + username);
 			ex.printStackTrace();
 		}
-		
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return sp;
 	}
@@ -189,7 +175,6 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(sp);
 		PreparedStatement ps = null;
-		
 		try {
 			String query;
 			if (getPasswordElettoreByUsername(username) == null) {
