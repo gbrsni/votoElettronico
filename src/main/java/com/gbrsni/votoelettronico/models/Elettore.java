@@ -22,14 +22,13 @@ public class Elettore extends Utente{
 	}
 	
 
-	@Override
 	public boolean equals(Object obj) {
 		if(this == obj)
 			return true;
 		if (obj == null || obj.getClass()!= this.getClass())
 			return false;
-		Candidato c = (Candidato) obj;
-		return (c.id == c.getId());
+		Elettore e = (Elettore) obj;
+		return (e.getUsername() == this.getUsername());
 	}
 	
 }
