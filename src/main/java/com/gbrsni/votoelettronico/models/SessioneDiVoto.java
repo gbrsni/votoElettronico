@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public abstract class SessioneDiVoto {
 	
-	private final int id;
+	private int id;
 	private String nome;
 	private String descrizione;
 	private LocalDate data;
@@ -33,7 +33,9 @@ public abstract class SessioneDiVoto {
 		}
 	}
 
-
+	public int setId(int id) {
+		return this.id = id;
+	}
 
 	public int getId() {
 		return id;
