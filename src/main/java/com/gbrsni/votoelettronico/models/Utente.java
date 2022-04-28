@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class Utente {
 
-	private String username;
+	private static String username;
 	private String nome;
 	private String cognome; 
 	private String codiceFiscale;
@@ -21,36 +21,30 @@ public abstract class Utente {
 		this.codiceFiscale = codiceFiscale;
 	}
 
-
-	public String getUsername() {
+	public static String getUsername() {
 		return username;
 	}
 
-
-	public void setUsername(String username) {
-		this.username = username;
+	public static void setUsername(String username) {
+		Utente.username = username;
 	}
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 
 	public String getCognome() {
 		return cognome;
 	}
 
-
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	
+
 	public String getCodiceFiscale() {
 		return codiceFiscale;
 	}
@@ -58,4 +52,10 @@ public abstract class Utente {
 	public void setCodiceFiscale(String codiceFiscale) {
 		this.codiceFiscale = codiceFiscale;
 	}
+
+	@Override
+	public String toString() {
+		return this.nome + " " + this.cognome;
+	}
+	
 }
