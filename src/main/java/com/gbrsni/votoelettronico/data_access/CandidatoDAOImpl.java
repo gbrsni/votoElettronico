@@ -13,13 +13,12 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 
 	public CandidatoDAOImpl() {}
 	
-	/**restituisce i candidati presenti nel database.*/
+	/**restituisce i candidati presenti nel database*/
 	@Override
 	public List<Candidato> getAllCandidato() {
 		List<Candidato> res = new ArrayList<>();
 		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
+		ResultSet rs = null;	
 		try {
 			ps = connection.prepareStatement("SELECT * FROM candidati");
 			rs = ps.executeQuery();
@@ -28,12 +27,10 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res.add(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito));		
 			}	
-			
 		} catch (SQLException c) {
 			System.out.println("Errore durante l'ottenimento di tutti gli candidati dal database");
 			c.printStackTrace();
 		}	
-		
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
@@ -44,7 +41,6 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 		Candidato res = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			ps = connection.prepareStatement("SELECT * FROM candidati WHERE id = ?");
 			ps.setInt(1, id);
@@ -54,36 +50,31 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito);
 			}
-			
 		} catch (SQLException c) {
 			System.out.println("Errore durante l'ottenimento del candidato con id " + id);
 			c.printStackTrace();
 		}
-		
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
-	/**restituisce tutti i candidati di un partito. */
+	/**restituisce tutti i candidati di un partito*/
 	@Override
 	public List<Candidato> getAllCandidatoByPartito(Partito partito){
 		Objects.requireNonNull(partito);
 		List<Candidato> res = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		try {
 			ps = connection.prepareStatement("SELECT * FROM candidati WHERE partiti = ?");
 			ps.setInt(1, partito.getId());
 			rs = ps.executeQuery();
 			while(rs.next())
-				res.add(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito));	
-			
+				res.add(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito));
 		} catch (SQLException c) {
 			System.out.println("Errore durante l'ottenimento dei candidati del partito " + partito.getId());
 			c.printStackTrace();
 		} 
-		
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
@@ -106,12 +97,12 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
-
+	
+	/**elimina il candidato c dal database.*/
 	@Override
 	public void deleteCandidato(Candidato c) {
 		Objects.requireNonNull(c);
 		PreparedStatement ps = null;
-
 		try {
 			ps = connection.prepareStatement("DELETE FROM candidati WHERE id = ?");
 			ps.setInt(1, c.getId());
@@ -120,10 +111,10 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			System.out.println("Errore durante la rimozione del candidato " + c.toString());
 			e.printStackTrace();
 		}
-		
 		finally {  DbUtils.closeStatement(ps); }
 	}
 
+	/**aggiunge il candidato c al database*/
 	@Override
 	public void addCandidato(Candidato c) {
 		Objects.requireNonNull(c);
@@ -146,9 +137,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 	public void addCandidato(int id, String nome, String cognome, Partito partito) {
 		Objects.requireNonNull(nome);
 		Objects.requireNonNull(cognome);		
-		
 		Candidato c = new Candidato(id, nome, cognome, partito);
 		addCandidato(c);
 	}
-
 }
