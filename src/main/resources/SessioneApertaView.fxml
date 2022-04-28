@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.SessioneApertaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.SessioneApertaController">
    <top>
       <Label text="Sessione Aperta" BorderPane.alignment="CENTER">
          <font>
@@ -26,32 +26,32 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="backBottone" mnemonicParsing="false" onAction="#pressBackButton" text="Torna Indietro">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#pressBackButton" text="Torna Indietro">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="163.0" prefWidth="900.0">
+            <HBox alignment="CENTER" prefHeight="163.0" prefWidth="900.0">
                <children>
-                  <Button fx:id="votazioneBottone" mnemonicParsing="false" onAction="#pressVotazioneButton" style="-fx-background-color: green;" text="Votazione" textFill="WHITE">
+                  <Button fx:id="votazioneButton" mnemonicParsing="false" onAction="#pressVotazioneButton" style="-fx-background-color: green;" text="Votazione" textFill="WHITE">
                      <font>
                         <Font size="36.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="150.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="chiudiSessioneBottone" mnemonicParsing="false" onAction="#pressChiudiSessioneButton" style="-fx-background-color: red;" text="Chiudi Sessione" textFill="WHITE">
+                  <Button fx:id="chiudiSessioneButton" mnemonicParsing="false" onAction="#pressChiudiSessioneButton" style="-fx-background-color: red;" text="Chiudi Sessione" textFill="WHITE">
                      <font>
                         <Font size="36.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="150.0" />
+                        <Insets left="120.0" />
                      </HBox.margin>
                   </Button>
                </children>
