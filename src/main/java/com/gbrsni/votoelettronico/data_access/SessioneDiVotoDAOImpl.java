@@ -9,117 +9,106 @@ import java.util.Objects;
 import com.gbrsni.votoelettronico.models.GetSessioneFactory;
 import com.gbrsni.votoelettronico.models.ModVittoria;
 import com.gbrsni.votoelettronico.models.ModVoto;
-import com.gbrsni.votoelettronico.models.SessioneCategorico;
-import com.gbrsni.votoelettronico.models.SessioneCategoricoPreferenze;
-import com.gbrsni.votoelettronico.models.SessioneDiVoto;
-import com.gbrsni.votoelettronico.models.SessioneOrdinale;
-import com.gbrsni.votoelettronico.models.SessioneReferendum;
 import com.gbrsni.votoelettronico.models.StatoSessione;
+import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	private Connection connection = DBConnection.getConnection();
 	
-	public SessioneDiVotoDAOImpl() {
+	public SessioneDiVotoDAOImpl() {}
 	
-	}
-
+	/**restituisce tutte le sessioni di voto*/
 	@Override
 	public List<SessioneDiVoto> getAllSessioneDiVoto() {
 		List<SessioneDiVoto> res = new ArrayList<>();
 		GetSessioneFactory sessioneFactory = new GetSessioneFactory();
-
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioni");
-			ResultSet rs = ps.executeQuery();
-			
+			ps = connection.prepareStatement("SELECT * FROM sessioni");
+			rs = ps.executeQuery();
 			while (rs.next()) {
 				try {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
-					
 				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
 					e.printStackTrace();
 				}
 			}
-			
-			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto");
 			e.printStackTrace();
 		}
-		
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
-
+	/**restituisce le sessione di voto con nome indicato*/
 	@Override
 	public List<SessioneDiVoto> getSessioneDiVotoByName(String nome) {
 		Objects.requireNonNull(nome);
 		List<SessioneDiVoto> res = new ArrayList<>();
 		GetSessioneFactory sessioneFactory = new GetSessioneFactory();
-
-		
+		PreparedStatement ps = null;
+		ResultSet rs = null;	
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioni where nome = ?");
+			ps = connection.prepareStatement("SELECT * FROM sessioni where nome = ?");
 			ps.setString(1, nome);
-			ResultSet rs = ps.executeQuery();
-			
+			rs = ps.executeQuery();
 			while (rs.next()) {
 				try {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
-
 				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto con nome " + nome);
 					e.printStackTrace();
 				}
 			}
-			
-			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto con nome " + nome);
 			e.printStackTrace();
 		}
-		
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
-
+	
+	/**restituisce le sessioni di voto con stato indicato*/
 	@Override
 	public List<SessioneDiVoto> getAllSessioneDiVotoByStato(StatoSessione statoSessione) {
+		Objects.requireNonNull(statoSessione);
 		List<SessioneDiVoto> res = new ArrayList<>();
 		GetSessioneFactory sessioneFactory = new GetSessioneFactory();
-
+		PreparedStatement ps = null;
+		ResultSet rs= null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sessioni WHERE stato = ?");
+			ps = connection.prepareStatement("SELECT * FROM sessioni WHERE stato = ?");
 			ps.setString(1, statoSessione.toString());
-			ResultSet rs = ps.executeQuery();
-			
+			rs = ps.executeQuery();
 			while (rs.next()) {
 				try {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
-
 				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto con stato " + statoSessione);
 					e.printStackTrace();
 				}
 			}
-			
-			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto con stato " + statoSessione);
 			e.printStackTrace();
 		}
-		
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
-
+	
+	/**aggiorna la sessione di voto s*/
 	@Override
 	public void updateSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE sessioni SET nome = ?, descrizione = ?, data = ?, modvoto = ?, modvittoria = ?, stato = ?, nvoti = ? WHERE id = ?");
+			ps = connection.prepareStatement("UPDATE sessioni SET nome = ?, descrizione = ?, data = ?, modvoto = ?, modvittoria = ?, stato = ?, nvoti = ? WHERE id = ?");
 			ps.setString(1, s.getNome());
 			ps.setString(2, s.getDescrizione());
 			Date data = new Date(s.getData().getYear(),s.getData().getMonthValue(),s.getData().getDayOfMonth());
@@ -130,38 +119,40 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			ps.setInt(7,s.getNvoti());
 			ps.setInt(8, s.getId());
 			ps.executeUpdate();
-			ps.close();
+			System.out.println("Aggiornata sessione di voto " + s.toString() + " nel database");
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'aggiornamento della sessione di voto " + s.toString());
 			e.printStackTrace();
-			return;
 		}
-		System.out.println("Aggiornata sessione di voto " + s.toString() + " nel database");
+		finally { DbUtils.closeStatement(ps); }
 	}
-
+	
+	/**elimina la sessione di voto s */
 	@Override
 	public void deleteSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM sessioni  WHERE id = ?");
+			ps = connection.prepareStatement("DELETE FROM sessioni  WHERE id = ?");
 			ps.setInt(1, s.getId());
 			ps.executeUpdate();
-			ps.close();
+			System.out.println("Sessione di voto " + s.toString() + " rimossa dal database");
 		} catch (SQLException e) {
 			System.out.println("Errore durante la rimozione della sessione di voto " + s.toString());
 			e.printStackTrace();
-			return;
 		}
-		System.out.println("Sessione di voto " + s.toString() + " rimossa dal database");
+		finally { DbUtils.closeStatement(ps); }
 	}
 	
+	/**aggiorna la sessione di voto s*/
 	@SuppressWarnings("deprecation")
 	@Override
 	public int addSessioneDiVoto(SessioneDiVoto s) {
 		Objects.requireNonNull(s);
+		PreparedStatement ps = null;
 		int id = 0;
 		try {			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO votoelettronico.sessioni (nome, descrizione, data, modvoto, modvittoria, stato, nvoti) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			ps = connection.prepareStatement("INSERT INTO votoelettronico.sessioni (nome, descrizione, data, modvoto, modvittoria, stato, nvoti) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, s.getNome());
 			ps.setString(2, s.getDescrizione());
 			Date data = new Date(s.getData().getYear(),s.getData().getMonthValue(),s.getData().getDayOfMonth());
@@ -173,13 +164,13 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			ps.executeUpdate();
 			ResultSet res = ps.getGeneratedKeys();
 			if (res.next()) id = res.getInt(1);
-			ps.close(); 
+			System.out.println("Sessione di voto " + s.getNome() + " inserita nel database");
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'inserimento della sessione di voto " + s.toString());
 			e.printStackTrace();
 			return 0;
 		}
-		System.out.println("Sessione di voto " + s.getNome() + " inserita nel database");
+		finally { DbUtils.closeStatement(ps); }
 		return id;
 	}
 
@@ -204,38 +195,42 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		addSessioneDiVoto(sessione);
 	}
 	
+	/**restituisce il numero totale di sessioni di voto presenti nel database*/
 	@Override
 	public int getTotalNumberSessioneDiVoto() {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		int res = 0;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM sessioni");
-			ResultSet rs = ps.executeQuery();
+			ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM sessioni");
+			rs = ps.executeQuery();
 			if(rs.next())
 				res = rs.getInt("total");
-			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento numero totale sessioni di voto");
 			e.printStackTrace();
 		}
-		
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
+	/**restituisce il numero di sessioni di voto con stato indicato*/
 	@Override 
 	public int getNumberSessioneDiVotoByStato(StatoSessione stato) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		int res = 0;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM sessioni where stato = ?");
+			 ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM sessioni where stato = ?");
 			ps.setString(1, stato.name());
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			if(rs.next())
 				res = rs.getInt("total");
-			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento numero totale sessioni di voto");
 			e.printStackTrace();
 		}
-		
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
