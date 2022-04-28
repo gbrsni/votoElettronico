@@ -12,13 +12,12 @@ public class PartitoDAOImpl implements PartitoDAO {
 
 	public PartitoDAOImpl() {}
 	
-	/**otteniene tutti i partiti dal database*/
+	/**resituisce tutti i partiti dal database*/
 	@Override
 	public List<Partito> getAllPartito() {
 		List<Partito> res = new ArrayList<>();
 		PreparedStatement ps = null; 
 		ResultSet rs = null;
-		
 		try {
 			ps = connection.prepareStatement("SELECT * FROM partiti");
 			rs = ps.executeQuery();
@@ -26,7 +25,6 @@ public class PartitoDAOImpl implements PartitoDAO {
 			while (rs.next()) {
 				res.add(new Partito(rs.getInt("id"), rs.getString("nome")));
 			}
-			
 		} catch (SQLException p) {
 			System.out.println("Errore durante l'ottenimento di tutti gli partiti");
 			p.printStackTrace();
@@ -35,28 +33,26 @@ public class PartitoDAOImpl implements PartitoDAO {
 		return res;
 	}
 	
+	/**restituisce il partito con id indicato*/
 	@Override
 	public Partito getPartitoById(int id) {
 		Partito p = null; 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
 		try {
 			ps = connection.prepareStatement("SELECT * FROM partiti WHERE id = ?");
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			
 			if (rs.next()) p = new Partito(rs.getInt("id"), rs.getString("nome"));
-
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento di tutti gli partiti");
 			e.printStackTrace();
 		}
-		
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return p;
 	}
 	
+	/**aggiorna il partito p*/
 	@Override
 	public void updatePartito(Partito p) {
 		Objects.requireNonNull(p);
@@ -72,10 +68,10 @@ public class PartitoDAOImpl implements PartitoDAO {
 			e.printStackTrace();
 			return;
 		}
-		finally {DbUtils.closeStatement(ps); }
-		
+		finally {DbUtils.closeStatement(ps);} 
 	}
-
+		
+	/**elimina il partito p dal database*/
 	@Override
 	public void deletePartito(Partito p) {
 		Objects.requireNonNull(p);
@@ -91,9 +87,9 @@ public class PartitoDAOImpl implements PartitoDAO {
 			return;
 		}
 		finally {DbUtils.closeStatement(ps); }
-		
 	}
-
+	
+	/**aggiunge il partito p al database*/
 	@Override
 	public void addPartito(Partito p) {
 		Objects.requireNonNull(p);
@@ -105,19 +101,16 @@ public class PartitoDAOImpl implements PartitoDAO {
 			ps.setString(2, p.getNome());
 			ps.executeUpdate();
 			System.out.println("Inserito partito " + p.toString() + " dal database");
-			
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'inserimento del partito " + p.toString());
 			e.printStackTrace();
 		}
 		finally {DbUtils.closeStatement(ps); }
-		
 	}
 
 	@Override
 	public void addPartito(int id, String nome) {
 		Objects.requireNonNull(nome);		
-		
 		Partito p = new Partito(id, nome);
 		addPartito(p);
 	}
