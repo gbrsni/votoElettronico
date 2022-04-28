@@ -3,10 +3,9 @@ package com.gbrsni.votoelettronico.models;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
 public abstract class SessioneDiVoto {
 	
-	private int id;
+	private final int id;
 	private String nome;
 	private String descrizione;
 	private LocalDate data;
@@ -34,48 +33,10 @@ public abstract class SessioneDiVoto {
 		}
 	}
 
-	public SessioneDiVoto(int id, String nome, String descrizione, LocalDate data,String modVittoria, String statoSessione, int nvoti) throws IllegalArgumentException {
-		Objects.requireNonNull(nome);
-		Objects.requireNonNull(data);
-		Objects.requireNonNull(modVittoria);
-		Objects.requireNonNull(nvoti);
-		
-		this.id = id;
-		this.nome = nome;
-		this.descrizione = descrizione;
-		this.data = data;
-		this.nvoti = nvoti; 
-		
-		
-		if (modVittoria.equals("MAGGIORANZA")) {
-			this.modVittoria = ModVittoria.MAGGIORANZA;
-		} else if (modVittoria.equals("MAGGIORANZA_ASSOLUTA")) {
-			this.modVittoria = ModVittoria.MAGGIORANZA_ASSOLUTA;
-		} else if (modVittoria.equals("REFERENDUM_SENZA_QUORUM")) {
-			this.modVittoria = ModVittoria.REFERENDUM_SENZA_QUORUM;
-		} else if (modVittoria.equals("REFERENDUM_CON_QUORUM")) {
-			this.modVittoria = ModVittoria.REFERENDUM_CON_QUORUM;
-		} else {
-			throw new IllegalArgumentException("Impossibile istanziare sessione di voto: modalità di vittoria " + modVittoria + " non valida");
-		}
-		
-		if (statoSessione.equals("CHIUSA")) {
-			this.statoSessione = StatoSessione.CHIUSA;
-		} else if (statoSessione.equals("IN_CORSO")) {
-			this.statoSessione = StatoSessione.IN_CORSO;
-		} else if (statoSessione.equals("CONCLUSA")) {
-			this.statoSessione = StatoSessione.CONCLUSA;
-		} else if (statoSessione.equals("SCRUTINATA")) {
-			this.statoSessione = StatoSessione.SCRUTINATA;
-		}
-	}
+
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -128,4 +89,15 @@ public abstract class SessioneDiVoto {
 
 	public abstract ModVoto getModVoto();
 	
+	@Override
+	public abstract boolean equals(Object obj);
+	
+	@Override 
+	public int hashCode() {
+		return this.id;
+	}
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 }
