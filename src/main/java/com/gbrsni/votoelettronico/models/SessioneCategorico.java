@@ -1,18 +1,6 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.Objects;
-
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 public class SessioneCategorico extends SessioneDiVoto{
 	
@@ -23,5 +11,14 @@ public class SessioneCategorico extends SessioneDiVoto{
 	
 	public ModVoto getModVoto() {
 		return ModVoto.CATEGORICO;
+	}
+	
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if (obj == null || obj.getClass()!= this.getClass())
+			return false;
+		SessioneCategorico s = (SessioneCategorico) obj;
+		return (s.getId() == this.getId());
 	}
 }

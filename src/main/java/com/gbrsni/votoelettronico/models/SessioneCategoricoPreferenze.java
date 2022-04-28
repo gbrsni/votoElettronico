@@ -25,4 +25,12 @@ public class SessioneCategoricoPreferenze extends SessioneDiVoto{
 		return ModVoto.CATEGORICO_CON_PREFERENZE;
 	}
 	
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if (obj == null || obj.getClass()!= this.getClass())
+			return false;
+		SessioneCategoricoPreferenze s = (SessioneCategoricoPreferenze) obj;
+		return (s.getId() == this.getId());
+	}
 }

@@ -20,11 +20,17 @@ public class SessioneOrdinale extends SessioneDiVoto{
 			StatoSessione statoSessione, int nvoti) {
 		super(id, nome, descrizione, data, modVittoria, statoSessione, nvoti);
 	}
-	
-	
-	
+
 	public ModVoto getModVoto() {
 		return ModVoto.ORDINALE;
 	}
 	
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if (obj == null || obj.getClass()!= this.getClass())
+			return false;
+		SessioneOrdinale s = (SessioneOrdinale) obj;
+		return (s.getId() == this.getId());
+	}
 }
