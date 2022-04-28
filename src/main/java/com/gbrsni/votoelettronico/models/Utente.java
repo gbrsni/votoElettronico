@@ -53,9 +53,9 @@ public abstract class Utente {
 		this.codiceFiscale = codiceFiscale;
 	}
 
+	
 	@Override
 	public String toString() {
 		return this.nome + " " + this.cognome;
 	}
-	
 }
