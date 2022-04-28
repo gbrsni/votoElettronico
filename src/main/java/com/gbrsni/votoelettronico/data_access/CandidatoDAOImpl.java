@@ -35,7 +35,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 		return res;
 	}
 	
-	/**Restituisce candidato con specifico id se presente, null altrimenti */
+	/**restituisce candidato con id indicato*/
 	@Override
 	public Candidato getCandidatoById(int id) {
 		Candidato res = null;
