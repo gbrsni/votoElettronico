@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
-import com.gbrsni.votoelettronico.data_access.PartitoDAOImpl;
+
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
@@ -22,10 +22,6 @@ import com.gbrsni.votoelettronico.models.ModVittoria;
 import com.gbrsni.votoelettronico.models.ModVoto;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
-import com.gbrsni.votoelettronico.models.SessioneOrdinale;
-import com.gbrsni.votoelettronico.models.SessioneCategorico;
-import com.gbrsni.votoelettronico.models.SessioneCategoricoPreferenze;
-import com.gbrsni.votoelettronico.models.SessioneReferendum;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
 import javafx.collections.FXCollections;
@@ -103,6 +99,7 @@ public class AggiuntaSessioneController extends Controller{
     public void onNavigateFrom(Controller sender, Object parameter) {
     	gestore = (Gestore) parameter;
     	nomeGestore.setText(gestore.getNome() + " " + gestore.getCognome());
+    
     }
 
     @FXML
@@ -241,7 +238,7 @@ public class AggiuntaSessioneController extends Controller{
         assert partitoComboBox != null : "fx:id=\"partitoComboBox\" was not injected: check your FXML file 'AggiuntaSessioneView.fxml'.";
         assert saveButton != null : "fx:id=\"saveButton\" was not injected: check your FXML file 'AggiuntaSessioneView.fxml'.";
         assert selezionaCandidatiLabel != null : "fx:id=\"selezionaCandidatiLabel\" was not injected: check your FXML file 'AggiuntaSessioneView.fxml'.";
-        init();          
+    	init();          
     }
 
 }
