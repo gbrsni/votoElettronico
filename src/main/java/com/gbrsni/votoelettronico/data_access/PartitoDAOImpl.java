@@ -94,7 +94,6 @@ public class PartitoDAOImpl implements PartitoDAO {
 	public void addPartito(Partito p) {
 		Objects.requireNonNull(p);
 		PreparedStatement ps = null;
-		
 		try {
 			ps = connection.prepareStatement("INSERT INTO partiti (id, nome) VALUES (?, ?)");
 			ps.setInt(1, p.getId());
