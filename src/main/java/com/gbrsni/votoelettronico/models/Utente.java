@@ -53,6 +53,13 @@ public abstract class Utente {
 		this.codiceFiscale = codiceFiscale;
 	}
 
+	@Override
+	public abstract boolean equals(Object obj);
+	
+	@Override
+	public int hashCode() {
+		return username.hashCode();
+	}
 	
 	@Override
 	public String toString() {
