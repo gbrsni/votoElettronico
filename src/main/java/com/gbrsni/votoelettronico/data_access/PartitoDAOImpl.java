@@ -10,7 +10,6 @@ import com.gbrsni.votoelettronico.models.Partito;
 public class PartitoDAOImpl implements PartitoDAO {
 	private Connection connection = DBConnection.getConnection();
 
-	public PartitoDAOImpl() {}
 	
 	/**resituisce tutti i partiti dal database*/
 	@Override

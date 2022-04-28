@@ -10,8 +10,6 @@ import com.gbrsni.votoelettronico.models.SaltedPassword;
 
 public class GestoreDAOImpl implements GestoreDAO {	
 	private Connection connection = DBConnection.getConnection();
-
-	public GestoreDAOImpl() {}
 	
 	/**restituisce tutti i gestori dal database*/
 	@Override

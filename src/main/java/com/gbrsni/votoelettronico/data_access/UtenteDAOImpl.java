@@ -10,8 +10,6 @@ import com.gbrsni.votoelettronico.models.Utente;
 public class UtenteDAOImpl implements UtenteDAO {
 	private Connection connection = DBConnection.getConnection();
 	
-	public UtenteDAOImpl() {}
-	
 	/**resituisce tutti gli utenti */
 	@Override
 	public List<Utente> getAllUtente() {

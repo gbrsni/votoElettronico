@@ -11,8 +11,7 @@ import com.gbrsni.votoelettronico.models.Partito;
 public class CandidatoDAOImpl implements CandidatoDAO {
 	private Connection connection = DBConnection.getConnection();
 
-	public CandidatoDAOImpl() {}
-	
+
 	/**restituisce i candidati presenti nel database*/
 	@Override
 	public List<Candidato> getAllCandidato() {

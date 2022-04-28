@@ -14,9 +14,7 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	private Connection connection = DBConnection.getConnection();
-	
-	public SessioneDiVotoDAOImpl() {}
-	
+		
 	/**restituisce tutte le sessioni di voto*/
 	@Override
 	public List<SessioneDiVoto> getAllSessioneDiVoto() {

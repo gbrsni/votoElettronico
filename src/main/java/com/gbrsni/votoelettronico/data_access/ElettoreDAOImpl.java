@@ -10,8 +10,6 @@ import com.gbrsni.votoelettronico.models.SaltedPassword;
 
 public class ElettoreDAOImpl implements ElettoreDAO {
 	private Connection connection = DBConnection.getConnection();
-
-	public ElettoreDAOImpl() {}
 	
 	/**restituisce tutti gli elettori*/
 	@Override
