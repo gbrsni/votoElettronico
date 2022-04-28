@@ -2,8 +2,8 @@ package com.gbrsni.votoelettronico.models;
 
 import java.util.Objects;
 
-
 public class Partito{
+
 	public final int id;
 	private String nome;
 	
@@ -15,7 +15,9 @@ public class Partito{
 	}
 	
 	
-	 public String getNome() {
+	
+	
+	public String getNome() {
 		return nome;
 	}
 
@@ -28,29 +30,25 @@ public class Partito{
 	public int getId() {
 		return id;
 	}
-	
-	 @Override 
-	 public String toString() {
-		 return this.nome;
-	 }
 
 	@Override
 	    public boolean equals(Object obj){
-	    
 	    if(this == obj)
 	            return true;
-	      
 	        if(obj == null || obj.getClass()!= this.getClass())
 	            return false;
-	          
 	        Partito p = (Partito) obj;
-	          
-	        return (p.nome.equals(this.nome)  && p.id == this.id);
+	        return (p.id == this.id);
 	    }
 	      
 	    @Override
 	    public int hashCode(){
 	        return this.id;
+	    }
+	    
+	    @Override 
+		 public String toString() {
+			 return this.nome;
 	    }
 	      
 	}
