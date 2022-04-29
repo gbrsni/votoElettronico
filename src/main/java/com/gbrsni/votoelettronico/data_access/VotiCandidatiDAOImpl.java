@@ -93,9 +93,8 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 			List<Pair<Candidato, Integer>> votazioniCandidati = votazioniCandidatiDAO.getVotazioniCandidatiBySessione(sessione);
 			Map<Candidato, Integer> conteggioCandidati = SessioneDiVoto.getConteggioVoti(votazioniCandidati);
 			
-			VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
 			for (Candidato c : conteggioCandidati.keySet()) {
-				votiCandidatiDAO.addVotiCandidatoBySessione(sessione, c, conteggioCandidati.get(c));
+				this.addVotiCandidatoBySessione(sessione, c, conteggioCandidati.get(c));
 			}
 			
 			sessione.setStatoSessione(StatoSessione.SCRUTINATA);
