@@ -17,68 +17,67 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 	
 	private Connection connection = DBConnection.getConnection();
 	
-	//get candidati per una sessione
+	/**ottiene i candidati con il relativo numero di voti per la sessione di voto*/
 	@Override
 	public Map<Candidato, Integer> getVotiCandidatiBySessione(SessioneDiVoto sessione) {
 		Objects.requireNonNull(sessione);
-		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		Map<Candidato, Integer> res = new HashMap<>();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM candidati INNER JOIN voticandidati ON candidati.id = voticandidati.candidati WHERE voticandidati.sessioni = ?");
+			ps = connection.prepareStatement("SELECT * FROM candidati INNER JOIN voticandidati ON candidati.id = voticandidati.candidati WHERE voticandidati.sessioni = ?");
 			ps.setInt(1, sessione.getId());
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			
 			while (rs.next()) {
 				PartitoDAO partitoDb = new PartitoDAOImpl();
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res.put(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito), rs.getInt("nvoti"));
 			}	
-			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento voti dei candidati della sessione di voto" + sessione.getId());
 			e.printStackTrace();
 		}
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
-	//aggiunta candidati per una sessione
+	/**aggiungi canadidato per la sessione di voto indicato*/
 	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato){
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(candidato);
+		PreparedStatement ps = null;
 		try {
-			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
+			ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, candidato.getId());
 			ps.setInt(3, 0);
 			ps.executeUpdate();
-			ps.close();
-			
+			System.out.println("Relazione candidati - sessione di voto " + sessione.getId() + " aggiunta nel database ");
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'inserimento del candidato " + candidato.getId() + " per la sessione di voto " + sessione.getId());
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("Relazione candidati - sessione di voto " + sessione.getId() + " aggiunta nel database ");
+		finally {  DbUtils.closeStatement(ps); }
 	}
 	
+	/**elimina tutti i candidati per la sessione di voto indicata*/
 	@Override
 	public void deleteVotiCandidatiBySessione(SessioneDiVoto sessione) {
 		Objects.requireNonNull(sessione);
 		PreparedStatement ps = null;
-
 		try {
 			ps = connection.prepareStatement("DELETE FROM voticandidati  WHERE sessioni = ?");
 			ps.setInt(1, sessione.getId());
 			ps.executeUpdate();
-			ps.close();
+			System.out.println("Candidati per la sessione " + sessione.toString() + " rimossi dal database");
 		} catch (SQLException e) {
 			System.out.println("Errore durante la rimozione dei candidati per la sessione di voto " + sessione.toString());
 			e.printStackTrace();
-			return;
 		}
-		System.out.println("Candidati per la sessione " + sessione.toString() + " rimossi dal database");
+		finally {  DbUtils.closeStatement(ps); }
 	}
 
 }
