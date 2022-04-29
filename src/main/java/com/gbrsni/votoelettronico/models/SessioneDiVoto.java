@@ -204,7 +204,7 @@ public abstract class SessioneDiVoto {
 				return null;
 			}
 		default:
-			throw new RuntimeException("Modalità di voto non valida");
+			throw new SessionModVotoException(this.getModVoto(), this.getId());
 		}
 	}
 
