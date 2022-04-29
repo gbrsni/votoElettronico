@@ -10,6 +10,7 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 
@@ -100,10 +101,11 @@ public class ConfermaVotazioneController extends Controller{
     	
     	VotazioniPartitiDAOImpl votazioniPartitiDb = new VotazioniPartitiDAOImpl();
     	VotazioniCandidatiDAOImpl votazioniCandidatiDb = new VotazioniCandidatiDAOImpl();
+    	VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
     	VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
     	
     	if (partiti.size() == 0 && candidati.size() == 0 ) {
-    		//IMPLEMENTARE SALVATAGGIO SCHEDA BIANCA///////////////////////////////////////////////////////////////////////////
+    		votiAstenutiDb.increaseVotiAstenutiBySessione(sessione);
     	} else {
     		for (Map.Entry<Partito, Integer> entry : partiti.entrySet()) {
 		        votazioniPartitiDb.addVotazioniPartitiBySessione(sessione, entry.getKey(), entry.getValue());

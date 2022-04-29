@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotazioniReferendumDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
@@ -80,10 +81,11 @@ public class ConfermaVotazioneReferendumController extends Controller{
     void pressConfermaButton(ActionEvent event) {
 
     	VotazioniReferendumDAOImpl votazioniReferendum = new VotazioniReferendumDAOImpl();
+    	VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
     	VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
     	
     	if (scelta == null) {
-    		//IMPLEMENTARE SALVATAGGIO SCHEDA BIANCA///////////////////////////////////////////////////////////////////////////
+    		votiAstenutiDb.increaseVotiAstenutiBySessione(sessione);
     	} else {
     		if (scelta == true)
     			votazioniReferendum.addVotazioniReferendumBySessione(sessione, OpzioneReferendum.favorevole);
