@@ -19,6 +19,7 @@ import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
+import exceptions.SessionModVotoException;
 import exceptions.SessionStateException;
 import javafx.util.Pair;
 
@@ -157,7 +158,7 @@ public abstract class SessioneDiVoto {
 		case MAGGIORANZA_ASSOLUTA:
 			return getCandidatoVincitoreMaggioranzaAssoluta();
 		default:
-			throw new RuntimeException("Modalità di voto non valida");
+			throw new SessionModVotoException(this.getModVoto(), this.getId());
 		}
 	}
 	
