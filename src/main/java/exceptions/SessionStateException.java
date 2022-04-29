@@ -1,4 +1,6 @@
-package com.gbrsni.votoelettronico.models;
+package exceptions;
+
+import com.gbrsni.votoelettronico.models.StatoSessione;
 
 public class SessionStateException extends RuntimeException {
 	public SessionStateException(String str) {

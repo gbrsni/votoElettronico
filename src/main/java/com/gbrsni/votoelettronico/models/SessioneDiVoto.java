@@ -19,6 +19,7 @@ import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
+import exceptions.SessionStateException;
 import javafx.util.Pair;
 
 
