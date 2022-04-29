@@ -12,6 +12,10 @@ import java.util.Objects;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.StatoSessione;
+
+import exceptions.SessionStateException;
+import javafx.util.Pair;
 
 public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 	
@@ -81,4 +85,22 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		System.out.println("Candidati per la sessione " + sessione.toString() + " rimossi dal database");
 	}
 
+	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione) {
+		Objects.requireNonNull(sessione);
+		
+		if (sessione.getStatoSessione() == StatoSessione.CHIUSA) {			
+			VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
+			List<Pair<Candidato, Integer>> votazioniCandidati = votazioniCandidatiDAO.getVotazioniCandidatiBySessione(sessione);
+			Map<Candidato, Integer> conteggioCandidati = SessioneDiVoto.getConteggioVoti(votazioniCandidati);
+			
+			VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
+			for (Candidato c : conteggioCandidati.keySet()) {
+				votiCandidatiDAO.addVotiCandidatoBySessione(sessione, c, conteggioCandidati.get(c));
+			}
+			
+			sessione.setStatoSessione(StatoSessione.SCRUTINATA);
+		} else {
+			throw new SessionStateException(StatoSessione.CHIUSA, sessione.getStatoSessione(), sessione.getId());
+		}
+	}
 }
