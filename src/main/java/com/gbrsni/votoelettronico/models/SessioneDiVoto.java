@@ -118,7 +118,7 @@ public abstract class SessioneDiVoto {
 		return votiEspressiDAO.existsVotoEspresso(this, elettore);
 	}
 	
-	protected static <O extends OpzioneDiVoto> Map<O, Integer> getConteggioVoti(List<Pair<O, Integer>> voti) {
+	public static <O extends OpzioneDiVoto> Map<O, Integer> getConteggioVoti(List<Pair<O, Integer>> voti) {
 		Map<O, Integer> res = new TreeMap<>();
 		
 		for (Pair<O, Integer> voto : voti) {
