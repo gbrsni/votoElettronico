@@ -23,7 +23,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="esciBottone" mnemonicParsing="false" onAction="#pressEsciBottone" prefHeight="51.0" prefWidth="73.0" text="Esci">
+                  <Button fx:id="esciButton" mnemonicParsing="false" onAction="#pressEsciBottone" prefHeight="51.0" prefWidth="73.0" text="Esci">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
