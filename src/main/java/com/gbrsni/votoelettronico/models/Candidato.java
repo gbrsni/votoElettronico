@@ -74,22 +74,4 @@ public class Candidato extends OpzioneDiVoto {
 	public String toString() {
 		return this.nome + " " + this.cognome;
 	}
-  
-	@Override
-	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
-		
-		if (o == this) {
-			return true;
-		}
-		
-		if (getClass() != o.getClass()) {
-			return false;
-		}
-		
-		Candidato c = (Candidato) o;
-		return this.id == c.id;
-	}
 }
