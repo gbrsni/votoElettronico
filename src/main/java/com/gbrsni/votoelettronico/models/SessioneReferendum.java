@@ -22,27 +22,5 @@ public class SessioneReferendum extends SessioneDiVoto{
 	
 	public ModVoto getModVoto() {
 		return ModVoto.REFERENDUM;
-	}
-
-	@Override
-	public void votaCandidato(Candidato candidato) {
-		throw new IllegalArgumentException("Impossibile votare un candidato in un referendum");
-	}
-
-	@Override
-	public void votaPartito(Partito partito) {
-		throw new IllegalArgumentException("Impossibile votare un partito in un referendum");
-	}
-
-	@Override
-	public void votaCandidati(List<Candidato> candidati) {
-		throw new IllegalArgumentException("Impossibile votare dei candidati in un referendum");
-		
-	}
-
-	@Override
-	public void votaPartiti(List<Partito> partiti) {
-		throw new IllegalArgumentException("Impossibile votare dei partiti in un referendum");
-	}
-	
+	}	
 }
