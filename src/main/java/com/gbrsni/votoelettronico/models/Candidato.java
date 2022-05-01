@@ -74,5 +74,8 @@ public class Candidato extends OpzioneDiVoto {
 	public String toString() {
 		return this.nome + " " + this.cognome;
 	}
+<<<<<<< HEAD
   
+=======
+>>>>>>> branch 'main' of https://github.com/gbrsni/votoElettronico.git
 }
