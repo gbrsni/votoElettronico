@@ -102,4 +102,24 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 			throw new SessionStateException(StatoSessione.CHIUSA, sessione.getStatoSessione(), sessione.getId());
 		}
 	}
+	
+	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Candidato candidato, int valore) {
+		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(candidato);
+		try {
+			
+			PreparedStatement ps = connection.prepareStatement("UPDATE voticandidati SET nvoti = ? WHERE sessioni = ? AND candidati = ?");
+			ps.setInt(1, valore);
+			ps.setInt(2, sessione.getId());
+			ps.setInt(3, candidato.getId());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			// LOG
+			e.printStackTrace();
+			return;
+		}
+		// LOG
+	}
 }
