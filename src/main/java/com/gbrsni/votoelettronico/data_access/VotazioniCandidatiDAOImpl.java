@@ -23,17 +23,17 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 	@Override
 	public List<Pair<Candidato, Integer>> getVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto) {
 		Objects.requireNonNull(sessioneDiVoto);
-
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		List<Pair<Candidato, Integer>> res = new ArrayList<>();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votazionicandidati WHERE sessioni = ?");
+			ps = connection.prepareStatement("SELECT * FROM votazionicandidati WHERE sessioni = ?");
 			ps.setInt(1, sessioneDiVoto.getId());
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			while (rs.next()) {
 				PartitoDAO partitoDb = new PartitoDAOImpl();
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
-//				res.put(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito), rs.getInt("valore"));
 				Candidato candidato = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito);
 				res.add(new Pair<>(candidato, rs.getInt("valore")));
 			}

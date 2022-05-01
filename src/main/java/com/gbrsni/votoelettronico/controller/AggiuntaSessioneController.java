@@ -139,7 +139,7 @@ public class AggiuntaSessioneController extends Controller{
     					    partitiDb.addVotiPartitoBySessione(sessione,partitiSelezionati.get(i));
         			}
         			for (int i = 0; i < candidatiSelezionati.size(); i++) {
-        				candidatiDb.addVotiCandidatoBySessione(sessione,candidatiSelezionati.get(i));
+        				candidatiDb.addVotiCandidatoBySessione(sessione,candidatiSelezionati.get(i),0);
         			}
     		}else {
     			VotiReferendumDAOImpl referendumDb = new VotiReferendumDAOImpl();

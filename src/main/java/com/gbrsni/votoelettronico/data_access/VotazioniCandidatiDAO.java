@@ -11,5 +11,5 @@ import javafx.util.Pair;
 
 public interface VotazioniCandidatiDAO {
 	public List<Pair<Candidato, Integer>> getVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto);
-	public void setVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int voti);
+	public void addVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int valore);
 }
