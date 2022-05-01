@@ -81,4 +81,24 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 		}
 		System.out.println("Partiti per la sessione " + sessione.toString() + " rimossi dal database");
 	}
+	
+	public void setVotiPartitiFromVotazioniBySessione(SessioneDiVoto sessione, Partito partito, int valore) {
+		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(partito);
+		try {
+			
+			PreparedStatement ps = connection.prepareStatement("UPDATE votipartiti SET nvoti = ? WHERE sessioni = ? AND partiti = ?");
+			ps.setInt(1, valore);
+			ps.setInt(2, sessione.getId());
+			ps.setInt(3, partito.getId());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			// LOG
+			e.printStackTrace();
+			return;
+		}
+		// LOG
+	}
 }
