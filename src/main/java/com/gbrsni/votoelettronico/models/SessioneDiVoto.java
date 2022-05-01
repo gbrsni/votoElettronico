@@ -144,43 +144,8 @@ public abstract class SessioneDiVoto {
 		return res;
 	}
 	
-	public Candidato getCandidatoVincitore() {
-		switch (this.modVittoria) {
-		case MAGGIORANZA:
-			return getCandidatoVincitoreMaggioranza();
-		case MAGGIORANZA_ASSOLUTA:
-			return getCandidatoVincitoreMaggioranzaAssoluta();
-		default:
-			throw new SessionModVotoException(this.getModVoto(), this.getId());
-		}
-	}
-	
-	private Candidato getCandidatoVincitoreMaggioranza() {
-		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
-		Map<Candidato, Integer> voti = votiCandidatiDAO.getVotiCandidatiBySessione(this);
-		List<Candidato> classifica = SessioneDiVoto.getClassifica(voti);
-		return classifica.get(0);
-	}
-	
-	private Candidato getCandidatoVincitoreMaggioranzaAssoluta() {
-		VotiCandidatiDAO votiCandidatiDAO = new VotiCandidatiDAOImpl();
-		Map<Candidato, Integer> voti = votiCandidatiDAO.getVotiCandidatiBySessione(this);
-		List<Candidato> classifica = SessioneDiVoto.getClassifica(voti);
-		
-		Candidato vincitore = classifica.get(0);
-		
-		int minVoti = (this.nvoti / 2) + 1;
-		
-		if (voti.get(vincitore) >= minVoti) {
-			return vincitore;
-		} else {
-			return null;
-		}
-	}
-	
-	public Partito getPartitoVincitore() {
-		VotiPartitiDAO votiPartitiDAO = new VotiPartitiDAOImpl();
-		Map<Partito,Integer> voti = votiPartitiDAO.getVotiPartitiBySessione(this);
+	// Prende in input l'output di getVotiPartitiBySessione
+	public Partito getPartitoVincitore(Map<Partito,Integer> voti) {
 		List<Partito> classifica = SessioneDiVoto.getClassifica(voti);
 		
 		Partito vincitore = classifica.get(0);
