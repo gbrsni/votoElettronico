@@ -55,4 +55,18 @@ public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
 
 	}
 	
+
+	public void increaseVotiAstenutiBySessione(SessioneDiVoto sessione) {
+		Objects.requireNonNull(sessione);
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement("UPDATE votiastenuti SET nvoti = nvoti + 1");
+			ps.executeUpdate();
+			ps.close();
+			System.out.println("Incrementato numero astenuti per la sessione con id " + sessione.getId());
+		} catch (SQLException e) {
+			System.out.println("Errore durante l'incremento del numero astenuti per la sessione con id" + sessione.getId());
+			e.printStackTrace();
+		}
+	}
 }	

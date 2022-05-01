@@ -12,6 +12,10 @@ import java.util.Objects;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.StatoSessione;
+
+import exceptions.SessionStateException;
+import javafx.util.Pair;
 
 public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 	
@@ -43,8 +47,8 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		return res;
 	}
 	
-	/**aggiungi canadidato per la sessione di voto indicato*/
-	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato){
+	//aggiunta candidati per una sessione
+	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato, int valore){
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(candidato);
 		PreparedStatement ps = null;
@@ -52,7 +56,7 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 			ps = connection.prepareStatement("INSERT INTO voticandidati (sessioni, candidati, nvoti) VALUES (?, ?, ?)");
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, candidato.getId());
-			ps.setInt(3, 0);
+			ps.setInt(3, valore);
 			ps.executeUpdate();
 			System.out.println("Relazione candidati - sessione di voto " + sessione.getId() + " aggiunta nel database ");
 		} catch (SQLException e) {
@@ -80,4 +84,41 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		finally {  DbUtils.closeStatement(ps); }
 	}
 
+	// Prende come input la mappa calcolata da SessioneDiVoto.getConteggioVoti, che a sua volta prende come input
+	// 	il risultato di votazioniCandidatiDAO.getVotazioniCandidatiBySessione
+	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Map<Candidato, Integer> conteggioCandidati) {
+		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(conteggioCandidati);
+		
+		if (sessione.getStatoSessione() == StatoSessione.CHIUSA) {
+			
+			for (Candidato c : conteggioCandidati.keySet()) {
+				this.addVotiCandidatoBySessione(sessione, c, conteggioCandidati.get(c));
+			}
+			
+			sessione.setStatoSessione(StatoSessione.SCRUTINATA);
+		} else {
+			throw new SessionStateException(StatoSessione.CHIUSA, sessione.getStatoSessione(), sessione.getId());
+		}
+	}
+	
+	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Candidato candidato, int valore) {
+		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(candidato);
+		try {
+			
+			PreparedStatement ps = connection.prepareStatement("UPDATE voticandidati SET nvoti = ? WHERE sessioni = ? AND candidati = ?");
+			ps.setInt(1, valore);
+			ps.setInt(2, sessione.getId());
+			ps.setInt(3, candidato.getId());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			// LOG
+			e.printStackTrace();
+			return;
+		}
+		// LOG
+	}
 }

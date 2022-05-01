@@ -2,8 +2,9 @@ package com.gbrsni.votoelettronico.models;
 
 import java.util.Objects;
 
-public class Candidato {
-	private final int id;
+public class Candidato extends OpzioneDiVoto {
+	public final int id;
+
 	private String nome;
 	private String cognome;
 	private Partito partito;
@@ -73,6 +74,22 @@ public class Candidato {
 	public String toString() {
 		return this.nome + " " + this.cognome;
 	}
-	
-	
+  
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		
+		if (o == this) {
+			return true;
+		}
+		
+		if (getClass() != o.getClass()) {
+			return false;
+		}
+		
+		Candidato c = (Candidato) o;
+		return this.id == c.id;
+	}
 }
