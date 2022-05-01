@@ -27,7 +27,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				try {
-					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900, rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
+					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900 , rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
