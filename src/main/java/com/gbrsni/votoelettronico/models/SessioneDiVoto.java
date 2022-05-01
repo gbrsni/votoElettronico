@@ -107,13 +107,6 @@ public abstract class SessioneDiVoto {
 		}
 	}
 	
-	public abstract void votaCandidato(Candidato candidato);
-	public abstract void votaPartito(Partito partito);
-	
-	// Per votazioni con preferenze, il candidato in posizione 0 nella list ha preferenza maggiore. Idem per i partiti
-	public abstract void votaCandidati(List<Candidato> candidati);
-	public abstract void votaPartiti(List<Partito> partiti);
-	
 	protected boolean haVotato(Elettore elettore) {
 		VotiEspressiDAO votiEspressiDAO = new VotiEspressiDAOImpl();
 		return votiEspressiDAO.existsVotoEspresso(this, elettore);
