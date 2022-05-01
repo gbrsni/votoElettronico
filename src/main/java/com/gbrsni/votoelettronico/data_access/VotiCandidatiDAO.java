@@ -10,5 +10,5 @@ public interface VotiCandidatiDAO {
 	public Map<Candidato, Integer> getVotiCandidatiBySessione(SessioneDiVoto sessioneDiVoto);
 	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato, int valore);
 	public void deleteVotiCandidatiBySessione(SessioneDiVoto sessione);
-	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione);
+	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Map<Candidato, Integer> conteggioCandidati);
 }

@@ -85,13 +85,13 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		System.out.println("Candidati per la sessione " + sessione.toString() + " rimossi dal database");
 	}
 
-	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione) {
+	// Prende come input la mappa calcolata da SessioneDiVoto.getConteggioVoti, che a sua volta prende come input
+	// 	il risultato di votazioniCandidatiDAO.getVotazioniCandidatiBySessione
+	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Map<Candidato, Integer> conteggioCandidati) {
 		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(conteggioCandidati);
 		
-		if (sessione.getStatoSessione() == StatoSessione.CHIUSA) {			
-			VotazioniCandidatiDAO votazioniCandidatiDAO = new VotazioniCandidatiDAOImpl();
-			List<Pair<Candidato, Integer>> votazioniCandidati = votazioniCandidatiDAO.getVotazioniCandidatiBySessione(sessione);
-			Map<Candidato, Integer> conteggioCandidati = SessioneDiVoto.getConteggioVoti(votazioniCandidati);
+		if (sessione.getStatoSessione() == StatoSessione.CHIUSA) {
 			
 			for (Candidato c : conteggioCandidati.keySet()) {
 				this.addVotiCandidatoBySessione(sessione, c, conteggioCandidati.get(c));
