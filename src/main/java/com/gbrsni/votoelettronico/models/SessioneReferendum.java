@@ -1,6 +1,10 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.gbrsni.votoelettronico.data_access.VotazioniReferendumDAO;
+import com.gbrsni.votoelettronico.data_access.VotazioniReferendumDAOImpl;
 
 public class SessioneReferendum extends SessioneDiVoto{
 	
