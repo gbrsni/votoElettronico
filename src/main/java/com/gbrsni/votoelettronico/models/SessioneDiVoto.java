@@ -107,11 +107,6 @@ public abstract class SessioneDiVoto {
 		}
 	}
 	
-	protected boolean haVotato(Elettore elettore) {
-		VotiEspressiDAO votiEspressiDAO = new VotiEspressiDAOImpl();
-		return votiEspressiDAO.existsVotoEspresso(this, elettore);
-	}
-	
 	public static <O extends OpzioneDiVoto> Map<O, Integer> getConteggioVoti(List<Pair<O, Integer>> voti) {
 		Map<O, Integer> res = new TreeMap<>();
 		
