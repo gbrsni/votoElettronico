@@ -27,7 +27,7 @@ CREATE TABLE `partiti` (
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `partiti` (
 
 LOCK TABLES `partiti` WRITE;
 /*!40000 ALTER TABLE `partiti` DISABLE KEYS */;
-INSERT INTO `partiti` VALUES (2,'GelatoCioccolato'),(1,'legaSud'),(3,'RisottoMilanese');
+INSERT INTO `partiti` VALUES (12,'Formula 1'),(11,'Looney Tunes'),(13,'Personaggi Storici'),(9,'Personaggi televisivi'),(14,'Scienziati'),(5,'Simpson'),(10,'Wizarding World');
 /*!40000 ALTER TABLE `partiti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:03
+-- Dump completed on 2022-05-01 13:43:14

@@ -26,7 +26,7 @@ CREATE TABLE `votazionireferendum` (
   `sessioni` int NOT NULL,
   `opzione` enum('favorevole','contrario') DEFAULT NULL,
   PRIMARY KEY (`sessioni`),
-  CONSTRAINT `fk_sessioni_votazionireferendum` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
+  CONSTRAINT `fk_sessioni_votazionireferendum` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:04
+-- Dump completed on 2022-05-01 13:43:14

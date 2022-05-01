@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS `passwordgestori`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passwordgestori` (
   `gestori` varchar(45) NOT NULL,
-  `salt` varchar(45) NOT NULL,
+  `salt` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `hash` varchar(200) NOT NULL,
   PRIMARY KEY (`gestori`),
-  CONSTRAINT `fk_gestori_passwordgestori` FOREIGN KEY (`gestori`) REFERENCES `gestori` (`username`)
+  CONSTRAINT `fk_gestori_passwordgestori` FOREIGN KEY (`gestori`) REFERENCES `gestori` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,7 +37,7 @@ CREATE TABLE `passwordgestori` (
 
 LOCK TABLES `passwordgestori` WRITE;
 /*!40000 ALTER TABLE `passwordgestori` DISABLE KEYS */;
-INSERT INTO `passwordgestori` VALUES ('marcox','5','839022215');
+INSERT INTO `passwordgestori` VALUES ('admin','�~\Z*�\r','-649680844');
 /*!40000 ALTER TABLE `passwordgestori` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:03
+-- Dump completed on 2022-05-01 13:43:13

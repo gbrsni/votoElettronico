@@ -32,7 +32,7 @@ CREATE TABLE `sessioni` (
   `stato` enum('CHIUSA','IN_CORSO','CONCLUSA','SCRUTINATA') DEFAULT NULL,
   `nvoti` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,6 @@ CREATE TABLE `sessioni` (
 
 LOCK TABLES `sessioni` WRITE;
 /*!40000 ALTER TABLE `sessioni` DISABLE KEYS */;
-INSERT INTO `sessioni` VALUES (26,'Elezioni rappresentanti','elezioni belle','3922-04-10','CATEGORICO','MAGGIORANZA','CONCLUSA',0),(27,'elezioni comunali','elezioni rappresentatnti comune','3922-04-14','CATEGORICO','MAGGIORANZA','IN_CORSO',0),(28,'Elezioni Centro Anziani','elezioni per decidere chi organizzerà il torneo di briscola','3922-04-16','ORDINALE','MAGGIORANZA','IN_CORSO',0),(29,'prova','prova','3922-04-21','ORDINALE','MAGGIORANZA','IN_CORSO',0),(30,'a','a','3922-03-25','CATEGORICO','MAGGIORANZA_ASSOLUTA','CHIUSA',0),(31,'prova inserimento nuovi metodi','tentativo di inserimento partito con i nuovi metodi','3922-04-24','ORDINALE','MAGGIORANZA','CHIUSA',0);
 /*!40000 ALTER TABLE `sessioni` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:04
+-- Dump completed on 2022-05-01 13:43:12

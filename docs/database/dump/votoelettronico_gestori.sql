@@ -37,7 +37,7 @@ CREATE TABLE `gestori` (
 
 LOCK TABLES `gestori` WRITE;
 /*!40000 ALTER TABLE `gestori` DISABLE KEYS */;
-INSERT INTO `gestori` VALUES ('marcox','marco','colombo','AAAAAAAAAAAAAAAA');
+INSERT INTO `gestori` VALUES ('admin','admin','admin','admin');
 /*!40000 ALTER TABLE `gestori` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:04
+-- Dump completed on 2022-05-01 13:43:13

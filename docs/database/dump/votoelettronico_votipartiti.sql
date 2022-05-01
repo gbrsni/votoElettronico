@@ -28,8 +28,8 @@ CREATE TABLE `votipartiti` (
   `nvoti` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`sessioni`,`partiti`),
   KEY `fk_partiti_votipartiti_idx` (`partiti`),
-  CONSTRAINT `fk_partiti_votipartiti` FOREIGN KEY (`partiti`) REFERENCES `partiti` (`id`),
-  CONSTRAINT `fk_sessioni_votipartiti` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
+  CONSTRAINT `fk_partiti_votipartiti` FOREIGN KEY (`partiti`) REFERENCES `partiti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sessioni_votipartiti` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,7 +39,6 @@ CREATE TABLE `votipartiti` (
 
 LOCK TABLES `votipartiti` WRITE;
 /*!40000 ALTER TABLE `votipartiti` DISABLE KEYS */;
-INSERT INTO `votipartiti` VALUES (26,1,'0'),(26,3,'0'),(27,1,'0'),(27,2,'0'),(28,2,'0'),(29,1,'0'),(30,1,'0'),(31,3,'0');
 /*!40000 ALTER TABLE `votipartiti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:04
+-- Dump completed on 2022-05-01 13:43:13

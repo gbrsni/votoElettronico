@@ -27,7 +27,7 @@ CREATE TABLE `elettori` (
   `nome` varchar(45) NOT NULL,
   `cognome` varchar(45) NOT NULL,
   `codicefiscale` varchar(16) NOT NULL,
-  `tesseraelettorale` varchar(45) NOT NULL,
+  `tesseraelettorale` varchar(9) NOT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `tesseraelettorale_UNIQUE` (`tesseraelettorale`),
   UNIQUE KEY `codicefiscale_UNIQUE` (`codicefiscale`)
@@ -40,7 +40,7 @@ CREATE TABLE `elettori` (
 
 LOCK TABLES `elettori` WRITE;
 /*!40000 ALTER TABLE `elettori` DISABLE KEYS */;
-INSERT INTO `elettori` VALUES ('prova','prova','prova','prova','prova');
+INSERT INTO `elettori` VALUES ('alida','Alida','Giachetto','GCHLDA48S53G248X','647978985'),('clara','Clara','Ferrari','BL18460525','321267135'),('fabio','Fabio','Marmolani','MRMFBA70A04D384I','540641210'),('fabrizio','Fabrizio','Zetticci','DS20553276','422935000'),('gioia','Gioia','Ricci','RO84546847','753550992'),('guglielmo','Guglielmo','Mancini','ED0100274','195152896'),('ivana','Ivana','Rizzo','EZ70314026','478666981'),('leonardo','Leonardo','Milani','CL51898862','194318598'),('lidia','Lidia','Pignattari','PGNLDI73S45G347I','124319969'),('marco','Marco','Folliero','XB79973402','488250684'),('maurizio','Maurizio','Ferrari','EN10468027','954800733'),('melissa','Melissa','Lombardo','UZ50567743','574006726'),('osa','Osanna','Tantini','TNTSNN35R62I738O','419389370'),('prova','prova','prova','prova','0'),('sergi','Sergio','Cavagliato','CVGSRG69M12D356V','414828764'),('stefano','Stefano','Buccho','AQ86986925','429826442'),('vitto','Vittorio','Casiglieri','CSGVTR51M03B839R','269178263');
 /*!40000 ALTER TABLE `elettori` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:03
+-- Dump completed on 2022-05-01 13:43:13

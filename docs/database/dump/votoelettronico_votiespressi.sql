@@ -27,8 +27,8 @@ CREATE TABLE `votiespressi` (
   `elettori` varchar(45) NOT NULL,
   PRIMARY KEY (`sessioni`,`elettori`),
   KEY `fk_elettori_votiespressi_idx` (`elettori`),
-  CONSTRAINT `fk_elettori_votiespressi` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`),
-  CONSTRAINT `fk_sessioni_votiespressi` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
+  CONSTRAINT `fk_elettori_votiespressi` FOREIGN KEY (`elettori`) REFERENCES `elettori` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sessioni_votiespressi` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:03
+-- Dump completed on 2022-05-01 13:43:12

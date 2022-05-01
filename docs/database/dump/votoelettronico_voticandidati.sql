@@ -28,8 +28,8 @@ CREATE TABLE `voticandidati` (
   `nvoti` int DEFAULT NULL,
   PRIMARY KEY (`sessioni`,`candidati`),
   KEY `fk_candidati_idx` (`candidati`),
-  CONSTRAINT `fk_candidati_voticandidati` FOREIGN KEY (`candidati`) REFERENCES `candidati` (`id`),
-  CONSTRAINT `fk_sessioni_voticandidati` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`)
+  CONSTRAINT `fk_candidati_voticandidati` FOREIGN KEY (`candidati`) REFERENCES `candidati` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sessioni_voticandidati` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,7 +39,6 @@ CREATE TABLE `voticandidati` (
 
 LOCK TABLES `voticandidati` WRITE;
 /*!40000 ALTER TABLE `voticandidati` DISABLE KEYS */;
-INSERT INTO `voticandidati` VALUES (26,1,0),(26,3,0),(27,1,0),(27,2,0),(27,3,0),(28,2,0),(29,1,0),(30,1,0),(31,3,0),(31,4,0);
 /*!40000 ALTER TABLE `voticandidati` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26  8:14:03
+-- Dump completed on 2022-05-01 13:43:13
