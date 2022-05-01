@@ -27,7 +27,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				try {
-					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
+					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900, rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto");
@@ -56,7 +56,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				try {
-					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
+					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900, rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto con nome " + nome);
@@ -85,7 +85,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				try {
-					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
+					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900, rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
 					System.out.println("Errore durante l'ottenimento di una sessione di voto con stato " + statoSessione);
@@ -100,6 +100,8 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 		return res;
 	}
 	
+	
+	
 	/**aggiorna la sessione di voto s*/
 	@Override
 	public void updateSessioneDiVoto(SessioneDiVoto s) {
@@ -109,7 +111,7 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			ps = connection.prepareStatement("UPDATE sessioni SET nome = ?, descrizione = ?, data = ?, modvoto = ?, modvittoria = ?, stato = ?, nvoti = ? WHERE id = ?");
 			ps.setString(1, s.getNome());
 			ps.setString(2, s.getDescrizione());
-			Date data = new Date(s.getData().getYear(),s.getData().getMonthValue(),s.getData().getDayOfMonth());
+			Date data = new Date(s.getData().getYear() - 1900,s.getData().getMonthValue()-1,s.getData().getDayOfMonth()+1);
 			ps.setDate(3,data);
 			ps.setString(4, String.valueOf(s.getModVoto()));
 			ps.setString(5, String.valueOf(s.getModVittoria()));
@@ -153,8 +155,8 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			ps = connection.prepareStatement("INSERT INTO votoelettronico.sessioni (nome, descrizione, data, modvoto, modvittoria, stato, nvoti) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, s.getNome());
 			ps.setString(2, s.getDescrizione());
-			Date data = new Date(s.getData().getYear(),s.getData().getMonthValue(),s.getData().getDayOfMonth());
-			ps.setDate(3,data);
+			Date data = new Date(s.getData().getYear() - 1900,s.getData().getMonthValue()-1,s.getData().getDayOfMonth()+1);
+			ps.setDate(3, data);
 			ps.setString(4, String.valueOf(s.getModVoto()));
 			ps.setString(5, String.valueOf(s.getModVittoria()));
 			ps.setString(6,String.valueOf(s.getStatoSessione()));
