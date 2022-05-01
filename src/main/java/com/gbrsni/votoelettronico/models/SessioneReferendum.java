@@ -15,5 +15,14 @@ public class SessioneReferendum extends SessioneDiVoto{
 	
 	public ModVoto getModVoto() {
 		return ModVoto.REFERENDUM;
-	}	
+	}
+	
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if (obj == null || obj.getClass()!= this.getClass())
+			return false;
+		SessioneReferendum s = (SessioneReferendum) obj;
+		return (s.getId() == this.getId());
+	}
 }

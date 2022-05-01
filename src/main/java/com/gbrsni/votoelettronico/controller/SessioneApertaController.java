@@ -21,38 +21,33 @@ public class SessioneApertaController extends Controller {
 	private Gestore gestore;
 	private SessioneDiVoto sessione;
 	
-    @FXML
-    private ResourceBundle resources;
+	  @FXML
+	    private Button backButton;
 
-    @FXML
-    private URL location;
+	    @FXML
+	    private Button chiudiSessioneButton;
 
-    @FXML
-    private Button chiudiSessioneBottone;
+	    @FXML
+	    private Label dataLabel;
 
-    @FXML
-    private Label dataLabel;
+	    @FXML
+	    private Label descrizioneLabel;
 
-    @FXML
-    private Label descrizioneLabel;
+	    @FXML
+	    private Label modVittoriaLabel;
 
-    @FXML
-    private Button backBottone;
+	    @FXML
+	    private Label modVotoLabel;
 
-    @FXML
-    private Label modVittoriaLabel;
+	    @FXML
+	    private Label nomeGestore;
 
-    @FXML
-    private Label modVotoLabel;
+	    @FXML
+	    private Label nomeLabel;
 
-    @FXML
-    private Label nomeGestore;
+	    @FXML
+	    private Button votazioneButton;
 
-    @FXML
-    private Label nomeLabel;
-
-    @FXML
-    private Button votazioneBottone;
     
     public void onNavigateFrom(Controller sender, Object parameter) {
     	Object[] dati = (Object[]) parameter;
@@ -91,15 +86,15 @@ public class SessioneApertaController extends Controller {
 
     @FXML
     void initialize() {
-        assert backBottone != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
-        assert chiudiSessioneBottone != null : "fx:id=\"chiudiSessioneBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
+        assert backButton != null : "fx:id=\"backBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
+        assert chiudiSessioneButton != null : "fx:id=\"chiudiSessioneBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert dataLabel != null : "fx:id=\"dataLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert descrizioneLabel != null : "fx:id=\"descrizioneLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert modVittoriaLabel != null : "fx:id=\"modVittoriaLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert modVotoLabel != null : "fx:id=\"modVotoLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
-        assert votazioneBottone != null : "fx:id=\"votazioneBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
+        assert votazioneButton != null : "fx:id=\"votazioneBottone\" was not injected: check your FXML file 'SessioneApertaView.fxml'.";
        
     }
 

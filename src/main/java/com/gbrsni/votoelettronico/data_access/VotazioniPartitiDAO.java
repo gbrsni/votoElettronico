@@ -7,5 +7,5 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public interface VotazioniPartitiDAO {
 	public Map<Partito, Integer> getVotazioniPartitiBySessione(SessioneDiVoto sessioneDiVoto);
-	public void setVotazioniPartitiBySessione(SessioneDiVoto sessioneDiVoto, Partito partito, int voti);
+	public void addVotazioniPartitiBySessione(SessioneDiVoto sessioneDiVoto, Partito partito, int valore);
 }

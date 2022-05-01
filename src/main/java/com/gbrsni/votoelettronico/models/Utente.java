@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class Utente {
 
-	private String username;
+	private final String username;
 	private String nome;
 	private String cognome; 
 	private String codiceFiscale;
@@ -21,17 +21,7 @@ public abstract class Utente {
 		this.codiceFiscale = codiceFiscale;
 	}
 
-
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -50,12 +40,33 @@ public abstract class Utente {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	
+
+
 	public String getCodiceFiscale() {
 		return codiceFiscale;
 	}
 
+
 	public void setCodiceFiscale(String codiceFiscale) {
 		this.codiceFiscale = codiceFiscale;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	@Override
+	public abstract boolean equals(Object obj);
+	
+	@Override
+	public int hashCode() {
+		return username.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return this.nome + " " + this.cognome;
 	}
 }

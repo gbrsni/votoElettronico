@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class UscitaVotazioneController extends Controller{
@@ -31,7 +30,7 @@ public class UscitaVotazioneController extends Controller{
     private Label erroreLabel;
     
     @FXML
-    private Button inviaBottone;
+    private Button inviaButton;
 
     @FXML
     private PasswordField passwordTextField;
@@ -50,9 +49,9 @@ public class UscitaVotazioneController extends Controller{
     	GestoreDAOImpl gestoreDb = new GestoreDAOImpl();
 		erroreLabel.setVisible(false);
     	SaltedPassword password = gestoreDb.getPasswordGestoreByUsername(gestore.getUsername());
-    	if (password.checkPassword(passwordTextField.getText())) {
+    	if (password.checkPassword(passwordTextField.getText().trim())) {
     		Object[] parameter = new Object[] {gestore, sessione};
-    		Stage stage = (Stage) inviaBottone.getScene().getWindow();
+    		Stage stage = (Stage) inviaButton.getScene().getWindow();
             closeStage(stage);
     		navigate("SessioneApertaView",parameter);
     	} else {
@@ -64,7 +63,6 @@ public class UscitaVotazioneController extends Controller{
     @FXML
     void initialize() {
     	assert erroreLabel != null : "fx:id=\"erroreLabel\" was not injected: check your FXML file 'UscitaVotazioneView.fxml'.";
-        assert inviaBottone != null : "fx:id=\"inviaBottone\" was not injected: check your FXML file 'UscitaVotazioneView.fxml'.";
         assert passwordTextField != null : "fx:id=\"passwordTextField\" was not injected: check your FXML file 'UscitaVotazioneView.fxml'.";	
         
     }

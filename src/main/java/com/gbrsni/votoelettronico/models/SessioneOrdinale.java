@@ -1,18 +1,7 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.Objects;
 
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAO;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 
 public class SessioneOrdinale extends SessioneDiVoto{
 	
@@ -20,11 +9,17 @@ public class SessioneOrdinale extends SessioneDiVoto{
 			StatoSessione statoSessione, int nvoti) {
 		super(id, nome, descrizione, data, modVittoria, statoSessione, nvoti);
 	}
-	
-	
-	
+
 	public ModVoto getModVoto() {
 		return ModVoto.ORDINALE;
 	}
 	
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if (obj == null || obj.getClass()!= this.getClass())
+			return false;
+		SessioneOrdinale s = (SessioneOrdinale) obj;
+		return (s.getId() == this.getId());
+	}
 }

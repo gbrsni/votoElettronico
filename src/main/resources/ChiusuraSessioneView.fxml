@@ -8,26 +8,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ChiusuraSessioneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.ChiusuraSessioneController">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="178.0" prefWidth="500.0">
                <children>
-                  <Button fx:id="siBottone" mnemonicParsing="false" onAction="#pressSiButton" prefHeight="60.0" prefWidth="70.0" text="Si">
+                  <Button fx:id="siButton" mnemonicParsing="false" onAction="#pressSiButton" prefHeight="70.0" prefWidth="100.0" text="Si">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="36.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="150.0" />
+                        <Insets right="40.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="noBottone" mnemonicParsing="false" onAction="#pressNoButton" prefHeight="60.0" prefWidth="70.0" text="No">
+                  <Button fx:id="noButton" mnemonicParsing="false" onAction="#pressNoButton" prefHeight="70.0" prefWidth="100.0" text="No">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="36.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="50.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                   </Button>
                </children>

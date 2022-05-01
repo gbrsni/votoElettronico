@@ -25,34 +25,27 @@ public class ChiusuraSessioneController extends Controller{
     private URL location;
 
     @FXML
-    private Button noBottone;
+    private Button noButton;
 
     @FXML
-    private Button siBottone;
+    private Button siButton;
 
     public void onNavigateFrom(Controller sender, Object parameter) {
-    	
-    	try {
 	    	Object[] dati = (Object[]) parameter;
 	        gestore = (Gestore) dati[0];
 	        sessione = (SessioneDiVoto) dati[1];
-    	} catch(Exception e) {
-    		e.printStackTrace();
-    	}
-    	
-    	
     }
     
     @FXML
     void pressNoButton(ActionEvent event) {
-        Stage stage = (Stage) noBottone.getScene().getWindow();
+        Stage stage = (Stage) noButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
     void pressSiButton(ActionEvent event) {
     	sessione.setStatoSessione(StatoSessione.CONCLUSA);
-    	Stage stage = (Stage) noBottone.getScene().getWindow();
+    	Stage stage = (Stage) noButton.getScene().getWindow();
         closeStage(stage);
         SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
         sessioneDb.updateSessioneDiVoto(sessione);
@@ -61,9 +54,8 @@ public class ChiusuraSessioneController extends Controller{
 
     @FXML
     void initialize() {
-        assert noBottone != null : "fx:id=\"noBottone\" was not injected: check your FXML file 'ChiusuraSessioneView.fxml'.";
-        assert siBottone != null : "fx:id=\"siBottone\" was not injected: check your FXML file 'ChiusuraSessioneView.fxml'.";
-
+        assert noButton != null : "fx:id=\"noBottone\" was not injected: check your FXML file 'ChiusuraSessioneView.fxml'.";
+        assert siButton != null : "fx:id=\"siBottone\" was not injected: check your FXML file 'ChiusuraSessioneView.fxml'.";
     }
 
 }

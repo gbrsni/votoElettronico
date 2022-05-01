@@ -82,9 +82,10 @@ public class ElettoreSessioniController extends Controller {
 		SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
 		sessioni = sessioniDb.getAllSessioneDiVotoByStato(StatoSessione.IN_CORSO);
 		VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
+		List<SessioneDiVoto> votiEspressi = votiEspressiDb.allExistsVotoEspressoByElettore(elettore);
 		
 		for (int i = 0; i < sessioni.size(); i++) {
-			if (!votiEspressiDb.existsVotoEspresso(sessioni.get(i), elettore)) {
+			if (!contains(votiEspressi,sessioni.get(i))) {
 				HBox sessioniHbox = new HBox();
 				Label sessioniLabelNome = new Label();
 				Label sessioniLabelDati = new Label();
@@ -106,6 +107,13 @@ public class ElettoreSessioniController extends Controller {
 				sessioniVbox.getChildren().add(sessioniHbox);
 			}
 		}
+	}
+	
+	private boolean contains(List<SessioneDiVoto> votiEspressi, SessioneDiVoto sessione) {
+		for(int i = 0; i < votiEspressi.size(); i++) {
+			if(votiEspressi.get(i).getId() == sessione.getId()) return true;
+		}
+		return false;
 	}
 	
 	@FXML

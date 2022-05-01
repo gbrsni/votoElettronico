@@ -1,10 +1,9 @@
 package com.gbrsni.votoelettronico.controller;
 
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.gbrsni.votoelettronico.Home;
 import com.gbrsni.votoelettronico.data_access.ElettoreDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.models.Elettore;
@@ -14,12 +13,11 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+
 
 public class AutenticazioneVotazioneController extends Controller {
 
@@ -33,7 +31,7 @@ public class AutenticazioneVotazioneController extends Controller {
 	private URL location;
 
 	@FXML
-	private Button esciBottone;
+	private Button esciButton;
 
 	@FXML
 	private Label erroreLabel;
@@ -45,17 +43,17 @@ public class AutenticazioneVotazioneController extends Controller {
 	private TextField tesseraElettoraleTextField;
 
 	@FXML
-	private Button votaBottone;
+	private Button votaButtone;
 
 	public void onNavigateFrom(Controller sender, Object parameter) {
 		Object[] dati = (Object[]) parameter;
 		gestore = (Gestore) dati[0];
 		sessione = (SessioneDiVoto) dati[1];
+		erroreLabel.setText("Dati non corretti");
 	}
 
 	@FXML
 	void pressEsciBottone(ActionEvent event) {
-
 		Object[] parameter = new Object[] { gestore, sessione };
 		newStage("Uscita Votazione", "UscitaVotazioneView", parameter);
 	}
@@ -64,7 +62,7 @@ public class AutenticazioneVotazioneController extends Controller {
 	void pressVotaButton(ActionEvent event) {
 		erroreLabel.setVisible(false);
 		ElettoreDAOImpl elettoreDb = new ElettoreDAOImpl();
-		Elettore elettore = elettoreDb.getElettoreByTesseraElettorale(tesseraElettoraleTextField.getText());
+		Elettore elettore = elettoreDb.getElettoreByTesseraElettorale(tesseraElettoraleTextField.getText().trim());
 		if (elettore == null) {
 			erroreLabel.setText("Dati non corretti");
 			erroreLabel.setVisible(true);
@@ -73,7 +71,7 @@ public class AutenticazioneVotazioneController extends Controller {
 			boolean existVoto = votoEspressoDb.existsVotoEspresso(sessione, elettore);
 			if (!existVoto) {
 				SaltedPassword password = elettoreDb.getPasswordElettoreByUsername(elettore.getUsername());
-				if (password.checkPassword(passwordTextField.getText())) {
+				if (password.checkPassword(passwordTextField.getText().trim())) {
 					System.out.println("Accesso eseguito dall'elettore " + elettore.getUsername());
 					Object[] parameter = new Object[] { elettore, sessione, gestore };
 					switch (sessione.getModVoto()) {
@@ -103,17 +101,10 @@ public class AutenticazioneVotazioneController extends Controller {
 
 	@FXML
 	void initialize() {
-		assert erroreLabel != null
-				: "fx:id=\"erroreLabel\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert esciBottone != null
-				: "fx:id=\"esciBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert passwordTextField != null
-				: "fx:id=\"passwordTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert tesseraElettoraleTextField != null
-				: "fx:id=\"tesseraElettoraleTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		assert votaBottone != null
-				: "fx:id=\"votaBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
-		erroreLabel.setText("Dati non corretti");
+		assert erroreLabel != null: "fx:id=\"erroreLabel\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert esciButton != null: "fx:id=\"esciBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert passwordTextField != null: "fx:id=\"passwordTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert tesseraElettoraleTextField != null: "fx:id=\"tesseraElettoraleTextField\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
+		assert votaButtone != null: "fx:id=\"votaBottone\" was not injected: check your FXML file 'AutenticazioneVotazioneView.fxml'.";
 	}
-
 }

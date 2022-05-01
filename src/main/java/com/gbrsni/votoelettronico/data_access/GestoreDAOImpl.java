@@ -5,17 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
 
 public class GestoreDAOImpl implements GestoreDAO {	
 	private Connection connection = DBConnection.getConnection();
-
-	public GestoreDAOImpl() {
-	}
 	
-	/**Restituisce tutti i gestori dal database*/
+	/**restituisce tutti i gestori dal database*/
 	@Override
 	public List<Gestore> getAllGestore() {
 		List<Gestore> res = new ArrayList<>();
@@ -35,7 +31,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 		return res;
 	}
 	
-	/**Aggiorna il gestore g*/
+	/**aggiorna il gestore g presente nel database*/
 	@Override
 	public void updateGestore(Gestore g) {
 		Objects.requireNonNull(g);
@@ -55,7 +51,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 		finally {DbUtils.closeStatement(ps); }
 	}
 	
-	/**Rimuove il gestore g dal database*/
+	/**rimuove il gestore g dal database*/
 	@Override
 	public void deleteGestore(Gestore g) {
 		Objects.requireNonNull(g);
@@ -72,7 +68,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 		finally {DbUtils.closeStatement(ps); }
 	}
 	
-	/**Aggiunge il gestore g al database*/
+	/**aggiunge il gestore g al database*/
 	@Override
 	public void addGestore(Gestore g) {
 		Objects.requireNonNull(g);
@@ -103,7 +99,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 		addGestore(g);
 	}
 	
-	/**Resistuice il gestore con username indicato dal database*/
+	/**resistuice il gestore con username indicato dal database*/
 	@Override
 	public Gestore getGestoreByUsername(String username) {
 		Objects.requireNonNull(username);
@@ -136,13 +132,10 @@ public class GestoreDAOImpl implements GestoreDAO {
 		try {
 			ps = connection.prepareStatement("SELECT * FROM votoelettronico.passwordgestori WHERE gestori = ?");
 			ps.setString(1, username);
-			rs = ps.executeQuery();
-					
+			rs = ps.executeQuery();	
 			if (rs.next()) 
 				sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
-			
 			System.out.println("Ottenuta password dell'gestore con username " + username);
-			//gestire caso in cui non esiste gestore con username indicato
 		} catch (SQLException ex) {
 			System.out.println("Errore durante l'ottenimento della password dell'gestore con username " + username);
 			ex.printStackTrace();
@@ -151,7 +144,7 @@ public class GestoreDAOImpl implements GestoreDAO {
 		return sp;
 	}
 	
-	/**Salva la SaltedPassword per il gestore con username indicato nel database*/
+	/**salva la SaltedPassword per il gestore con username indicato nel database*/
 	@Override
 	public void setPasswordGestoreByUsername(String username, SaltedPassword sp) {
 		Objects.requireNonNull(username);

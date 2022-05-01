@@ -21,4 +21,14 @@ public class Elettore extends Utente{
 		this.tesseraElettorale = tesseraElettorale;
 	}
 	
+
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if (obj == null || obj.getClass()!= this.getClass())
+			return false;
+		Elettore e = (Elettore) obj;
+		return (e.getUsername() == this.getUsername());
+	}
+	
 }

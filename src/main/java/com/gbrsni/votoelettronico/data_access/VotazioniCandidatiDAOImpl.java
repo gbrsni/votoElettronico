@@ -18,18 +18,18 @@ import javafx.util.Pair;
 
 public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 	private Connection connection = DBConnection.getConnection();
-
+	
+	/**resistuice tutti i voti per i candidati della sessione indicata*/
 	@Override
 	public List<Pair<Candidato, Integer>> getVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto) {
 		Objects.requireNonNull(sessioneDiVoto);
-		
+
 		List<Pair<Candidato, Integer>> res = new ArrayList<>();
 
 		try {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votazionicandidati WHERE sessioni = ?");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ResultSet rs = ps.executeQuery();
-			
 			while (rs.next()) {
 				PartitoDAO partitoDb = new PartitoDAOImpl();
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
@@ -37,60 +37,31 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 				Candidato candidato = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito);
 				res.add(new Pair<>(candidato, rs.getInt("valore")));
 			}
-			
-			ps.close();
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento votazioni dei candidati della sessione di voto" + sessioneDiVoto.toString());
 			e.printStackTrace();
 		}
-		
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 	}
 	
-	private boolean existsVotiCandidati(SessioneDiVoto sessioneDiVoto, Candidato candidato) throws SQLException {
+	/**aggiungi il voto per il candidato nella sessione di voto indicata*/
+	@Override
+	public void addVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int valore) {
 		Objects.requireNonNull(sessioneDiVoto);
 		Objects.requireNonNull(candidato);
-
-		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votazionicandidati WHERE sessioni = ?, candidati = ?");
+		PreparedStatement ps = null;
+		try {	
+			ps = connection.prepareStatement("INSERT INTO votazionicandidati (sessioni, candidati, valore) VALUES (?, ?, ?)");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ps.setInt(2, candidato.getId());
-			ResultSet rs = ps.executeQuery();
-			
-			ps.close();
-
-			return rs.next();
-		} catch (SQLException e) {
-			throw e;
-		}
-	}
-
-	@Override
-	public void setVotazioniCandidatiBySessione(SessioneDiVoto sessioneDiVoto, Candidato candidato, int voti) {
-		Objects.requireNonNull(sessioneDiVoto);
-		Objects.requireNonNull(candidato);
-		
-		try {
-			PreparedStatement ps = null;
-			if (existsVotiCandidati(sessioneDiVoto, candidato)) {
-				ps = connection.prepareStatement("UPDATE votazionicandidati SET valore = ? WHERE (sessioni = ?, candidati = ?)");
-				ps.setInt(1, voti);
-				ps.setInt(2, sessioneDiVoto.getId());
-				ps.setInt(3, candidato.getId());
-			} else {
-				ps = connection.prepareStatement("INSERT INTO votazionicandidati (sessioni, candidati, valore) VALUES (?, ?, ?)");
-				ps.setInt(1, sessioneDiVoto.getId());
-				ps.setInt(2, candidato.getId());
-				ps.setInt(3, voti);
-			}
+			ps.setInt(3, valore);
 			ps.executeUpdate();
-			ps.close();
+			System.out.println("Aggiornate votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'aggiornamento votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
 			e.printStackTrace();
-			return;
 		}
-		
-		System.out.println("Aggiornate votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
+		finally {DbUtils.closeStatement(ps); }	
 	}
 }

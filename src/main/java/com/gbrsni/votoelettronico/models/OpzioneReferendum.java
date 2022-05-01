@@ -1,7 +1,15 @@
 package com.gbrsni.votoelettronico.models;
 
 public enum OpzioneReferendum {
-	SI,
-	NO,
-	ASTENSIONE
+	favorevole,
+	contrario;
+	
+	 @Override
+	  public String toString() {
+	    switch(this) {
+	      case favorevole: return "favorevole";
+	      case contrario: return "contrario";
+	      default: throw new IllegalArgumentException();
+	    }
+	  }
 }
