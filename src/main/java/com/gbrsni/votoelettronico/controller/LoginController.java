@@ -90,6 +90,11 @@ public class LoginController extends Controller{
     void pressSessioniButton(ActionEvent event) {
     	navigate("UtenteSessioniScrutinateView");
     }
+    
+    private void init() {
+    	 ObservableList<String> listComboBox = FXCollections.observableArrayList("Elettore","Gestore");
+         utenteComboBox.setItems(listComboBox);
+    }
 
     @FXML
     void initialize() {
@@ -99,8 +104,6 @@ public class LoginController extends Controller{
         assert sessioniButton != null : "fx:id=\"sessioniButton\" was not injected: check your FXML file 'LoginView.fxml'.";
         assert usernameTextField != null : "fx:id=\"usernameTextField\" was not injected: check your FXML file 'LoginView.fxml'.";        
         assert utenteComboBox != null : "fx:id=\"utenteTextField\" was not injected: check your FXML file 'LoginView.fxml'.";
-        ObservableList<String> listComboBox = FXCollections.observableArrayList("Elettore","Gestore");
-        utenteComboBox.setItems(listComboBox);
     }
 
 }
