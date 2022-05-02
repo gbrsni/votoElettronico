@@ -100,7 +100,7 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="annullaBottone" mnemonicParsing="false" onAction="#pressAnnullaButton" text="Button" />
+                  <Button fx:id="annullaBottone" mnemonicParsing="false" onAction="#pressAnnullaButton" text="Annulla" />
                   <Label fx:id="erroreLabel" text="non puoi assegnare lo stesso voto a due partiti/candidati differenti" textFill="RED" visible="false">
                      <HBox.margin>
                         <Insets left="50.0" />
