@@ -1,4 +1,4 @@
-package exceptions;
+package com.gbrsni.votoelettronico.exceptions;
 
 import com.gbrsni.votoelettronico.models.ModVoto;
 

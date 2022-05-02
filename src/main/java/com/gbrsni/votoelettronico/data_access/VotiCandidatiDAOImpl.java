@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.exceptions.SessionStateException;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
-import exceptions.SessionStateException;
 import javafx.util.Pair;
 
 public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {

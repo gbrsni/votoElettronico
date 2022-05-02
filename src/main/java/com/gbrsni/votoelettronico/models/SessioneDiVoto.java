@@ -18,9 +18,9 @@ import com.gbrsni.votoelettronico.data_access.VotiEspressiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
+import com.gbrsni.votoelettronico.exceptions.SessionModVotoException;
+import com.gbrsni.votoelettronico.exceptions.SessionStateException;
 
-import exceptions.SessionModVotoException;
-import exceptions.SessionStateException;
 import javafx.util.Pair;
 
 public abstract class SessioneDiVoto {
