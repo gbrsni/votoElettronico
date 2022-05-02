@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.data_access.ElettoreDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
@@ -72,7 +73,7 @@ public class AutenticazioneVotazioneController extends Controller {
 			if (!existVoto) {
 				SaltedPassword password = elettoreDb.getPasswordElettoreByUsername(elettore.getUsername());
 				if (password.checkPassword(passwordTextField.getText().trim())) {
-					System.out.println("Accesso eseguito dall'elettore " + elettore.getUsername());
+					Logging.infoMessage(this.getClass(), "Votazione avviata per l'elettore " + elettore);
 					Object[] parameter = new Object[] { elettore, sessione, gestore };
 					switch (sessione.getModVoto()) {
 					case ORDINALE:
@@ -91,6 +92,7 @@ public class AutenticazioneVotazioneController extends Controller {
 				} else {
 					erroreLabel.setText("Dati non corretti");
 					erroreLabel.setVisible(true);
+					Logging.warnMessage(this.getClass(), "Dati di login non corretti per l'elettore " + elettore);
 				}
 			} else {
 				erroreLabel.setText("hai già espresso il tuo voto in questa sessione");

@@ -20,6 +20,7 @@ import com.gbrsni.votoelettronico.data_access.VotiPartitiDAO;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 import com.gbrsni.votoelettronico.exceptions.SessionModVotoException;
 import com.gbrsni.votoelettronico.exceptions.SessionStateException;
+import com.gbrsni.votoelettronico.logging.Logging;
 
 import javafx.util.Pair;
 
@@ -169,6 +170,7 @@ public abstract class SessioneDiVoto {
 	}
 
 	public void setStatoSessione(StatoSessione statoSessione) {
+		Logging.infoMessage(this.getClass(), "Aggiornato stato della sessione con id " + this.getId() + " a " + statoSessione);
 		this.statoSessione = statoSessione;
 	}
 

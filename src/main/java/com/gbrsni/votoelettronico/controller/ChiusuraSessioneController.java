@@ -49,7 +49,7 @@ public class ChiusuraSessioneController extends Controller{
         closeStage(stage);
         SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
         sessioneDb.updateSessioneDiVoto(sessione);
-        navigate("SessioneApertaView", gestore);
+        navigate("GestoreSessioniView", gestore);
     }
 
     @FXML

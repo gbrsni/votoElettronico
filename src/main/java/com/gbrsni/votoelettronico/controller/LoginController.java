@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 import com.gbrsni.votoelettronico.data_access.GestoreDAOImpl;
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.data_access.ElettoreDAOImpl;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
@@ -65,10 +66,12 @@ public class LoginController extends Controller{
     				SaltedPassword passwordGestore = gestoreDb.getPasswordGestoreByUsername(username);
     				if(passwordGestore != null && passwordGestore.checkPassword(password) ) {
     					Gestore gestore = gestoreDb.getGestoreByUsername(username);
+    					Logging.infoMessage(this.getClass(), "Eseguito il login dal gestore " + gestore);
     					navigate("DashBoardView", gestore);
     				} else {
     					erroreLabel.setText("Dati inseriti non corretti");
     					erroreLabel.setVisible(true);
+    					Logging.warnMessage(this.getClass(), "Tentativo di login per il gestore fallito");
     				}
     				break; 
     			case "Elettore":
@@ -76,10 +79,12 @@ public class LoginController extends Controller{
     				SaltedPassword passwordElettore = elettoreDb.getPasswordElettoreByUsername(username);
     				if(passwordElettore != null && passwordElettore.checkPassword(password)) {
     					Elettore elettore = elettoreDb.getElettoreByUsername(username);
+    					Logging.infoMessage(this.getClass(), "Eseguito il login dall'elettore " + elettore);
     					navigate("ElettoreSessioniView", elettore);
     				} else {
     					erroreLabel.setText("Dati inseriti non corretti");
     					erroreLabel.setVisible(true);
+    					Logging.warnMessage(this.getClass(), "Tentativo di login per l'elettore fallito");
     				}
     				break;
     		}

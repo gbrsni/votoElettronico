@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
@@ -63,6 +64,7 @@ public class DashBoardController extends Controller{
     
     @FXML
     void pressLogoutButton(ActionEvent event) {
+		Logging.infoMessage(this.getClass(), "Eseguito il logout dal gestore " + gestore);
     	gestore = null; 
     	navigate("LoginView");
     }

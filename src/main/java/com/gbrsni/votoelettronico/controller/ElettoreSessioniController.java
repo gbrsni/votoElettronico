@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.StatoSessione;
@@ -51,6 +52,7 @@ public class ElettoreSessioniController extends Controller {
 
 	@FXML
 	void pressLogoutButton(ActionEvent event) {
+		Logging.infoMessage(this.getClass(), "Eseguito il logout dall'elettore " + elettore);
 		elettore = null;
 		navigate("LoginView");
 	}
@@ -59,7 +61,6 @@ public class ElettoreSessioniController extends Controller {
 	private EventHandler<ActionEvent> pressVotaButton = new EventHandler<ActionEvent>() {
 		public void handle(ActionEvent e) {
 			SessioneDiVoto sessione = (SessioneDiVoto) ((Button) e.getSource()).getUserData();
-			System.out.println("Id Sessione di Voto:" + sessione.getId());
 			Object[] parameter = new Object[] { elettore, sessione , null};
 			switch (sessione.getModVoto()) {
 			case ORDINALE:

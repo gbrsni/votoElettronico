@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.PartitoDAOImpl;
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
@@ -88,6 +89,7 @@ public class GestioneListeController extends Controller {
 
 	@FXML
 	void pressLogoutButton(ActionEvent event) {
+		Logging.infoMessage(this.getClass(), "Eseguito il logout dal gestore " + gestore);
 		gestore = null;
 		navigate("LoginView");
 	}

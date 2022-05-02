@@ -10,6 +10,8 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
+import com.gbrsni.votoelettronico.logging.Logging;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -84,6 +86,7 @@ public class GestoreSessioniController extends Controller{
 
     @FXML
     void pressLogoutButton(ActionEvent event) {
+		Logging.infoMessage(this.getClass(), "Eseguito il logout dal gestore " + gestore);
     	gestore = null;
     	navigate("LoginView");
     }
