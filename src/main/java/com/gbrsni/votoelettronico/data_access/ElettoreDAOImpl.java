@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
 
@@ -23,9 +24,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			while (rs.next()) {
 				res.add(new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale")));
 			}
+			Logging.infoMessage(this.getClass(), "Ottenuti tutti gli elettori");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento di tutti gli elettori");
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di tutti gli elettori\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -44,10 +45,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			ps.setString(4, e.getTesseraElettorale());
 			ps.setString(5, e.getUsername());
 			ps.executeUpdate();
-			System.out.println("Aggiornato elettore " + e.toString() + " nel database");
+			Logging.infoMessage(this.getClass(), "Aggiornato elettore " + e.toString() + " nel database");
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'aggiornamento dell'elettore " + e.toString());
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiornamento dell'elettore " + e.toString() + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
@@ -61,10 +61,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			ps = connection.prepareStatement("DELETE FROM elettori WHERE username = ?");
 			ps.setString(1, e.getUsername());
 			ps.executeUpdate();
-			System.out.println("Rimosso elettore " + e.toString() + " dal database");
+			Logging.infoMessage(this.getClass(), "Rimosso elettore " + e.toString() + " dal database");
 		} catch (SQLException ex) {
-			System.out.println("Errore durante la rimozione dell'elettore " + e.toString());
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la rimozione dell'elettore " + e.toString() + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
@@ -82,10 +81,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			ps.setString(4, e.getCodiceFiscale());
 			ps.setString(5, e.getTesseraElettorale());
 			ps.executeUpdate();
-			System.out.println("Inserito elettore " + e.toString() + " dal database");
+			Logging.infoMessage(this.getClass(), "Inserito elettore " + e.toString() + " dal database");
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'inserimento dell'elettore " + e.toString());
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento dell'elettore " + e.toString() + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
@@ -114,10 +112,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			rs = ps.executeQuery();
 			if (rs.next())
 				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale"));
-			System.out.println("Ottenuto elettore con username " + username);
+			Logging.infoMessage(this.getClass(), "Ottenuto elettore con username " + username);
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'ottenimento dell'elettore con username" + username);
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento dell'elettore con username" + username + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return e;
@@ -136,10 +133,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) 
 				e = new Elettore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("tesseraelettorale"));
-			System.out.println("Ottenuto elettore con tessera elettorale " + tesseraElettorale);
+			Logging.infoMessage(this.getClass(), "Ottenuto elettore con tessera elettorale " + tesseraElettorale);
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'ottenimento dell'elettore con tessera elettorale" + tesseraElettorale);
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento dell'elettore con tessera elettorale" + tesseraElettorale + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return e;
@@ -158,10 +154,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) 
 				sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
-			System.out.println("Ottenuta password dell'elettore con username " + username);
+			Logging.infoMessage(this.getClass(), "Ottenuta password dell'elettore con username " + username);
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'ottenimento della password dell'elettore con username" + username);
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento della password dell'elettore con username" + username + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return sp;
@@ -185,10 +180,9 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			ps.setString(2, sp.getHash());
 			ps.setString(3, username);
 			ps.executeUpdate();
-			System.out.println("Modificata password dell'elettore con username " + username);
+			Logging.infoMessage(this.getClass(), "Modificata password dell'elettore con username " + username);
 		} catch (SQLException ex) {
-			System.out.println("Errore durante la modifica della password dell'elettore con username " + username);
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la modifica della password dell'elettore con username " + username + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}

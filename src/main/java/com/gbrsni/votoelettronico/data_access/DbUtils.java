@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.gbrsni.votoelettronico.logging.Logging;
+
 public class DbUtils {
 
 	/** chiuse il PreparedStatement ps */
@@ -12,7 +14,7 @@ public class DbUtils {
 		try {
 			ps.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logging.warnMessage(DbUtils.class, "Errore durante la chiusura statement\n" + e.toString());
 		}
 	}
 
@@ -21,7 +23,7 @@ public class DbUtils {
 		try {
 			rs.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logging.warnMessage(DbUtils.class, "Errore durante la chiusura result set\n" + e.toString());
 		}
 	}
 	
@@ -30,7 +32,7 @@ public class DbUtils {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logging.warnMessage(DbUtils.class, "Errore durante la chiusura connessione\n" + e.toString());
 		}
 	}
 }

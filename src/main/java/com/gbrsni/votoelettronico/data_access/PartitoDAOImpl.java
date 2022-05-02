@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Partito;
 
 public class PartitoDAOImpl implements PartitoDAO {
@@ -24,9 +25,10 @@ public class PartitoDAOImpl implements PartitoDAO {
 			while (rs.next()) {
 				res.add(new Partito(rs.getInt("id"), rs.getString("nome")));
 			}
-		} catch (SQLException p) {
+			Logging.infoMessage(this.getClass(), "Ottenuti tutti i partiti dal database");
+		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento di tutti gli partiti");
-			p.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di tutti gli partiti\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -43,9 +45,9 @@ public class PartitoDAOImpl implements PartitoDAO {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (rs.next()) p = new Partito(rs.getInt("id"), rs.getString("nome"));
+			Logging.infoMessage(this.getClass(), "Ottenuto il partito con id " + id);
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento di tutti gli partiti");
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento del partito con id " + id + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return p;
@@ -61,10 +63,9 @@ public class PartitoDAOImpl implements PartitoDAO {
 			ps.setString(1, p.getNome());
 			ps.setInt(2, p.getId());
 			ps.executeUpdate();
-			System.out.println("Aggiornato partito " + p.toString() + " nel database");
+			Logging.infoMessage(this.getClass(), "Aggiornato partito " + p.toString() + " nel database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiornamento del partito " + p.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiornamento del partito " + p.toString() + "\n" + e.toString());
 			return;
 		}
 		finally {DbUtils.closeStatement(ps);} 
@@ -79,10 +80,9 @@ public class PartitoDAOImpl implements PartitoDAO {
 			ps = connection.prepareStatement("DELETE FROM partiti WHERE id = ?");
 			ps.setInt(1, p.getId());
 			ps.executeUpdate();
-			System.out.println("Rimosso partito " + p.toString() + " dal database");
+			Logging.infoMessage(this.getClass(), "Rimosso partito " + p.toString() + " dal database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante la rimozione del partito " + p.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la rimozione del partito " + p.toString() + "\n" + e.toString());
 			return;
 		}
 		finally {DbUtils.closeStatement(ps); }
@@ -99,9 +99,10 @@ public class PartitoDAOImpl implements PartitoDAO {
 			ps.setString(2, p.getNome());
 			ps.executeUpdate();
 			System.out.println("Inserito partito " + p.toString() + " dal database");
+			Logging.infoMessage(this.getClass(), "Inserito partito " + p.toString() + " dal database");
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'inserimento del partito " + p.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento del partito " + p.toString() + "\n" + e.toString());
 		}
 		finally {DbUtils.closeStatement(ps); }
 	}

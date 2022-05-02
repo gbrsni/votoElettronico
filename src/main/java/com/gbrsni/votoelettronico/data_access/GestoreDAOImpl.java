@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
 
@@ -23,9 +24,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 			while (rs.next()) {
 				res.add(new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"),rs.getString("codicefiscale")));
 			}
-		} catch (SQLException g) {
-			System.out.println("Errore durante l'ottenimento di tutti gli gestori");
-			g.printStackTrace();
+			Logging.infoMessage(this.getClass(), "Ottenuti tutti i gestori dal database");
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di tutti gli gestori\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -43,10 +44,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ps.setString(3, g.getUsername());
 			ps.setString(4, g.getCodiceFiscale());
 			ps.executeUpdate();
-			System.out.println("Aggiornato gestore " + g.toString() + " nel database");
+			Logging.infoMessage(this.getClass(), "Aggiornato gestore " + g.toString() + " nel database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiornamento del gestore " + g.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiornamento del gestore " + g.toString() + "\n" + e.toString());
 		}
 		finally {DbUtils.closeStatement(ps); }
 	}
@@ -60,10 +60,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ps = connection.prepareStatement("DELETE FROM gestori WHERE username = ?");
 			ps.setString(1, g.getUsername());
 			ps.executeUpdate();
-			System.out.println("Rimosso gestore " + g.toString() + " dal database");
+			Logging.infoMessage(this.getClass(), "Rimosso gestore " + g.toString() + " dal database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante la rimozione del gestore " + g.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la rimozione del gestore " + g.toString() + "\n" + e.toString());
 		}
 		finally {DbUtils.closeStatement(ps); }
 	}
@@ -80,10 +79,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ps.setString(3, g.getCognome());
 			ps.setString(4, g.getCodiceFiscale());
 			ps.executeUpdate();
-			System.out.println("Inserito gestore " + g.toString() + " dal database");
+			Logging.infoMessage(this.getClass(), "Inserito gestore " + g.toString() + " dal database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento del gestore " + g.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento del gestore " + g.toString() + "\n" + e.toString());
 			return;
 		}
 		finally {DbUtils.closeStatement(ps); }
@@ -112,11 +110,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) 
 				g = new Gestore(rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"));
-			System.out.println("Ottenuto gestore con username " + username);
-			//considerare caso in cui non esiste un gestore con username indicato
+			Logging.infoMessage(this.getClass(), "Ottenuto gestore con username " + username);
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'ottenimento dell'gestore con username" + username);
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento dell'gestore con username" + username + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return g;
@@ -135,10 +131,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 			rs = ps.executeQuery();	
 			if (rs.next()) 
 				sp = new SaltedPassword(rs.getString("hash"), rs.getString("salt"));
-			System.out.println("Ottenuta password dell'gestore con username " + username);
+			Logging.infoMessage(this.getClass(), "Ottenuta password dell'gestore con username " + username);
 		} catch (SQLException ex) {
-			System.out.println("Errore durante l'ottenimento della password dell'gestore con username " + username);
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento della password dell'gestore con username " + username + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return sp;
@@ -162,10 +157,9 @@ public class GestoreDAOImpl implements GestoreDAO {
 			ps.setString(2, sp.getHash());
 			ps.setString(3, username);
 			ps.executeUpdate();
-			System.out.println("Modificata password dell'gestore con username " + username);
+			Logging.infoMessage(this.getClass(), "Modificata password del gestore con username " + username);
 		} catch (SQLException ex) {
-			System.out.println("Errore durante la modifica della password dell'gestore con username " + username);
-			ex.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la modifica della password del gestore con username " + username + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
