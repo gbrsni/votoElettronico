@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -31,10 +32,18 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="259.0" prefWidth="658.0">
+            <HBox prefHeight="259.0" prefWidth="658.0">
                <children>
-                  <VBox fx:id="partitiVbox" prefHeight="251.0" prefWidth="687.0" />
-                  <VBox fx:id="candidatiVbox" prefHeight="251.0" prefWidth="681.0" />
+                  <ScrollPane prefHeight="251.0" prefWidth="290.0">
+                     <content>
+                        <VBox fx:id="partitiVbox" prefHeight="247.0" prefWidth="263.0" />
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane prefHeight="251.0" prefWidth="269.0">
+                     <content>
+                        <VBox fx:id="candidatiVbox" prefHeight="245.0" prefWidth="241.0" />
+                     </content>
+                  </ScrollPane>
                </children></HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
