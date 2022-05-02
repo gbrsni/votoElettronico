@@ -6,6 +6,4 @@ import com.gbrsni.votoelettronico.models.Utente;
 
 public interface UtenteDAO {
 	public List<Utente> getAllUtente();
-	public void updateUtente(Utente u);
-	public void deleteUtente(Utente u);
 }
