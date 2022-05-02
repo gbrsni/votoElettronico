@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 
@@ -25,10 +26,10 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 				PartitoDAOImpl partitoDb = new PartitoDAOImpl();
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res.add(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito));		
-			}	
+			}
+			Logging.infoMessage(this.getClass(), "Ottenuti tutti i candidati dal database");
 		} catch (SQLException c) {
-			System.out.println("Errore durante l'ottenimento di tutti gli candidati dal database");
-			c.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di tutti gli candidati dal database\n" + c.toString());
 		}	
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -49,9 +50,9 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito);
 			}
+			Logging.infoMessage(this.getClass(), "Ottenuto candidato con id " + id);
 		} catch (SQLException c) {
-			System.out.println("Errore durante l'ottenimento del candidato con id " + id);
-			c.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento del candidato con id " + id +  "\n" + c.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -70,9 +71,9 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			rs = ps.executeQuery();
 			while(rs.next())
 				res.add(new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito));
+			Logging.infoMessage(this.getClass(), "Ottenuti tutti i candidati del partito con id " + partito.getId());
 		} catch (SQLException c) {
-			System.out.println("Errore durante l'ottenimento dei candidati del partito " + partito.getId());
-			c.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento dei candidati del partito con id " + partito.getId() + "\n" + c.toString());
 		} 
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -90,9 +91,9 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			ps.setInt(3, c.getPartito().id);
 			ps.setInt(4, c.getId());
 			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Aggiornato candidato con id " + c.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiornamento del candidato " + c.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento del candidato con id " + c.getId() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
@@ -106,9 +107,9 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			ps = connection.prepareStatement("DELETE FROM candidati WHERE id = ?");
 			ps.setInt(1, c.getId());
 			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Rimosso candidato con id " + c.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante la rimozione del candidato " + c.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la rimozione del candidato con id " + c.getId() + "\n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
 	}
@@ -125,9 +126,9 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			ps.setString(3, c.getCognome());
 			ps.setInt(4, c.getPartito().id);
 			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Aggiunto candidato " + c.toString());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento del candidato " + c.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiunta del candidato" + c.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
