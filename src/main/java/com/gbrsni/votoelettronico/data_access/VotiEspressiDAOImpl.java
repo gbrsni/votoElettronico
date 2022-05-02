@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.GetSessioneFactory;
 import com.gbrsni.votoelettronico.models.ModVittoria;
@@ -36,9 +37,9 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 			ps.setString(2, elettore.getUsername());
 			rs = ps.executeQuery();
 			risultato = rs.next();
+			Logging.infoMessage(this.getClass(), "Ottenuto voto espresso per elettore " + elettore.toString() + " per la sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante la ricerca del voto espresso da " + elettore.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la ricerca del voto espresso da " + elettore.toString() + " per la sessione di voto " + sessioneDiVoto.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return risultato;
@@ -61,13 +62,12 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear(), rs.getDate("data").getMonth(), rs.getDate("data").getDate());
 					s.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
-					System.out.println("Errore durante selezione voti espressi per elettore " +  elettore.getUsername());
-					e.printStackTrace();
+					Logging.warnMessage(this.getClass(), "Errore durante selezione voti espressi per elettore " +  elettore.getUsername() + "\n" + e.toString());
 				}
 			}
+			Logging.infoMessage(this.getClass(), "Ottenute tutte le sessioni in cui ha votato l'elettore " + elettore.toString());
 		} catch (SQLException e) {
-			System.out.println("Errore durante selezione voti espressi per elettore " +  elettore.getUsername());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante selezione voti espressi per elettore " +  elettore.getUsername() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return s;
@@ -84,9 +84,9 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 			ps.setInt(1, sessione.getId());
 			ps.setString(2, elettore.getUsername());
 			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Inserito voto espresso per l'elettore " + elettore.toString() + " nella sessione con id " + sessione.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiunta della votazione per elettore " +  elettore.getUsername() + " per la sessione " + sessione.getId());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiunta della votazione per elettore " +  elettore.getUsername() + " per la sessione " + sessione.getId() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}

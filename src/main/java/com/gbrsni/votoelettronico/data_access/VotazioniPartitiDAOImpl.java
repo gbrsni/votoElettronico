@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
@@ -31,9 +32,9 @@ public class VotazioniPartitiDAOImpl implements VotazioniPartitiDAO {
 				Partito partito = partitoDb.getPartitoById(Integer.valueOf(rs.getString("partiti")));
 				res.put(partito, rs.getInt("valore"));
 			}
+			Logging.infoMessage(this.getClass(), "Ottenute votazioni partiti per la sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento votazioni dei partiti della sessione di voto" + sessioneDiVoto.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento votazioni dei partiti della sessione di voto" + sessioneDiVoto.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -52,10 +53,9 @@ public class VotazioniPartitiDAOImpl implements VotazioniPartitiDAO {
 			ps.setInt(3, valore);
 			ps.executeUpdate();
 			System.out.println("Aggiornate votazioni del partito " + partito.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
-
+			Logging.infoMessage(this.getClass(), "Ottenute votazioni partiti per la sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiornamento votazioni del partito " + partito.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento votazioni dei partiti della sessione di voto" + sessioneDiVoto.toString() + "\n" + e.toString());
 		}
 		finally {DbUtils.closeStatement(ps); }
 	}

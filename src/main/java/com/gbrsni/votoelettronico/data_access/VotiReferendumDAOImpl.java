@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.OpzioneReferendum;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
@@ -29,9 +30,9 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 			ps.setInt(2, sessioneDiVoto.getId());
 			rs = ps.executeQuery();	
 			nvoti = rs.getInt(1);
+			Logging.infoMessage(this.getClass(), "Ottenuto numero voti per l'opzione " + opzione + " nella sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento dei voti della sessione " + sessioneDiVoto);
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento dei voti della sessione " + sessioneDiVoto + "\n" + e.toString());
 			nvoti = -1;
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
@@ -51,10 +52,9 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 			ps.setInt(4, 0);
 			ps.setString(5, null);			
 			ps.executeUpdate();
-			System.out.println("Aggiunto record per la sessione Referendum " + sessioneDiVoto);
+			Logging.infoMessage(this.getClass(), "Aggiunto record per la sessione Referendum " + sessioneDiVoto);
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiunta del record per la sessione Referendum" + sessioneDiVoto);
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiunta del record per la sessione Referendum" + sessioneDiVoto + "\n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
 	}
@@ -74,10 +74,9 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 			ps.setInt(2, nvoti);
 			ps.setInt(3, sessioneDiVoto.getId());
 			ps.executeUpdate();
-			System.out.println("Incrementato il numero dei voti per la sessione" + sessioneDiVoto);
+			Logging.infoMessage(this.getClass(), "Incrementato il numero dei voti per la sessione" + sessioneDiVoto);
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'incremento dei voti per la sessione " + sessioneDiVoto);
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'incremento dei voti per la sessione " + sessioneDiVoto+ "\n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
 

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
@@ -26,10 +27,9 @@ public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
 			if (rs.next())
 				res = rs.getInt("nvoti");
 			ps.close();
-			System.out.println("Ottenuto numero voti astenuti della sessione di voto " + sessione.getId());
+			Logging.infoMessage(this.getClass(), "Ottenuto numero voti astenuti della sessione di voto " + sessione.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento numero astenuti della sessione di voto" + sessione.getId());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento numero astenuti della sessione di voto" + sessione.getId() + "\n" + e.toString());
 		}
 		
 		return res;
@@ -46,9 +46,9 @@ public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
 			ps.setInt(2, 0);
 			ps.executeUpdate();
 			ps.close();
+			Logging.infoMessage(this.getClass(), "Ottenuti voti astenuti per sessione con id " + sessione.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento ");
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento votireferendum della sessione di voto" + sessione.toString() + "\n" + e.toString());
 			return;
 		}
 		System.out.println("Inserimento nel db effettuato");
@@ -63,10 +63,9 @@ public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
 			PreparedStatement ps = connection.prepareStatement("UPDATE votiastenuti SET nvoti = nvoti + 1");
 			ps.executeUpdate();
 			ps.close();
-			System.out.println("Incrementato numero astenuti per la sessione con id " + sessione.getId());
+			Logging.infoMessage(this.getClass(), "Incrementato numero astenuti per la sessione con id " + sessione.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'incremento del numero astenuti per la sessione con id" + sessione.getId());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'incremento del numero astenuti per la sessione con id" + sessione.getId() + "\n" + e.toString());
 		}
 	}
 }	

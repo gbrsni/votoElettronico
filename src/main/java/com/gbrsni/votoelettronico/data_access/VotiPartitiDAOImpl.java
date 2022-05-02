@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
@@ -31,9 +32,9 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 			while (rs.next()) {
 				res.put(new Partito(rs.getInt("id"), rs.getString("nome")), rs.getInt("nvoti"));
 			}
+			Logging.infoMessage(this.getClass(), "Ottenuti voti partiti per la sessione con id " + sessione.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento voti dei candidati della sessione di voto" + sessione.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento voti dei candidati della sessione di voto" + sessione.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -50,10 +51,9 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 			ps.setInt(2, partito.getId());
 			ps.setInt(3, 0);
 			ps.executeUpdate();
-			System.out.println( "Relazione partiti - sessione di voto " + sessione.getId() + " aggiunta nel database");
+			Logging.infoMessage(this.getClass(), "Relazione partiti - sessione di voto " + sessione.getId() + " aggiunta nel database");;
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento del partito  + " + partito.getId() + " per la sessione " + sessione.getId());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento del partito  + " + partito.getId() + " per la sessione " + sessione.getId() + "\n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
 	}
@@ -67,10 +67,9 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 			ps = connection.prepareStatement("DELETE FROM votipartiti  WHERE sessioni = ?");
 			ps.setInt(1, sessione.getId());
 			ps.executeUpdate();
-			System.out.println("Partiti per la sessione " + sessione.toString() + " rimossi dal database");
+			Logging.infoMessage(this.getClass(), "Partiti per la sessione " + sessione.toString() + " rimossi dal database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante la rimozione dei partiti per la sessione di voto " + sessione.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la rimozione dei partiti per la sessione di voto " + sessione.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
@@ -86,12 +85,10 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 			ps.setInt(3, partito.getId());
 			ps.executeUpdate();
 			ps.close();
-			
+			Logging.infoMessage(this.getClass(), "Update voti partiti per il partito " + partito.toString() + " nella sessione con id " + sessione.getId());
 		} catch (SQLException e) {
-			// LOG
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'update voti partiti per il partito " + partito.toString() + " nella sessione con id " + sessione.getId() + "\n" + e.toString());
 			return;
 		}
-		// LOG
 	}
 }

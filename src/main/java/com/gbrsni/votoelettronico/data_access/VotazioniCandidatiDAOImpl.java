@@ -40,7 +40,6 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 			}
 			Logging.infoMessage(this.getClass(), "Ottenute votazioni candidati per la sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento votazioni dei candidati della sessione di voto" + sessioneDiVoto.toString());
 			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento votazioni dei candidati della sessione di voto" + sessioneDiVoto.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
