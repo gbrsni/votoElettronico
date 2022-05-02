@@ -216,13 +216,14 @@ public class GestoreSessioniController extends Controller{
                 	bottoneScrutinio.setUserData(sessioni.get(i));
                 	bottoneScrutinio.setFont(new Font(15));
                 	sessioniHbox.getChildren().add(bottoneScrutinio);
+                break;
             	case SCRUTINATA:
                 	Button bottoneRisultati = new Button("Visualizza Risultati");
                 	bottoneRisultati.setOnAction(pressVisualizzaRisultatiSessioneButton);
                 	bottoneRisultati.setUserData(sessioni.get(i));
                 	bottoneRisultati.setFont(new Font(15));
                 	sessioniHbox.getChildren().add(bottoneRisultati);
-                break;
+                	break;
                 }
                 sessioniVbox.getChildren().add(sessioniHbox);	
         	}
