@@ -48,7 +48,7 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 		return res;
 	}
 	
-	//aggiunta candidati per una sessione
+	/**aggiunti candidato per la sessione di voto */
 	public void addVotiCandidatoBySessione(SessioneDiVoto sessione, Candidato candidato, int valore){
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(candidato);
@@ -62,7 +62,6 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 			Logging.infoMessage(this.getClass(), "Relazione candidati - sessione di voto " + sessione.getId() + " aggiunta nel database");
 		} catch (SQLException e) {
 			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento del candidato " + candidato.getId() + " per la sessione di voto " + sessione.getId()+ "\n" + e.toString());
-			return;
 		}
 		finally {  DbUtils.closeStatement(ps); }
 	}
@@ -104,18 +103,17 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Candidato candidato, int valore) {
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(candidato);
+		PreparedStatement ps = null;
 		try {
-			
-			PreparedStatement ps = connection.prepareStatement("UPDATE voticandidati SET nvoti = ? WHERE sessioni = ? AND candidati = ?");
+			ps = connection.prepareStatement("UPDATE voticandidati SET nvoti = ? WHERE sessioni = ? AND candidati = ?");
 			ps.setInt(1, valore);
 			ps.setInt(2, sessione.getId());
 			ps.setInt(3, candidato.getId());
 			ps.executeUpdate();
-			ps.close();
 			Logging.infoMessage(this.getClass(), "Update voti candidati per la sessione " + sessione.getId());
 		} catch (SQLException e) {
 			Logging.warnMessage(this.getClass(), "Errore durante l'update voti candidati per la sessione di voto" + sessione.getId() + "\n" + e.toString());
-			return;
 		}
+		finally {  DbUtils.closeStatement(ps); }
 	}
 }
