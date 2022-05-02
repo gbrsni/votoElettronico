@@ -16,22 +16,20 @@ public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
 	@Override
 	public int getVotiAstenutiBySessione(SessioneDiVoto sessione) {
 		Objects.requireNonNull(sessione);
-		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		Integer res = 0; 
-
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM votiastenuti WHERE sessioni = ?");
+			ps = connection.prepareStatement("SELECT * FROM votiastenuti WHERE sessioni = ?");
 			ps.setInt(1, sessione.getId());
-			ResultSet rs = ps.executeQuery();
-			
+			rs = ps.executeQuery();
 			if (rs.next())
 				res = rs.getInt("nvoti");
-			ps.close();
 			Logging.infoMessage(this.getClass(), "Ottenuto numero voti astenuti della sessione di voto " + sessione.getId());
 		} catch (SQLException e) {
 			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento numero astenuti della sessione di voto" + sessione.getId() + "\n" + e.toString());
 		}
-		
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
 		
 	}
@@ -39,33 +37,30 @@ public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
 	@Override
 	public void addVotiAstenutiBySessione(SessioneDiVoto sessione) {
 		Objects.requireNonNull(sessione);
+		PreparedStatement ps = null;
 		try {
-			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO votiastenuti (sessioni, nvoti) VALUES (?, ?)");
+			ps = connection.prepareStatement("INSERT INTO votiastenuti (sessioni, nvoti) VALUES (?, ?)");
 			ps.setInt(1, sessione.getId());
 			ps.setInt(2, 0);
 			ps.executeUpdate();
-			ps.close();
 			Logging.infoMessage(this.getClass(), "Ottenuti voti astenuti per sessione con id " + sessione.getId());
 		} catch (SQLException e) {
 			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento votireferendum della sessione di voto" + sessione.toString() + "\n" + e.toString());
-			return;
 		}
-		System.out.println("Inserimento nel db effettuato");
-
+		finally {  DbUtils.closeStatement(ps); }
 	}
 	
 
 	public void increaseVotiAstenutiBySessione(SessioneDiVoto sessione) {
 		Objects.requireNonNull(sessione);
-		
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE votiastenuti SET nvoti = nvoti + 1");
+			ps = connection.prepareStatement("UPDATE votiastenuti SET nvoti = nvoti + 1");
 			ps.executeUpdate();
-			ps.close();
 			Logging.infoMessage(this.getClass(), "Incrementato numero astenuti per la sessione con id " + sessione.getId());
 		} catch (SQLException e) {
 			Logging.warnMessage(this.getClass(), "Errore durante l'incremento del numero astenuti per la sessione con id" + sessione.getId() + "\n" + e.toString());
 		}
+		finally {DbUtils.closeStatement(ps); }
 	}
 }	
