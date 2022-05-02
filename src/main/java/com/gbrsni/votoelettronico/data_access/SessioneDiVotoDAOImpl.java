@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.GetSessioneFactory;
 import com.gbrsni.votoelettronico.models.ModVittoria;
 import com.gbrsni.votoelettronico.models.ModVoto;
@@ -30,13 +31,12 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900 , rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
-					System.out.println("Errore durante l'ottenimento di una sessione di voto");
-					e.printStackTrace();
+					Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di una sessione di voto" + "\n" + e.toString());
 				}
 			}
+			Logging.infoMessage(this.getClass(), "Ottenute tutte le sessioni di voto dal database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto");
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di tutte le sessioni di voto\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -59,13 +59,12 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900, rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
-					System.out.println("Errore durante l'ottenimento di una sessione di voto con nome " + nome);
-					e.printStackTrace();
+					Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di una sessione di voto con nome " + nome + "\n" + e.toString());
 				}
 			}
+			Logging.infoMessage(this.getClass(), "Ottenuta sessione di voto con nome " + nome);
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto con nome " + nome);
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di tutte le sessioni di voto con nome " + nome + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -88,13 +87,12 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 					LocalDate data = LocalDate.of(rs.getDate("data").getYear()+1900, rs.getDate("data").getMonth()+1, rs.getDate("data").getDate());
 					res.add( sessioneFactory.getSessione(ModVoto.valueOf(rs.getString("modvoto")), rs.getInt("id"), rs.getString("nome"), rs.getString("descrizione") , data, ModVittoria.valueOf(rs.getString("modvittoria")), StatoSessione.valueOf(rs.getString("stato")), rs.getInt("nvoti")));
 				} catch (Exception e) {
-					System.out.println("Errore durante l'ottenimento di una sessione di voto con stato " + statoSessione);
-					e.printStackTrace();
+					Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di una sessione di voto con stato " + statoSessione + "\n" + e.toString());
 				}
 			}
+			Logging.infoMessage(this.getClass(), "Ottenute tutte le sessioni di voto con stato " + statoSessione);
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento di tutte le sessioni di voto con stato " + statoSessione);
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento di tutte le sessioni di voto con stato " + statoSessione + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -119,10 +117,9 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			ps.setInt(7,s.getNvoti());
 			ps.setInt(8, s.getId());
 			ps.executeUpdate();
-			System.out.println("Aggiornata sessione di voto " + s.toString() + " nel database");
+			Logging.infoMessage(this.getClass(), "Aggiornata sessione di voto " + s.toString() + " nel database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiornamento della sessione di voto " + s.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiornamento della sessione di voto " + s.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
@@ -136,10 +133,9 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			ps = connection.prepareStatement("DELETE FROM sessioni  WHERE id = ?");
 			ps.setInt(1, s.getId());
 			ps.executeUpdate();
-			System.out.println("Sessione di voto " + s.toString() + " rimossa dal database");
+			Logging.infoMessage(this.getClass(), "Sessione di voto " + s.toString() + " rimossa dal database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante la rimozione della sessione di voto " + s.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante la rimozione della sessione di voto " + s.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
@@ -164,10 +160,9 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			ps.executeUpdate();
 			ResultSet res = ps.getGeneratedKeys();
 			if (res.next()) id = res.getInt(1);
-			System.out.println("Sessione di voto " + s.getNome() + " inserita nel database");
+			Logging.infoMessage(this.getClass(), "Sessione di voto " + s.getNome() + " inserita nel database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento della sessione di voto " + s.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento della sessione di voto " + s.toString() + "\n" + e.toString());
 			return 0;
 		}
 		finally { DbUtils.closeStatement(ps); }
@@ -187,10 +182,10 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 
 		try {
 			sessione = sessioneFactory.getSessione(modVoto , id, nome, descrizione , data, modVittoria, statoSessione, nvoti);
+			Logging.infoMessage(this.getClass(), "Aggiunta sessione di voto con id " + id);
 
 		} catch (Exception e) {
-			System.out.println("Errore durante l'inserimento di una sessione di voto");
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento di una sessione di voto\n" + e.toString());
 		}
 		addSessioneDiVoto(sessione);
 	}
@@ -206,9 +201,9 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			rs = ps.executeQuery();
 			if(rs.next())
 				res = rs.getInt("total");
+			Logging.infoMessage(this.getClass(), "Ottenuto numero di sessioni di voo");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento numero totale sessioni di voto");
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(),"Errore durante l'ottenimento del numero totale sessioni di voto\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -226,9 +221,9 @@ public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 			rs = ps.executeQuery();
 			if(rs.next())
 				res = rs.getInt("total");
+			Logging.infoMessage(this.getClass(), "Ottenuto numero di sessioni di voto con stato " + stato);
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'ottenimento numero totale sessioni di voto");
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento numero totale sessioni di voto con stato " + stato + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;

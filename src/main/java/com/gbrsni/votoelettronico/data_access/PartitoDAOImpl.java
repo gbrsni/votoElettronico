@@ -98,10 +98,8 @@ public class PartitoDAOImpl implements PartitoDAO {
 			ps.setInt(1, p.getId());
 			ps.setString(2, p.getNome());
 			ps.executeUpdate();
-			System.out.println("Inserito partito " + p.toString() + " dal database");
 			Logging.infoMessage(this.getClass(), "Inserito partito " + p.toString() + " dal database");
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento del partito " + p.toString());
 			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento del partito " + p.toString() + "\n" + e.toString());
 		}
 		finally {DbUtils.closeStatement(ps); }

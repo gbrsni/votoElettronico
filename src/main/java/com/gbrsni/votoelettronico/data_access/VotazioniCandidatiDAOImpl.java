@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
@@ -37,9 +38,10 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 				Candidato candidato = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), partito);
 				res.add(new Pair<>(candidato, rs.getInt("valore")));
 			}
+			Logging.infoMessage(this.getClass(), "Ottenute votazioni candidati per la sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {
 			System.out.println("Errore durante l'ottenimento votazioni dei candidati della sessione di voto" + sessioneDiVoto.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento votazioni dei candidati della sessione di voto" + sessioneDiVoto.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
@@ -57,10 +59,9 @@ public class VotazioniCandidatiDAOImpl implements VotazioniCandidatiDAO {
 			ps.setInt(2, candidato.getId());
 			ps.setInt(3, valore);
 			ps.executeUpdate();
-			System.out.println("Aggiornate votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
+			Logging.infoMessage(this.getClass(), "Aggiornate votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
 		} catch (SQLException e) {
-			System.out.println("Errore durante l'aggiornamento votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString());
-			e.printStackTrace();
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiornamento votazioni del candidato " + candidato.toString() + " per la sessione di voto " + sessioneDiVoto.toString() + "\n" + e.toString());
 		}
 		finally {DbUtils.closeStatement(ps); }	
 	}
