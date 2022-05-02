@@ -1,8 +1,14 @@
 package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
@@ -19,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -62,32 +69,53 @@ public class ConfermaVotazioneController extends Controller{
 	}
     
     private void init() {
-    	Label votoPartito = new Label();
-    	Label votoCandidato = new Label();
-    	votoPartito.setFont(new Font(20));
-    	votoCandidato.setFont(new Font(20));
-    	String testoPartito = "";
-    	String testoCandidato = "";
-    	
     	if(partiti.size() == 0) {
-    		testoPartito = "Scheda Bianca";
+    		HBox schedaBiancaHbox = new HBox();
+    		Label schedaBiancaLabel = new Label("Scheda Bianca");
+    		schedaBiancaHbox.getChildren().add(schedaBiancaLabel);
+    		partitiVbox.getChildren().add(schedaBiancaHbox);
     		partitiVbox.setAlignment(Pos.CENTER_LEFT);
-    	} else {
-    		testoPartito += "Partiti:\n";
-    		for (Map.Entry<Partito, Integer> entry : partiti.entrySet()) {
-		        testoPartito += entry.getKey() + "\n";
+    	} else {	
+    		LinkedHashMap<Partito, Integer> reversePartiti = new LinkedHashMap<>();
+    		partiti.entrySet()
+    		  .stream()
+    		  .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) 
+    		  .forEachOrdered(x -> reversePartiti.put(x.getKey(), x.getValue()));
+    		
+    		HBox partitiHbox = new HBox();
+    		Label partitiLabel = new Label("Partiti:");
+    		partitiLabel.setFont(new Font(20));
+    		partitiHbox.getChildren().add(partitiLabel);
+    		partitiVbox.getChildren().add(partitiHbox);
+    		for (Map.Entry<Partito, Integer> entry : reversePartiti.entrySet()) {
+    			HBox partitoHbox = new HBox();
+        		Label partitoLabel = new Label(entry.getKey().toString());
+        		partitoLabel.setFont(new Font(20));
+        		partitoHbox.getChildren().add(partitoLabel);
+        		partitiVbox.getChildren().add(partitoHbox);
 		    }
-    		testoCandidato += "Candidati:\n";
+    		    			
+    		LinkedHashMap<Candidato, Integer> reverseCandidati = new LinkedHashMap<>();
+    		candidati.entrySet()
+    		  .stream()
+    		  .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) 
+    		  .forEachOrdered(x -> reverseCandidati.put(x.getKey(), x.getValue()));
+    		
+    		HBox candidatiHbox = new HBox();
+    		Label candidatiLabel = new Label("Candidati:");
+    		candidatiLabel.setFont(new Font(20));
+    		candidatiHbox.getChildren().add(candidatiLabel);
+    		candidatiVbox.getChildren().add(candidatiHbox);
     		if(candidati.size()!= 0) {
-    			for (Map.Entry<Candidato, Integer> entry : candidati.entrySet()) {
-    		        testoCandidato += entry.getKey() + "\n";
+    			for (Map.Entry<Candidato, Integer> entry : reverseCandidati.entrySet()) {
+    				HBox candidatoHbox = new HBox();
+            		Label candidatoLabel = new Label(entry.getKey().toString());
+            		candidatoLabel.setFont(new Font(20));
+            		candidatoHbox.getChildren().add(candidatoLabel);
+            		candidatiVbox.getChildren().add(candidatoHbox);
     		    }
     		}
     	}
-    	votoPartito.setText(testoPartito);
-    	votoCandidato.setText(testoCandidato);
-    	partitiVbox.getChildren().add(votoPartito);
-    	candidatiVbox.getChildren().add(votoCandidato);
     }
     
     @FXML
