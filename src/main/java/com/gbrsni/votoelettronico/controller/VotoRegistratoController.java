@@ -36,7 +36,7 @@ public class VotoRegistratoController extends Controller{
    		elettore = (Elettore) data[0];
    		sessione = (SessioneDiVoto) data[1];
    		gestore = (Gestore) data[2];	
-   		messaggioLabel.setText("Il voto dell'elettore " + elettore.getNome() + " " + elettore.getCognome() + " \n per la sessione + " + sessione.getNome() + " è stato registrato");
+   		messaggioLabel.setText("Il voto dell'elettore " + elettore.getNome() + " " + elettore.getCognome() + " \n per la sessione " + sessione.getNome() + " è stato registrato");
    	}
        
     @FXML
