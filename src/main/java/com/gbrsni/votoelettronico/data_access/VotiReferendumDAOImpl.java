@@ -45,11 +45,10 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		Objects.requireNonNull(sessioneDiVoto);
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("INSERT INTO votireferendum (sessioni, nvoti1,nvoti2,nastenuti,vincitore) VALUES (?,?,?,?,?)");
+			ps = connection.prepareStatement("INSERT INTO votireferendum (sessioni, nvoti1,nvoti2,vincitore) VALUES (?,?,?,?,?)");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ps.setInt(2, 0);
-			ps.setInt(3, 0);
-			ps.setInt(4, 0);
+			ps.setInt(3, 0); 
 			ps.setString(5, null);			
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Aggiunto record per la sessione Referendum " + sessioneDiVoto);
@@ -61,22 +60,39 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 	
 	/**aggiorna il numero di voti per l'opzione indicata*/
 	@Override
-	public void setVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione) {
+	public void updateVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione, int valore) {
 		Objects.requireNonNull(sessioneDiVoto);
 		Objects.requireNonNull(opzione);
 		PreparedStatement ps = null;
-		int nvoti = getNVotiBySessioneOpzione(sessioneDiVoto, opzione);
-		String optString = "";
 		try {
-			ps = connection.prepareStatement("UPDATE votireferendum SET ? = ? WHERE sessioni = ?");
-			optString = opzione.toString();
-			ps.setString(1, optString);
-			ps.setInt(2, nvoti);
+			ps = connection.prepareStatement("UPDATE votireferendum SET ? = ?  WHERE sessioni = ?");
+			ps.setString(1, opzione.toString());
+			ps.setInt(2, valore);
 			ps.setInt(3, sessioneDiVoto.getId());
 			ps.executeUpdate();
-			Logging.infoMessage(this.getClass(), "Incrementato il numero dei voti per la sessione" + sessioneDiVoto);
+			Logging.infoMessage(this.getClass(), "Aggiornato il numero dei voti per la sessione" + sessioneDiVoto + " per l'opzione+ " + opzione.toString());
 		} catch (SQLException e) {
-			Logging.warnMessage(this.getClass(), "Errore durante l'incremento dei voti per la sessione " + sessioneDiVoto+ "\n" + e.toString());
+			Logging.warnMessage(this.getClass(), "Errore durante l'aggiornamento il numero dei voti per la sessione " + sessioneDiVoto+ "per l'opzione" + opzione.toString()+   " \n" + e.toString());
+		}
+		finally {  DbUtils.closeStatement(ps); }
+
+	}
+	
+	/**aumenta di 1 il numero dei voti per la sessione indicata*/
+	@Override
+	public void increseVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione) {
+		Objects.requireNonNull(sessioneDiVoto);
+		Objects.requireNonNull(opzione);
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement("UPDATE votireferendum SET ? = ? + 1  WHERE sessioni = ?");
+			ps.setString(1, opzione.toString());
+			ps.setString(2, opzione.toString());
+			ps.setInt(3, sessioneDiVoto.getId());
+			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Incrementato il numero dei voti per la sessione" + sessioneDiVoto + " per l'opzione+ " + opzione.toString());
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(), "Errore durante Incrementato dei voti per la sessione " + sessioneDiVoto+ "per l'opzione" + opzione.toString()+   " \n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
 
