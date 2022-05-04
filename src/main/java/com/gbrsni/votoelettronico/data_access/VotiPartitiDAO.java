@@ -10,5 +10,7 @@ public interface VotiPartitiDAO {
 	public Map<Partito,Integer> getVotiPartitiBySessione(SessioneDiVoto sessione);
 	public void addVotiPartitoBySessione(SessioneDiVoto sessione,  Partito partito);
 	public void deleteVotiPartitiBySessione(SessioneDiVoto sessione);
-	public void setVotiPartitiFromVotazioniBySessione(SessioneDiVoto sessione, Partito partito, int valore);
+	public void setVotiPartitiBySessione(SessioneDiVoto sessione, Map<Partito, Integer> conteggioPartiti);
+	public void updateVotiPartitiBySessione(SessioneDiVoto sessione, Partito partito, int valore);
+	public void increaseVotiPartitiBySessione(SessioneDiVoto sessione,Partito partito, int valore);
 }

@@ -5,12 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import com.gbrsni.votoelettronico.logging.Logging;
-import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
@@ -74,7 +72,15 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 		finally { DbUtils.closeStatement(ps); }
 	}
 	
-	public void setVotiPartitiFromVotazioniBySessione(SessioneDiVoto sessione, Partito partito, int valore) {
+	public void setVotiPartitiBySessione(SessioneDiVoto sessione, Map<Partito, Integer> conteggioPartiti) {
+		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(conteggioPartiti);
+			for (Partito c : conteggioPartiti.keySet()) {
+				updateVotiPartitiBySessione(sessione, c, conteggioPartiti.get(c));
+			}
+	}
+	
+	public void updateVotiPartitiBySessione(SessioneDiVoto sessione, Partito partito, int valore) {
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(partito);
 		try {
@@ -90,5 +96,22 @@ public class VotiPartitiDAOImpl implements VotiPartitiDAO{
 			Logging.warnMessage(this.getClass(), "Errore durante l'update voti partiti per il partito " + partito.toString() + " nella sessione con id " + sessione.getId() + "\n" + e.toString());
 			return;
 		}
+	}
+	
+	public void increaseVotiPartitiBySessione(SessioneDiVoto sessione,Partito partito, int valore) {
+		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(partito);
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement("UPDATE votipartiti SET nvoti = nvoti + ? WHERE sessioni = ? AND partiti = ?");
+			ps.setInt(1, valore);
+			ps.setInt(2, sessione.getId());
+			ps.setInt(3, partito.getId());
+			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Incrementato voti ricevuti per il partito " + partito.getId());
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(), "Errore durante l'incremento del numero di voti ricevuti per il partito con id" + partito.getId() + "\n" + e.toString());
+		}
+		finally {DbUtils.closeStatement(ps); }
 	}
 }
