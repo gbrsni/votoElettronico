@@ -5,18 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import com.gbrsni.votoelettronico.exceptions.SessionStateException;
 import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
-import com.gbrsni.votoelettronico.models.StatoSessione;
-
-import javafx.util.Pair;
 
 public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 	
@@ -84,23 +79,15 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 
 	// Prende come input la mappa calcolata da SessioneDiVoto.getConteggioVoti, che a sua volta prende come input
 	// 	il risultato di votazioniCandidatiDAO.getVotazioniCandidatiBySessione
-	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Map<Candidato, Integer> conteggioCandidati) {
+	public void setVotiCandidatiBySessione(SessioneDiVoto sessione, Map<Candidato, Integer> conteggioCandidati) {
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(conteggioCandidati);
-		
-		if (sessione.getStatoSessione() == StatoSessione.CHIUSA) {
-			
 			for (Candidato c : conteggioCandidati.keySet()) {
-				this.addVotiCandidatoBySessione(sessione, c, conteggioCandidati.get(c));
+				updateVotiCandidatiBySessione(sessione, c, conteggioCandidati.get(c));
 			}
-			
-			sessione.setStatoSessione(StatoSessione.SCRUTINATA);
-		} else {
-			throw new SessionStateException(StatoSessione.CHIUSA, sessione.getStatoSessione(), sessione.getId());
-		}
 	}
 	
-	public void setVotiCandidatiFromVotazioniBySessione(SessioneDiVoto sessione, Candidato candidato, int valore) {
+	public void updateVotiCandidatiBySessione(SessioneDiVoto sessione, Candidato candidato, int valore) {
 		Objects.requireNonNull(sessione);
 		Objects.requireNonNull(candidato);
 		PreparedStatement ps = null;
@@ -115,5 +102,23 @@ public class VotiCandidatiDAOImpl implements VotiCandidatiDAO {
 			Logging.warnMessage(this.getClass(), "Errore durante l'update voti candidati per la sessione di voto" + sessione.getId() + "\n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
+	}
+	
+
+	public void increaseVotiCandidatiBySessione(SessioneDiVoto sessione,Candidato candidato, int valore) {
+		Objects.requireNonNull(sessione);
+		Objects.requireNonNull(candidato);
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement("UPDATE voticandidati SET nvoti = nvoti + ? WHERE sessioni = ? AND candidati = ?");
+			ps.setInt(1, valore);
+			ps.setInt(2, sessione.getId());
+			ps.setInt(3, candidato.getId());
+			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Incrementato voti ricevuti per il candidato " + candidato.getId());
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(), "Errore durante l'incremento del numero di voti ricevuti per il candidato con id" + candidato.getId() + "\n" + e.toString());
+		}
+		finally {DbUtils.closeStatement(ps); }
 	}
 }
