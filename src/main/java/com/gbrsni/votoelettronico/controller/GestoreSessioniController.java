@@ -3,12 +3,21 @@ package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Map.Entry;
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiReferendumDAOImpl;
 import com.gbrsni.votoelettronico.logging.Logging;
+import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Gestore;
+import com.gbrsni.votoelettronico.models.OpzioneReferendum;
+import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
@@ -144,6 +153,46 @@ public class GestoreSessioniController  <A> extends Controller{
         public void   handle (ActionEvent e)
         {	
             SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+            if(!(s instanceof com.gbrsni.votoelettronico.models.SessioneReferendum)) {
+            	VotiCandidatiDAOImpl votiCandidatiDb = new VotiCandidatiDAOImpl();
+                Map<Candidato,Integer> candidati = votiCandidatiDb.getVotiCandidatiBySessione(s);
+            	Map<Candidato,Integer> vincitoreCandidati = s.calcolaVincitore(candidati);
+
+            	//CONSIDERO ANCHE I VOTI DEI PARTITI
+            	if(vincitoreCandidati.size() != 1) {            	
+            		VotiPartitiDAOImpl votiPartitiDb = new VotiPartitiDAOImpl();
+            		Map<Partito,Integer> partiti = votiPartitiDb.getVotiPartitiBySessione(s);
+            		for (Entry<Candidato, Integer> entry : vincitoreCandidati.entrySet()) {
+            		   vincitoreCandidati.replace(entry.getKey(), entry.getValue()  + partiti.get(entry.getKey().getPartito()));
+            		}
+            		vincitoreCandidati = s.calcolaVincitore(vincitoreCandidati);
+            	} 
+            	if(vincitoreCandidati.size() == 1) {
+            		//UN SOLO VINCITORE --> CARICO IL VINCITORE NEL DB
+            	} else {
+            		//DUE VINCITORI --> CARICO NULL NEL DATABASE
+            	}
+           
+            }else {
+            	//CASO REFERENDUM --> COMPLETA
+            	VotiReferendumDAOImpl votiReferendumDb = new VotiReferendumDAOImpl();
+            	Map<OpzioneReferendum,Integer> voti= new HashMap<>();;
+            	voti.put(OpzioneReferendum.favorevole,votiReferendumDb.getNVotiBySessioneOpzione(s, OpzioneReferendum.favorevole));
+            	voti.put(OpzioneReferendum.contrario,votiReferendumDb.getNVotiBySessioneOpzione(s, OpzioneReferendum.contrario));
+            	for (Entry<OpzioneReferendum, Integer> entry : voti.entrySet()) {
+          		   System.out.println("REFERENDUM" + entry.getKey() + " " + entry.getValue());
+            	}
+            	Map<OpzioneReferendum,Integer> vincitoreReferendum = s.calcolaVincitore(voti);
+            	OpzioneReferendum vincitore = null;
+            	if (vincitoreReferendum.size() == 1) {
+            		for (Entry<OpzioneReferendum, Integer> entry : vincitoreReferendum.entrySet()) {
+             		   vincitore = entry.getKey();
+             		}
+            	}
+            	votiReferendumDb.setVincitoreReferendum(s, vincitore);
+            }
+            
+            setStatoScrutinata(s);
         }
     };
     
