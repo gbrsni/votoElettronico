@@ -2,9 +2,10 @@ package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import com.gbrsni.votoelettronico.data_access.VotazioniReferendumDAOImpl;
+
 import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiReferendumDAOImpl;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.OpzioneReferendum;
@@ -74,7 +75,7 @@ public class ConfermaVotazioneReferendumController extends Controller{
     @FXML
     void pressConfermaButton(ActionEvent event) {
 
-    	VotazioniReferendumDAOImpl votazioniReferendum = new VotazioniReferendumDAOImpl();
+    	VotiReferendumDAOImpl votiReferendumDb = new VotiReferendumDAOImpl();
     	VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
     	VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
     	
@@ -82,9 +83,9 @@ public class ConfermaVotazioneReferendumController extends Controller{
     		votiAstenutiDb.increaseVotiAstenutiBySessione(sessione);
     	} else {
     		if (scelta == true)
-    			votazioniReferendum.addVotazioniReferendumBySessione(sessione, OpzioneReferendum.favorevole);
+    			votiReferendumDb.increseVotiBySessioneOpzione(sessione, OpzioneReferendum.favorevole,1);
     		else
-    			votazioniReferendum.addVotazioniReferendumBySessione(sessione, OpzioneReferendum.contrario);
+    			votiReferendumDb.increseVotiBySessioneOpzione(sessione, OpzioneReferendum.contrario,1);
     	}
     		
     	votiEspressiDb.addVotoEspresso(sessione, elettore);
