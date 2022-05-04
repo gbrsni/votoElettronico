@@ -88,7 +88,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			ps = connection.prepareStatement("UPDATE candidati SET nome = ?, cognome = ?, partiti = ? WHERE id = ?");
 			ps.setString(1, c.getNome());
 			ps.setString(2, c.getCognome());
-			ps.setInt(3, c.getPartito().id);
+			ps.setInt(3, c.getPartito().getId());
 			ps.setInt(4, c.getId());
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Aggiornato candidato con id " + c.getId());
@@ -124,7 +124,7 @@ public class CandidatoDAOImpl implements CandidatoDAO {
 			ps.setInt(1, c.getId());
 			ps.setString(2, c.getNome());
 			ps.setString(3, c.getCognome());
-			ps.setInt(4, c.getPartito().id);
+			ps.setInt(4, c.getPartito().getId());
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Aggiunto candidato " + c.toString());
 		} catch (SQLException e) {
