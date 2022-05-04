@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class Utente {
 
-	private final String username;
+	private String username;
 	private String nome;
 	private String cognome; 
 	private String codiceFiscale;
