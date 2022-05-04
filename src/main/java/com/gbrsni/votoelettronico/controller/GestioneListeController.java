@@ -3,8 +3,8 @@ package com.gbrsni.votoelettronico.controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.ResourceBundle;
+
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.PartitoDAOImpl;
 import com.gbrsni.votoelettronico.logging.Logging;
