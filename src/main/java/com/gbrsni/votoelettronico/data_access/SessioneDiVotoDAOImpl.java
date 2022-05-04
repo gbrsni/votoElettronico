@@ -1,6 +1,11 @@
 package com.gbrsni.votoelettronico.data_access;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +15,8 @@ import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.GetSessioneFactory;
 import com.gbrsni.votoelettronico.models.ModVittoria;
 import com.gbrsni.votoelettronico.models.ModVoto;
-import com.gbrsni.votoelettronico.models.StatoSessione;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.StatoSessione;
 
 public class SessioneDiVotoDAOImpl implements SessioneDiVotoDAO {
 	private Connection connection = DBConnection.getConnection();
