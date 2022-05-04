@@ -2,8 +2,8 @@ package com.gbrsni.votoelettronico.models;
 
 import java.util.Objects;
 
-public class Partito extends OpzioneDiVoto {
-	public final int id;
+public class Partito {
+	private int id;
 	private String nome;
 	
 	public Partito(int id, String nome) {
@@ -49,6 +49,8 @@ public class Partito extends OpzioneDiVoto {
 		 public String toString() {
 			 return this.nome;
 	    }
+	    
+
 	      
 	}
 
