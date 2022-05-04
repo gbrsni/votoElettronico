@@ -3,6 +3,7 @@ package com.gbrsni.votoelettronico.models;
 import java.time.LocalDate;
 
 
+
 public class SessioneOrdinale extends SessioneDiVoto{
 	
 	public SessioneOrdinale(int id, String nome, String descrizione, LocalDate data, ModVittoria modVittoria,
