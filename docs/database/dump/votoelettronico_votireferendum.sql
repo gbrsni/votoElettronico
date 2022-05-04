@@ -24,9 +24,8 @@ DROP TABLE IF EXISTS `votireferendum`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `votireferendum` (
   `sessioni` int NOT NULL,
-  `nvoti1` int DEFAULT NULL,
-  `nvoti2` int DEFAULT NULL,
-  `nastenuti` int DEFAULT NULL,
+  `favorevole` int DEFAULT NULL,
+  `contrario` int DEFAULT NULL,
   `vincitore` enum('favorevole','contrario') DEFAULT NULL,
   PRIMARY KEY (`sessioni`),
   CONSTRAINT `fk_sessioni_votireferendum` FOREIGN KEY (`sessioni`) REFERENCES `sessioni` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-01 13:43:13
+-- Dump completed on 2022-05-04 10:06:55
