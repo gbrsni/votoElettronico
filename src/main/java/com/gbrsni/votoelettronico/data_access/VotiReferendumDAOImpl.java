@@ -22,14 +22,27 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int nvoti = 0;
-		String optString = "";
 		try {
-			ps = connection.prepareStatement("SELECT ? FROM votireferendum where sessioni = ?");		
-			optString = opzione.toString();
-			ps.setString(1, optString);
-			ps.setInt(2, sessioneDiVoto.getId());
+			switch(opzione) {
+			case favorevole:
+				ps = connection.prepareStatement("SELECT favorevole FROM votireferendum where sessioni = ?");
+				break;
+			case contrario:
+				ps = connection.prepareStatement("SELECT contrario FROM votireferendum where sessioni = ?");
+				break;
+			}
+			ps.setInt(1, sessioneDiVoto.getId());
 			rs = ps.executeQuery();	
-			nvoti = rs.getInt(1);
+			if(rs.next()) {
+				switch(opzione) {
+				case favorevole:
+					nvoti = rs.getInt("favorevole");
+					break;
+				case contrario:
+					nvoti = rs.getInt("contrario");
+					break;
+				}
+			}
 			Logging.infoMessage(this.getClass(), "Ottenuto numero voti per l'opzione " + opzione + " nella sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {
 			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento dei voti della sessione " + sessioneDiVoto + "\n" + e.toString());
@@ -45,11 +58,11 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		Objects.requireNonNull(sessioneDiVoto);
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("INSERT INTO votireferendum (sessioni, nvoti1,nvoti2,vincitore) VALUES (?,?,?,?,?)");
+			ps = connection.prepareStatement("INSERT INTO votireferendum (sessioni, favorevole,contrario,vincitore) VALUES (?,?,?,?)");
 			ps.setInt(1, sessioneDiVoto.getId());
 			ps.setInt(2, 0);
 			ps.setInt(3, 0); 
-			ps.setString(5, null);			
+			ps.setString(4, null);			
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Aggiunto record per la sessione Referendum " + sessioneDiVoto);
 		} catch (SQLException e) {
@@ -65,7 +78,14 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		Objects.requireNonNull(opzione);
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("UPDATE votireferendum SET ? = ?  WHERE sessioni = ?");
+			switch(opzione) {
+			case favorevole:
+				ps = connection.prepareStatement("UPDATE votireferendum SET favorevole = ?  WHERE sessioni = ?");
+				break;
+			case contrario:
+				ps = connection.prepareStatement("UPDATE votireferendum SET contrario = ?  WHERE sessioni = ?");
+				break;
+			}
 			ps.setString(1, opzione.toString());
 			ps.setInt(2, valore);
 			ps.setInt(3, sessioneDiVoto.getId());
@@ -85,11 +105,16 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		Objects.requireNonNull(opzione);
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("UPDATE votireferendum SET ? = ? + ?  WHERE sessioni = ?");
-			ps.setString(1, opzione.toString());
-			ps.setString(2, opzione.toString());
-			ps.setInt(3, valore);
-			ps.setInt(4, sessioneDiVoto.getId());
+			switch(opzione) {
+			case favorevole:
+				ps = connection.prepareStatement("UPDATE votireferendum SET favorevole = favorevole + ?  WHERE sessioni = ?");
+				break;
+			case contrario:
+				ps = connection.prepareStatement("UPDATE votireferendum SET contrario = contrario + ?  WHERE sessioni = ?");
+				break;
+			}
+			ps.setInt(1, valore);
+			ps.setInt(2, sessioneDiVoto.getId());
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Incrementato il numero dei voti per la sessione" + sessioneDiVoto + " per l'opzione+ " + opzione.toString());
 		} catch (SQLException e) {
@@ -98,5 +123,19 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		finally {  DbUtils.closeStatement(ps); }
 
 	}
-
+	
+	public void setVincitoreReferendum(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione) {
+		Objects.requireNonNull(sessioneDiVoto);
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement("UPDATE votireferendum SET vincitore = ?  WHERE sessioni = ?");
+			ps.setString(1, opzione.toString());
+			ps.setInt(2, sessioneDiVoto.getId());
+			ps.executeUpdate();
+			Logging.infoMessage(this.getClass(), "Inserito vincitore la sessione referendum" + sessioneDiVoto);
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento del vincitore per la sessione referendum " + sessioneDiVoto+ " \n" + e.toString());
+		}
+		finally {  DbUtils.closeStatement(ps); }
+	}
 }
