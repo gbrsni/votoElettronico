@@ -1,24 +1,20 @@
 package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
+import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
+import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
-import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.Partito;
-import com.gbrsni.votoelettronico.data_access.VotazioniCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotazioniPartitiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
-import com.gbrsni.votoelettronico.models.Candidato;
+import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +60,10 @@ public class ConfermaVotazioneController extends Controller{
 		gestore = (Gestore) data[2];	
 		partiti = (Map<Partito,Integer>) data[3];
 		candidati = (Map<Candidato,Integer>) data[4];
-		System.out.println(elettore.getNome() + " " + elettore.getCognome());
+		
+		for (Map.Entry<Candidato, Integer> entry : candidati.entrySet()) {
+		    System.out.println("Candidato " + entry.getKey() + "/" + entry.getValue());
+		}
 		init();
 	}
     
@@ -127,20 +126,20 @@ public class ConfermaVotazioneController extends Controller{
     @FXML
     void pressConfermaButton(ActionEvent event) {
     	
-    	VotazioniPartitiDAOImpl votazioniPartitiDb = new VotazioniPartitiDAOImpl();
-    	VotazioniCandidatiDAOImpl votazioniCandidatiDb = new VotazioniCandidatiDAOImpl();
+    	VotiPartitiDAOImpl votiPartitiDb = new VotiPartitiDAOImpl();
+    	VotiCandidatiDAOImpl votiCandidatiDb = new VotiCandidatiDAOImpl();
     	VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
     	VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
     	
-    	if (partiti.size() == 0 && candidati.size() == 0 ) {
+    	if (partiti.size() == 0) {
     		votiAstenutiDb.increaseVotiAstenutiBySessione(sessione);
     	} else {
-    		for (Map.Entry<Partito, Integer> entry : partiti.entrySet()) {
-		        votazioniPartitiDb.addVotazioniPartitiBySessione(sessione, entry.getKey(), entry.getValue());
-		    }
-    		for (Map.Entry<Candidato, Integer> entry : candidati.entrySet()) {
-		        votazioniCandidatiDb.addVotazioniCandidatiBySessione(sessione, entry.getKey(), entry.getValue());
-		    }
+    			for (Map.Entry<Partito, Integer> entry : partiti.entrySet()) {
+    		        votiPartitiDb.increaseVotiPartitiBySessione(sessione, entry.getKey(), entry.getValue());
+    		    }    	
+    			for (Map.Entry<Candidato, Integer> entry : candidati.entrySet()) {
+    				votiCandidatiDb.increaseVotiCandidatiBySessione(sessione, entry.getKey(), entry.getValue());
+    		}	
     	}   		
     	votiEspressiDb.addVotoEspresso(sessione, elettore);
     	
