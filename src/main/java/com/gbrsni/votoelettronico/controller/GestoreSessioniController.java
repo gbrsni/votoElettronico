@@ -5,12 +5,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import com.gbrsni.votoelettronico.models.Gestore;
-import com.gbrsni.votoelettronico.models.SessioneDiVoto;
-
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
 import com.gbrsni.votoelettronico.logging.Logging;
+import com.gbrsni.votoelettronico.models.Gestore;
+import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.StatoSessione;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,7 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 
-public class GestoreSessioniController extends Controller{
+public class GestoreSessioniController  <A> extends Controller{
 	
 	private Gestore gestore ;
 	private List<SessioneDiVoto> sessioni;
@@ -102,7 +102,6 @@ public class GestoreSessioniController extends Controller{
     private EventHandler<ActionEvent> pressAvviaSessioneButton = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
-            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
             SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};
             newStage("Avvio Sessione Di Voto", "AvvioSessioneView", parameter);
@@ -113,9 +112,8 @@ public class GestoreSessioniController extends Controller{
     // Modifica Sessione Chiusa
     private EventHandler<ActionEvent> pressModificaSessioneButton = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
-        {
-            System.out.println("Id Sessione di Voto:" + ((SessioneDiVoto)((Button)e.getSource()).getUserData()).getId());
-            SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+        {            
+        	SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};  
             navigate("ModificaSessioneView", parameter);
         } 
@@ -125,7 +123,6 @@ public class GestoreSessioniController extends Controller{
     private EventHandler<ActionEvent> pressEliminaSessioneButton = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
-            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
             SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};
             newStage("Elimina Sessione Di Voto", "EliminaSessioneView", parameter);
@@ -136,7 +133,6 @@ public class GestoreSessioniController extends Controller{
     private EventHandler<ActionEvent> pressGestisciSessioneButton = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
-            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
             SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
             Object[] parameter = new Object[] {gestore,s};  
             navigate("SessioneApertaView", parameter);
@@ -145,18 +141,24 @@ public class GestoreSessioniController extends Controller{
     
     //Avvia Scrutinio Sessione Conclusa
     private EventHandler<ActionEvent> pressScrutinioSessioneButton = new EventHandler<ActionEvent>() {
-        public void handle(ActionEvent e)
-        {
-            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
-            System.out.println("Scrutinio");
+        public void   handle (ActionEvent e)
+        {	
+            SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
         }
     };
+    
+    
+    public void setStatoScrutinata(SessioneDiVoto s) {
+        s.setStatoSessione(StatoSessione.SCRUTINATA);
+        SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
+        sessioniDb.updateSessioneDiVoto(s);
+    }
+    
     
     //Visualizza Risultati sessione Scrutinata
     private EventHandler<ActionEvent> pressVisualizzaRisultatiSessioneButton = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
-            System.out.println("Id Sessione di Voto:" + ((Button)e.getSource()).getId());
         }
     };
     
