@@ -1,6 +1,12 @@
 package com.gbrsni.votoelettronico.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 import com.gbrsni.votoelettronico.logging.Logging;
@@ -35,7 +41,18 @@ public abstract class SessioneDiVoto {
 			this.statoSessione = statoSessione;
 		}
 	}
-
+	
+	public <V> Map<V,Integer> calcolaVincitore(Map<V,Integer> vincitori) {
+		int max = Collections.max(vincitori.values());
+		Map<V,Integer> keys = new HashMap<>();
+		for (Entry<V, Integer> entry : vincitori.entrySet()) {
+		    if (entry.getValue()==max) {
+		        keys.put(entry.getKey(),entry.getValue());
+		    }
+		}
+		return keys;
+	}
+	
 	public int setId(int id) {
 		return this.id = id;
 	}
@@ -94,23 +111,6 @@ public abstract class SessioneDiVoto {
 		this.nvoti = nvoti;
 	}
 	
-	/*
-	public Map<A,Integer> contaVoti(List<Pair<A,Integer>> votazioni) {
-		if (this.statoSessione == StatoSessione.CONCLUSA) {			
-			Map<A, Integer> res = new TreeMap<A,Integer>();
-			 for (int i = 0; i < votazioni.size(); i++) {
-	               if(res.containsKey(votazioni.get(i).getKey())) {
-	            	   res.replace(votazioni.get(i).getKey(), votazioni.get(i).getValue());
-	               }else {
-	            	   res.put(votazioni.get(i).getKey(), votazioni.get(i).getValue());
-	               }
-	            }
-			return res;
-		} else {
-			throw new SessionStateException(StatoSessione.CONCLUSA, this.statoSessione, this.id);
-		}
-	}
-	*/
 	public abstract ModVoto getModVoto();
 	
 	@Override
