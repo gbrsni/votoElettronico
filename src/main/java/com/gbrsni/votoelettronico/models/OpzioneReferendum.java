@@ -11,5 +11,5 @@ public enum OpzioneReferendum {
 	      case contrario: return "contrario";
 	      default: throw new IllegalArgumentException();
 	    }
-	  }
+	 } 	 
 }
