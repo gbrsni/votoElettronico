@@ -80,15 +80,16 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 	
 	/**aumenta di 1 il numero dei voti per la sessione indicata*/
 	@Override
-	public void increseVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione) {
+	public void increseVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione, int valore) {
 		Objects.requireNonNull(sessioneDiVoto);
 		Objects.requireNonNull(opzione);
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("UPDATE votireferendum SET ? = ? + 1  WHERE sessioni = ?");
+			ps = connection.prepareStatement("UPDATE votireferendum SET ? = ? + ?  WHERE sessioni = ?");
 			ps.setString(1, opzione.toString());
 			ps.setString(2, opzione.toString());
-			ps.setInt(3, sessioneDiVoto.getId());
+			ps.setInt(3, valore);
+			ps.setInt(4, sessioneDiVoto.getId());
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Incrementato il numero dei voti per la sessione" + sessioneDiVoto + " per l'opzione+ " + opzione.toString());
 		} catch (SQLException e) {
