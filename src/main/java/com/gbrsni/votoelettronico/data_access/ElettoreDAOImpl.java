@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.SaltedPassword;
+import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public class ElettoreDAOImpl implements ElettoreDAO {
 	private Connection connection = DBConnection.getConnection();
@@ -185,5 +186,23 @@ public class ElettoreDAOImpl implements ElettoreDAO {
 			Logging.warnMessage(this.getClass(), "Errore durante la modifica della password dell'elettore con username " + username + "\n" + ex.toString());
 		}
 		finally { DbUtils.closeStatement(ps); }
+	}
+	
+	@Override
+	public int getNumberElettori() {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int res = 0;
+		try {
+			ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM elettori");
+			rs = ps.executeQuery();
+			if(rs.next())
+				res = rs.getInt("total");
+			Logging.infoMessage(this.getClass(), "Ottenuto numero totale di elettori");
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(),"Errore durante del numero totale degli elettori \n" + e.toString());
+		}
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
+		return res;
 	}
 }

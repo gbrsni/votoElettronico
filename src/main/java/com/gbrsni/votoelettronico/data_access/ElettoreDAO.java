@@ -15,4 +15,5 @@ public interface ElettoreDAO {
 	public Elettore getElettoreByTesseraElettorale(String tesseraElettorale);
 	public SaltedPassword getPasswordElettoreByUsername(String username);
 	public void setPasswordElettoreByUsername(String username, SaltedPassword sp);
+	public int getNumberElettori();
 }
