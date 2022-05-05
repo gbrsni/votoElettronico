@@ -90,4 +90,23 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 		}
 		finally { DbUtils.closeStatement(ps); }
 	}
+	
+	@Override
+	public int getNumberVotesBySessione(SessioneDiVoto sessione) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int res = 0;
+		try {
+			ps = connection.prepareStatement("SELECT COUNT(*) AS total FROM votiespressi WHERE sessioni = ?");
+			ps.setInt(1, sessione.getId());
+			rs = ps.executeQuery();
+			if(rs.next())
+				res = rs.getInt("total");
+			Logging.infoMessage(this.getClass(), "Ottenuto numero voti espressi per la sessione " + sessione.toString());
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(),"Errore durante l'ottenimento del numero totala di voti espressi per la sessione " + sessione.toString() + "\n" + e.toString());
+		}
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
+		return res;
+	}
 }
