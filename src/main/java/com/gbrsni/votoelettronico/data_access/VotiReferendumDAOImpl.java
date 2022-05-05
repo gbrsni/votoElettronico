@@ -104,6 +104,7 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		Objects.requireNonNull(sessioneDiVoto);
 		Objects.requireNonNull(opzione);
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			switch(opzione) {
 			case favorevole:
@@ -124,6 +125,7 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 
 	}
 	
+	@Override
 	public void setVincitoreReferendum(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione) {
 		Objects.requireNonNull(sessioneDiVoto);
 		PreparedStatement ps = null;
@@ -137,5 +139,24 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento del vincitore per la sessione referendum " + sessioneDiVoto+ " \n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
+	}
+	
+	@Override
+	public String getVincitoreReferendum(SessioneDiVoto sessioneDiVoto) {
+		Objects.requireNonNull(sessioneDiVoto);
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String vincitore = null;
+		try {
+			ps = connection.prepareStatement("SELECT vincitore FROM votireferendum WHERE sessioni = ?");
+			ps.setInt(1, sessioneDiVoto.getId());
+			rs = ps.executeQuery();	
+			if(rs.next()) vincitore = rs.getString("vincitore");
+			Logging.infoMessage(this.getClass(), "ottenuto vincitore per la sessione referendum" + sessioneDiVoto);
+		} catch (SQLException e) {
+			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento del vincitore per la sessione referendum " + sessioneDiVoto+ " \n" + e.toString());
+		}
+		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
+		return vincitore;
 	}
 }

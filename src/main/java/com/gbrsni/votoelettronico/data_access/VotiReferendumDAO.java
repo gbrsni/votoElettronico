@@ -8,4 +8,6 @@ public interface VotiReferendumDAO {
 	public void addNewVotiSessioneReferendum(SessioneDiVoto sessioneDiVoto);
 	public void updateVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione, int valore);
 	public void increseVotiBySessioneOpzione(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione, int valore);
+	public void setVincitoreReferendum(SessioneDiVoto sessioneDiVoto, OpzioneReferendum opzione);
+	public String getVincitoreReferendum(SessioneDiVoto sessioneDiVoto) ;
 }
