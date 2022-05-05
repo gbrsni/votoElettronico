@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.RisultatiSessioneController">
    <top>
       <Label text="Risultati Votazione" BorderPane.alignment="CENTER">
@@ -26,6 +25,11 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="900.0">
                <children>
+                  <Label fx:id="gestoreLabel">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
                   <Button fx:id="backButton" mnemonicParsing="false" onAction="#pressBackButton" text="Torna Indietro">
                      <font>
                         <Font size="18.0" />
@@ -35,17 +39,17 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="nomeLabel" text="Nome Sessione: ">
+                  <Label fx:id="nomeLabel" prefHeight="35.0" prefWidth="453.0" text="Nome Sessione: ">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
                   <Label fx:id="dataLabel" text="Data:">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="300.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                </children>
@@ -54,41 +58,41 @@
                <children>
                   <Label fx:id="descrizioneLabel" text="Descrizione:">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="modVotoLabel" text="Modalità di Voto:">
+                  <Label fx:id="modVotoLabel" prefHeight="35.0" prefWidth="456.0" text="Modalità di Voto:">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="modVittoriaLabel" text="Modalità Vittoria:">
+                  <Label fx:id="modVittoriaLabel" prefHeight="35.0" prefWidth="417.0" text="Modalità Vittoria:">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="290.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="vincitoreLabel" text="Vincitore:">
+                  <Label fx:id="vincitoreLabel" prefHeight="40.0" prefWidth="453.0" text="Vincitore:">
                      <font>
                         <Font size="28.0" />
                      </font>
                   </Label>
                   <Label fx:id="votiEspressiLabel" text="Numero voti Espressi:">
                      <font>
-                        <Font size="28.0" />
+                        <Font size="24.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="350.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                </children>
@@ -97,7 +101,7 @@
                <children>
                   <Label fx:id="astenutiLabel" text="Numero Astenuti:">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
                </children>
