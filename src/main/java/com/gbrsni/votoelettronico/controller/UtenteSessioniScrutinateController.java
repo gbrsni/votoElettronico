@@ -1,6 +1,7 @@
 package com.gbrsni.votoelettronico.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
@@ -8,6 +9,7 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -17,8 +19,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
-import java.util.List;
 
 public class UtenteSessioniScrutinateController extends Controller{
 	
@@ -62,12 +62,23 @@ public class UtenteSessioniScrutinateController extends Controller{
     		sessioniHbox.setHgrow(sessioniRegion, Priority.ALWAYS);
     		sessioniHbox.setAlignment(Pos.CENTER_LEFT);
     		sessioniButton.setText("Visualizza Risultati");
+    		sessioniButton.setUserData(sessioni.get(i));
+    		sessioniButton.setOnAction(pressVisualizzaRisultati);
     		sessioniButton.setFont(new Font(18));
     		
     		sessioniHbox.getChildren().addAll(sessioniNomeLabel,sessioniDescrizioneLabel,sessioniRegion,sessioniButton);
     		sessioniVbox.getChildren().add(sessioniHbox);
     	}
     }
+    
+	EventHandler<ActionEvent> pressVisualizzaRisultati = new EventHandler<ActionEvent>() {
+			
+			public void handle(ActionEvent e) {
+				SessioneDiVoto sessione = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+				navigate("RisultatiSessioneView", sessione);
+			}
+		};
+
     
     @FXML
     void initialize() {
