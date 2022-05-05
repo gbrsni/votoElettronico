@@ -75,7 +75,8 @@ public class UtenteSessioniScrutinateController extends Controller{
 			
 			public void handle(ActionEvent e) {
 				SessioneDiVoto sessione = (SessioneDiVoto)((Button)e.getSource()).getUserData();
-				navigate("RisultatiSessioneView", sessione);
+				Object[] parameter = new Object[] {sessione, null};
+				navigate("RisultatiSessioneView", parameter);
 			}
 		};
 
