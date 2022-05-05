@@ -22,7 +22,7 @@
          <children>
             <HBox prefHeight="55.0" prefWidth="900.0">
                <children>
-                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#pressMenuButton" prefHeight="41.0" prefWidth="79.0" text="Menu">
+                  <Button fx:id="menuButton" mnemonicParsing="false" onAction="#pressMenuButton" prefHeight="41.0" prefWidth="145.0" text="Torna Indietro">
                      <font>
                         <Font size="18.0" />
                      </font>
