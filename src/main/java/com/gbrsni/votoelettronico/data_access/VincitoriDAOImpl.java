@@ -32,7 +32,7 @@ public class VincitoriDAOImpl implements VincitoriDAO {
 	}
 	
 	@Override
-	public void getVincitori(SessioneDiVoto sessioneDiVoto) {
+	public Candidato getVincitori(SessioneDiVoto sessioneDiVoto) {
 		Objects.requireNonNull(sessioneDiVoto);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -51,5 +51,6 @@ public class VincitoriDAOImpl implements VincitoriDAO {
 			Logging.warnMessage(this.getClass(), "Errore durante l'ottenimento del vincitore della sessione " + sessioneDiVoto.toString() + "\n" + e.toString());
 		}
 		finally {  DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
+		return candidato;
 	}
 }
