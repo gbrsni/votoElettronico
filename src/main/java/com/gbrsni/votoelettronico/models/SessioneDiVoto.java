@@ -54,7 +54,7 @@ public abstract class SessioneDiVoto {
 	}
 	
 	
-	public boolean condizioneVoto() {
+	public boolean condizioneVoto(int nElettori, int nVoti) {
 		switch(modVittoria) {
 		case MAGGIORANZA:
 			return true;
