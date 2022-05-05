@@ -53,6 +53,17 @@ public abstract class SessioneDiVoto {
 		return keys;
 	}
 	
+	
+	public boolean condizioneVoto() {
+		switch(modVittoria) {
+		case MAGGIORANZA:
+			return true;
+		case MAGGIORANZA_ASSOLUTA:
+			return true;
+		 default: throw new IllegalArgumentException();
+		}
+	}
+	
 	public int setId(int id) {
 		return this.id = id;
 	}
