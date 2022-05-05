@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.RisultatiSessioneController">
+   <top>
+      <Label text="Risultati Votazione" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="50.0" right="50.0" top="50.0" />
+         </BorderPane.margin>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="900.0">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#pressBackButton" text="Torna Indietro">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="900.0">
+               <children>
+                  <Label fx:id="nomeLabel" text="Nome Sessione: ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dataLabel" text="Data:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="300.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="900.0">
+               <children>
+                  <Label fx:id="descrizioneLabel" text="Descrizione:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="900.0">
+               <children>
+                  <Label fx:id="modVotoLabel" text="Modalità di Voto:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="modVIttoriaLabel" text="Modalità Vittoria:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="300.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="900.0">
+               <children>
+                  <Label fx:id="vincitoreLabel" text="Vincitore:">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="329.0" prefWidth="900.0">
+               <children>
+                  <ScrollPane prefHeight="329.0" prefWidth="450.0">
+                     <content>
+                        <VBox fx:id="partitiVbox" prefHeight="323.0" prefWidth="424.0" />
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane prefHeight="329.0" prefWidth="450.0">
+                     <content>
+                        <VBox fx:id="candidatiVbox" prefHeight="323.0" prefWidth="423.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
