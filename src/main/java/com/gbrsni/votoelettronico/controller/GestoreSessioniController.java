@@ -208,6 +208,9 @@ public class GestoreSessioniController  <A> extends Controller{
     private EventHandler<ActionEvent> pressVisualizzaRisultatiSessioneButton = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
+        	SessioneDiVoto s = (SessioneDiVoto)((Button)e.getSource()).getUserData();
+            Object[] parameter = new Object[] {s,gestore};  
+            navigate("RisultatiSessioneView", parameter);
         }
     };
     
