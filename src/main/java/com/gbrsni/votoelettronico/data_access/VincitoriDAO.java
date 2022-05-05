@@ -5,4 +5,5 @@ import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 public interface VincitoriDAO {
 	public void addVincitori(Candidato candidato, SessioneDiVoto sessioneDiVoto);
+	public void getVincitori(SessioneDiVoto sessioneDiVoto);
 }
