@@ -15,11 +15,13 @@ import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.Timer;
 
-
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -27,6 +29,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Pair;
 
 public class VotazioneCategoricoController extends Controller{
 	
@@ -38,12 +43,16 @@ public class VotazioneCategoricoController extends Controller{
 	private ToggleGroup partitiRadioGroup = new ToggleGroup();
 	private Partito partitoSelezionato; 
 	private Map<Candidato,Integer> candidatoSelezionato;
+	private Timer timer = new Timer(5);
 	
-    @FXML
+	@FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+    @FXML
+    private Button annullaButton;
 
     @FXML
     private Label candidatiLabel;
@@ -53,10 +62,7 @@ public class VotazioneCategoricoController extends Controller{
 
     @FXML
     private Label modVotoLabel;
-    
-    @FXML
-    private Button annullaButton;
-    
+
     @FXML
     private Label nomeElettore;
 
@@ -70,7 +76,12 @@ public class VotazioneCategoricoController extends Controller{
     private VBox partitiVbox;
 
     @FXML
+    private Label timerLabel;
+
+    @FXML
     private Button votaButton;
+    
+    
     
 	@Override
 	public void onNavigateFrom(Controller sender, Object parameter) {
@@ -81,9 +92,31 @@ public class VotazioneCategoricoController extends Controller{
 		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());
+		
+		timer.addListener(new TimerListener(){
+			@Override
+			public void onReandingChange() {
+				updateTemperatureLabel();
+			}
+			
+		});
+		
 		init();
 	}
-		
+	
+	private void updateTemperatureLabel() {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				Pair time = timer.getTimer();
+				timerLabel.setText("Timer: " + time.getKey() + ":" + time.getValue());
+				
+			}
+			
+		});
+	}
+	
 	public void visualizzaPartiti() {
 		for (int i = 0 ; i < partiti.size(); i ++) {
 			HBox partitiHbox = new HBox();
@@ -125,9 +158,6 @@ public class VotazioneCategoricoController extends Controller{
 	    	candidatoSelezionato.clear();
 	    	candidatoSelezionato.put((Candidato)((RadioButton)e.getSource()).getUserData(), 1);
 	    	
-	    	for (Map.Entry<Candidato, Integer> entry : candidatoSelezionato.entrySet()) {
-		        System.out.println(entry.getKey() + "/" + entry.getValue());
-		    }
 	    	
 	    }
 	    
@@ -145,7 +175,9 @@ public class VotazioneCategoricoController extends Controller{
     @FXML
     void pressVotaButton(ActionEvent event) {
     	Map<Partito,Integer> partito = new HashMap<>();
-    	partito.put(partitoSelezionato, 1);
+    	if (partitoSelezionato != null) {
+    		partito.put(partitoSelezionato, 1);
+    	}
     	Object[] parameter = new Object[] {elettore, sessione, gestore, partito, candidatoSelezionato};
     	newStage("Conferma Voto","ConfermaVotazioneView", parameter);
     }
@@ -160,6 +192,9 @@ public class VotazioneCategoricoController extends Controller{
 	    visualizzaPartiti();
     }
     
+   
+    
+    
     @FXML
     void initialize() {
     	assert annullaButton != null : "fx:id=\"annullaButton\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
@@ -170,6 +205,10 @@ public class VotazioneCategoricoController extends Controller{
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
         assert partitiLabel != null : "fx:id=\"partitiLabel\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
         assert partitiVbox != null : "fx:id=\"partitiVbox\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
-        assert votaButton != null : "fx:id=\"votaBottone\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
+        assert timerLabel != null : "fx:id=\"timerLabel\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
+        assert votaButton != null : "fx:id=\"votaButton\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
     }
+
+
+
 }
