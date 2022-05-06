@@ -30,7 +30,6 @@ public class Timer{
 				{
 					minutes = timet / 60;
 					seconds = timet % 60;
-					System.out.println(minutes +" minute(s), " + seconds + " second(s)");
 					notifyListeners();
 					try {
 						Thread.sleep(1000);
