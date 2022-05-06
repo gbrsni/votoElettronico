@@ -9,7 +9,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
+import com.gbrsni.votoelettronico.data_access.ElettoreDAOImpl;
 import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VincitoriDAO;
+import com.gbrsni.votoelettronico.data_access.VincitoriDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
@@ -36,8 +39,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 
-public class GestoreSessioniController  <A> extends Controller{
-	
+public class GestoreSessioniController  extends Controller{
+
 	private Gestore gestore ;
 	private List<SessioneDiVoto> sessioni;
 
@@ -157,39 +160,57 @@ public class GestoreSessioniController  <A> extends Controller{
 			if(!(s instanceof com.gbrsni.votoelettronico.models.SessioneReferendum)) {
 				VotiCandidatiDAOImpl votiCandidatiDb = new VotiCandidatiDAOImpl();
 				Map<Candidato,Integer> candidati = votiCandidatiDb.getVotiCandidatiBySessione(s);
+				int nTotaleVoti = 0; //ottengo somma voti di tutti i candidati
 				Map<Candidato,Integer> vincitoreCandidati = s.calcolaVincitore(candidati);
-
-				//CONSIDERO ANCHE I VOTI DEI PARTITI
-				if(vincitoreCandidati.size() != 1) {            	
-					VotiPartitiDAOImpl votiPartitiDb = new VotiPartitiDAOImpl();
-					Map<Partito,Integer> partiti = votiPartitiDb.getVotiPartitiBySessione(s);
-					for (Entry<Candidato, Integer> entry : vincitoreCandidati.entrySet()) {
-						vincitoreCandidati.replace(entry.getKey(), entry.getValue()  + partiti.get(entry.getKey().getPartito()));
-					}
-					vincitoreCandidati = s.calcolaVincitore(vincitoreCandidati);
-				} 
-				if(vincitoreCandidati.size() == 1) {
-					//UN SOLO VINCITORE --> CARICO IL VINCITORE NEL DB
-				} else {
-					//DUE VINCITORI --> CARICO NULL NEL DATABASE
+				
+				for (Entry<Candidato, Integer> ca : vincitoreCandidati.entrySet()) {
+					System.out.println("CANDIDATO: " + ca.getKey() + " " + ca.getValue());
 				}
+				for (Entry<Candidato, Integer> entry : candidati.entrySet()) {
+					nTotaleVoti += entry.getValue();
+				}
+				System.out.println("SOMMA TOTALE: " + nTotaleVoti);
+				Candidato vincitore = null;
+				Map.Entry<Candidato,Integer> entry = vincitoreCandidati.entrySet().iterator().next(); //ottengo il primo candidato 
+				if(s.condizioneVoto(nTotaleVoti, entry.getValue())) {
+					if(vincitoreCandidati.size() == 1) {
+						vincitore = entry.getKey();
+					}else {
+
+						//CONSIDERO ANCHE I VOTI DEI PARTITI
+						VotiPartitiDAOImpl votiPartitiDb = new VotiPartitiDAOImpl();
+						Map<Partito,Integer> partiti = votiPartitiDb.getVotiPartitiBySessione(s);
+						for (Entry<Candidato, Integer> p : vincitoreCandidati.entrySet()) {
+							vincitoreCandidati.replace(p.getKey(), p.getValue()  + partiti.get(p.getKey().getPartito()));
+						}						
+						vincitoreCandidati = s.calcolaVincitore(vincitoreCandidati);
+						if (vincitoreCandidati.size() == 1) {
+							Map.Entry<Candidato,Integer> c = vincitoreCandidati.entrySet().iterator().next(); 
+							vincitore = entry.getKey();
+						}
+					}
+				} 
+
+				VincitoriDAOImpl vincitoreDb = new VincitoriDAOImpl();
+				vincitoreDb.addVincitori(vincitore, s);
 
 			}else {
 				//CALCOLO VINCITORE REFERENDUM -> COMPLETA
 				OpzioneReferendum vincitore = null;
 				VotiReferendumDAOImpl votiReferendumDb = new VotiReferendumDAOImpl();
-
-				if(s.condizioneVoto()) {
+				VotiEspressiDAOImpl votiEspressi = new VotiEspressiDAOImpl();
+				ElettoreDAOImpl elettoreDb = new ElettoreDAOImpl();
+				if(s.condizioneVoto(elettoreDb.getNumberElettori(),votiEspressi.getNumberVotesBySessione(s))) {
 					Map<OpzioneReferendum,Integer> voti= new HashMap<>();;
 					voti.put(OpzioneReferendum.favorevole,votiReferendumDb.getNVotiBySessioneOpzione(s, OpzioneReferendum.favorevole));
 					voti.put(OpzioneReferendum.contrario,votiReferendumDb.getNVotiBySessioneOpzione(s, OpzioneReferendum.contrario));
 					Map<OpzioneReferendum,Integer> vincitoreReferendum = s.calcolaVincitore(voti);
 
 					if (vincitoreReferendum.size() == 1) {
-						for (Entry<OpzioneReferendum, Integer> entry : vincitoreReferendum.entrySet()) {
-							vincitore = entry.getKey();
-						}
+						Map.Entry<OpzioneReferendum,Integer> entry = vincitoreReferendum.entrySet().iterator().next();
+						vincitore = entry.getKey();
 					}
+
 				}
 				votiReferendumDb.setVincitoreReferendum(s, vincitore);
 			}
@@ -205,7 +226,7 @@ public class GestoreSessioniController  <A> extends Controller{
 		SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
 		sessioniDb.updateSessioneDiVoto(s);
 	}
-	
+
 	public void setNumeroTotaleVoti(SessioneDiVoto s) {
 		VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
 		SessioneDiVotoDAOImpl sessioneDb = new SessioneDiVotoDAOImpl();
@@ -293,17 +314,17 @@ public class GestoreSessioniController  <A> extends Controller{
 		}
 	}
 
-    @FXML
-    void initialize() {
-    	assert aggiungiSessioneButton != null : "fx:id=\"aggiungiSessioneButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
-        assert cercaButton != null : "fx:id=\"cercaButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
-        assert cercaSessioneTextField != null : "fx:id=\"cercaSessioneTextField\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
-        assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
-        assert menuButton != null : "fx:id=\"menuButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
-        assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
-        assert sessioniVbox != null : "fx:id=\"sessioniVbox\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
-        init();
-    }
-  }
+	@FXML
+	void initialize() {
+		assert aggiungiSessioneButton != null : "fx:id=\"aggiungiSessioneButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+		assert cercaButton != null : "fx:id=\"cercaButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+		assert cercaSessioneTextField != null : "fx:id=\"cercaSessioneTextField\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+		assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+		assert menuButton != null : "fx:id=\"menuButton\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+		assert nomeGestore != null : "fx:id=\"nomeGestore\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+		assert sessioniVbox != null : "fx:id=\"sessioniVbox\" was not injected: check your FXML file 'GestoreSessioniView.fxml'.";
+		init();
+	}
+}
 
 
