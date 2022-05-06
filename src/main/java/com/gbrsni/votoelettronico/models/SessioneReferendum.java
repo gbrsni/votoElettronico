@@ -23,12 +23,12 @@ public class SessioneReferendum extends SessioneDiVoto{
 	}
 	
 	@Override
-	public boolean condizioneVoto(int nElettori, int nVoti) {
+	public boolean condizioneVoto(int nVotiTotali, int nVotoScelta) {
 		switch(this.getModVittoria()) {
 		case REFERENDUM_SENZA_QUORUM:
 			return true;
 		case REFERENDUM_CON_QUORUM:
-			if(nVoti > (nElettori/2)) {
+			if(nVotoScelta > (nVotiTotali/2)) {
 				return true;
 			} else {
 				return false;
