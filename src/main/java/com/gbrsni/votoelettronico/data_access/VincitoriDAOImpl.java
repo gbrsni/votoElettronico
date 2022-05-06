@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Objects;
 
 import com.gbrsni.votoelettronico.logging.Logging;
@@ -22,7 +23,11 @@ public class VincitoriDAOImpl implements VincitoriDAO {
 		try {
 			ps = connection.prepareStatement("INSERT INTO vincitori (sessioni, candidati) VALUES (?, ?)");
 			ps.setInt(1, sessioneDiVoto.getId());
-			ps.setInt(2, candidato.getId());
+			if(candidato == null) {
+				ps.setNull(2, Types.INTEGER);
+			} else {
+				ps.setInt(2, candidato.getId());
+			}			
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Inserito vincitore per la sessione con id " + sessioneDiVoto.getId());
 		} catch (SQLException e) {

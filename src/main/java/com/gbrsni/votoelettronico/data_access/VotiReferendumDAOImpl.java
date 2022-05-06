@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Objects;
 
 import com.gbrsni.votoelettronico.logging.Logging;
@@ -131,7 +132,11 @@ public class VotiReferendumDAOImpl implements VotiReferendumDAO {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement("UPDATE votireferendum SET vincitore = ?  WHERE sessioni = ?");
-			ps.setString(1, opzione.toString());
+			if (opzione == null) {
+				ps.setNull(1, Types.INTEGER);
+			} else {
+				ps.setString(1, opzione.toString());
+			}
 			ps.setInt(2, sessioneDiVoto.getId());
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Inserito vincitore la sessione referendum" + sessioneDiVoto);
