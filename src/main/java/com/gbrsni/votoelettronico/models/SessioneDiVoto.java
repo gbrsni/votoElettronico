@@ -54,12 +54,13 @@ public abstract class SessioneDiVoto {
 	}
 	
 	
-	public boolean condizioneVoto(int nElettori, int nVoti) {
+	public boolean condizioneVoto(int nVotiTotali, int nVotoScelta) {
 		switch(modVittoria) {
 		case MAGGIORANZA:
 			return true;
 		case MAGGIORANZA_ASSOLUTA:
-			return true;
+			if( nVotoScelta > (nVotiTotali/2)) return true;
+			else return false;
 		 default: throw new IllegalArgumentException();
 		}
 	}
