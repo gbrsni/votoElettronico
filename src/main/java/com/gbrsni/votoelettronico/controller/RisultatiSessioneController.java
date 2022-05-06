@@ -139,30 +139,31 @@ public class RisultatiSessioneController extends Controller{
     	} else { 
     		//REFERENDUM
     		VotiReferendumDAOImpl votiReferendumDb = new VotiReferendumDAOImpl();
-    		
+
     		HBox favorevoleHbox = new HBox();
     		Label favorevoleLabel = new Label();
     		favorevoleLabel.setFont(new Font(20));
     		favorevoleLabel.setText("Favorevole: " + votiReferendumDb.getNVotiBySessioneOpzione(sessione, OpzioneReferendum.favorevole) + "");
     		favorevoleHbox.getChildren().add(favorevoleLabel);
     		partitiVbox.getChildren().add(favorevoleHbox);
-    		
+
     		HBox contrarioHbox = new HBox();
     		Label contrarioLabel = new Label();
     		contrarioLabel.setFont(new Font(20));
     		contrarioLabel.setText("Contrario: "+ votiReferendumDb.getNVotiBySessioneOpzione(sessione, OpzioneReferendum.contrario) + "");
     		contrarioHbox.getChildren().add(contrarioLabel);
     		partitiVbox.getChildren().add(contrarioLabel);
-    		
+
     		//VINCITORE REFERENDUM
     		String vincitore = votiReferendumDb.getVincitoreReferendum(sessione);
     		if (vincitore == null) {
     			vincitoreLabel.setText("Vincitore non disponibile");
-    		}
+    		} else {
     			vincitoreLabel.setText("Vincitore: " + vincitore);
     		}
     	}
-    	
+    }
+
     
     @FXML
     void initialize() {
