@@ -8,11 +8,14 @@ import com.gbrsni.votoelettronico.data_access.*;
 import com.gbrsni.votoelettronico.models.Gestore;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class Home extends Application {
@@ -28,6 +31,18 @@ public class Home extends Application {
     	primaryStage.setTitle("Voto Elettronico");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() 
+        {
+            public void handle(WindowEvent e){ 
+                try {
+                     System.exit(0);
+                } 
+                catch (Exception e1) {
+                     e1.printStackTrace();
+                }
+            }
+         });
+        
         primaryStage.show();
 
     }
