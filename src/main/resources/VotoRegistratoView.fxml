@@ -22,9 +22,9 @@
             <Insets left="50.0" right="50.0" top="50.0" />
          </BorderPane.margin>
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="511.0" prefWidth="900.0">
+            <HBox alignment="CENTER" prefHeight="511.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="messaggioLabel" prefHeight="70.0" prefWidth="808.0" text="Il voto per l'elettore &quot;&quot; è stato registrato correttamente. ">
+                  <Label fx:id="messaggioLabel" prefHeight="141.0" prefWidth="897.0" text="Il voto per l'elettore &quot;&quot; è stato registrato correttamente. ">
                      <font>
                         <Font size="24.0" />
                      </font>
