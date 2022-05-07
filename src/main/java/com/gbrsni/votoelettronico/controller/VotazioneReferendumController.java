@@ -3,22 +3,32 @@ package com.gbrsni.votoelettronico.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.Timer;
+import com.gbrsni.votoelettronico.models.TimerListener;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class VotazioneReferendumController extends Controller {
 	
 	private Elettore elettore;
 	private Gestore gestore; 
 	private SessioneDiVoto sessione; 
+	
+	private Timer timer = new Timer(5);
+	private Stage stage; 
 	
 	 @FXML
     private ResourceBundle resources;
@@ -49,7 +59,9 @@ public class VotazioneReferendumController extends Controller {
 
     @FXML
     private Button votaButton;
-
+    
+    @FXML
+    private Label timerLabel;
 
 
     @Override
@@ -61,6 +73,34 @@ public class VotazioneReferendumController extends Controller {
 		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
 		nomeLabel.setText("Sessione:" + sessione.getNome());
 		modVotoLabel.setText("Mod. Voto:" + sessione.getModVoto());
+		timer.addListener(new TimerListener(){
+			@Override
+			public void onReandingChange() {
+				updateTimer();
+			}
+			
+		});
+	}
+    
+    private void updateTimer() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				Pair time = timer.getTimer();
+				timerLabel.setText("Timer: " + time.getKey() + ":" + time.getValue());
+				if((Integer)time.getKey() == 0 && (Integer)time.getValue() == 0) {
+					VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
+					VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
+					votiAstenutiDb.increaseVotiAstenutiBySessione(sessione);
+					votiEspressiDb.addVotoEspresso(sessione, elettore);
+					timer.shutdown();
+					if(stage != null) stage.close();
+					Object[] parameter = new Object[] {elettore,sessione,gestore};
+					navigate("VotoRegistratoView",parameter);
+				}
+			}
+			
+		});
 	}
     
     @FXML
@@ -73,8 +113,8 @@ public class VotazioneReferendumController extends Controller {
     	Boolean scelta = null;
     	if(favorevoleRadioButton.isSelected()) scelta = true;
     	else if (contratioRadioButton.isSelected()) scelta = false;
-    	Object[] parameter = new Object[] {elettore, sessione, gestore, scelta};
-		newStage("Conferma Voto", "ConfermaVotazioneReferendumView", parameter);
+    	Object[] parameter = new Object[] {elettore, sessione, gestore, scelta, timer};
+		stage = newStage("Conferma Voto", "ConfermaVotazioneReferendumView", parameter);
     }
 
     @FXML
@@ -87,6 +127,8 @@ public class VotazioneReferendumController extends Controller {
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert radioGroup != null : "fx:id=\"radioGroup\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
         assert votaButton != null : "fx:id=\"votaButton\" was not injected: check your FXML file 'VotazioneReferendumView.fxml'.";
+        assert timerLabel != null : "fx:id=\"timerLabel\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
+
         
     }
 

@@ -4,24 +4,26 @@ package com.gbrsni.votoelettronico.controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.Timer;
+import com.gbrsni.votoelettronico.models.TimerListener;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -30,7 +32,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Pair;
 
 public class VotazioneCategoricoController extends Controller{
@@ -43,7 +44,8 @@ public class VotazioneCategoricoController extends Controller{
 	private ToggleGroup partitiRadioGroup = new ToggleGroup();
 	private Partito partitoSelezionato; 
 	private Map<Candidato,Integer> candidatoSelezionato;
-	private Timer timer = new Timer(5);
+	private Timer timer = new Timer(10);
+	private Stage stage; 
 	
 	@FXML
     private ResourceBundle resources;
@@ -91,27 +93,33 @@ public class VotazioneCategoricoController extends Controller{
 		gestore = (Gestore) data[2];
 		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
-		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());
-		
+		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());	
 		timer.addListener(new TimerListener(){
 			@Override
 			public void onReandingChange() {
-				updateTemperatureLabel();
+				updateTimer();
 			}
 			
 		});
-		
 		init();
 	}
 	
-	private void updateTemperatureLabel() {
+	private void updateTimer() {
 		Platform.runLater(new Runnable() {
-
 			@Override
 			public void run() {
 				Pair time = timer.getTimer();
 				timerLabel.setText("Timer: " + time.getKey() + ":" + time.getValue());
-				
+				if((Integer)time.getKey() == 0 && (Integer)time.getValue() == 0) {
+					VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
+					VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
+					votiAstenutiDb.increaseVotiAstenutiBySessione(sessione);
+					votiEspressiDb.addVotoEspresso(sessione, elettore);
+					timer.shutdown();
+					if(stage != null) stage.close();
+					Object[] parameter = new Object[] {elettore,sessione,gestore};
+					navigate("VotoRegistratoView",parameter);
+				}
 			}
 			
 		});
@@ -157,8 +165,6 @@ public class VotazioneCategoricoController extends Controller{
 	    public void handle(ActionEvent e) {
 	    	candidatoSelezionato.clear();
 	    	candidatoSelezionato.put((Candidato)((RadioButton)e.getSource()).getUserData(), 1);
-	    	
-	    	
 	    }
 	    
 	};
@@ -178,8 +184,8 @@ public class VotazioneCategoricoController extends Controller{
     	if (partitoSelezionato != null) {
     		partito.put(partitoSelezionato, 1);
     	}
-    	Object[] parameter = new Object[] {elettore, sessione, gestore, partito, candidatoSelezionato};
-    	newStage("Conferma Voto","ConfermaVotazioneView", parameter);
+    	Object[] parameter = new Object[] {elettore, sessione, gestore, partito, candidatoSelezionato, timer};
+    	stage = newStage("Conferma Voto","ConfermaVotazioneView", parameter);
     }
     
     private void init() {

@@ -8,13 +8,18 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
+import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.Timer;
+import com.gbrsni.votoelettronico.models.TimerListener;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,6 +31,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class VotazioneCategoricoPreferenzeController extends Controller{
 	
@@ -37,8 +44,10 @@ public class VotazioneCategoricoPreferenzeController extends Controller{
 	private ToggleGroup partitiRadioGroup = new ToggleGroup();
 	private Partito partitoSelezionato; 
 	private Map<Candidato,Integer> candidatoSelezionato;
+	private Timer timer = new Timer(5);
+	private Stage stage; 
 	
-    @FXML
+	@FXML
     private ResourceBundle resources;
 
     @FXML
@@ -69,7 +78,11 @@ public class VotazioneCategoricoPreferenzeController extends Controller{
     private VBox partitiVbox;
 
     @FXML
+    private Label timerLabel;
+
+    @FXML
     private Button votaButton;
+
     
     @Override
 	public void onNavigateFrom(Controller sender, Object parameter) {
@@ -80,7 +93,35 @@ public class VotazioneCategoricoPreferenzeController extends Controller{
 		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());
+		timer.addListener(new TimerListener(){
+			@Override
+			public void onReandingChange() {
+				updateTimer();
+			}
+			
+		});
 		init();
+	}
+    
+    private void updateTimer() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				Pair time = timer.getTimer();
+				timerLabel.setText("Timer: " + time.getKey() + ":" + time.getValue());
+				if((Integer)time.getKey() == 0 && (Integer)time.getValue() == 0) {
+					VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
+					VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
+					votiAstenutiDb.increaseVotiAstenutiBySessione(sessione);
+					votiEspressiDb.addVotoEspresso(sessione, elettore);
+					timer.shutdown();
+					if(stage != null) stage.close();
+					Object[] parameter = new Object[] {elettore,sessione,gestore};
+					navigate("VotoRegistratoView",parameter);
+				}
+			}
+			
+		});
 	}
     
     public void visualizzaPartiti() {
@@ -144,8 +185,8 @@ public class VotazioneCategoricoPreferenzeController extends Controller{
     void pressVotaButton(ActionEvent event) {
     	Map<Partito,Integer> partito = new HashMap<>();
     	partito.put(partitoSelezionato, 1);
-    	Object[] parameter = new Object[] {elettore, sessione, gestore, partito, candidatoSelezionato};
-    	newStage("Conferma Voto","ConfermaVotazioneView", parameter);
+    	Object[] parameter = new Object[] {elettore, sessione, gestore, partito, candidatoSelezionato, timer};
+    	stage = newStage("Conferma Voto","ConfermaVotazioneView", parameter);
     }
     
     private void init() {
@@ -160,7 +201,7 @@ public class VotazioneCategoricoPreferenzeController extends Controller{
     
     @FXML
     void initialize() {
-        assert annullaButton != null : "fx:id=\"annullaButton\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
+    	assert annullaButton != null : "fx:id=\"annullaButton\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
         assert candidatiLabel != null : "fx:id=\"candidatiLabel\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
         assert candidatiVbox != null : "fx:id=\"candidatiVbox\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
         assert modVotoLabel != null : "fx:id=\"modVotoLabel\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
@@ -168,6 +209,7 @@ public class VotazioneCategoricoPreferenzeController extends Controller{
         assert nomeLabel != null : "fx:id=\"nomeLabel\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
         assert partitiLabel != null : "fx:id=\"partitiLabel\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
         assert partitiVbox != null : "fx:id=\"partitiVbox\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
+        assert timerLabel != null : "fx:id=\"timerLabel\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
         assert votaButton != null : "fx:id=\"votaButton\" was not injected: check your FXML file 'VotazioneCategoricoPreferenzeView.fxml'.";
     }
 }

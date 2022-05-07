@@ -23,7 +23,12 @@
          <children>
             <HBox prefHeight="55.0" prefWidth="900.0">
                <children>
-                  <Label fx:id="nomeElettore" text="Nome Elettore">
+                  <Label fx:id="nomeElettore" prefHeight="35.0" prefWidth="894.0" text="Nome Elettore">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timerLabel" prefHeight="35.0" prefWidth="481.0" text="Timer:">
                      <font>
                         <Font size="24.0" />
                      </font>
