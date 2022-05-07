@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.gbrsni.votoelettronico.controller.TimerListener;
-
 import javafx.util.Pair;
 
 public class Timer{
