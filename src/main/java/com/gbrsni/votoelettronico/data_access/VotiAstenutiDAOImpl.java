@@ -45,7 +45,7 @@ public class VotiAstenutiDAOImpl implements VotiAstenutiDAO{
 			ps.executeUpdate();
 			Logging.infoMessage(this.getClass(), "Ottenuti voti astenuti per sessione con id " + sessione.getId());
 		} catch (SQLException e) {
-			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento votireferendum della sessione di voto" + sessione.toString() + "\n" + e.toString());
+			Logging.warnMessage(this.getClass(), "Errore durante l'inserimento voti astenuti della sessione di voto" + sessione.toString() + "\n" + e.toString());
 		}
 		finally {  DbUtils.closeStatement(ps); }
 	}
