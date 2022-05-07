@@ -1,4 +1,4 @@
-package com.gbrsni.votoelettronico.controller;
+package com.gbrsni.votoelettronico.models;
 
 public interface TimerListener {
 	
