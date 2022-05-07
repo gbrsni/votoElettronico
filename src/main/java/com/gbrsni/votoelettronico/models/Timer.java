@@ -22,14 +22,14 @@ public class Timer{
 		service.submit(new Runnable() {
 			@Override
 			public void run() {
-				while(!stopWasRequested) {
-				int timet= time * 60; //tempo in secondi
+				int timet= time; //* 60; //tempo in secondi
 				long delay = timet * 1000; 
 
 				do
 				{
 					minutes = timet / 60;
 					seconds = timet % 60;
+					System.out.println(minutes + " : " + seconds);
 					notifyListeners();
 					try {
 						Thread.sleep(1000);
@@ -39,10 +39,9 @@ public class Timer{
 					timet = timet - 1;
 					delay = delay - 1000;
 				}
-				while (delay != 0);
-				
-				System.out.println("Time's Up!");
-			}
+				while (delay != -1 && stopWasRequested == false);
+				shutdown();
+			
 			}
 		});
 
