@@ -15,6 +15,7 @@ import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.Timer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,8 +32,9 @@ public class ConfermaVotazioneController extends Controller{
 	private Elettore elettore;
 	private Gestore gestore; 
 	private SessioneDiVoto sessione; 
-	Map<Partito,Integer> partiti;
-	Map<Candidato,Integer> candidati;
+	private Map<Partito,Integer> partiti;
+	private Map<Candidato,Integer> candidati;
+	private Timer timer;
 	
     @FXML
     private ResourceBundle resources;
@@ -60,6 +62,7 @@ public class ConfermaVotazioneController extends Controller{
 		gestore = (Gestore) data[2];	
 		partiti = (Map<Partito,Integer>) data[3];
 		candidati = (Map<Candidato,Integer>) data[4];
+		timer = (Timer) data[5];
 		
 		for (Map.Entry<Candidato, Integer> entry : candidati.entrySet()) {
 		    System.out.println("Candidato " + entry.getKey() + "/" + entry.getValue());
@@ -71,6 +74,7 @@ public class ConfermaVotazioneController extends Controller{
     	if(partiti.size() == 0) {
     		HBox schedaBiancaHbox = new HBox();
     		Label schedaBiancaLabel = new Label("Scheda Bianca");
+    		schedaBiancaLabel.setFont(new Font(20));
     		schedaBiancaHbox.getChildren().add(schedaBiancaLabel);
     		partitiVbox.getChildren().add(schedaBiancaHbox);
     		partitiVbox.setAlignment(Pos.CENTER_LEFT);
@@ -142,7 +146,7 @@ public class ConfermaVotazioneController extends Controller{
     		}	
     	}   		
     	votiEspressiDb.addVotoEspresso(sessione, elettore);
-    	
+    	timer.shutdown();
     	Stage stage = (Stage) confermaButton.getScene().getWindow();
         stage.close();
         Object[] parameter = new Object[] {elettore, sessione, gestore};

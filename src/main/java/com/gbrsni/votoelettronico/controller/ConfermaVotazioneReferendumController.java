@@ -10,6 +10,7 @@ import com.gbrsni.votoelettronico.models.Elettore;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.OpzioneReferendum;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.Timer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +26,8 @@ public class ConfermaVotazioneReferendumController extends Controller{
 	private Gestore gestore;
 	private Elettore elettore;
 	private SessioneDiVoto sessione;
-	Boolean scelta; 
+	private Boolean scelta; 
+	private Timer timer;
 	
     @FXML
     private ResourceBundle resources;
@@ -50,6 +52,7 @@ public class ConfermaVotazioneReferendumController extends Controller{
 		sessione = (SessioneDiVoto) data[1];
 		gestore = (Gestore) data[2];	
 		scelta = (Boolean) data[3];
+		timer = (Timer) data[4];
 		init();
 	}
     
@@ -92,6 +95,7 @@ public class ConfermaVotazioneReferendumController extends Controller{
     	
     	Stage stage = (Stage) confermaButton.getScene().getWindow();
         stage.close();
+        timer.shutdown();
         Object[] parameter = new Object[] {elettore, sessione, gestore};
         navigate("VotoRegistratoView",parameter);
     }
