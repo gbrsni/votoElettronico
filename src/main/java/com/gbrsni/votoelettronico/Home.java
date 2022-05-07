@@ -86,7 +86,7 @@ public class Home extends Application {
     }
     
     //crea un nuovo stage
-    public static void newStage(Controller sender,String title, String view, Object parameter) {
+    public static Stage newStage(Controller sender,String title, String view, Object parameter) {
 	    try {
 	   	        	
 	        Stage stage = new Stage();
@@ -95,10 +95,13 @@ public class Home extends Application {
 	        stage.setResizable(false);
 	        blockPrimaryStage(stage);
 	        stage.show();
+	        return stage;
 	    }
 	    catch (IOException e1) {
 	        e1.printStackTrace();
+	        return null;
 	    }
+		
     }
     
     //chiude lo stage passato come argomento
