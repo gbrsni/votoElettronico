@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 import javafx.util.Pair;
 
-public class Timer{
+public class Timer implements Observer{
 	
 	private boolean stopWasRequested = false;
 	private final ExecutorService service = Executors.newCachedThreadPool();
