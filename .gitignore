@@ -3,3 +3,6 @@
 
 /target/
 /log/
+
+*.drawio.bkp
+*.drawio.dtmp*
