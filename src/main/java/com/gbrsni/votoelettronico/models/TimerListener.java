@@ -1,6 +1,6 @@
 package com.gbrsni.votoelettronico.models;
 
-public interface Observer{
+public interface TimerListener{
 	
 	public void onReandingChange();
 }
