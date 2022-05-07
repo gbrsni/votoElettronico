@@ -181,6 +181,7 @@ public class AggiuntaSessioneController extends Controller{
     	for (int i = 0; i < candidatiPartito.size(); i++) {	
     			HBox candidatiHbox = new HBox();
     			CheckBox candidatiCheckBox = new CheckBox();
+    			if(contains(candidatiSelezionati, candidatiPartito.get(i)))  candidatiCheckBox.setSelected(true);
     			candidatiCheckBox.setUserData(candidatiPartito.get(i));
     			candidatiCheckBox.setText(candidatiPartito.get(i).getNome() + " " + candidatiPartito.get(i).getCognome());
     			candidatiCheckBox.setFont(new Font(20));
@@ -190,6 +191,12 @@ public class AggiuntaSessioneController extends Controller{
     	}
     }
     
+    private boolean contains(List<Candidato> candidatiSelezionati,Candidato candidato) {
+    	for (int i = 0; i < candidatiSelezionati.size(); i++) {
+    		if (candidatiSelezionati.get(i).getId() == candidato.getId()) return true;
+    	}
+    	return false;
+    }
   //Seleziona CheckBox
     private EventHandler<ActionEvent> selezionaCandidato = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
