@@ -51,6 +51,7 @@ public class EliminaPartitoController extends Controller{
     void pressNoButton(ActionEvent event) {
     	Stage stage = (Stage) noButton.getScene().getWindow();
         closeStage(stage);
+        navigate("GestioneListeView",gestore);
     }
 
     @FXML

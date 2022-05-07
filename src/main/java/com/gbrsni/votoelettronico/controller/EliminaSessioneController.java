@@ -57,6 +57,7 @@ public class EliminaSessioneController extends Controller{
         sessioneDb.deleteSessioneDiVoto(sessione);
         Stage stage = (Stage) siButton.getScene().getWindow();
         stage.close();
+        navigate("GestoresessioniView",gestore);
     }
 
     @FXML
