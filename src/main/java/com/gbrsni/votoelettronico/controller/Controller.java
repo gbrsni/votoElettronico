@@ -23,9 +23,8 @@ public abstract class Controller {
         navigate(view, null);
     }
     
-    public void newStage(String title, String view, Object parameter) {
-    	Home.newStage(this,title,view,parameter);
-    	
+    public Stage newStage(String title, String view, Object parameter) {
+    	return Home.newStage(this,title,view,parameter);
     }
     
     public void closeStage(Stage stage) {
