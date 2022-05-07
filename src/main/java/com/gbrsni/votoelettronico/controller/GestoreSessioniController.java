@@ -217,6 +217,7 @@ public class GestoreSessioniController  extends Controller{
 
 			setStatoScrutinata(s);
 			setNumeroTotaleVoti(s);
+			navigate("GestoreSessioniView",gestore);
 		}
 	};
 
