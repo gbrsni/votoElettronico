@@ -44,7 +44,7 @@ public class VotazioneCategoricoController extends Controller{
 	private ToggleGroup partitiRadioGroup = new ToggleGroup();
 	private Partito partitoSelezionato; 
 	private Map<Candidato,Integer> candidatoSelezionato;
-	private Timer timer = new Timer(10);
+	private Timer timer = new Timer(15*60);
 	private Stage stage; 
 	
 	@FXML
@@ -91,7 +91,7 @@ public class VotazioneCategoricoController extends Controller{
 		elettore = (Elettore) data[0];
 		sessione = (SessioneDiVoto) data[1];
 		gestore = (Gestore) data[2];
-		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
+		nomeElettore.setText("Elettore: " + elettore.toString());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());	
 		timer.addListener(new TimerListener(){
@@ -109,7 +109,7 @@ public class VotazioneCategoricoController extends Controller{
 			@Override
 			public void run() {
 				Pair time = timer.getTimer();
-				timerLabel.setText("Timer: " + time.getKey() + ":" + time.getValue());
+				timerLabel.setText("Tempo Rimasto: " + time.getKey() + ":" + time.getValue());
 				if((Integer)time.getKey() == 0 && (Integer)time.getValue() == 0) {
 					VotiAstenutiDAOImpl votiAstenutiDb = new VotiAstenutiDAOImpl();
 					VotiEspressiDAOImpl votiEspressiDb = new VotiEspressiDAOImpl();
