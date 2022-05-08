@@ -4,10 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
-import com.gbrsni.votoelettronico.data_access.SessioneDiVotoDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
 import com.gbrsni.votoelettronico.models.Gestore;
-import com.gbrsni.votoelettronico.models.Partito;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

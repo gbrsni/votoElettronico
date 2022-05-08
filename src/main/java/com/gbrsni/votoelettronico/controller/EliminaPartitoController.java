@@ -3,11 +3,9 @@ package com.gbrsni.votoelettronico.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.gbrsni.votoelettronico.data_access.CandidatoDAOImpl;
 import com.gbrsni.votoelettronico.data_access.PartitoDAOImpl;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
-import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
