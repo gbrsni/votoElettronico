@@ -15,19 +15,19 @@ public class Timer implements Observer{
 	private int minutes;
 	private int seconds;
 	
+
 	public Timer(int time) {
 		
 		service.submit(new Runnable() {
 			@Override
 			public void run() {
-				int timet= time; //* 60; //tempo in secondi
+				int timet= time; //tempo in secondi
 				long delay = timet * 1000; 
 
 				do
 				{
 					minutes = timet / 60;
 					seconds = timet % 60;
-					System.out.println(minutes + " : " + seconds);
 					notifyListeners();
 					try {
 						Thread.sleep(1000);
