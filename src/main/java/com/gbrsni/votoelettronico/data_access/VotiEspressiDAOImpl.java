@@ -104,7 +104,7 @@ public class VotiEspressiDAOImpl implements VotiEspressiDAO {
 				res = rs.getInt("total");
 			Logging.infoMessage(this.getClass(), "Ottenuto numero voti espressi per la sessione " + sessione.toString());
 		} catch (SQLException e) {
-			Logging.warnMessage(this.getClass(),"Errore durante l'ottenimento del numero totala di voti espressi per la sessione " + sessione.toString() + "\n" + e.toString());
+			Logging.warnMessage(this.getClass(),"Errore durante l'ottenimento del numero totale di voti espressi per la sessione " + sessione.toString() + "\n" + e.toString());
 		}
 		finally { DbUtils.closeResultSet(rs); DbUtils.closeStatement(ps); }
 		return res;
