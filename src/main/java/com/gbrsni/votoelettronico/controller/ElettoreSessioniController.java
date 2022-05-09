@@ -57,7 +57,7 @@ public class ElettoreSessioniController extends Controller {
 		navigate("LoginView");
 	}
 
-	// Visualizza Risultati sessione Scrutinata
+	//esprimi voto
 	private EventHandler<ActionEvent> pressVotaButton = new EventHandler<ActionEvent>() {
 		public void handle(ActionEvent e) {
 			SessioneDiVoto sessione = (SessioneDiVoto) ((Button) e.getSource()).getUserData();
@@ -78,7 +78,16 @@ public class ElettoreSessioniController extends Controller {
 			}
 		}
 	};
-
+	
+	//Visualizza Risultati Sessione Scrutinata
+		private EventHandler<ActionEvent> pressVisualizzaRisultati = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				SessioneDiVoto sessione = (SessioneDiVoto) ((Button) e.getSource()).getUserData();
+				Object[] parameter = new Object[] {sessione, elettore};
+				navigate("RisultatiSessioneView", parameter);
+			}
+		};
+	
 	private void init() {
 		SessioneDiVotoDAOImpl sessioniDb = new SessioneDiVotoDAOImpl();
 		sessioni = sessioniDb.getAllSessioneDiVotoByStato(StatoSessione.IN_CORSO);
@@ -107,6 +116,29 @@ public class ElettoreSessioniController extends Controller {
 				sessioniHbox.getChildren().addAll(sessioniLabelNome, sessioniLabelDati,region1,votoBottone);
 				sessioniVbox.getChildren().add(sessioniHbox);
 			}
+		}
+		
+		sessioni = sessioniDb.getAllSessioneDiVotoByStato(StatoSessione.SCRUTINATA);
+		for (int i = 0; i < sessioni.size(); i++) {
+				HBox sessioniHbox = new HBox();
+				Label sessioniLabelNome = new Label();
+				Label sessioniLabelDati = new Label();
+				Region region1 = new Region();
+				Button risultatiBottone = new Button("Visualizza Risultati");
+				
+				sessioniHbox.setAlignment(Pos.CENTER_LEFT);
+				sessioniLabelNome.setFont(new Font(25));
+				sessioniLabelNome.setText(sessioni.get(i).getNome());
+				sessioniLabelDati.setFont(new Font(15));
+				sessioniLabelDati.setText("      Data: " + sessioni.get(i).getData() + " modVoto: " + sessioni.get(i).getModVoto());
+				risultatiBottone.setFont(new Font(18));
+				sessioniHbox.setHgrow(region1, Priority.ALWAYS);
+				
+				risultatiBottone.setUserData(sessioni.get(i));
+				risultatiBottone.setOnAction(pressVisualizzaRisultati);
+				
+				sessioniHbox.getChildren().addAll(sessioniLabelNome, sessioniLabelDati,region1,risultatiBottone);
+				sessioniVbox.getChildren().add(sessioniHbox);
 		}
 	}
 	

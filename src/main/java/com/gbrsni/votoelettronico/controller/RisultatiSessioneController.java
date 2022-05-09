@@ -1,13 +1,10 @@
 package com.gbrsni.votoelettronico.controller;
 
-import java.net.URL;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import com.gbrsni.votoelettronico.data_access.VincitoriDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiAstenutiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiCandidatiDAOImpl;
-import com.gbrsni.votoelettronico.data_access.VotiEspressiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiPartitiDAOImpl;
 import com.gbrsni.votoelettronico.data_access.VotiReferendumDAOImpl;
 import com.gbrsni.votoelettronico.models.Candidato;
@@ -15,6 +12,7 @@ import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.OpzioneReferendum;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
+import com.gbrsni.votoelettronico.models.Utente;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +25,7 @@ import javafx.scene.text.Font;
 public class RisultatiSessioneController extends Controller{
 	
 	private SessioneDiVoto sessione;
-	private Gestore gestore;
+	private Utente utente;
 	
 	@FXML
     private Label astenutiLabel;
@@ -70,17 +68,19 @@ public class RisultatiSessioneController extends Controller{
   	public void onNavigateFrom(Controller sender, Object parameter) {
       	Object[] data = (Object[]) parameter;
       	sessione = (SessioneDiVoto) data[0];
-      	gestore = (Gestore) data[1];
-      	if(gestore != null) gestoreLabel.setText(gestore.getUsername() + "    ");
+      	utente = (Utente) data[1];
+      	if(utente != null) gestoreLabel.setText(utente.getUsername() + "    ");
       	init();
   	}
     
     @FXML
     void pressBackButton(ActionEvent event) {
-    	if(gestore == null) {
+    	if(utente == null) {
     		navigate("UtenteSessioniScrutinateView");
-    	}else {
-    		navigate("GestoreSessioniView",gestore);
+    	}else if (utente instanceof Gestore){
+    		navigate("GestoreSessioniView", utente);
+    	} else {
+    		navigate("ElettoreSessioniView", utente);
     	}
     }
     
