@@ -12,10 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class VotoRegistratoController extends Controller{
+public class VotoRegistratoController extends ControllerElettoreGestore{
 	
-	private Elettore elettore;
-	private Gestore gestore;
 	private SessioneDiVoto sessione;
 	
     @FXML

@@ -21,7 +21,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-public class VotazioneReferendumController extends Controller {
+public class VotazioneReferendumController extends ControllerElettoreGestore {
 	
 	private Elettore elettore;
 	private Gestore gestore; 

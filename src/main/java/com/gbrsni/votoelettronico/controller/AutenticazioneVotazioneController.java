@@ -20,9 +20,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 
-public class AutenticazioneVotazioneController extends Controller {
+public class AutenticazioneVotazioneController extends ControllerGestore {
 
-	private Gestore gestore;
 	private SessioneDiVoto sessione;
 
 	@FXML

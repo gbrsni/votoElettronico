@@ -16,9 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class SessioneApertaController extends Controller {
+public class SessioneApertaController extends ControllerGestore {
 	
-	private Gestore gestore;
 	private SessioneDiVoto sessione;
 	
 	  @FXML

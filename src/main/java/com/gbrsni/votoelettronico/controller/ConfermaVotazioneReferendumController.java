@@ -21,10 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ConfermaVotazioneReferendumController extends Controller{
+public class ConfermaVotazioneReferendumController extends ControllerElettoreGestore{
 	
-	private Gestore gestore;
-	private Elettore elettore;
 	private SessioneDiVoto sessione;
 	private Boolean scelta; 
 	private Timer timer;

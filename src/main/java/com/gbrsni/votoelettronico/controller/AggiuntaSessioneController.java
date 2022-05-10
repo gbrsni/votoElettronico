@@ -43,9 +43,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 
-public class AggiuntaSessioneController extends Controller{
+public class AggiuntaSessioneController extends ControllerGestore{
 	
-	private Gestore gestore;
 	private List<Partito> partiti;
 	private Map<Partito, List<Candidato>> candidati;
 	private List<Partito> partitiSelezionati;

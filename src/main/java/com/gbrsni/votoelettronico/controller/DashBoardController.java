@@ -13,9 +13,8 @@ import com.gbrsni.votoelettronico.logging.Logging;
 import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.StatoSessione;
 
-public class DashBoardController extends Controller{
-	
-	private Gestore gestore;
+public class DashBoardController extends ControllerGestore{
+
 	
 	@FXML
     private ResourceBundle resources;

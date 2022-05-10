@@ -23,9 +23,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class ElettoreSessioniController extends Controller {
+public class ElettoreSessioniController extends ControllerElettore {
 
-	private Elettore elettore;
 	private List<SessioneDiVoto> sessioni;
 
 	@FXML

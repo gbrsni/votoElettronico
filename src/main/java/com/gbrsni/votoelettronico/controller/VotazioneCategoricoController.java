@@ -34,10 +34,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-public class VotazioneCategoricoController extends Controller{
+public class VotazioneCategoricoController extends ControllerElettoreGestore{
 	
-	private Elettore elettore;
-	private Gestore gestore; 
 	private SessioneDiVoto sessione; 
 	private Map<Partito, List<Candidato>> candidati; 
 	private List<Partito> partiti; 

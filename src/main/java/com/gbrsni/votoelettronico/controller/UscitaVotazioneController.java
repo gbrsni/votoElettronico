@@ -15,9 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
-public class UscitaVotazioneController extends Controller{
-	
-	private Gestore gestore; 
+public class UscitaVotazioneController extends ControllerGestore{
+
 	private SessioneDiVoto sessione;
 	
 	@FXML

@@ -27,10 +27,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ConfermaVotazioneController extends Controller{
+public class ConfermaVotazioneController extends ControllerElettoreGestore{
 	
-	private Elettore elettore;
-	private Gestore gestore; 
+
 	private SessioneDiVoto sessione; 
 	private Map<Partito,Integer> partiti;
 	private Map<Candidato,Integer> candidati;

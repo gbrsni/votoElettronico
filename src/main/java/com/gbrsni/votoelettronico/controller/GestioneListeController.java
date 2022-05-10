@@ -27,9 +27,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class GestioneListeController extends Controller {
+public class GestioneListeController extends ControllerGestore {
 
-	private Gestore gestore;
 	private List<Partito> partiti;
 	private List<Candidato> candidati;
 

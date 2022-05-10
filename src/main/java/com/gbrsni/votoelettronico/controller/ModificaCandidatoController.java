@@ -19,9 +19,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ModificaCandidatoController extends Controller {
+public class ModificaCandidatoController extends ControllerGestore {
+
 	
-	private Gestore gestore;
 	private Candidato candidato;
 	private List<Partito> partiti;
 	

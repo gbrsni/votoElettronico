@@ -13,9 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class ChiusuraSessioneController extends Controller{
+public class ChiusuraSessioneController extends ControllerGestore{
 	
-	private Gestore gestore; 
 	private SessioneDiVoto sessione; 
 	
     @FXML

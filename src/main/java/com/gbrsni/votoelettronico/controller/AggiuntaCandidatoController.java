@@ -19,9 +19,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AggiuntaCandidatoController extends Controller {
+public class AggiuntaCandidatoController extends ControllerGestore {
 	
-	private Gestore gestore;
 	private List<Partito> partiti;
 	
     @FXML

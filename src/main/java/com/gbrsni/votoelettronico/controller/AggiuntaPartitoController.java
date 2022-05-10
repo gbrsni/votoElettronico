@@ -12,9 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AggiuntaPartitoController extends Controller {
-	
-	private Gestore gestore;
+public class AggiuntaPartitoController extends ControllerGestore {
 	
     @FXML
     private ResourceBundle resources;
@@ -38,9 +36,10 @@ public class AggiuntaPartitoController extends Controller {
     private Label erroreLabel;
 
     public void onNavigateFrom(Controller sender, Object parameter) {
-    		this.gestore = (Gestore) parameter;
-    		nomeGestore.setText(gestore.getUsername());
+		this.gestore = (Gestore) parameter;
+		nomeGestore.setText(gestore.getUsername());
     }
+
     
     @FXML
     void pressBackButton(ActionEvent event) {
@@ -68,5 +67,6 @@ public class AggiuntaPartitoController extends Controller {
          assert nomePartitoTextField != null : "fx:id=\"nomePartitoTextField\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
          assert salvaButton != null : "fx:id=\"salvaButton\" was not injected: check your FXML file 'AggiuntaPartitoView.fxml'.";
     }
+
 
 }

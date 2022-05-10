@@ -13,9 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class EliminaPartitoController extends Controller{
+public class EliminaPartitoController extends ControllerGestore{
 	
-	private Gestore gestore;
+
 	private Partito partito;
 	
     @FXML

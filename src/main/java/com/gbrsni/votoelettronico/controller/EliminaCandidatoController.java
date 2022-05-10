@@ -13,9 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class EliminaCandidatoController extends Controller{
+public class EliminaCandidatoController extends ControllerGestore{
 	
-	private Gestore gestore;
 	private Candidato candidato;
 	
     @FXML

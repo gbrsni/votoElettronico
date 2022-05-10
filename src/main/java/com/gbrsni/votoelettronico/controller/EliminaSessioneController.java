@@ -13,9 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class EliminaSessioneController extends Controller{
+public class EliminaSessioneController extends ControllerGestore{
 	
-	private Gestore gestore ;
 	private SessioneDiVoto sessione; 
 	
     @FXML

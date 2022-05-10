@@ -40,9 +40,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class ModificaSessioneController extends Controller{
+public class ModificaSessioneController extends ControllerGestore{
 	
-	private Gestore gestore;
 	private SessioneDiVoto sessione;
 	private List<Partito> partiti;
 	private Map<Partito, List<Candidato>> candidati;

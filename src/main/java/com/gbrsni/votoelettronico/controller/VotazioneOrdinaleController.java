@@ -43,7 +43,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-public class VotazioneOrdinaleController extends Controller {
+public class VotazioneOrdinaleController extends ControllerElettoreGestore {
 
 	private Elettore elettore;
 	private Gestore gestore;
