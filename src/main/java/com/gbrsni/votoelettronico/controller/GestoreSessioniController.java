@@ -162,13 +162,10 @@ public class GestoreSessioniController  extends ControllerGestore{
 				int nTotaleVoti = 0; //ottengo somma voti di tutti i candidati
 				Map<Candidato,Integer> vincitoreCandidati = s.calcolaVincitore(candidati);
 				
-				for (Entry<Candidato, Integer> ca : vincitoreCandidati.entrySet()) {
-					System.out.println("CANDIDATO: " + ca.getKey() + " " + ca.getValue());
-				}
 				for (Entry<Candidato, Integer> entry : candidati.entrySet()) {
 					nTotaleVoti += entry.getValue();
 				}
-				System.out.println("SOMMA TOTALE: " + nTotaleVoti);
+
 				Candidato vincitore = null;
 				Map.Entry<Candidato,Integer> entry = vincitoreCandidati.entrySet().iterator().next(); //ottengo il primo candidato 
 				if(s.condizioneVoto(nTotaleVoti, entry.getValue())) {
@@ -194,7 +191,7 @@ public class GestoreSessioniController  extends ControllerGestore{
 				vincitoreDb.addVincitori(vincitore, s);
 
 			}else {
-				//CALCOLO VINCITORE REFERENDUM -> COMPLETA
+
 				OpzioneReferendum vincitore = null;
 				VotiReferendumDAOImpl votiReferendumDb = new VotiReferendumDAOImpl();
 				VotiEspressiDAOImpl votiEspressi = new VotiEspressiDAOImpl();
