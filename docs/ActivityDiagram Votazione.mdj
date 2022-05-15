@@ -2104,6 +2104,45 @@
 							"propertyLabel": {
 								"$ref": "AAAAAAGAx3/4918CoJ4="
 							}
+						},
+						{
+							"_type": "UMLTextView",
+							"_id": "AAAAAAGAx+Axy8agCko=",
+							"_parent": {
+								"$ref": "AAAAAAGAx3KhMVyPFCE="
+							},
+							"font": "Arial;13;0",
+							"left": 400,
+							"top": 432,
+							"width": 121,
+							"height": 38,
+							"text": "partiti.size != 0"
+						},
+						{
+							"_type": "UMLTextView",
+							"_id": "AAAAAAGAx+B6nMam1Qw=",
+							"_parent": {
+								"$ref": "AAAAAAGAx3KhMVyPFCE="
+							},
+							"font": "Arial;13;0",
+							"left": 408,
+							"top": 520,
+							"width": 60,
+							"height": 25,
+							"text": "si"
+						},
+						{
+							"_type": "UMLTextView",
+							"_id": "AAAAAAGAx+CIZMaqZ90=",
+							"_parent": {
+								"$ref": "AAAAAAGAx3KhMVyPFCE="
+							},
+							"font": "Arial;13;0",
+							"left": 440,
+							"top": 480,
+							"width": 60,
+							"height": 25,
+							"text": "no"
 						}
 					]
 				}
