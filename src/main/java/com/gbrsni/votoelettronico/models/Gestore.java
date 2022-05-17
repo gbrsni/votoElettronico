@@ -13,6 +13,6 @@ public class Gestore extends Utente {
 		if (obj == null || obj.getClass()!= this.getClass())
 			return false;
 		Gestore g = (Gestore) obj;
-		return (g.getUsername() == this.getUsername());
+		return (g.getUsername().equals(this.getUsername()));
 	}
 }
