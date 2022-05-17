@@ -1,4 +1,4 @@
-package votoElettronico;
+package com.gbrsni;
 
 import static org.junit.Assert.*;
 
