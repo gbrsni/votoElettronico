@@ -13,7 +13,7 @@ public class DBConnection {
 	public static Connection getConnection() {
 		if (instance == null) {
 			try {
-				instance = DriverManager.getConnection("jdbc:mysql://localhost/votoElettronico?user=root&password=admin&serverTimezone=UTC");
+				instance = DriverManager.getConnection("jdbc:mysql://localhost/votoelettronico?user=root&password=admin&serverTimezone=UTC");
 				Logging.infoMessage(DBConnection.class, "Connessione al database votoElettoronico effettuata con successo");
 			} catch (SQLException e) {
 				Logging.errorMessage(DBConnection.class, "Errore nell'ottenimento della connessione al database");
