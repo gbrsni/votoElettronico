@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.DashBoardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbrsni.votoelettronico.controller.DashBoardController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -101,23 +101,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="900.0">
-               <children>
-                  <Label fx:id="partitiLabel" text="Partiti:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="candidatiLabel" text="Candidati:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="400.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="900.0" />
          </children>
          <BorderPane.margin>
             <Insets left="50.0" right="50.0" top="20.0" />
