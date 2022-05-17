@@ -3,7 +3,6 @@ package com.gbrsni;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
-import com.gbrsni.votoelettronico.logging.*;
 import java.time.LocalDate;
 
 import org.junit.Test;
