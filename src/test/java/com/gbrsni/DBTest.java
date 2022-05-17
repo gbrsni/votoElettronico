@@ -22,7 +22,7 @@ import com.gbrsni.votoelettronico.models.StatoSessione;
 public class DBTest {
 	@Test
 	public void testNonExistantElettore() {
-		Elettore elettore = new Elettore("testelettore", "testelettore", "testelettore",  "TSTLTR00A12Q123Q", "testeraelettorale");
+		Elettore elettore = new Elettore("testelettore", "testelettore", "testelettore",  "TSTLTR00A12Q123Q", "tessera");
 		ElettoreDAO elettoreDAO = new ElettoreDAOImpl();
 		elettoreDAO.deleteElettore(elettore);
 		assertNull(elettoreDAO.getElettoreByUsername("testelettore"));
@@ -30,7 +30,7 @@ public class DBTest {
 	
 	@Test
 	public void testElettoreAggiuntoNumElettori() {
-		Elettore elettore = new Elettore("testelettore", "testelettore", "testelettore",  "TSTLTR00A12Q123Q", "testeraelettorale");
+		Elettore elettore = new Elettore("testelettore", "testelettore", "testelettore",  "TSTLTR00A12Q123Q", "tessera");
 		ElettoreDAO elettoreDAO = new ElettoreDAOImpl();
 		
 		int pre = elettoreDAO.getNumberElettori();
@@ -43,7 +43,7 @@ public class DBTest {
 	
 	@Test
 	public void testElettoreAggiuntoGetElettore() {
-		Elettore elettore = new Elettore("testelettore", "testelettore", "testelettore",  "TSTLTR00A12Q123Q", "testeraelettorale");
+		Elettore elettore = new Elettore("testelettore", "testelettore", "testelettore",  "TSTLTR00A12Q123Q", "tessera");
 		ElettoreDAO elettoreDAO = new ElettoreDAOImpl();
 		
 		elettoreDAO.addElettore(elettore);
