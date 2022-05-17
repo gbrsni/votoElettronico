@@ -17,7 +17,6 @@ import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.Timer;
-import com.gbrsni.votoelettronico.models.TimerListener;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -91,7 +90,7 @@ public class VotazioneCategoricoPreferenzeController extends ControllerElettoreG
 		nomeElettore.setText("Elettore: " + elettore.getNome() + " " + elettore.getCognome());
 		nomeElettore.setText("Elettore: " + elettore.toString());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());
-		timer.addListener(new TimerListener(){
+		timer.addListener(new Listener(){
 			@Override
 			public void onReandingChange() {
 				updateTimer();

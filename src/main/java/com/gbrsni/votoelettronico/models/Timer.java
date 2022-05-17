@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.gbrsni.votoelettronico.controller.Listener;
+
 import javafx.util.Pair;
 
 public class Timer implements Observer{
 	
 	private boolean stopWasRequested = false;
 	private final ExecutorService service = Executors.newCachedThreadPool();
-	private final List<TimerListener> listeners = new ArrayList<>();
+	private final List<Listener> listeners = new ArrayList<>();
 	private int minutes;
 	private int seconds;
 	
@@ -45,15 +47,15 @@ public class Timer implements Observer{
 
 	}
 	
-	public void addListener(TimerListener listener) {
+	public void addListener(Listener listener) {
 		listeners.add(listener);
 	}
-	public void removeListener(TimerListener listener) {
+	public void removeListener(Listener listener) {
 		listeners.remove(listener);
 	}
 	
 	public void notifyListeners() {
-		for (TimerListener listener : listeners) {
+		for (Listener listener : listeners) {
 			listener.onReandingChange();
 		}
 	}

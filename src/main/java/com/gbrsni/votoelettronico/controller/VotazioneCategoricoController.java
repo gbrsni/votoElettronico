@@ -18,7 +18,6 @@ import com.gbrsni.votoelettronico.models.Gestore;
 import com.gbrsni.votoelettronico.models.Partito;
 import com.gbrsni.votoelettronico.models.SessioneDiVoto;
 import com.gbrsni.votoelettronico.models.Timer;
-import com.gbrsni.votoelettronico.models.TimerListener;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -34,7 +33,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-public class VotazioneCategoricoController extends ControllerElettoreGestore{
+public class VotazioneCategoricoController extends ControllerElettoreGestore {
 	
 	private SessioneDiVoto sessione; 
 	private Map<Partito, List<Candidato>> candidati; 
@@ -92,7 +91,7 @@ public class VotazioneCategoricoController extends ControllerElettoreGestore{
 		nomeElettore.setText("Elettore: " + elettore.toString());
 		nomeLabel.setText("Sessione: " + sessione.getNome());
 		modVotoLabel.setText("Mod Voto: " + sessione.getModVoto());	
-		timer.addListener(new TimerListener(){
+		timer.addListener(new Listener(){
 			@Override
 			public void onReandingChange() {
 				updateTimer();
@@ -212,7 +211,6 @@ public class VotazioneCategoricoController extends ControllerElettoreGestore{
         assert timerLabel != null : "fx:id=\"timerLabel\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
         assert votaButton != null : "fx:id=\"votaButton\" was not injected: check your FXML file 'VotazioneCategoricoView.fxml'.";
     }
-
 
 
 }
