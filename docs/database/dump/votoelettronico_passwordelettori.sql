@@ -37,7 +37,7 @@ CREATE TABLE `passwordelettori` (
 
 LOCK TABLES `passwordelettori` WRITE;
 /*!40000 ALTER TABLE `passwordelettori` DISABLE KEYS */;
-INSERT INTO `passwordelettori` VALUES ('alida','��;:3Ӗ�','-1486702848'),('clara','����>','1728228794'),('fabio','[ٔЕM�k','650482284'),('fabrizio','̾��nN��','-489061252'),('gioia','�-���\\�S','-1361807286'),('guglielmo','��|�W��<','2010977797'),('ivana','��U[/','-2034731592'),('leonardo','�j�Na�W','-1480706025'),('lidia','�i�2�Z+','-768221785'),('marco','&J���','1993371161'),('maurizio','��9�\r��?','786754238'),('melissa','0As���','-407814102'),('osa',':;V:��','204973334'),('sergi','��}��w�t','-2007730253'),('stefano','9��e\\f','-506923033'),('vitto','��s��','1519685879');
+INSERT INTO `passwordelettori` VALUES ('alida','��;:3Ӗ�','-1486702848'),('clara','����>','1728228794'),('fabio','[ٔЕM�k','650482284'),('gioia','�-���\\�S','-1361807286'),('ivana','��U[/','-2034731592'),('lidia','�i�2�Z+','-768221785'),('marco','&J���','1993371161'),('maurizio','��9�\r��?','786754238'),('melissa','0As���','-407814102'),('stefano','9��e\\f','-506923033'),('vitto','��s��','1519685879');
 /*!40000 ALTER TABLE `passwordelettori` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 10:06:55
+-- Dump completed on 2022-05-17 14:44:57
