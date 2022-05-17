@@ -65,6 +65,7 @@ public class DBTest {
 		SessioneDiVotoDAO sessioneDiVotoDAO = new SessioneDiVotoDAOImpl();
 		sessioneDiVotoDAO.deleteSessioneDiVoto(sessione);
 		sessioneDiVotoDAO.addSessioneDiVoto(sessione);
+		sessione = sessioneDiVotoDAO.getSessioneDiVotoByName("sessione test").get(0);
 		StatoSessione pre = sessioneDiVotoDAO.getSessioneDiVotoByName(sessione.getNome()).get(0).getStatoSessione();
 		
 		sessione.setStatoSessione(StatoSessione.CONCLUSA);
@@ -77,7 +78,7 @@ public class DBTest {
 		
 		Logging.infoMessage(this.getClass(), post.toString());
 		assertEquals(StatoSessione.IN_CORSO, pre);
-//		assertEquals(StatoSessione.CONCLUSA, post);
-//		sessioneDiVotoDAO.deleteSessioneDiVoto(sessione);
+		assertEquals(StatoSessione.CONCLUSA, post);
+		sessioneDiVotoDAO.deleteSessioneDiVoto(sessione);
 	}
 }
