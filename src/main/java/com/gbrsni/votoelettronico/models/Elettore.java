@@ -28,7 +28,7 @@ public class Elettore extends Utente{
 		if (obj == null || obj.getClass()!= this.getClass())
 			return false;
 		Elettore e = (Elettore) obj;
-		return (e.getUsername() == this.getUsername());
+		return (e.getUsername().equals(this.getUsername()));
 	}
 	
 }
