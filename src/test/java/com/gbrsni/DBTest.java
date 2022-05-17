@@ -3,7 +3,6 @@ package com.gbrsni;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
-import com.gbrsni.votoelettronico.logging.*;
 import java.time.LocalDate;
 
 import org.junit.Test;
@@ -69,14 +68,9 @@ public class DBTest {
 		StatoSessione pre = sessioneDiVotoDAO.getSessioneDiVotoByName(sessione.getNome()).get(0).getStatoSessione();
 		
 		sessione.setStatoSessione(StatoSessione.CONCLUSA);
-		Logging.infoMessage(this.getClass(), sessione.getStatoSessione().toString());
 		sessioneDiVotoDAO.updateSessioneDiVoto(sessione);
 		StatoSessione post = sessioneDiVotoDAO.getSessioneDiVotoByName(sessione.getNome()).get(0).getStatoSessione();
 		
-		Logging.infoMessage(this.getClass(), sessioneDiVotoDAO.getSessioneDiVotoByName(sessione.getNome()).toString());
-		
-		
-		Logging.infoMessage(this.getClass(), post.toString());
 		assertEquals(StatoSessione.IN_CORSO, pre);
 		assertEquals(StatoSessione.CONCLUSA, post);
 		sessioneDiVotoDAO.deleteSessioneDiVoto(sessione);
